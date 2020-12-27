@@ -1,4 +1,4 @@
-### Hi there 👋 , I'm Younes KHOUBZA!
+### Hi there 👋 , I'm Mohammad Hafijul Islam (Hridoy)!
 ![Profile Views](https://gpvc.arturio.dev/hafijul233)
 ![image](https://img.shields.io/github/followers/hafijul233?label=follow&style=social)
     
@@ -18,7 +18,7 @@ Hi there, I'm **Mohammad Hafijul Islam (Hridoy)**, a **Web Developer** and a **O
 
 ### Let's connect!
 <p>
-    <a href="https://www.linkedin.com/in/younes-khoubza/" target="blank"><img align="left" alt="Younes KHOUBZA's LinkedIn" width="22px" src="https://cdn.jsdelivr.net/npm/simple-icons@v3/icons/linkedin.svg" /></a>
-    <a href="https://web.facebook.com/yoeunes/" target="blank"><img align="left" alt="Younes KHOUBZA's Facebook" width="22px" src="https://cdn.jsdelivr.net/npm/simple-icons@v3/icons/facebook.svg" /></a>
-    <a href="https://twitter.com/yoeunes" target="blank"><img align="left" alt="Younes KHOUBZA's Twitter" width="22px" src="https://cdn.jsdelivr.net/npm/simple-icons@v3/icons/twitter.svg" /></a>
+    <a href="https://www.linkedin.com/in/mohammad-hafijul-islam-b9a882137/" target="blank"><img align="left" alt="Mohammad Hafijul Islam's LinkedIn" width="22px" src="https://cdn.jsdelivr.net/npm/simple-icons@v3/icons/linkedin.svg" /></a>
+    <a href="https://web.facebook.com/hafijul233" target="blank"><img align="left" alt="Mohammad Hafijul Islam's Facebook" width="22px" src="https://cdn.jsdelivr.net/npm/simple-icons@v3/icons/facebook.svg" /></a>
+    <a href="https://twitter.com/hafijul233" target="blank"><img align="left" alt="Mohammad Hafijul Islam's Twitter" width="22px" src="https://cdn.jsdelivr.net/npm/simple-icons@v3/icons/twitter.svg" /></a>
 </p>
