@@ -8,7 +8,7 @@ Hi there, I'm **Mohammad Hafijul Islam (Hridoy)**, a **Web Developer** and a **O
   - 🔭 I’m currently working as Professional Software Engineer @ADOVASOFT
   - ⚡ Excited to create open-source projects
   - 🌱 I’m currently learning **Software Architecture** and **Software Service Oriented Design**
-  - 💕 I'm currently maintain **hafijul233/ci-recharge**, **hafijul233/notify**
+  - 💕 I'm currently maintain **adovasoft-rnd/ci-recharge**, **hafijul233/notify**
   - 📫 You can reach me at <a href="mailto:hafijul233@gmail.com">hafijul233@gmail.com</a>
   
 <p>
