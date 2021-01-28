@@ -12,8 +12,9 @@ Hi there, I'm **Mohammad Hafijul Islam (Hridoy)**, a **Web Developer** and a **O
   - 📫 You can reach me at <a href="mailto:hafijul233@gmail.com">hafijul233@gmail.com</a>
   
 <p>
-    <img src="https://github-readme-stats.vercel.app/api?username=hafijul233&show_icons=true" height=178 />
+    <img src="https://github-readme-stats.vercel.app/api?username=hafijul233&show_icons=true&count_private=true" height=178 />
     <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=hafijul233&layout=compact" height=178 />
+        <img src="https://github-readme-stats.vercel.app/api/wakatime/?username=hafijul233&layout=compact" height=178 />
 </p>
 
 ### Let's connect!
