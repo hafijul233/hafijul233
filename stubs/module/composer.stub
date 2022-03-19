@@ -1,0 +1,57 @@
+{
+    "name": "$VENDOR$/$LOWER_NAME$-module",
+    "type" : "laravel-module",
+    "description": "",
+    "support": {
+        "issues": "https://github.com/$VENDOR$/$LOWER_NAME$-module/issues",
+        "wiki": "https://github.com/$VENDOR$/$LOWER_NAME$-module/wiki",
+        "source": "https://github.com/$VENDOR$/$LOWER_NAME$-module",
+        "docs": "http://hafijulislam.me/projects/$LOWER_NAME$-module"
+    },
+    "keywords": [
+        "framework",
+        "laravel",
+        "boilerplate",
+        "modules",
+        "$LOWER_NAME$"
+    ],
+    "license" : "MIT",
+    "authors": [
+        {
+            "name": "$AUTHOR_NAME$",
+            "email": "$AUTHOR_EMAIL$",
+            "homepage": "http://www.hafijulislam.me",
+            "role": "Maintainer"
+        }
+    ],
+    "config": {
+        "preferred-install": "dist"
+    },
+    "prefer-stable": true,
+    "require": {
+        "nwidart/laravel-modules": "^8.2"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "$MODULE_NAMESPACE$\\$STUDLY_NAME$\\Providers\\$STUDLY_NAME$ServiceProvider"
+            ],
+            "aliases": {}
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "$MODULE_NAMESPACE$\\$STUDLY_NAME$\\": ""
+        },
+        "exclude-from-classmap": [
+            "**/Tests/*",
+            "**/test/*",
+            "**/tests/*"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "$MODULE_NAMESPACE$\\$STUDLY_NAME$\\Tests\\": "Tests/"
+        }
+    }
+}

@@ -1,0 +1,13 @@
+<?php
+
+namespace $CLASS_NAMESPACE$;
+
+use Illuminate\Routing\Controller;
+
+/**
+ * @class $CLASS$
+ * @package $NAMESPACE$
+ */
+class $CLASS$ extends Controller
+{
+}

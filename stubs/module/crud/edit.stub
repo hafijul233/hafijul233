@@ -1,0 +1,53 @@
+@extends('layouts.app')
+
+@section('title', 'Edit $MODEL$')
+
+@push('meta')
+
+@endpush
+
+@push('webfont')
+
+@endpush
+
+@push('icon')
+
+@endpush
+
+@push('plugin-style')
+
+@endpush
+
+@push('page-style')
+
+@endpush
+
+
+@section('breadcrumbs', \Breadcrumbs::render(Route::getCurrentRoute()->getName(), $$MODEL_VARIABLE$))
+
+@section('actions')
+    {!! \Html::backButton('core.settings.$MODEL_VARIABLE$s.index') !!}
+@endsection
+
+@section('content')
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    {!! \Form::open(['route' => ['core.settings.$MODEL_VARIABLE$s.update', $$MODEL_VARIABLE$->id], 'method' => 'put', 'id' => '$MODEL_VARIABLE$-form']) !!}
+                    @include('setting.$MODEL_VARIABLE$.form')
+                    {!! \Form::close() !!}
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection
+
+
+@push('plugin-script')
+
+@endpush
+
+@push('page-script')
+
+@endpush

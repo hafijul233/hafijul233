@@ -1,0 +1,210 @@
+<?php
+
+namespace $NAMESPACE$;
+
+use Exception;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\DB;
+use App\Abstracts\Service\Service;
+use App\Supports\Constant;
+$MODEL_NAMESPACE$
+$REPO_NAMESPACE$
+use Throwable;
+
+/**
+ * @class $CLASS$
+ * @package $NAMESPACE$
+ */
+class $CLASS$ extends Service
+{
+/**
+     * @var $MODEL$Repository
+     */
+    private $$MODEL_VARIABLE$Repository;
+
+    /**
+     * $MODEL$Service constructor.
+     * @param $MODEL$Repository $$MODEL_VARIABLE$Repository
+     */
+    public function __construct($MODEL$Repository $$MODEL_VARIABLE$Repository)
+    {
+        $this->$MODEL_VARIABLE$Repository = $$MODEL_VARIABLE$Repository;
+        $this->$MODEL_VARIABLE$Repository->itemsPerPage = 10;
+    }
+
+    /**
+     * Get All $MODEL$ models as collection
+     * 
+     * @param array $filters
+     * @param array $eagerRelations
+     * @return Builder[]|Collection
+     * @throws Exception
+     */
+    public function getAll$MODEL$s(array $filters = [], array $eagerRelations = [])
+    {
+        return $this->$MODEL_VARIABLE$Repository->getWith($filters, $eagerRelations, true);
+    }
+
+    /**
+     * Create $MODEL$ Model Pagination
+     * 
+     * @param array $filters
+     * @param array $eagerRelations
+     * @return LengthAwarePaginator
+     * @throws Exception
+     */
+    public function $MODEL_VARIABLE$Paginate(array $filters = [], array $eagerRelations = []): LengthAwarePaginator
+    {
+        return $this->$MODEL_VARIABLE$Repository->paginateWith($filters, $eagerRelations, true);
+    }
+
+    /**
+     * Show $MODEL$ Model
+     * 
+     * @param int $id
+     * @param bool $purge
+     * @return mixed
+     * @throws Exception
+     */
+    public function get$MODEL$ById($id, bool $purge = false)
+    {
+        return $this->$MODEL_VARIABLE$Repository->show($id, $purge);
+    }
+
+    /**
+     * Save $MODEL$ Model
+     * 
+     * @param array $inputs
+     * @return array
+     * @throws Exception
+     * @throws Throwable
+     */
+    public function store$MODEL$(array $inputs): array
+    {
+        DB::beginTransaction();
+        try {
+            $new$MODEL$ = $this->$MODEL_VARIABLE$Repository->create($inputs);
+            if ($new$MODEL$ instanceof $MODEL$) {
+                DB::commit();
+                return ['status' => true, 'message' => __('New $MODEL$ Created'),
+                    'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
+            } else {
+                DB::rollBack();
+                return ['status' => false, 'message' => __('New $MODEL$ Creation Failed'),
+                    'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!'];
+            }
+        } catch (Exception $exception) {
+            $this->$MODEL_VARIABLE$Repository->handleException($exception);
+            DB::rollBack();
+            return ['status' => false, 'message' => $exception->getMessage(),
+                'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Error!'];
+        }
+    }
+
+    /**
+     * Update $MODEL$ Model
+     * 
+     * @param array $inputs
+     * @param $id
+     * @return array
+     * @throws Throwable
+     */
+    public function update$MODEL$(array $inputs, $id): array
+    {
+        DB::beginTransaction();
+        try {
+            $$MODEL_VARIABLE$ = $this->$MODEL_VARIABLE$Repository->show($id);
+            if ($$MODEL_VARIABLE$ instanceof $MODEL$) {
+                if ($this->$MODEL_VARIABLE$Repository->update($inputs, $id)) {
+                    DB::commit();
+                    return ['status' => true, 'message' => __('$MODEL$ Info Updated'),
+                        'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
+                } else {
+                    DB::rollBack();
+                    return ['status' => false, 'message' => __('$MODEL$ Info Update Failed'),
+                        'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!'];
+                }
+            } else {
+                return ['status' => false, 'message' => __('$MODEL$ Model Not Found'),
+                    'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Alert!'];
+            }
+        } catch (Exception $exception) {
+            $this->$MODEL_VARIABLE$Repository->handleException($exception);
+            DB::rollBack();
+            return ['status' => false, 'message' => $exception->getMessage(),
+                'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Error!'];
+        }
+    }
+
+    /**
+     * Destroy $MODEL$ Model
+     * 
+     * @param $id
+     * @return array
+     * @throws Throwable
+     */
+    public function destroy$MODEL$($id): array
+    {
+        DB::beginTransaction();
+        try {
+            if ($this->$MODEL_VARIABLE$Repository->delete($id)) {
+                DB::commit();
+                return ['status' => true, 'message' => __('$MODEL$ is Trashed'),
+                    'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
+
+            } else {
+                DB::rollBack();
+                return ['status' => false, 'message' => __('$MODEL$ is Delete Failed'),
+                    'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!'];
+            }
+        } catch (Exception $exception) {
+            $this->$MODEL_VARIABLE$Repository->handleException($exception);
+            DB::rollBack();
+            return ['status' => false, 'message' => $exception->getMessage(),
+                'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Error!'];
+        }
+    }
+
+    /**
+     * Restore $MODEL$ Model
+     * 
+     * @param $id
+     * @return array
+     * @throws Throwable
+     */
+    public function restore$MODEL$($id): array
+    {
+        DB::beginTransaction();
+        try {
+            if ($this->$MODEL_VARIABLE$Repository->restore($id)) {
+                DB::commit();
+                return ['status' => true, 'message' => __('$MODEL$ is Restored'),
+                    'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
+
+            } else {
+                DB::rollBack();
+                return ['status' => false, 'message' => __('$MODEL$ is Restoration Failed'),
+                    'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!'];
+            }
+        } catch (Exception $exception) {
+            $this->$MODEL_VARIABLE$Repository->handleException($exception);
+            DB::rollBack();
+            return ['status' => false, 'message' => $exception->getMessage(),
+                'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Error!'];
+        }
+    }
+
+    /**
+     * Export Object for Export Download
+     *
+     * @param array $filters
+     * @return $MODEL$Export
+     * @throws Exception
+     */
+    public function export$MODEL$(array $filters = []): $MODEL$Export
+    {
+        return (new $MODEL$Export($this->$MODEL_VARIABLE$Repository->getWith($filters)));
+    }
+}

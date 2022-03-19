@@ -1,0 +1,23 @@
+<?php
+
+namespace $NAMESPACE$;
+
+use App\Abstracts\Service\Service;
+
+/**
+ * @class $CLASS$
+ * @package $NAMESPACE$
+ */
+class $CLASS$ extends Service
+{
+    /**
+     * Create a new service instance.
+     * $CLASS$ constructor
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        //
+    }
+}

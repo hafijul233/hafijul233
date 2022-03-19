@@ -1,0 +1,264 @@
+<?php
+
+namespace $CLASS_NAMESPACE$;
+
+use App\Http\Controllers\Controller;
+use Exception;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Modules\Auth\Services\AuthenticatedSessionService;
+use Modules\Core\Supports\Utility;
+use Symfony\Component\HttpFoundation\StreamedResponse;
+$SERVICE_NAMESPACE$
+$REQUEST_NAMESPACE$
+
+/**
+ * @class $CLASS$
+ * @package $NAMESPACE$
+ */
+class $CLASS$ extends Controller
+{
+    /**
+     * @var AuthenticatedSessionService
+     */
+    private $authenticatedSessionService;
+    
+    /**
+     * @var $SERVICE$Service
+     */
+    private $$SERVICE_VARIABLE$Service;
+
+    /**
+     * $CLASS$ Constructor
+     *
+     * @param AuthenticatedSessionService $authenticatedSessionService
+     * @param $SERVICE$Service $$SERVICE_VARIABLE$Service
+     */
+    public function __construct(AuthenticatedSessionService $authenticatedSessionService,
+                                $SERVICE$Service              $$SERVICE_VARIABLE$Service)
+    {
+
+        $this->authenticatedSessionService = $authenticatedSessionService;
+        $this->$SERVICE_VARIABLE$Service = $$SERVICE_VARIABLE$Service;
+    }
+    
+    /**
+     * Display a listing of the resource.
+     *
+     * @return Application|Factory|View
+     * @throws Exception
+     */
+    public function index(Request $request)
+    {
+        $filters = $request->except('page');
+        $$SERVICE_VARIABLE$s = $this->$SERVICE_VARIABLE$Service->$SERVICE_VARIABLE$Paginate($filters);
+
+        return view('$LOWER_NAME$::$VIEW_PATH$.index', [
+            '$SERVICE_VARIABLE$s' => $$SERVICE_VARIABLE$s
+        ]);
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return Application|Factory|View
+     */
+    public function create()
+    {
+        return view('$LOWER_NAME$::$VIEW_PATH$.create');
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param $SERVICE$Request $request
+     * @return RedirectResponse
+     * @throws Exception|\Throwable
+     */
+    public function store($SERVICE$Request $request): RedirectResponse
+    {
+        $confirm = $this->$SERVICE_VARIABLE$Service->store$SERVICE$($request->except('_token'));
+        if ($confirm['status'] == true) {
+            notify($confirm['message'], $confirm['level'], $confirm['title']);
+            return redirect()->route('$LOWER_NAME$.$VIEW_PATH$s.index');
+        }
+
+        notify($confirm['message'], $confirm['level'], $confirm['title']);
+        return redirect()->back()->withInput();
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  $id
+     * @return Application|Factory|View
+     * @throws Exception
+     */
+    public function show($id)
+    {
+        if ($$SERVICE_VARIABLE$ = $this->$SERVICE_VARIABLE$Service->get$SERVICE$ById($id)) {
+            return view('$LOWER_NAME$::$VIEW_PATH$.show', [
+                '$SERVICE_VARIABLE$' => $$SERVICE_VARIABLE$,
+                'timeline' => Utility::modelAudits($$SERVICE_VARIABLE$)
+            ]);
+        }
+
+        abort(404);
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param $id
+     * @return Application|Factory|View
+     * @throws Exception
+     */
+    public function edit($id)
+    {
+        if ($$SERVICE_VARIABLE$ = $this->$SERVICE_VARIABLE$Service->get$SERVICE$ById($id)) {
+            return view('$LOWER_NAME$::$VIEW_PATH$.edit', [
+                '$SERVICE_VARIABLE$' => $$SERVICE_VARIABLE$
+            ]);
+        }
+
+        abort(404);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param $SERVICE$Request $request
+     * @param  $id
+     * @return RedirectResponse
+     * @throws \Throwable
+     */
+    public function update($SERVICE$Request $request, $id): RedirectResponse
+    {
+        $confirm = $this->$SERVICE_VARIABLE$Service->update$SERVICE$($request->except('_token', 'submit', '_method'), $id);
+
+        if ($confirm['status'] == true) {
+            notify($confirm['message'], $confirm['level'], $confirm['title']);
+            return redirect()->route('$LOWER_NAME$.$VIEW_PATH$s.index');
+        }
+
+        notify($confirm['message'], $confirm['level'], $confirm['title']);
+        return redirect()->back()->withInput();
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param $id
+     * @param Request $request
+     * @return RedirectResponse
+     * @throws \Throwable
+     */
+    public function destroy($id, Request $request)
+    {
+        if ($this->authenticatedSessionService->validate($request)) {
+
+            $confirm = $this->$SERVICE_VARIABLE$Service->destroy$SERVICE$($id);
+
+            if ($confirm['status'] == true) {
+                notify($confirm['message'], $confirm['level'], $confirm['title']);
+            } else {
+                notify($confirm['message'], $confirm['level'], $confirm['title']);
+            }
+            return redirect()->route('$LOWER_NAME$.$VIEW_PATH$s.index');
+        }
+        abort(403, 'Wrong user credentials');
+    }
+
+    /**
+     * Restore a Soft Deleted Resource
+     *
+     * @param $id
+     * @param Request $request
+     * @return RedirectResponse|void
+     * @throws \Throwable
+     */
+    public function restore($id, Request $request)
+    {
+        if ($this->authenticatedSessionService->validate($request)) {
+
+            $confirm = $this->$SERVICE_VARIABLE$Service->restore$SERVICE$($id);
+
+            if ($confirm['status'] == true) {
+                notify($confirm['message'], $confirm['level'], $confirm['title']);
+            } else {
+                notify($confirm['message'], $confirm['level'], $confirm['title']);
+            }
+            return redirect()->route('$LOWER_NAME$.$VIEW_PATH$s.index');
+        }
+        abort(403, 'Wrong user credentials');
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return string|StreamedResponse
+     * @throws Exception
+     */
+    public function export(Request $request)
+    {
+        $filters = $request->except('page');
+
+        $$SERVICE_VARIABLE$Export = $this->$SERVICE_VARIABLE$Service->export$SERVICE$($filters);
+
+        $filename = '$SERVICE$-' . date('Ymd-His') . '.' . ($filters['format'] ?? 'xlsx');
+
+        return $$SERVICE_VARIABLE$Export->download($filename, function ($$SERVICE_VARIABLE$) use ($$SERVICE_VARIABLE$Export) {
+            return $$SERVICE_VARIABLE$Export->map($$SERVICE_VARIABLE$);
+        });
+
+    }
+
+    /**
+     * Return an Import view page
+     *
+     * @return Application|Factory|View
+     */
+    public function import()
+    {
+        return view('$LOWER_NAME$::$VIEW_PATH$import');
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return Application|Factory|View
+     * @throws Exception
+     */
+    public function importBulk(Request $request)
+    {
+        $filters = $request->except('page');
+        $$SERVICE_VARIABLE$s = $this->$SERVICE_VARIABLE$Service->getAll$SERVICE$s($filters);
+
+        return view('$LOWER_NAME$::$VIEW_PATH$index', [
+            '$SERVICE_VARIABLE$s' => $$SERVICE_VARIABLE$s
+        ]);
+    }
+
+    /**
+     * Display a detail of the resource.
+     *
+     * @return StreamedResponse|string
+     * @throws Exception
+     */
+    public function print(Request $request)
+    {
+        $filters = $request->except('page');
+
+        $$SERVICE_VARIABLE$Export = $this->$SERVICE_VARIABLE$Service->export$SERVICE$($filters);
+
+        $filename = '$SERVICE$-' . date('Ymd-His') . '.' . ($filters['format'] ?? 'xlsx');
+
+        return $$SERVICE_VARIABLE$Export->download($filename, function ($$SERVICE_VARIABLE$) use ($$SERVICE_VARIABLE$Export) {
+            return $$SERVICE_VARIABLE$Export->map($$SERVICE_VARIABLE$);
+        });
+
+    }
+}

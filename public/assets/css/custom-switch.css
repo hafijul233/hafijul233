@@ -1,0 +1,208 @@
+.custom-switch {
+  line-height: 12px;
+}
+
+.custom-switch.custom-switch-label-yesno .custom-switch-input + .custom-switch-btn :after {
+  content: "No";
+}
+
+.custom-switch.custom-switch-label-yesno .custom-switch-input:checked + .custom-switch-btn :before {
+  content: "Yes";
+}
+
+.custom-switch .custom-switch-input {
+  position: absolute;
+  z-index: -1;
+  opacity: 0;
+}
+
+.custom-switch .custom-switch-input,
+.custom-switch .custom-switch-input:after,
+.custom-switch .custom-switch-input:before,
+.custom-switch .custom-switch-input *,
+.custom-switch .custom-switch-input *:after,
+.custom-switch .custom-switch-input *:before,
+.custom-switch .custom-switch-input + .custom-switch-btn {
+  box-sizing: border-box;
+}
+
+.custom-switch .custom-switch-input::-moz-selection, .custom-switch .custom-switch-input:after::-moz-selection, .custom-switch .custom-switch-input:before::-moz-selection, .custom-switch .custom-switch-input *::-moz-selection, .custom-switch .custom-switch-input *:after::-moz-selection, .custom-switch .custom-switch-input *:before::-moz-selection, .custom-switch .custom-switch-input + .custom-switch-btn::-moz-selection {
+  background: none;
+}
+
+.custom-switch .custom-switch-input::selection,
+.custom-switch .custom-switch-input:after::selection,
+.custom-switch .custom-switch-input:before::selection,
+.custom-switch .custom-switch-input *::selection,
+.custom-switch .custom-switch-input *:after::selection,
+.custom-switch .custom-switch-input *:before::selection,
+.custom-switch .custom-switch-input + .custom-switch-btn::selection {
+  background: none;
+}
+
+.custom-switch .custom-switch-input + .custom-switch-btn {
+  outline: 0;
+  display: inline-block;
+  position: relative;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  cursor: pointer;
+  width: 68px;
+  height: 38px;
+  margin: 0;
+  padding: 4px;
+  background: #adb5bd;
+  border-radius: 76px;
+  transition: all 150ms ease;
+}
+
+.custom-switch .custom-switch-input + .custom-switch-btn:after,
+.custom-switch .custom-switch-input + .custom-switch-btn:before {
+  position: relative;
+  display: block;
+  content: "";
+  width: 29px;
+  height: 29px;
+}
+
+.custom-switch .custom-switch-input + .custom-switch-btn:after {
+  left: 2px;
+  border-radius: 50%;
+  background: white;
+  transition: all 150ms ease;
+}
+
+.custom-switch .custom-switch-input + .custom-switch-btn:before {
+  display: none;
+}
+
+.custom-switch .custom-switch-input + .custom-switch-btn.text-hide {
+  top: -0.8rem;
+}
+
+.custom-switch .custom-switch-input:checked + .custom-switch-btn {
+  background: #28a745;
+}
+
+.custom-switch .custom-switch-input:checked + .custom-switch-btn:after {
+  left: 30px;
+}
+
+.custom-switch .custom-switch-input:checked + .custom-switch-btn ~ .custom-switch-content-checked {
+  opacity: 1;
+  height: auto;
+}
+
+.custom-switch .custom-switch-input:checked + .custom-switch-btn ~ .custom-switch-content-unchecked {
+  display: none;
+  opacity: 0;
+  height: 0;
+}
+
+.custom-switch .custom-switch-input:not(:checked) + .custom-switch-btn ~ .custom-switch-content-checked {
+  display: none;
+  opacity: 0;
+  height: 0;
+}
+
+.custom-switch .custom-switch-input:not(:checked) + .custom-switch-btn ~ .custom-switch-content-unchecked {
+  opacity: 1;
+  height: auto;
+}
+
+.custom-switch .custom-switch-input[disabled] + .custom-switch-btn {
+  background: rgba(173, 181, 189, 0.6);
+  cursor: default;
+}
+
+.custom-switch .custom-switch-input[disabled]:checked + .custom-switch-btn {
+  background: rgba(40, 167, 69, 0.4);
+}
+
+.custom-switch .custom-switch-input:not([disabled]):focus ~ .custom-switch-btn {
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 0 0.25rem rgba(56, 123, 189, 0.25);
+}
+
+.custom-switch .custom-switch-input[required] ~ .custom-switch-btn {
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 0 0.125rem rgba(220, 53, 69, 0.5);
+}
+
+.custom-switch .custom-switch-form-text {
+  display: inline-block;
+  height: 38px;
+  margin-left: 0.5rem;
+  line-height: 38px;
+  vertical-align: top;
+}
+
+.custom-switch.custom-switch-primary .custom-switch-input:checked + .custom-switch-btn {
+  background-color: #007bff !important;
+}
+
+.custom-switch.custom-switch-primary .custom-switch-input[disabled]:checked + .custom-switch-btn {
+  background: rgba(0, 123, 255, 0.4);
+}
+
+.custom-switch.custom-switch-secondary .custom-switch-input:checked + .custom-switch-btn {
+  background-color: #6c757d !important;
+}
+
+.custom-switch.custom-switch-secondary .custom-switch-input[disabled]:checked + .custom-switch-btn {
+  background: rgba(108, 117, 125, 0.4);
+}
+
+.custom-switch.custom-switch-success .custom-switch-input:checked + .custom-switch-btn {
+  background-color: #28a745 !important;
+}
+
+.custom-switch.custom-switch-success .custom-switch-input[disabled]:checked + .custom-switch-btn {
+  background: rgba(40, 167, 69, 0.4);
+}
+
+.custom-switch.custom-switch-info .custom-switch-input:checked + .custom-switch-btn {
+  background-color: #17a2b8 !important;
+}
+
+.custom-switch.custom-switch-info .custom-switch-input[disabled]:checked + .custom-switch-btn {
+  background: rgba(23, 162, 184, 0.4);
+}
+
+.custom-switch.custom-switch-warning .custom-switch-input:checked + .custom-switch-btn {
+  background-color: #ffc107 !important;
+}
+
+.custom-switch.custom-switch-warning .custom-switch-input[disabled]:checked + .custom-switch-btn {
+  background: rgba(255, 193, 7, 0.4);
+}
+
+.custom-switch.custom-switch-danger .custom-switch-input:checked + .custom-switch-btn {
+  background-color: #dc3545 !important;
+}
+
+.custom-switch.custom-switch-danger .custom-switch-input[disabled]:checked + .custom-switch-btn {
+  background: rgba(220, 53, 69, 0.4);
+}
+
+.custom-switch.custom-switch-light .custom-switch-input:checked + .custom-switch-btn {
+  background-color: #f8f9fa !important;
+}
+
+.custom-switch.custom-switch-light .custom-switch-input[disabled]:checked + .custom-switch-btn {
+  background: rgba(248, 249, 250, 0.4);
+}
+
+.custom-switch.custom-switch-dark .custom-switch-input:checked + .custom-switch-btn {
+  background-color: #343a40 !important;
+}
+
+.custom-switch.custom-switch-dark .custom-switch-input[disabled]:checked + .custom-switch-btn {
+  background: rgba(52, 58, 64, 0.4);
+}
+
+.is-invalid .custom-switch .custom-switch-input ~ .custom-switch-btn,
+.was-validated .custom-switch:invalid .custom-switch-input ~ .custom-switch-btn {
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 0 0.25rem #dc3545;
+}
+

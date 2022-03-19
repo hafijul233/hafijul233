@@ -1,0 +1,113 @@
+{
+    "name": "hafijul233/boilerplate",
+    "type": "project",
+    "description": "A Boiler Plate Based module package using The Laravel Framework.",
+    "support": {
+        "issues": "https://github.com/hafijul233/boilerplate/issues",
+        "wiki": "https://github.com/hafijul233/boilerplate/wiki",
+        "source": "https://github.com/hafijul233/boilerplate",
+        "docs": "http://hafijulislam.me/projects/boilerplate"
+    },
+    "keywords": [
+        "framework",
+        "laravel",
+        "boilerplate",
+        "module",
+        "adminlte3"
+    ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Hafijul Islam",
+            "email": "hafijul233@gmail.com",
+            "homepage": "http://hafijulislam.me",
+            "role": "Maintainer"
+        }
+    ],
+    "require": {
+        "php": "^7.3|^8.0",
+        "ext-bcmath": "*",
+        "ext-curl": "*",
+        "ext-gd": "*",
+        "ext-json": "*",
+        "ext-pdo": "*",
+        "ext-tokenizer": "*",
+        "ext-xmlreader": "*",
+        "ext-zip": "*",
+        "diglactic/laravel-breadcrumbs": "^7.0",
+        "fruitcake/laravel-cors": "^2.0",
+        "guzzlehttp/guzzle": "^7.0.1",
+        "hafijul233/form": "^0.0.8",
+        "intervention/image": "^2.7",
+        "kyslik/column-sortable": "^6.4",
+        "laravel/framework": "^8.54",
+        "laravelcollective/html": "^6.2",
+        "laravolt/avatar": "^4.1",
+        "owen-it/laravel-auditing": "^12.0",
+        "rap2hpoutre/fast-excel": "^3.1",
+        "spatie/laravel-medialibrary": "^9.8",
+        "spatie/laravel-permission": "^5.3",
+        "yoeunes/notify": "^1.0"
+    },
+    "require-dev": {
+        "roave/security-advisories": "dev-latest",
+        "barryvdh/laravel-debugbar": "^3.6",
+        "barryvdh/laravel-ide-helper": "^2.10",
+        "facade/ignition": "^2.5",
+        "fakerphp/faker": "^1.9.1",
+        "kint-php/kint": "^3.3",
+        "laravel/sail": "^1.0.1",
+        "mockery/mockery": "^1.4.4",
+        "nunomaduro/collision": "^5.10",
+        "phpunit/phpunit": "^9.5.10"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/",
+            "Database\\Factories\\": "database/factories/",
+            "Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "post-autoload-dump": [
+            "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
+            "@php artisan package:discover --ansi",
+            "@php artisan optimize:clear --ansi",
+            "@php artisan view:clear --ansi",
+            "@php artisan config:clear --ansi",
+            "@php artisan route:clear --ansi",
+            "@php artisan event:clear --ansi",
+            "@php artisan cache:clear --ansi"
+        ],
+        "post-update-cmd": [
+            "@php artisan vendor:publish --tag=laravel-assets --ansi"
+        ],
+        "post-root-package-install": [
+            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
+        ],
+        "post-create-project-cmd": [
+            "@php artisan key:generate --ansi"
+        ]
+    },
+    "extra": {
+        "laravel": {
+            "dont-discover": []
+        },
+        "module-dir": "modules",
+        "kint": {
+            "disable-helpers": true
+        }
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "preferred-install": "dist",
+        "sort-packages": true
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}

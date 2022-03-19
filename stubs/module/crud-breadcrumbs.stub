@@ -1,0 +1,34 @@
+
+/****************************************** $MODEL$ ******************************************/
+Breadcrumbs::for('$REST_ROUTE$s.index', function (BreadcrumbTrail $trail) {
+
+    $trail->parent('core.settings.index');
+
+    $trail->push('$MODEL$s', route('$REST_ROUTE$s.index'));
+});
+
+Breadcrumbs::for('$REST_ROUTE$s.create', function (BreadcrumbTrail $trail) {
+
+    $trail->parent('$REST_ROUTE$s.index');
+
+    $trail->push('Add $MODEL$', route('$REST_ROUTE$s.create'));
+});
+
+Breadcrumbs::for('$REST_ROUTE$s.show', function (BreadcrumbTrail $trail, $$MODEL_VARIABLE$) {
+
+    $trail->parent('$REST_ROUTE$s.index');
+
+    $$MODEL_VARIABLE$ = ($$MODEL_VARIABLE$ instanceof $MODEL$) ? $$MODEL_VARIABLE$ : $$MODEL_VARIABLE$[0];
+
+    $trail->push($$MODEL_VARIABLE$->name, route('$REST_ROUTE$s.show', $$MODEL_VARIABLE$->id));
+});
+
+Breadcrumbs::for('$REST_ROUTE$s.edit', function (BreadcrumbTrail $trail, $MODEL$ $$MODEL_VARIABLE$) {
+
+    $trail->parent('$REST_ROUTE$s.show', [$$MODEL_VARIABLE$]);
+
+    $trail->push('Edit $MODEL$', route('$REST_ROUTE$s.edit', $$MODEL_VARIABLE$->id));
+});
+
+
+

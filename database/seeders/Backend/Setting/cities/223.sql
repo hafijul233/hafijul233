@@ -1,0 +1,28 @@
+
+-- BLOCK : 1
+INSERT INTO `cities`(`id`, `name`, `state_id`, `country_id`, `type`, `native`, `latitude`,`longitude`, `enabled`, `created_by`, `updated_by`, `deleted_by`, `created_at`, `updated_at`, `deleted_at`) VALUES 
+(108968, 'Arima', 3362, 223, NULL, 'Arima', '10.63737000', '-61.28228000', 'yes', NULL, NULL, NULL, '2019-10-06 01:31:28', '2021-12-09 00:54:48', NULL),
+(108969, 'Arouca', 3358, 223, NULL, 'Arouca', '10.62877000', '-61.33487000', 'yes', NULL, NULL, NULL, '2019-10-06 01:31:28', '2021-12-09 00:54:48', NULL),
+(108970, 'Chaguanas', 3366, 223, NULL, 'Chaguanas', '10.51667000', '-61.41667000', 'yes', NULL, NULL, NULL, '2019-10-06 01:31:28', '2021-12-09 00:54:48', NULL),
+(108971, 'Couva', 3354, 223, NULL, 'Couva', '10.42248000', '-61.46748000', 'yes', NULL, NULL, NULL, '2019-10-06 01:31:28', '2021-12-09 00:54:48', NULL),
+(108972, 'Debe', 3365, 223, NULL, 'Debe', '10.20846000', '-61.45273000', 'yes', NULL, NULL, NULL, '2019-10-06 01:31:28', '2021-12-09 00:54:48', NULL),
+(108973, 'Laventille', 3357, 223, NULL, 'Laventille', '10.64917000', '-61.49889000', 'yes', NULL, NULL, NULL, '2019-10-06 01:31:28', '2021-12-09 00:54:48', NULL),
+(108974, 'Marabella', 3359, 223, NULL, 'Marabella', '10.30618000', '-61.44671000', 'yes', NULL, NULL, NULL, '2019-10-06 01:31:28', '2021-12-09 00:54:48', NULL),
+(108975, 'Mon Repos', 3359, 223, NULL, 'Mon Repos', '10.27979000', '-61.44590000', 'yes', NULL, NULL, NULL, '2019-10-06 01:31:28', '2021-12-09 00:54:48', NULL),
+(108976, 'Mucurapo', 3363, 223, NULL, 'Mucurapo', '10.66253000', '-61.53697000', 'yes', NULL, NULL, NULL, '2019-10-06 01:31:28', '2021-12-09 00:54:48', NULL),
+(108977, 'Paradise', 3358, 223, NULL, 'Paradise', '10.65298000', '-61.36298000', 'yes', NULL, NULL, NULL, '2019-10-06 01:31:28', '2021-12-09 00:54:48', NULL),
+(108978, 'Petit Valley', 3367, 223, NULL, 'Petit Valley', '10.69974000', '-61.54717000', 'yes', NULL, NULL, NULL, '2019-10-06 01:31:28', '2021-12-09 00:54:48', NULL),
+(108979, 'Peñal', 3365, 223, NULL, 'Peñal', '10.16667000', '-61.46667000', 'yes', NULL, NULL, NULL, '2019-10-06 01:31:28', '2021-12-09 00:54:48', NULL),
+(108980, 'Point Fortin', 3360, 223, NULL, 'Point Fortin', '10.17411000', '-61.68407000', 'yes', NULL, NULL, NULL, '2019-10-06 01:31:28', '2021-12-09 00:54:48', NULL),
+(108981, 'Port of Spain', 3363, 223, NULL, 'Port of Spain', '10.66668000', '-61.51889000', 'yes', NULL, NULL, NULL, '2019-10-06 01:31:28', '2021-12-09 00:54:48', NULL),
+(108982, 'Princes Town', 3368, 223, NULL, 'Princes Town', '10.27184000', '-61.37103000', 'yes', NULL, NULL, NULL, '2019-10-06 01:31:28', '2021-12-09 00:54:48', NULL),
+(108983, 'Rio Claro', 3353, 223, NULL, 'Rio Claro', '10.30594000', '-61.17556000', 'yes', NULL, NULL, NULL, '2019-10-06 01:31:28', '2021-12-09 00:54:48', NULL),
+(108984, 'San Fernando', 3359, 223, NULL, 'San Fernando', '10.27969000', '-61.46835000', 'yes', NULL, NULL, NULL, '2019-10-06 01:31:28', '2021-12-09 00:54:48', NULL),
+(108985, 'Sangre Grande', 3361, 223, NULL, 'Sangre Grande', '10.58705000', '-61.13008000', 'yes', NULL, NULL, NULL, '2019-10-06 01:31:28', '2021-12-09 00:54:48', NULL),
+(108986, 'Scarborough', 3355, 223, NULL, 'Scarborough', '11.18229000', '-60.73525000', 'yes', NULL, NULL, NULL, '2019-10-06 01:31:28', '2021-12-09 00:54:48', NULL),
+(108987, 'Siparia', 3364, 223, NULL, 'Siparia', '10.14525000', '-61.50740000', 'yes', NULL, NULL, NULL, '2019-10-06 01:31:28', '2021-12-09 00:54:48', NULL),
+(108988, 'Tabaquite', 3354, 223, NULL, 'Tabaquite', '10.38824000', '-61.29704000', 'yes', NULL, NULL, NULL, '2019-10-06 01:31:28', '2021-12-09 00:54:48', NULL),
+(108989, 'Tunapuna', 3358, 223, NULL, 'Tunapuna', '10.65245000', '-61.38878000', 'yes', NULL, NULL, NULL, '2019-10-06 01:31:28', '2021-12-09 00:54:48', NULL),
+(108990, 'Ward of Chaguanas', 3366, 223, NULL, 'Ward of Chaguanas', '10.50000000', '-61.38333000', 'yes', NULL, NULL, NULL, '2019-10-06 01:31:28', '2021-12-09 00:54:48', NULL),
+(108991, 'Ward of Diego Martin', 3367, 223, NULL, 'Ward of Diego Martin', '10.70000000', '-61.58333000', 'yes', NULL, NULL, NULL, '2019-10-06 01:31:28', '2021-12-09 00:54:48', NULL),
+(108992, 'Ward of Siparia', 3364, 223, NULL, 'Ward of Siparia', '10.15000000', '-61.46667000', 'yes', NULL, NULL, NULL, '2019-10-06 01:31:28', '2021-12-09 00:54:48', NULL);
