@@ -46,7 +46,7 @@
                                     <label class="font-weight-bold">{!!  __('enumerator.Survey') !!}</label>
                                 </div>
                                 <div class="col-md-10">
-                                    {!! $enumerator->survey->name !!}
+                                    {!! $enumerator->survey->name  ?? '' !!}
                                 </div>
                             </div>
                             <div class="row">
@@ -54,7 +54,7 @@
                                     <label class="font-weight-bold">{!!  __('enumerator.Name') !!}</label>
                                 </div>
                                 <div class="col-md-10">
-                                    {!! $enumerator->name !!}
+                                    {!! $enumerator->name   ?? '' !!}
                                 </div>
                             </div>
                             <div class="row">
@@ -62,7 +62,7 @@
                                     <label class="font-weight-bold">{!! __('enumerator.Name(Bangla)') !!}</label>
                                 </div>
                                 <div class="col-md-10">
-                                    {!! $enumerator->name_bd !!}
+                                    {!! $enumerator->name_bd   ?? '' !!}
                                 </div>
                             </div>
                             <div class="row">
@@ -70,7 +70,7 @@
                                     <label class="font-weight-bold">{!!  __('enumerator.Father Name') !!}</label>
                                 </div>
                                 <div class="col-md-10">
-                                    {!! $enumerator->father !!}
+                                    {!! $enumerator->father   ?? '' !!}
                                 </div>
                             </div>
 
@@ -79,7 +79,7 @@
                                     <label class="font-weight-bold">{!!  __('enumerator.Father Name(Bangla)') !!}</label>
                                 </div>
                                 <div class="col-md-10">
-                                    {!! $enumerator->father_bd !!}
+                                    {!! $enumerator->father_bd   ?? '' !!}
                                 </div>
                             </div>
                             <div class="row">
@@ -87,7 +87,7 @@
                                     <label class="font-weight-bold">{!! __('enumerator.Mother Name') !!}</label>
                                 </div>
                                 <div class="col-md-10">
-                                    {!! $enumerator->mother !!}
+                                    {!! $enumerator->mother   ?? '' !!}
                                 </div>
                             </div>
                             <div class="row">
@@ -95,7 +95,7 @@
                                     <label class="font-weight-bold">{!! __('enumerator.Mother Name(Bangla)') !!}</label>
                                 </div>
                                 <div class="col-md-10">
-                                    {!! $enumerator->mother_bd !!}
+                                    {!! $enumerator->mother_bd   ?? '' !!}
                                 </div>
                             </div>
                             <div class="row">
@@ -103,7 +103,7 @@
                                     <label class="font-weight-bold">{!! __('enumerator.NID Number') !!}</label>
                                 </div>
                                 <div class="col-md-10">
-                                    {!! $enumerator->nid !!}
+                                    {!! $enumerator->nid   ?? '' !!}
                                 </div>
                             </div>
                             <div class="row">
@@ -111,7 +111,7 @@
                                     <label class="font-weight-bold">{!! __('enumerator.Mobile 1') !!}</label>
                                 </div>
                                 <div class="col-md-10">
-                                    {!! $enumerator->mobile_1 !!}
+                                    {!! $enumerator->mobile_1   ?? '' !!}
                                 </div>
                             </div>
                             <div class="row">
@@ -119,7 +119,7 @@
                                     <label class="font-weight-bold">{!! __('enumerator.Mobile 2') !!}</label>
                                 </div>
                                 <div class="col-md-10">
-                                    {!! $enumerator->mobile_2 !!}
+                                    {!! $enumerator->mobile_2   ?? '' !!}
                                 </div>
                             </div>
                             <div class="row">
@@ -127,7 +127,7 @@
                                     <label class="font-weight-bold">{!! __('enumerator.Email') !!}</label>
                                 </div>
                                 <div class="col-md-10">
-                                    {!! $enumerator->email !!}
+                                    {!! $enumerator->email   ?? '' !!}
                                 </div>
                             </div>
                             <div class="row">
@@ -135,7 +135,7 @@
                                     <label class="font-weight-bold">{!! __('enumerator.Present Address') !!}</label>
                                 </div>
                                 <div class="col-md-10">
-                                    {!! $enumerator->present_address !!}
+                                    {!! $enumerator->present_address   ?? '' !!}
                                 </div>
                             </div>
                             <div class="row">
@@ -143,7 +143,7 @@
                                     <label class="font-weight-bold">{!! __('enumerator.Present Address(Bangla)') !!}</label>
                                 </div>
                                 <div class="col-md-10">
-                                    {!! $enumerator->present_address_bd !!}
+                                    {!! $enumerator->present_address_bd   ?? '' !!}
                                 </div>
                             </div>
 
@@ -152,7 +152,7 @@
                                     <label class="font-weight-bold">{!! __('enumerator.Permanent Address') !!}</label>
                                 </div>
                                 <div class="col-md-10">
-                                    {!! $enumerator->permanent_address !!}
+                                    {!! $enumerator->permanent_address   ?? '' !!}
                                 </div>
                             </div>
                             <div class="row">
@@ -160,7 +160,7 @@
                                     <label class="font-weight-bold">{!! __('enumerator.Permanent Address(Bangla)') !!}</label>
                                 </div>
                                 <div class="col-md-10">
-                                    {!! $enumerator->permanent_address_bd !!}
+                                    {!! $enumerator->permanent_address_bd   ?? '' !!}
                                 </div>
                             </div>
                             <div class="row">
@@ -168,7 +168,7 @@
                                     <label class="font-weight-bold">{!! __('enumerator.Gender') !!}</label>
                                 </div>
                                 <div class="col-md-10">
-                                    {!! $enumerator->gender->name !!}
+                                    {!! $enumerator->gender->name   ?? '' !!}
                                 </div>
                             </div>
                         </fieldset>
@@ -199,19 +199,19 @@
                                                 <th>{!! $educationQualification->examTitle->name !!}</th>
                                                 <td>
                                                     @if($educationQualification->exam_board_id != null)
-                                                        {!! $educationQualification->examBoard->name !!}
+                                                        {!! $educationQualification->examBoard->name  ?? ''  !!}
                                                     @else
-                                                        {!! $educationQualification->institute->name !!}
+                                                        {!! $educationQualification->institute->name  ?? ''  !!}
                                                     @endif
                                                 </td>
                                                 <td>{!! $educationQualification->examGroup->name ?? ''  !!}</td>
-                                                <td class="text-center">{!! $educationQualification->pass_year !!}</td>
+                                                <td class="text-center">{!! $educationQualification->pass_year  ?? ''  !!}</td>
                                                 <td>
                                                     {!! \App\Supports\Constant::GPA_TYPE[$educationQualification->grade_type] !!}
                                                 </td>
                                                 <td class="text-center">
                                                     @if($educationQualification->grade_type > 3)
-                                                        {!! $educationQualification->grade_point !!}
+                                                        {!! $educationQualification->grade_point  ?? '' !!}
                                                     @else
                                                         {!! 'N/A' !!}
                                                     @endif
@@ -248,7 +248,7 @@
                                         @foreach($enumerator->workQualifications as $workQualification)
                                             <tr>
                                                 <th class="bg-light">{!! $workQualification->company ?? '' !!}</th>
-                                                <td>{!! $workQualification->designation !!}</td>
+                                                <td>{!! $workQualification->designation   ?? '' !!}</td>
                                                 <td class="text-center">
                                                     @if($workQualification->start_date != null)
                                                         {!! $workQualification->start_date->format('d M, Y') !!}
