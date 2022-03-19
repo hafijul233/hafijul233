@@ -22,6 +22,7 @@ class CreateExamLevelsTable extends Migration
         Schema::create('exam_levels', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('icon')->default('fas fa-school');
             $table->string('code')->unique();
             $table->string('remarks')->nullable();
             $table->enum('enabled', array_keys(Constant::ENABLED_OPTIONS))
