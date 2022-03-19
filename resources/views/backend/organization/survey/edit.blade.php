@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Edit Enumerator')
+@section('title', __('survey.Edit Survey'))
 
 @push('meta')
 

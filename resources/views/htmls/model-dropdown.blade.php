@@ -5,14 +5,14 @@
                     type="button" id="dropdownMenuButton"
                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fa fa-sliders-h"></i>
-                <span class="d-none d-md-inline-flex ml-2">Actions</span>
+                <span class="d-none d-md-inline-flex ml-2">{!!  __('common.Actions') !!}</span>
             </button>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
                 @if(in_array('edit', $options['actions']) && \Route::has($resourceRouteName . '.edit'))
                     @can($resourceRouteName . '.edit')
                         <a href="{{ route($resourceRouteName . '.edit', $id) }}" title="Edit"
                            class="dropdown-item py-2 px-3 link-muted">
-                            <i class="fas fa-edit mr-2"></i> Edit</a>
+                            <i class="fas fa-edit mr-2"></i> {!!  __('common.Edit') !!}</a>
                     @endcan
                 @endif
 
@@ -20,7 +20,7 @@
                     @can($resourceRouteName . '.destroy')
                         <a href="{{ route('backend.common.delete', [$resourceRouteName, $id]) }}" title="Delete"
                            class="dropdown-item py-2 px-3 link-muted delete-btn">
-                            <i class="fas fa-trash  mr-2"></i> Delete
+                            <i class="fas fa-trash  mr-2"></i> {!!  __('common.Delete') !!}
                         </a>
                     @endcan
                 @endif
@@ -29,7 +29,7 @@
                     @can($resourceRouteName . '.restore')
                         <a href="{{ route('backend.common.restore', [$resourceRouteName, $id]) }}" title="Restore"
                            class="dropdown-item py-2 px-3 link-muted delete-btn">
-                            <i class="fas fa-trash-restore  mr-2"></i> Restore
+                            <i class="fas fa-trash-restore  mr-2"></i> {!!  __('common.Restore') !!}
                         </a>
                     @endcan
                 @endif

@@ -12,6 +12,6 @@ return [
     | these language lines according to your application's requirements.
     |
     */
-    'Add Survey' => 'Add Survey',
-    'Edit Survey' => 'Edit Survey',
+    'Add Survey' => 'জরিপ যোগ করুন',
+    'Edit Survey' => 'সমীক্ষা সম্পাদনা করুন',
 ];
