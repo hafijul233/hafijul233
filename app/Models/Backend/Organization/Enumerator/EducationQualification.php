@@ -37,7 +37,7 @@ class EducationQualification extends Model implements Auditable
      *
      * @var array
      */
-    protected $fillable = [ 'enumerator_id', 'exam_level_id', 'exam_title_id', 'exam_board_id', 'institute_id', 'pass_year', 'roll_number', 'grade_type', 'grade_point', 'enabled'];
+    protected $fillable = [ 'enumerator_id', 'exam_level_id', 'exam_title_id', 'exam_group_id', 'exam_board_id', 'institute_id', 'pass_year', 'roll_number', 'grade_type', 'grade_point', 'enabled'];
 
 
     /**
