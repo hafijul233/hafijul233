@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Backend\Organization;
 
+use App\Rules\PhoneNumber;
 use Illuminate\Foundation\Http\FormRequest;
 
 /**
@@ -26,8 +27,8 @@ class EnumeratorRequest extends FormRequest
             "mother" => ["required", "string", "min:2", "max:255"],
             "mother_bd" => ["required", "string", "min:2", "max:255"],
             "nid" => ["required", "integer"],
-            "mobile_1" => ["required", "integer"],
-            "mobile_2" => ["required", "integer"],
+            "mobile_1" => ["required", "string", new PhoneNumber ],
+            "mobile_2" => ["required", "string", new PhoneNumber ],
             "email" => ["required", "string", "email:rfc,dns"],
             "present_address" => ["required", "string", "min:2", "max:255"],
             "present_address_bd" => ["required", "string", "min:2", "max:255"],
