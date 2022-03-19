@@ -263,7 +263,7 @@ Route::prefix('backend')->group(function () {
                 Route::post('/import', [ExamGroupController::class, 'importBulk']);
                 Route::post('/print', [ExamGroupController::class, 'print'])->name('print');
                 */
-                Route::get('ajax', [ExamGroupController::class, 'ajax'])->name('ajax')->middleware('ajax');
+                Route::get('ajax', [ExamGroupController::class, 'ajax'])->name('ajax')->middleware('ajax')->withoutMiddleware('auth');
             });
             Route::resource('exam-groups', ExamGroupController::class)->where(['exam-group' => '([0-9]+)']);
 

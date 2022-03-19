@@ -126,7 +126,7 @@ class ApplicantController extends Controller
         $confirm = $this->enumeratorService->storeEnumerator($inputs);
         if ($confirm['status'] == true) {
             notify($confirm['message'], $confirm['level'], $confirm['title']);
-            return redirect()->route('backend.organization.enumerators.index');
+            return redirect()->route('frontend.organization.applicants.create');
         }
 
         notify($confirm['message'], $confirm['level'], $confirm['title']);

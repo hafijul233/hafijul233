@@ -1,4 +1,13 @@
 <div class="card-body">
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
     {{--Basic Information--}}
     <fieldset>
         <legend class="border-bottom lead mb-3 py-2 ml-0 pxl-0">
@@ -101,17 +110,13 @@
             <i class="fas fa-user-cog"></i> Work Experience
         </legend>
         <div class="work_experience">
-            @if(isset($enumerator) && count($enumerator->workQualifications) > 0)
-                @foreach($enumerator->workQualifications as $workQualification)
-                    {!! \Form::hText('job_company', __('enumerator.Company Name'), old('job_company', $workQualification->company ?? null), true) !!}
-                    {!! \Form::hText('job_designation', __('enumerator.Designation'), old('job_designation', $workQualification->designation ?? null), true) !!}
+            {!! \Form::hText('job_company', __('enumerator.Company Name'), old('job_company', $workQualification->company ?? null), true) !!}
+            {!! \Form::hText('job_designation', __('enumerator.Designation'), old('job_designation', $workQualification->designation ?? null), true) !!}
 
-                    {!! \Form::hDate('job_start_date', __('enumerator.Service Start Date'), old('job_start_date', $workQualification->start_date ?? null), true) !!}
-                    {!! \Form::hDate('job_end_date', __('enumerator.Service End Date'), old('job_end_date', $workQualification->end_date ?? null), true) !!}
+            {!! \Form::hDate('job_start_date', __('enumerator.Service Start Date'), old('job_start_date', $workQualification->start_date ?? null), true) !!}
+            {!! \Form::hDate('job_end_date', __('enumerator.Service End Date'), old('job_end_date', $workQualification->end_date ?? null), true) !!}
 
-                    {!! \Form::hTextarea('job_responsibility', __('enumerator.Responsibility'), old('job_responsibility', $workQualification->responsibility ?? null), true) !!}
-                @endforeach
-            @endif
+            {!! \Form::hTextarea('job_responsibility', __('enumerator.Responsibility'), old('job_responsibility', $workQualification->responsibility ?? null), true) !!}
         </div>
     </fieldset>
 
@@ -169,7 +174,6 @@
 
         $(document).ready(function () {
             examGroups.forEach(function (item) {
-                console.log("ready called");
                 getExamGroupDropdown(item.exam_level_id, item.exam_title_id, item.target_select, item.exam_group_id);
             });
 

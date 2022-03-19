@@ -17,16 +17,16 @@
         <!-- Navbar Search -->
         {{--@include('layouts.partials.navbar.navbar-search')--}}
         <!-- Messages Dropdown Menu -->
-        @include('layouts.partials.navbar.navbar-message')
+        {{--@include('layouts.partials.navbar.navbar-message')--}}
         <!-- Notifications Dropdown Menu -->
         {{--@include('layouts.partials.navbar.navbar-notification')--}}
         <!-- User Profile Dropdown menu -->
         @include('layouts.partials.navbar.navbar-user')
-        <li class="nav-item">
+        {{--<li class="nav-item">
             <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
                 <i class="fas fa-th-large"></i>
             </a>
-        </li>
+        </li>--}}
     </ul>
 </nav>
 <!-- /.navbar -->
