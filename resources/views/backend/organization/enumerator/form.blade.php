@@ -39,7 +39,7 @@
         @php
             $educationQualification = null;
                     if (isset($enumerator)) {
-                        foreach ($enumerator->educationQualification as $tempEducationQualification) {
+                        foreach ($enumerator->educationQualifications as $tempEducationQualification) {
                             if($exam_level->id == $tempEducationQualification->exam_level_id) {
                                 $educationQualification = $tempEducationQualification;
                             }
