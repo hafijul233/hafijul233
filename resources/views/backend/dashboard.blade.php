@@ -28,7 +28,7 @@
 
 @section('breadcrumbs', \Breadcrumbs::render())
 
-@section('actions')
+@section('actions'){{--
     <div class="input-group">
         <div class="input-group-prepend">
                       <span class="input-group-text">
@@ -37,11 +37,12 @@
         </div>
         <input type="text" class="form-control float-right" id="reservation">
     </div>
-    <!-- /.input group -->
+    <!-- /.input group -->--}}
 @endsection
 
 @section('content')
-    <div class="container-fluid">
+    <h1 class="text-center font-weight-bold"> Welcome To Dashboard</h1>
+{{--    <div class="container-fluid">
         <!-- Small boxes (Stat box) -->
         <div class="row">
             <div class="col-lg-3 col-6">
@@ -386,7 +387,7 @@
         </div>
         <!-- /.row -->
     </div>
-    <!-- /.container-fluid -->
+    <!-- /.container-fluid -->--}}
 @endsection
 
 

@@ -34,7 +34,7 @@
                     </a>
                 </li>
 
-                @can('backend.common.address-books.index')
+                {{--@can('backend.common.address-books.index')
                     <li class="nav-item">
                         <a href="{{ route('backend.common.address-books.index') }}"
                            class="nav-link @if(\Route::is('backend.common.address-books.*')) active @endif">
@@ -42,7 +42,7 @@
                             <p>{!! __('menu-sidebar.Address Book') !!}</p>
                         </a>
                     </li>
-                @endcan
+                @endcan--}}
 
                 @canany(['backend.organization.surveys.index', 'backend.organization.enumerators.index'])
                     <li class="nav-item @if(\Route::is('backend.organization.*')) menu-open @endif">
