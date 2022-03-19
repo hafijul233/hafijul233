@@ -1,4 +1,4 @@
-@extends('layouts.guest')
+@extends('layouts.frontend')
 
 @section('title', __('enumerator.Applicant Registration'))
 
@@ -23,10 +23,13 @@
 @endpush
 
 @section('content')
-    <div class="container-fluid">
+    <div class="container">
         <div class="row">
             <div class="col-lg-12">
                 <div class="card card-default">
+                    <div class="card-header">
+                        <h3 class="card-title font-weight-bold text-center">Enumerator Registration Form</h3>
+                    </div>
                     {!! \Form::open(['route' => 'frontend.organization.applicants.store', 'id' => 'enumerator-form']) !!}
                     @include('frontend.organization.applicant.form')
                     {!! \Form::close() !!}
