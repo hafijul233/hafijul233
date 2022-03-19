@@ -23,10 +23,10 @@
     <link rel="stylesheet" href="{{ asset('assets/css/utility.css') }}">
 @endpush
 
-@section('body-class', 'layout-fixed layout-navbar-fixed  sidebar-collapse')
+{{--@section('body-class', 'layout-fixed layout-navbar-fixed  sidebar-collapse')--}}
 
 @section('body')
-    <body class="hold-transition @yield('body-class')">
+    <body class="sidebar-mini layout-fixed">
     <div class="wrapper">
         <!-- Preloader -->
     @include('layouts.includes.preloader')
