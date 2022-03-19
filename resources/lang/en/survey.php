@@ -12,7 +12,7 @@ return [
     | these language lines according to your application's requirements.
     |
     */
-    'Add Survey' => 'Add Enumerator',
+    'Add Survey' => 'Add Survey',
     'Edit Enumerator' => 'Edit Enumerator',
     'Survey' => 'Survey',
     'Select a Survey Option' => 'Select a Survey Option',

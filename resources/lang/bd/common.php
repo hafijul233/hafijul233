@@ -32,4 +32,5 @@ return [
     'Email'  => 'ইমেইল',
     'Enabled' => 'সক্রিয়',
     'Created' => 'এ নির্মিত',
+    'Remarks' => 'মন্তব্য'
 ];

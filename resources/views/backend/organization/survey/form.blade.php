@@ -10,7 +10,7 @@
     </div>
     <div class="row">
         <div class="col-12">
-            {!! \Form::nTextarea('remarks', 'Remarks', old('remarks', $survey->remarks ?? null), false) !!}
+            {!! \Form::nTextarea('remarks', __('common.Remarks'), old('remarks', $survey->remarks ?? null), false) !!}
         </div>
     </div>
     <div class="row mt-3">

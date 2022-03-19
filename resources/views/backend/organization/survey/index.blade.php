@@ -27,7 +27,7 @@
 @section('breadcrumbs', \Breadcrumbs::render())
 
 @section('actions')
-    {!! \Html::linkButton('Add Survey', 'backend.organization.surveys.create', [], 'fas fa-plus', 'success') !!}
+    {!! \Html::linkButton(__('survey.Add Survey'), 'backend.organization.surveys.create', [], 'fas fa-plus', 'success') !!}
     {{--{!! \Html::bulkDropdown('backend.organization.surveys', 0, ['color' => 'warning']) !!}--}}
 @endsection
 

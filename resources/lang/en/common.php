@@ -32,4 +32,5 @@ return [
     'Email'  => 'Email',
     'Enabled' => 'Enabled',
     'Created' => 'Created',
+    'Remarks' => 'Remarks'
 ];

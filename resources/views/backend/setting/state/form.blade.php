@@ -55,7 +55,7 @@ old('enabled', ($user->enabled ?? \App\Supports\Constant::ENABLED_OPTION))) !!}
     </div>
     <div class="row">
         <div class="col-12">
-            {!! \Form::nTextarea('remarks', 'Remarks', old('remarks', $user->remarks ?? null)) !!}
+            {!! \Form::nTextarea('remarks', __('common.Remarks'), old('remarks', $user->remarks ?? null)) !!}
         </div>
     </div>
     <div class="row mt-3">
