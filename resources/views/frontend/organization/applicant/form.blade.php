@@ -116,8 +116,7 @@
     </fieldset>
 
     <div class="row mt-3">
-        <div class="col-12 justify-content-between d-flex">
-            {!! \Form::nCancel(__('common.Cancel')) !!}
+        <div class="col-12 justify-content-center d-flex">
             {!! \Form::nSubmit('submit', __('common.Save')) !!}
         </div>
     </div>
@@ -169,11 +168,6 @@
         }
 
         $(document).ready(function () {
-            /*$.validator.addMethod("unicodetitle", function (value, element) {
-                    return this.optional(element) || /[\u0980-\u9FE]+)$/.test(value);
-                },
-                "Please enter only alphabets and spaces."
-            );*/
             examGroups.forEach(function (item) {
                 console.log("ready called");
                 getExamGroupDropdown(item.exam_level_id, item.exam_title_id, item.target_select, item.exam_group_id);
