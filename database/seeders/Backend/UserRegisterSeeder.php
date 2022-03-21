@@ -70,7 +70,8 @@ class UserRegisterSeeder extends Seeder
                 'password' => Utility::hashPassword(Constant::PASSWORD),
                 'mobile' => '01710534092',
                 'remarks' => 'Database Seeder',
-                'enabled' => Constant::ENABLED_OPTION
+                'enabled' => Constant::ENABLED_OPTION,
+                'force_pass_reset' => true
             ];
 
             $newUser = $this->userRepository->create($newUser);
