@@ -52,5 +52,12 @@ return [
     'Select a examination' => 'Select a examination',
     'Total Experience' => 'Total Experience',
     'Currently Working' => 'Currently Working',
-    'Applicant Registration' => 'Applicant Registration'
+    'Applicant Registration' => 'Applicant Registration',
+    'Basic Information' => 'Basic Information',
+    ' Secondary Level Education (SSC/ O-Level/ Equivalent)' => ' Secondary Level Education (SSC/ O-Level/ Equivalent)',
+    'Higher Secondary Level Education (HSC/ A-Level/ Equivalent)' => 'Higher Secondary Level Education (HSC/ A-Level/ Equivalent)',
+    'Graduation or Equivalent Level' => 'Graduation or Equivalent Level',
+    'Post-Graduation or Equivalent Level' => 'Post-Graduation or Equivalent Level',
+    'Work Experience' => 'Work Experience',
+
 ];
