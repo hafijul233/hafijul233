@@ -111,6 +111,14 @@
 
                     {!! \Form::hTextarea('job_responsibility', __('enumerator.Responsibility'), old('job_responsibility', $workQualification->responsibility ?? null), true) !!}
                 @endforeach
+            @else
+                {!! \Form::hText('job_company', __('enumerator.Company Name'), old('job_company', $workQualification->company ?? null), true) !!}
+                {!! \Form::hText('job_designation', __('enumerator.Designation'), old('job_designation', $workQualification->designation ?? null), true) !!}
+
+                {!! \Form::hDate('job_start_date', __('enumerator.Service Start Date'), old('job_start_date', $workQualification->start_date ?? null), true) !!}
+                {!! \Form::hDate('job_end_date', __('enumerator.Service End Date'), old('job_end_date', $workQualification->end_date ?? null), true) !!}
+
+                {!! \Form::hTextarea('job_responsibility', __('enumerator.Responsibility'), old('job_responsibility', $workQualification->responsibility ?? null), true) !!}
             @endif
         </div>
     </fieldset>
