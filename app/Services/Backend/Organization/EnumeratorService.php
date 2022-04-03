@@ -198,13 +198,14 @@ class EnumeratorService extends Service
     {
         $qualifications = [];
 
-        $prefix = "job";
-        $qualifications[0]["company"] = $inputs["{$prefix}_company"] ?? null;
-        $qualifications[0]["designation"] = $inputs["{$prefix}_designation"] ?? null;
-        $qualifications[0]["start_date"] = $inputs["{$prefix}_start_date"] ?? null;
-        $qualifications[0]["end_date"] = $inputs["{$prefix}_end_date"] ?? null;
-        $qualifications[0]["responsibility"] = $inputs["{$prefix}_responsibility"] ?? null;
-        $qualifications[0]["enabled"] = "yes";
+        foreach ($inputs['job'] as $index => $input):
+        $qualifications[$index]["company"] = $input["company"] ?? null;
+        $qualifications[$index]["designation"] = $input["designation"] ?? null;
+        $qualifications[$index]["start_date"] = $input["start_date"] ?? null;
+        $qualifications[$index]["end_date"] = $input["end_date"] ?? null;
+        $qualifications[$index]["responsibility"] = $input["responsibility"] ?? null;
+        $qualifications[$index]["enabled"] = "yes";
+        endforeach;
 
         return $qualifications;
     }

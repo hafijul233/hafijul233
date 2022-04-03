@@ -122,7 +122,9 @@ class ApplicantController extends Controller
      */
     public function store(ApplicantRequest $request): RedirectResponse
     {
+
         $inputs = $request->except('_token');
+
         $confirm = $this->enumeratorService->storeEnumerator($inputs);
         if ($confirm['status'] == true) {
             notify($confirm['message'], $confirm['level'], $confirm['title']);
