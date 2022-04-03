@@ -97,6 +97,48 @@
     @endforeach
     {{--Work Experience--}}
     <fieldset>
+        <legend class="border-bottom lead mb-3 py-2 ml-0 pxl-0 font-weight-bold">
+            <i class="fas fa-user-cog"></i> {!! __('enumerator.Work Experience') !!}
+        </legend>
+        @php $index = count(old('job', ($enumerator->workQualifications ?? []))); @endphp
+        <input type="hidden" id="job_index" value="{{ $index+1 }}">
+        <div id="work_experiences">
+            @if($index > 0 )
+                @foreach(old('job') as $index => $workQualification)
+                    <div class="work_experience py-2 border-bottom">
+                        {!! \Form::hText("job[{$index}][company]", __('enumerator.Company Name'),  ($workQualification['company'] ?? null), true) !!}
+                        {!! \Form::hText("job[{$index}][designation]", __('enumerator.Designation'), ($workQualification['designation'] ?? null), true) !!}
+
+                        {!! \Form::hDate("job[{$index}][start_date]", __('enumerator.Service Start Date'), ($workQualification['start_date'] ?? null), true) !!}
+                        {!! \Form::hDate("job[{$index}][end_date]", __('enumerator.Service End Date'), ($workQualification['end_date'] ?? null), true) !!}
+
+                        {!! \Form::hTextarea("job[{$index}][responsibility]", __('enumerator.Responsibility'), ($workQualification['responsibility'] ?? null), true) !!}
+                    </div>
+                @endforeach
+            @else
+                <div class="work_experience  py-2 border-bottom">
+                    {!! \Form::hText("job[{$index}][company]", __('enumerator.Company Name'),  ($workQualification['company'] ?? null), true) !!}
+                    {!! \Form::hText("job[{$index}][designation]", __('enumerator.Designation'), ($workQualification['designation'] ?? null), true) !!}
+
+                    {!! \Form::hDate("job[{$index}][start_date]", __('enumerator.Service Start Date'), ($workQualification['start_date'] ?? null), true) !!}
+                    {!! \Form::hDate("job[{$index}][end_date]", __('enumerator.Service End Date'), ($workQualification['end_date'] ?? null), true) !!}
+
+                    {!! \Form::hTextarea("job[{$index}][responsibility]", __('enumerator.Responsibility'), ($workQualification['responsibility'] ?? null), true) !!}
+                </div>
+            @endif
+        </div>
+        <div class="row mt-3">
+            <div class="col-12 justify-content-center d-flex">
+                <button class="btn btn-primary font-weight-bold" type="button"
+                        onclick="addMoreWorkExperience(this); return false;">
+                    <i class="fas fa-plus font-weight-bold"></i>&nbsp;&nbsp;{!! __('common.Add') !!}
+                </button>
+            </div>
+        </div>
+    </fieldset>
+
+
+    <fieldset>
         <legend class="border-bottom lead mb-3 py-2 ml-0 pxl-0  font-weight-bold">
             <i class="fas fa-user-cog"></i> {!! __('enumerator.Work Experience') !!}
         </legend>
