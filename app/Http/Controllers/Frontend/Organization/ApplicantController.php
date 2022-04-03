@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Frontend\Organization;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Backend\Organization\EnumeratorRequest;
+use App\Http\Requests\Frontend\Organization\ApplicantRequest;
 use App\Services\Auth\AuthenticatedSessionService;
 use App\Services\Backend\Organization\EnumeratorService;
 use App\Services\Backend\Organization\SurveyService;
@@ -120,7 +120,7 @@ class ApplicantController extends Controller
      * @return RedirectResponse
      * @throws Exception|\Throwable
      */
-    public function store(EnumeratorRequest $request): RedirectResponse
+    public function store(ApplicantRequest $request): RedirectResponse
     {
         $inputs = $request->except('_token');
         $confirm = $this->enumeratorService->storeEnumerator($inputs);
@@ -142,6 +142,8 @@ class ApplicantController extends Controller
      */
     public function show($id)
     {
+        abort(403);
+
         if ($enumerator = $this->enumeratorService->getEnumeratorById($id)) {
             return view('backend.organization.enumerator.show', [
                 'enumerator' => $enumerator,
@@ -161,6 +163,8 @@ class ApplicantController extends Controller
      */
     public function edit($id)
     {
+        abort(403);
+
         if ($enumerator = $this->enumeratorService->getEnumeratorById($id)) {
             return view('backend.organization.enumerator.edit', [
                 'enumerator' => $enumerator,
@@ -178,12 +182,12 @@ class ApplicantController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param EnumeratorRequest $request
+     * @param ApplicantRequest $request
      * @param  $id
      * @return RedirectResponse
      * @throws \Throwable
      */
-    public function update(EnumeratorRequest $request, $id): RedirectResponse
+    public function update(ApplicantRequest $request, $id): RedirectResponse
     {
         $inputs = $request->except('_token', 'submit', '_method');
         $confirm = $this->enumeratorService->updateEnumerator($inputs, $id);
@@ -207,6 +211,8 @@ class ApplicantController extends Controller
      */
     public function destroy($id, Request $request)
     {
+        abort(403);
+
         if ($this->authenticatedSessionService->validate($request)) {
 
             $confirm = $this->enumeratorService->destroyEnumerator($id);

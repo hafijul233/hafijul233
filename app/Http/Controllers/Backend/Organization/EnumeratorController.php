@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend\Organization;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Backend\Organization\EnumeratorRequest;
+use App\Http\Requests\Frontend\Organization\ApplicantRequest;
 use App\Services\Auth\AuthenticatedSessionService;
 use App\Services\Backend\Organization\EnumeratorService;
 use App\Services\Backend\Organization\SurveyService;
@@ -115,7 +116,7 @@ class EnumeratorController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  $request
+     * @param  EnumeratorRequest $request
      * @return RedirectResponse
      * @throws Exception|\Throwable
      */
@@ -177,7 +178,7 @@ class EnumeratorController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param EnumeratorRequest $request
+     * @param ApplicantRequest $request
      * @param  $id
      * @return RedirectResponse
      * @throws \Throwable
