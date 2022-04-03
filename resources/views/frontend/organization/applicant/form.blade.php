@@ -109,14 +109,40 @@
         <legend class="border-bottom lead mb-3 py-2 ml-0 pxl-0 font-weight-bold">
             <i class="fas fa-user-cog"></i> {!! __('enumerator.Work Experience') !!}
         </legend>
-        <div class="work_experience">
-            {!! \Form::hText('job_company', __('enumerator.Company Name'), old('job_company', $workQualification->company ?? null), true) !!}
-            {!! \Form::hText('job_designation', __('enumerator.Designation'), old('job_designation', $workQualification->designation ?? null), true) !!}
+        @php $index = count(old('job', [])); @endphp
+        <input type="hidden" id="job_index" value="{{ $index+1 }}">
+        <div id="work_experiences">
+            @if($index > 0 )
+                @foreach(old('job') as $index => $workQualification)
+                    <div class="work_experience py-2 border-bottom">
+                        {!! \Form::hText("job[{$index}][company]", __('enumerator.Company Name'),  ($workQualification['company'] ?? null), true) !!}
+                        {!! \Form::hText("job[{$index}][designation]", __('enumerator.Designation'), ($workQualification['designation'] ?? null), true) !!}
 
-            {!! \Form::hDate('job_start_date', __('enumerator.Service Start Date'), old('job_start_date', $workQualification->start_date ?? null), true) !!}
-            {!! \Form::hDate('job_end_date', __('enumerator.Service End Date'), old('job_end_date', $workQualification->end_date ?? null), true) !!}
+                        {!! \Form::hDate("job[{$index}][start_date]", __('enumerator.Service Start Date'), ($workQualification['start_date'] ?? null), true) !!}
+                        {!! \Form::hDate("job[{$index}][end_date]", __('enumerator.Service End Date'), ($workQualification['end_date'] ?? null), true) !!}
 
-            {!! \Form::hTextarea('job_responsibility', __('enumerator.Responsibility'), old('job_responsibility', $workQualification->responsibility ?? null), true) !!}
+                        {!! \Form::hTextarea("job[{$index}][responsibility]", __('enumerator.Responsibility'), ($workQualification['responsibility'] ?? null), true) !!}
+                    </div>
+                @endforeach
+            @else
+                <div class="work_experience  py-2 border-bottom">
+                    {!! \Form::hText("job[{$index}][company]", __('enumerator.Company Name'),  ($workQualification['company'] ?? null), true) !!}
+                    {!! \Form::hText("job[{$index}][designation]", __('enumerator.Designation'), ($workQualification['designation'] ?? null), true) !!}
+
+                    {!! \Form::hDate("job[{$index}][start_date]", __('enumerator.Service Start Date'), ($workQualification['start_date'] ?? null), true) !!}
+                    {!! \Form::hDate("job[{$index}][end_date]", __('enumerator.Service End Date'), ($workQualification['end_date'] ?? null), true) !!}
+
+                    {!! \Form::hTextarea("job[{$index}][responsibility]", __('enumerator.Responsibility'), ($workQualification['responsibility'] ?? null), true) !!}
+                </div>
+            @endif
+        </div>
+        <div class="row mt-3">
+            <div class="col-12 justify-content-center d-flex">
+                <button class="btn btn-primary font-weight-bold" type="button"
+                        onclick="addMoreWorkExperience(this); return false;">
+                    <i class="fas fa-plus font-weight-bold"></i>&nbsp;&nbsp;{!! __('common.Add') !!}
+                </button>
+            </div>
         </div>
     </fieldset>
 
@@ -170,6 +196,69 @@
                     }
                 });
             }
+        }
+
+        function addMoreWorkExperience(event) {
+            alert("triggered");
+            var index = parseInt($("#job_index").val());
+
+            $("#work_experiences").append(
+                '<div class="work_experience  py-3 border-bottom">\n' +
+                '                <div class="form-group row">\n' +
+                '    <label for="job[' + index + '][company]" class="col-form-label col-sm-2">{{ __('enumerator.Company Name') }}<span style="color: #dc3545; font-weight:700">*</span></label>\n' +
+                '\n' +
+                '        <div class="col-sm-10">\n' +
+                '        <input class="form-control" required="required" name="job[' + index + '][company]" type="text" id="job[' + index + '][company]">\n' +
+                '\n' +
+                '        <span id="job[' + index + '][company]-error" class="invalid-feedback"></span>\n' +
+                '    </div>\n' +
+                '</div>\n' +
+                '\n' +
+                '                <div class="form-group row">\n' +
+                '    <label for="job[' + index + '][designation]" class="col-form-label col-sm-2">{{ __('enumerator.Designation') }}<span style="color: #dc3545; font-weight:700">*</span></label>\n' +
+                '\n' +
+                '        <div class="col-sm-10">\n' +
+                '        <input class="form-control" required="required" name="job[' + index + '][designation]" type="text" id="job[' + index + '][designation]">\n' +
+                '\n' +
+                '        <span id="job[' + index + '][designation]-error" class="invalid-feedback"></span>\n' +
+                '    </div>\n' +
+                '</div>\n' +
+                '\n' +
+                '\n' +
+                '                <div class="form-group row">\n' +
+                '    <label for="job[' + index + '][start_date]" class="col-form-label col-sm-2">{{ __('enumerator.Service Start Date') }}<span style="color: #dc3545; font-weight:700">*</span></label>\n' +
+                '\n' +
+                '        <div class="col-sm-10">\n' +
+                '        <input class="form-control" required="required" name="job[' + index + '][start_date]" type="date" id="job[' + index + '][start_date]">\n' +
+                '\n' +
+                '        <span id="job[' + index + '][start_date]-error" class="invalid-feedback"></span>\n' +
+                '    </div>\n' +
+                '</div>\n' +
+                '\n' +
+                '                <div class="form-group row">\n' +
+                '    <label for="job[' + index + '][end_date]" class="col-form-label col-sm-2">{{ __('enumerator.Service End Date') }}<span style="color: #dc3545; font-weight:700">*</span></label>\n' +
+                '\n' +
+                '        <div class="col-sm-10">\n' +
+                '        <input class="form-control" required="required" name="job[' + index + '][end_date]" type="date" id="job[' + index + '][end_date]">\n' +
+                '\n' +
+                '        <span id="job[' + index + '][end_date]-error" class="invalid-feedback"></span>\n' +
+                '    </div>\n' +
+                '</div>\n' +
+                '\n' +
+                '\n' +
+                '                <div class="form-group row">\n' +
+                '    <label for="job[' + index + '][responsibility]" class="col-form-label col-sm-2">{{ __('enumerator.Responsibility') }}<span style="color: #dc3545; font-weight:700">*</span></label>\n' +
+                '\n' +
+                '        <div class="col-sm-10">\n' +
+                '        <textarea class="form-control" rows="3" required="required" name="job[' + index + '][responsibility]" cols="50" id="job[' + index + '][responsibility]"></textarea>\n' +
+                '\n' +
+                '        <span id="job[' + index + '][responsibility]-error" class="invalid-feedback"></span>\n' +
+                '    </div>\n' +
+                '</div>\n' +
+                '\n' +
+                '</div>\n');
+
+            $("#job_index").val(++index);
         }
 
         $(document).ready(function () {
