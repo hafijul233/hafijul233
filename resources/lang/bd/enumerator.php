@@ -52,5 +52,11 @@ return [
     'Select a examination' => 'একটি পরীক্ষা নির্বাচন করুন',
     'Total Experience' => 'অভিজ্ঞতা',
     'Currently Working' => 'বর্তমানে সার্ভিসে আছেন',
-    'Applicant Registration' => 'আবেদনকারী নিবন্ধন'
+    'Applicant Registration' => 'আবেদনকারী নিবন্ধন',
+    'Basic Information' => 'মৌলিক তথ্য',
+    'Secondary Level Education (SSC/ O-Level/ Equivalent)' => 'মাধ্যমিক স্তরের শিক্ষা (এসএসসি/ও-লেভেল/সমমান)',
+    'Higher Secondary Level Education (HSC/ A-Level/ Equivalent)' => 'উচ্চ মাধ্যমিক স্তরের শিক্ষা (এইচএসসি/এ-লেভেল/সমমান)',
+    'Graduation or Equivalent Level' => 'স্নাতক বা সমমানের স্তর',
+    'Post-Graduation or Equivalent Level' => 'স্নাতকোত্তর বা সমমানের স্তর',
+    'Work Experience' => 'পেশাগত অভিজ্ঞতা',
 ];

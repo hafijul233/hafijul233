@@ -10,8 +10,8 @@
     @endif
     {{--Basic Information--}}
     <fieldset>
-        <legend class="border-bottom lead mb-3 py-2 ml-0 pxl-0">
-            <i class="fas fa-user-check"></i> Basic Information
+        <legend class="border-bottom lead mb-3 py-2 ml-0 pxl-0 font-weight-bold">
+            <i class="fas fa-user-check"></i> {!! __('enumerator.Basic Information') !!}
         </legend>
         {!! \Form::hSelect('survey_id', __('enumerator.Survey'), $surveys, old('survey_id', $enumerator->survey_id ?? null),
             true, 2, ['placeholder' => __("enumerator.Select a Survey Option")]) !!}
@@ -64,9 +64,9 @@
             });
         </script>
         <fieldset>
-            <legend class="border-bottom lead mb-3 py-2 ml-0 pxl-0">
+            <legend class="border-bottom lead mb-3 py-2 ml-0 pxl-0 font-weight-bold">
                 <i class="{!! $exam_level->icon ?? 'fas fa-school' !!}"></i>
-                {!! $exam_level->name !!}
+                {!! __('enumerator.' . $exam_level->name) !!}
             </legend>
             {!! \Form::hidden($exam_level->code . '_exam_level_id', $exam_level->id) !!}
             {!! \Form::hSelect($exam_level->code . '_exam_title_id', __('enumerator.Examination'),
@@ -107,7 +107,7 @@
     {{--Work Experience--}}
     <fieldset>
         <legend class="border-bottom lead mb-3 py-2 ml-0 pxl-0">
-            <i class="fas fa-user-cog"></i> Work Experience
+            <i class="fas fa-user-cog"></i> {!! __('enumerator.Work Experience') !!}
         </legend>
         <div class="work_experience">
             {!! \Form::hText('job_company', __('enumerator.Company Name'), old('job_company', $workQualification->company ?? null), true) !!}
@@ -121,7 +121,7 @@
     </fieldset>
 
     <div class="row mt-3">
-        <div class="col-12 justify-content-center d-flex">
+        <div class="col-12 justify-content-end d-flex">
             {!! \Form::nSubmit('submit', __('common.Save')) !!}
         </div>
     </div>
