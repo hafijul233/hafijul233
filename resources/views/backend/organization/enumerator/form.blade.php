@@ -1,7 +1,7 @@
 <div class="card-body">
     {{--Basic Information--}}
     <fieldset>
-        <legend class="border-bottom lead mb-3 py-2 ml-0 pxl-0">
+        <legend class="border-bottom lead mb-3 py-2 ml-0 pxl-0 font-weight-bold">
             <i class="fas fa-user-check"></i> {!! __('enumerator.Basic Information') !!}
         </legend>
         {!! \Form::hSelect('survey_id', __('enumerator.Survey'), $surveys, old('survey_id', $enumerator->survey_id ?? null),
@@ -55,7 +55,7 @@
             });
         </script>
         <fieldset>
-            <legend class="border-bottom lead mb-3 py-2 ml-0 pxl-0">
+            <legend class="border-bottom lead mb-3 py-2 ml-0 pxl-0 font-weight-bold">
                 <i class="{!! $exam_level->icon ?? 'fas fa-school' !!}"></i>
                 {!! __('enumerator.' . $exam_level->name) !!}
             </legend>
