@@ -50,8 +50,8 @@ class ExamLevelSeeder extends Seeder
             ],
             [
                 'id' => '5',
-                'name' => 'Extra-Curricular/ Optional or Equivalent Level ',
-                'icon' => '',
+                'name' => 'Extra-Curricular/ Optional or Equivalent Level',
+                'icon' => 'fas fa-book',
                 'code' => 'ext',
                 'remarks' => 'n/a',
                 'enabled' => Constant::ENABLED_OPTION

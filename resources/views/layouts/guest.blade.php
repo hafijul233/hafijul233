@@ -35,6 +35,7 @@
     @include('layouts.includes.plugin-script')
     <!-- AdminLTE App -->
     <script src="{{ asset('assets/js/adminlte.min.js') }}"></script>
+    <script src="{{ asset('assets/js/utility.min.js') }}"></script>
     <!-- inline js -->
     @include('layouts.includes.page-script')
     </body>

@@ -92,7 +92,7 @@
             @endif
 
             {!! \Form::hNumber($exam_level->code . '_pass_year', __('enumerator.Passing Year'),
-            old($exam_level->code . '_pass_year', $educationQualification->pass_year ?? null), true, ) !!}
+            old($exam_level->code . '_pass_year', $educationQualification->pass_year ?? null), true, 2, ['pattern' => '([0-9]{4})']) !!}
             {!! \Form::hNumber($exam_level->code . '_roll_number', __('enumerator.Roll Number'),
             old($exam_level->code . '_roll_number', $educationQualification->roll_number ?? null), true, ) !!}
 
@@ -489,10 +489,10 @@
 
             $("#exam_level").on('change', function () {
                 var value = $(this).val();
-                $(".exam_level").each(function () {
-                    $(this).hide();
-                });
 
+                $(".exam_level").each(function () {
+                    $(this).removeClass('d-none').removeClass('d-block').addClass('d-none');
+                });
                 $("#exam_level_" + value).addClass("d-block");
             });
         });
