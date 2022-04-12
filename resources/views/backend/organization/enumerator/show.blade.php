@@ -41,14 +41,14 @@
                             <legend class="border-bottom lead mb-3 py-2 ml-0 pxl-0">
                                 <i class="fas fa-user-check"></i> Basic Information
                             </legend>
-                            <div class="row">
-                                <div class="col-md-2">
-                                    <label class="font-weight-bold">{!!  __('enumerator.Survey') !!}</label>
-                                </div>
-                                <div class="col-md-10">
-                                    {!! $enumerator->survey->name  ?? '' !!}
-                                </div>
-                            </div>
+                            {{--                            <div class="row">
+                                                            <div class="col-md-2">
+                                                                <label class="font-weight-bold">{!!  __('enumerator.Survey') !!}</label>
+                                                            </div>
+                                                            <div class="col-md-10">
+                                                                {!! $enumerator->survey->name  ?? '' !!}
+                                                            </div>
+                                                        </div>--}}
                             <div class="row">
                                 <div class="col-md-2">
                                     <label class="font-weight-bold">{!!  __('enumerator.Name') !!}</label>
@@ -234,51 +234,81 @@
                                 <div class="col-12 table-responsive">
                                     <table class="table table-bordered table-hover">
                                         <thead class="thead-light">
-                                        <tr class="text-center font-weight-bold">
-                                            <th>{!!  __('enumerator.Company Name') !!}</th>
-                                            <th>{!!  __('enumerator.Designation') !!}</th>
-                                            <th> {!! __('enumerator.Service Start Date') !!}</th>
-                                            <th>{!! __('enumerator.Service End Date') !!}</th>
-                                            <th>{!! __('enumerator.Total Experience') !!}</th>
-                                            <th>{!! __('enumerator.Currently Working') !!}</th>
-                                            <th>{!! __('enumerator.Responsibility') !!}</th>
+                                        <tr class="text-center">
+                                            <th>#</th>
+                                            <th width="85%">Survey Name</th>
+                                            <th>Link</th>
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        @foreach($enumerator->workQualifications as $workQualification)
+                                        @forelse($enumerator->surveys as $index => $survey)
                                             <tr>
-                                                <th class="bg-light">{!! $workQualification->company ?? '' !!}</th>
-                                                <td>{!! $workQualification->designation   ?? '' !!}</td>
-                                                <td class="text-center">
-                                                    @if($workQualification->start_date != null)
-                                                        {!! $workQualification->start_date->format('d M, Y') !!}
-                                                    @else
-                                                        {!! 'N/A' !!}
-                                                    @endif
+                                                <th>
+                                                    {{ $index + 1 }}
+                                                </th>
+                                                <td>
+                                                    {{ $survey->name ?? null }}
                                                 </td>
-                                                <td class="text-center">
-                                                    @if($workQualification->end_date != null)
-                                                        {!! $workQualification->end_date->format('d M, Y') !!}
-                                                    @else
-                                                        {!! 'N/A' !!}
-                                                    @endif
+                                                <td><a class="btn btn-primary"
+                                                       href="{{ route('backend.organization.surveys.show', $survey->id ?? 0) }}">Details</a>
                                                 </td>
-                                                <td class="text-center">
-                                                    @php
-                                                        $endServiceDate = ($workQualification->end_date != null) ? $workQualification->end_date : \Carbon\Carbon::now();
-                                                    @endphp
-                                                    {!! str_replace(['after', 'before'], '', $endServiceDate->diffForHumans($workQualification->start_date)) !!}
-                                                </td>
-                                                <td class="text-center">
-                                                    {{ ($workQualification->end_date == null) ? 'Yes' : 'No' }}
-
-                                                </td>
-                                                <td>{!! $workQualification->responsibility ?? ''  !!}</td>
                                             </tr>
-                                        @endforeach
+                                        @empty
+                                            <tr>
+                                                <td colspan="3"> No Survey Available</td>
+                                            </tr>
+                                        @endforelse
                                         </tbody>
                                     </table>
                                 </div>
+                                {{--                                <div class="col-12 table-responsive">
+                                                                    <table class="table table-bordered table-hover">
+                                                                        <thead class="thead-light">
+                                                                        <tr class="text-center font-weight-bold">
+                                                                            <th>{!!  __('enumerator.Company Name') !!}</th>
+                                                                            <th>{!!  __('enumerator.Designation') !!}</th>
+                                                                            <th> {!! __('enumerator.Service Start Date') !!}</th>
+                                                                            <th>{!! __('enumerator.Service End Date') !!}</th>
+                                                                            <th>{!! __('enumerator.Total Experience') !!}</th>
+                                                                            <th>{!! __('enumerator.Currently Working') !!}</th>
+                                                                            <th>{!! __('enumerator.Responsibility') !!}</th>
+                                                                        </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                        @foreach($enumerator->workQualifications as $workQualification)
+                                                                            <tr>
+                                                                                <th class="bg-light">{!! $workQualification->company ?? '' !!}</th>
+                                                                                <td>{!! $workQualification->designation   ?? '' !!}</td>
+                                                                                <td class="text-center">
+                                                                                    @if($workQualification->start_date != null)
+                                                                                        {!! $workQualification->start_date->format('d M, Y') !!}
+                                                                                    @else
+                                                                                        {!! 'N/A' !!}
+                                                                                    @endif
+                                                                                </td>
+                                                                                <td class="text-center">
+                                                                                    @if($workQualification->end_date != null)
+                                                                                        {!! $workQualification->end_date->format('d M, Y') !!}
+                                                                                    @else
+                                                                                        {!! 'N/A' !!}
+                                                                                    @endif
+                                                                                </td>
+                                                                                <td class="text-center">
+                                                                                    @php
+                                                                                        $endServiceDate = ($workQualification->end_date != null) ? $workQualification->end_date : \Carbon\Carbon::now();
+                                                                                    @endphp
+                                                                                    {!! str_replace(['after', 'before'], '', $endServiceDate->diffForHumans($workQualification->start_date)) !!}
+                                                                                </td>
+                                                                                <td class="text-center">
+                                                                                    {{ ($workQualification->end_date == null) ? 'Yes' : 'No' }}
+
+                                                                                </td>
+                                                                                <td>{!! $workQualification->responsibility ?? ''  !!}</td>
+                                                                            </tr>
+                                                                        @endforeach
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>--}}
                             </div>
                         </fieldset>
                     </div>

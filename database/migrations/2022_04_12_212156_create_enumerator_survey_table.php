@@ -5,7 +5,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 
-class CreateEnumratorsSurveysTable extends Migration
+class CreateEnumeratorSurveyTable extends Migration
 {
     /**
      * Run the migrations.
@@ -18,7 +18,7 @@ class CreateEnumratorsSurveysTable extends Migration
         Schema::disableForeignKeyConstraints();
 
         //Table Structure
-        Schema::create('enumerators_surveys', function (Blueprint $table) {
+        Schema::create('enumerator_survey', function (Blueprint $table) {
             $table->foreignId('enumerator_id')->index()->nullable();
             $table->foreignId('survey_id')->index()->nullable();
         });
@@ -38,7 +38,7 @@ class CreateEnumratorsSurveysTable extends Migration
         Schema::disableForeignKeyConstraints();
 
         //Remove Table Structure
-        Schema::dropIfExists('enumerators_surveys');
+        Schema::dropIfExists('enumerator_survey');
 
         //Temporary Disable Foreign Key Constraints
         Schema::enableForeignKeyConstraints();

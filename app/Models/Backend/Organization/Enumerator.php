@@ -67,9 +67,9 @@ class Enumerator extends Model implements Auditable
 
     /************************ Audit Relations ************************/
 
-    public function survey()
+    public function surveys()
     {
-        return $this->belongsTo(Survey::class);
+        return $this->belongsToMany(Survey::class);
     }
 
     public function educationQualifications()
