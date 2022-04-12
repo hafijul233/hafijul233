@@ -32,6 +32,8 @@ class CreateEnumeratorsTable extends Migration
             $table->string('mobile_1')->nullable();
             $table->string('mobile_2')->nullable();
             $table->string('email')->nullable();
+            $table->string('whatsapp')->nullable();
+            $table->string('facebook')->nullable();
             $table->string('present_address')->nullable();
             $table->string('present_address_bd')->nullable();
             $table->string('permanent_address')->nullable();
