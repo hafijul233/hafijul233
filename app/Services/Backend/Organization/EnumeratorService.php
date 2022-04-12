@@ -229,7 +229,6 @@ class EnumeratorService extends Service
     {
         $newEnumeratorInfo = $this->formatEnumeratorInfo($inputs);
         $educationQualifications = $this->formatEducationQualification($inputs);
-        dd($newEnumeratorInfo, $educationQualifications);
         /*$workQualifications = $this->formatWorkQualification($inputs);*/
         DB::beginTransaction();
         try {

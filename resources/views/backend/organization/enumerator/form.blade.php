@@ -1,13 +1,4 @@
-<div class="card-body pt-0">
-    @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
+<div class="card-body">
     {{--Basic Information--}}
     <fieldset>
         <legend class="border-bottom lead mb-3 py-2 ml-0 pxl-0 font-weight-bold">
