@@ -39,7 +39,7 @@
                         {{--Basic Information--}}
                         <fieldset>
                             <legend class="border-bottom lead mb-3 py-2 ml-0 pxl-0">
-                                <i class="fas fa-user-check"></i> Basic Information
+                                <i class="fas fa-user-check"></i>  {!! __('enumerator.Basic Information') !!}
                             </legend>
                             {{--                            <div class="row">
                                                             <div class="col-md-2">
@@ -74,14 +74,14 @@
                                 </div>
                             </div>
 
-                            <div class="row">
-                                <div class="col-md-2">
-                                    <label class="font-weight-bold">{!!  __('enumerator.Father Name(Bangla)') !!}</label>
-                                </div>
-                                <div class="col-md-10">
-                                    {!! $enumerator->father_bd   ?? '' !!}
-                                </div>
-                            </div>
+                            {{--                            <div class="row">
+                                                            <div class="col-md-2">
+                                                                <label class="font-weight-bold">{!!  __('enumerator.Father Name(Bangla)') !!}</label>
+                                                            </div>
+                                                            <div class="col-md-10">
+                                                                {!! $enumerator->father_bd   ?? '' !!}
+                                                            </div>
+                                                        </div>--}}
                             <div class="row">
                                 <div class="col-md-2">
                                     <label class="font-weight-bold">{!! __('enumerator.Mother Name') !!}</label>
@@ -90,14 +90,14 @@
                                     {!! $enumerator->mother   ?? '' !!}
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-md-2">
-                                    <label class="font-weight-bold">{!! __('enumerator.Mother Name(Bangla)') !!}</label>
-                                </div>
-                                <div class="col-md-10">
-                                    {!! $enumerator->mother_bd   ?? '' !!}
-                                </div>
-                            </div>
+                            {{--                            <div class="row">
+                                                            <div class="col-md-2">
+                                                                <label class="font-weight-bold">{!! __('enumerator.Mother Name(Bangla)') !!}</label>
+                                                            </div>
+                                                            <div class="col-md-10">
+                                                                {!! $enumerator->mother_bd   ?? '' !!}
+                                                            </div>
+                                                        </div>--}}
                             <div class="row">
                                 <div class="col-md-2">
                                     <label class="font-weight-bold">{!! __('enumerator.NID Number') !!}</label>
@@ -124,28 +124,20 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-2">
-                                    <label class="font-weight-bold">{!! __('enumerator.Email') !!}</label>
-                                </div>
-                                <div class="col-md-10">
-                                    {!! $enumerator->email   ?? '' !!}
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-2">
                                     <label class="font-weight-bold">{!! __('enumerator.Present Address') !!}</label>
                                 </div>
                                 <div class="col-md-10">
                                     {!! $enumerator->present_address   ?? '' !!}
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-md-2">
-                                    <label class="font-weight-bold">{!! __('enumerator.Present Address(Bangla)') !!}</label>
-                                </div>
-                                <div class="col-md-10">
-                                    {!! $enumerator->present_address_bd   ?? '' !!}
-                                </div>
-                            </div>
+                            {{--                            <div class="row">
+                                                            <div class="col-md-2">
+                                                                <label class="font-weight-bold">{!! __('enumerator.Present Address(Bangla)') !!}</label>
+                                                            </div>
+                                                            <div class="col-md-10">
+                                                                {!! $enumerator->present_address_bd   ?? '' !!}
+                                                            </div>
+                                                        </div>--}}
 
                             <div class="row">
                                 <div class="col-md-2">
@@ -155,28 +147,53 @@
                                     {!! $enumerator->permanent_address   ?? '' !!}
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-md-2">
-                                    <label class="font-weight-bold">{!! __('enumerator.Permanent Address(Bangla)') !!}</label>
-                                </div>
-                                <div class="col-md-10">
-                                    {!! $enumerator->permanent_address_bd   ?? '' !!}
-                                </div>
-                            </div>
+                            {{--                            <div class="row">
+                                                            <div class="col-md-2">
+                                                                <label class="font-weight-bold">{!! __('enumerator.Permanent Address(Bangla)') !!}</label>
+                                                            </div>
+                                                            <div class="col-md-10">
+                                                                {!! $enumerator->permanent_address_bd   ?? '' !!}
+                                                            </div>
+                                                        </div>--}}
                             <div class="row">
                                 <div class="col-md-2">
                                     <label class="font-weight-bold">{!! __('enumerator.Gender') !!}</label>
                                 </div>
                                 <div class="col-md-10">
-                                    {!! $enumerator->gender->name   ?? '' !!}
+                                    {!! isset($enumerator->gender->name) ? __('setting.' .$enumerator->gender->name) : null !!}
                                 </div>
                             </div>
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <label class="font-weight-bold">{!! __('enumerator.Email') !!}</label>
+                                </div>
+                                <div class="col-md-10">
+                                    {!! $enumerator->email   ?? '' !!}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <label class="font-weight-bold">{!! __('enumerator.Whatsapp Number') !!}</label>
+                                </div>
+                                <div class="col-md-10">
+                                    {!! $enumerator->whatsapp   ?? '' !!}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <label class="font-weight-bold">{!! __('enumerator.Facebook ID') !!}</label>
+                                </div>
+                                <div class="col-md-10">
+                                    {!! $enumerator->facebook   ?? '' !!}
+                                </div>
+                            </div>
+
                         </fieldset>
                         {{-- Education Qualification --}}
                         <fieldset>
                             <legend class="border-bottom lead mb-3 py-2 ml-0 pxl-0">
                                 <i class="fas fa-graduation-cap"></i>
-                                Educational Qualification
+                                {{ __('enumerator.Highest Educational Qualification') }}
                             </legend>
                             <div class="row">
                                 <div class="col-12 table-responsive">
@@ -228,7 +245,7 @@
                         <fieldset>
                             <legend class="border-bottom lead mb-3 py-2 ml-0 pxl-0">
                                 <i class="fas fa-user-cog"></i>
-                                Work Qualification
+                                {!! __('enumerator.Work Experience') !!}
                             </legend>
                             <div class="row">
                                 <div class="col-12 table-responsive">
