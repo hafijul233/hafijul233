@@ -104,7 +104,7 @@ class ApplicantController extends Controller
      */
     public function create()
     {
-        $example_levels = $this->examLevelService->getAllExamLevels(['id_in' => [1, 2, 3, 4]]);
+        $example_levels = $this->examLevelService->getAllExamLevels(['id' => [1, 2, 3, 4]]);
 
         $exam_dropdown = [];
 
@@ -176,13 +176,22 @@ class ApplicantController extends Controller
         abort(403);
 
         if ($enumerator = $this->enumeratorService->getEnumeratorById($id)) {
+
+            $example_levels = $this->examLevelService->getAllExamLevels(['id' => [1, 2, 3, 4]]);
+
+            $exam_dropdown = [];
+
+            foreach ($example_levels as $level)
+                $exam_dropdown[$level->id] = __('enumerator.' . $level->name);
+
             return view('backend.organization.enumerator.edit', [
                 'enumerator' => $enumerator,
                 'surveys' => $this->surveyService->getSurveyDropDown(),
-                'genders' => $this->catalogService->getCatalogDropdown(['type' => Constant::CATALOG_TYPE['GENDER']]),
+                'genders' => $this->catalogService->getCatalogDropdown(['type' => Constant::CATALOG_TYPE['GENDER']], 'bn'),
                 'boards' => $this->catalogService->getCatalogDropdown(['type' => Constant::CATALOG_TYPE['BOARD']]),
                 'universities' => $this->instituteService->getInstituteDropDown(['exam_level_id' => 3]),
-                'exam_levels' => $this->examLevelService->getAllExamLevels(['id_in' => [1, 2, 3, 4]])
+                'exam_levels' => $example_levels,
+                'exam_dropdown' => $exam_dropdown,
             ]);
         }
 
