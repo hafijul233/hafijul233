@@ -1,4 +1,4 @@
-<div class="card-body">
+<div class="card-body pt-0">
     @if ($errors->any())
         <div class="alert alert-danger">
             <ul>
@@ -13,32 +13,31 @@
         <legend class="border-bottom lead mb-3 py-2 ml-0 pxl-0 font-weight-bold">
             <i class="fas fa-user-check"></i> {!! __('enumerator.Basic Information') !!}
         </legend>
-        {!! \Form::hSelect('survey_id', __('enumerator.Survey'), $surveys, old('survey_id', $enumerator->survey_id ?? null),
-            true, 2, ['placeholder' => __("enumerator.Select a Survey Option")]) !!}
-
         {!! \Form::hText('name', __('enumerator.Name'), old('name', $enumerator->name ?? null), true, 2,
         ['style' => 'text-transform: uppercase']) !!}
         {!! \Form::hText('name_bd', __('enumerator.Name(Bangla)'), old('name_bd', $enumerator->name_bd ?? null), true) !!}
+        {!!  \Form::hRadio('gender_id', __('enumerator.Gender'), $genders, 1, true) !!}
 
         {!! \Form::hText('father', __('enumerator.Father Name'), old('father', $enumerator->father ?? null), true) !!}
-        {!! \Form::hText('father_bd', __('enumerator.Father Name(Bangla)'), old('father_bd', $enumerator->father_bd ?? null), true) !!}
+        {{--        {!! \Form::hText('father_bd', __('enumerator.Father Name(Bangla)'), old('father_bd', $enumerator->father_bd ?? null), true) !!}--}}
 
         {!! \Form::hText('mother', __('enumerator.Mother Name'), old('mother', $enumerator->mother ?? null), true) !!}
-        {!! \Form::hText('mother_bd', __('enumerator.Mother Name(Bangla)'), old('mother_bd', $enumerator->mother_bd ?? null), true) !!}
+        {{--        {!! \Form::hText('mother_bd', __('enumerator.Mother Name(Bangla)'), old('mother_bd', $enumerator->mother_bd ?? null), true) !!}--}}
 
         {!! \Form::hNumber('nid', __('enumerator.NID Number'), old('nid', $enumerator->nid ?? null), true) !!}
+        {!! \Form::hTextarea('present_address', __('enumerator.Present Address'), old('present_address', $enumerator->present_address ?? null), true) !!}
+        {{--    {!! \Form::hTextarea('present_address_bd', __('enumerator.Present Address(Bangla)'), old('present_address_bd', $enumerator->present_address_bd ?? null), true) !!}--}}
+
+        {!! \Form::hTextarea('permanent_address', __('enumerator.Permanent Address'), old('permanent_address', $enumerator->permanent_address ?? null), true) !!}
+        {{--    {!! \Form::hTextarea('permanent_address_bd', __('enumerator.Permanent Address(Bangla)'), old('permanent_address_bd', $enumerator->permanent_address_bd ?? null), true) !!}--}}
 
         {!! \Form::hNumber('mobile_1', __('enumerator.Mobile 1'), old('mobile_1', $enumerator->mobile_1 ?? null), true) !!}
         {!! \Form::hNumber('mobile_2', __('enumerator.Mobile 2'), old('mobile_2', $enumerator->mobile_2 ?? null), true) !!}
         {!! \Form::hText('email', __('enumerator.Email'), old('email', $enumerator->email ?? null), true) !!}
 
-        {!! \Form::hTextarea('present_address', __('enumerator.Present Address'), old('present_address', $enumerator->present_address ?? null), true) !!}
-        {!! \Form::hTextarea('present_address_bd', __('enumerator.Present Address(Bangla)'), old('present_address_bd', $enumerator->present_address_bd ?? null), true) !!}
-
-        {!! \Form::hTextarea('permanent_address', __('enumerator.Permanent Address'), old('permanent_address', $enumerator->permanent_address ?? null), true) !!}
-        {!! \Form::hTextarea('permanent_address_bd', __('enumerator.Permanent Address(Bangla)'), old('permanent_address_bd', $enumerator->permanent_address_bd ?? null), true) !!}
-
-        {!!  \Form::hRadio('gender_id', __('enumerator.Gender'), $genders, 1, true) !!}
+        {!! \Form::hNumber('whatsapp', __('enumerator.Whatsapp Number'), old('whatsapp', $enumerator->whatsapp ?? null), true) !!}
+        {!! \Form::hText('facebook', __('enumerator.Facebook ID'), old('facebook', $enumerator->facebook ?? null), true) !!}
+        {!! \Form::hSelect('exam_level', __('enumerator.Highest Educational Qualification'), $exam_dropdown, old('exam_level', $enumerator->exam_level ?? null)) !!}
     </fieldset>
     <script>
         let examGroups = [];
@@ -63,7 +62,7 @@
                 exam_group_id: '{{ old($exam_level->code . '_exam_group_id', ($educationQualification->exam_group_id?? null)) }}'
             });
         </script>
-        <fieldset>
+        <fieldset id="exam_level_{{ $exam_level->id }}" class="d-none exam_level">
             <legend class="border-bottom lead mb-3 py-2 ml-0 pxl-0 font-weight-bold">
                 <i class="{!! $exam_level->icon ?? 'fas fa-school' !!}"></i>
                 {!! __('enumerator.' . $exam_level->name) !!}
@@ -109,41 +108,45 @@
         <legend class="border-bottom lead mb-3 py-2 ml-0 pxl-0 font-weight-bold">
             <i class="fas fa-user-cog"></i> {!! __('enumerator.Work Experience') !!}
         </legend>
-        @php $index = count(old('job', [])); @endphp
-        <input type="hidden" id="job_index" value="{{ $index+1 }}">
-        <div id="work_experiences">
-            @if($index > 0 )
-                @foreach(old('job') as $index => $workQualification)
-                    <div class="work_experience py-2 border-bottom">
-                        {!! \Form::hText("job[{$index}][company]", __('enumerator.Company Name'),  ($workQualification['company'] ?? null), true) !!}
-                        {!! \Form::hText("job[{$index}][designation]", __('enumerator.Designation'), ($workQualification['designation'] ?? null), true) !!}
+        {!! \Form::hCheckbox('survey_id', __('enumerator.Survey'), $surveys, old('survey_id', $enumerator->survey_id ?? []),
+    true, 2, ['placeholder' => __("enumerator.Select a Survey Option")]) !!}
+        {{--
+                @php $index = count(old('job', [])); @endphp
+                <input type="hidden" id="job_index" value="{{ $index+1 }}">
+                <div id="work_experiences">
+                    @if($index > 0 )
+                        @foreach(old('job') as $index => $workQualification)
+                            <div class="work_experience py-2 border-bottom">
+                                {!! \Form::hText("job[{$index}][company]", __('enumerator.Company Name'),  ($workQualification['company'] ?? null), true) !!}
+                                {!! \Form::hText("job[{$index}][designation]", __('enumerator.Designation'), ($workQualification['designation'] ?? null), true) !!}
 
-                        {!! \Form::hDate("job[{$index}][start_date]", __('enumerator.Service Start Date'), ($workQualification['start_date'] ?? null), true) !!}
-                        {!! \Form::hDate("job[{$index}][end_date]", __('enumerator.Service End Date'), ($workQualification['end_date'] ?? null), true) !!}
+                                {!! \Form::hDate("job[{$index}][start_date]", __('enumerator.Service Start Date'), ($workQualification['start_date'] ?? null), true) !!}
+                                {!! \Form::hDate("job[{$index}][end_date]", __('enumerator.Service End Date'), ($workQualification['end_date'] ?? null), true) !!}
 
-                        {!! \Form::hTextarea("job[{$index}][responsibility]", __('enumerator.Responsibility'), ($workQualification['responsibility'] ?? null), true) !!}
-                    </div>
-                @endforeach
-            @else
-                <div class="work_experience  py-2 border-bottom">
-                    {!! \Form::hText("job[{$index}][company]", __('enumerator.Company Name'),  ($workQualification['company'] ?? null), true) !!}
-                    {!! \Form::hText("job[{$index}][designation]", __('enumerator.Designation'), ($workQualification['designation'] ?? null), true) !!}
+                                {!! \Form::hTextarea("job[{$index}][responsibility]", __('enumerator.Responsibility'), ($workQualification['responsibility'] ?? null), true) !!}
+                            </div>
+                        @endforeach
+                    @else
+                        <div class="work_experience  py-2 border-bottom">
+                            {!! \Form::hText("job[{$index}][company]", __('enumerator.Company Name'),  ($workQualification['company'] ?? null), true) !!}
+                            {!! \Form::hText("job[{$index}][designation]", __('enumerator.Designation'), ($workQualification['designation'] ?? null), true) !!}
 
-                    {!! \Form::hDate("job[{$index}][start_date]", __('enumerator.Service Start Date'), ($workQualification['start_date'] ?? null), true) !!}
-                    {!! \Form::hDate("job[{$index}][end_date]", __('enumerator.Service End Date'), ($workQualification['end_date'] ?? null), true) !!}
+                            {!! \Form::hDate("job[{$index}][start_date]", __('enumerator.Service Start Date'), ($workQualification['start_date'] ?? null), true) !!}
+                            {!! \Form::hDate("job[{$index}][end_date]", __('enumerator.Service End Date'), ($workQualification['end_date'] ?? null), true) !!}
 
-                    {!! \Form::hTextarea("job[{$index}][responsibility]", __('enumerator.Responsibility'), ($workQualification['responsibility'] ?? null), true) !!}
+                            {!! \Form::hTextarea("job[{$index}][responsibility]", __('enumerator.Responsibility'), ($workQualification['responsibility'] ?? null), true) !!}
+                        </div>
+                    @endif
                 </div>
-            @endif
-        </div>
-        <div class="row mt-3">
-            <div class="col-12 justify-content-center d-flex">
-                <button class="btn btn-primary font-weight-bold" type="button"
-                        onclick="addMoreWorkExperience(this); return false;">
-                    <i class="fas fa-plus font-weight-bold"></i>&nbsp;&nbsp;{!! __('common.Add') !!}
-                </button>
-            </div>
-        </div>
+                <div class="row mt-3">
+                    <div class="col-12 justify-content-center d-flex">
+                        <button class="btn btn-primary font-weight-bold" type="button"
+                                onclick="addMoreWorkExperience(this); return false;">
+                            <i class="fas fa-plus font-weight-bold"></i>&nbsp;&nbsp;{!! __('common.Add') !!}
+                        </button>
+                    </div>
+                </div>
+        --}}
     </fieldset>
 
     <div class="row mt-3">
@@ -482,6 +485,15 @@
                 unhighlight: function (element, errorClass, validClass) {
                     $(element).removeClass('is-invalid').addClass('is-valid');
                 }
+            });
+
+            $("#exam_level").on('change', function () {
+                var value = $(this).val();
+                $(".exam_level").each(function () {
+                    $(this).hide();
+                });
+
+                $("#exam_level_" + value).addClass("d-block");
             });
         });
     </script>

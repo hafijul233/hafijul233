@@ -231,12 +231,17 @@ class CatalogService extends Service
      * @return array
      * @throws Exception
      */
-    public function getCatalogDropdown(array $filters = [])
+    public function getCatalogDropdown(array $filters = [], $translation = null)
     {
         $catalogs = $this->getAllCatalogs($filters);
         $catalogArray = [];
-        foreach ($catalogs as $catalog)
-            $catalogArray[$catalog->id] = $catalog->name;
+        if(is_null($translation)) {
+            foreach ($catalogs as $catalog)
+                $catalogArray[$catalog->id] = $catalog->name;
+        } else {
+            foreach ($catalogs as $catalog)
+                $catalogArray[$catalog->id] = __('setting.' .$catalog->name);
+        }
 
         return $catalogArray;
     }

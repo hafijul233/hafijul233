@@ -104,12 +104,20 @@ class ApplicantController extends Controller
      */
     public function create()
     {
+        $example_levels = $this->examLevelService->getAllExamLevels(['id_in' => [1, 2, 3, 4]]);
+
+        $exam_dropdown = [];
+
+        foreach ($example_levels as $level)
+            $exam_dropdown[$level->id] = __('enumerator.' . $level->name);
+
         return view('frontend.organization.applicant.create', [
             'surveys' => $this->surveyService->getSurveyDropDown(),
             'genders' => $this->catalogService->getCatalogDropdown(['type' => Constant::CATALOG_TYPE['GENDER']]),
             'boards' => $this->catalogService->getCatalogDropdown(['type' => Constant::CATALOG_TYPE['BOARD']]),
             'universities' => $this->instituteService->getInstituteDropDown(['exam_level_id' => 3]),
-            'exam_levels' => $this->examLevelService->getAllExamLevels(['id_in' => [1, 2, 3, 4]])
+            'exam_levels' => $example_levels,
+            'exam_dropdown' => $exam_dropdown,
         ]);
     }
 
@@ -120,12 +128,14 @@ class ApplicantController extends Controller
      * @return RedirectResponse
      * @throws Exception|\Throwable
      */
-    public function store(ApplicantRequest $request): RedirectResponse
+    public function store(Request $request): RedirectResponse
     {
-
         $inputs = $request->except('_token');
 
+        dd($inputs);
+
         $confirm = $this->enumeratorService->storeEnumerator($inputs);
+
         if ($confirm['status'] == true) {
             notify($confirm['message'], $confirm['level'], $confirm['title']);
             return redirect()->route('frontend.organization.applicants.create');

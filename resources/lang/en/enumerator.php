@@ -59,5 +59,9 @@ return [
     'Graduation or Equivalent Level' => 'Graduation or Equivalent Level',
     'Post-Graduation or Equivalent Level' => 'Post-Graduation or Equivalent Level',
     'Work Experience' => 'Work Experience',
+    'Whatsapp Number' => 'Whatsapp Number',
+    'Facebook ID' => 'Facebook ID',
+    'Highest Educational Qualification' => 'Highest Educational Qualification',
+
 
 ];
