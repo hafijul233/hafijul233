@@ -37,7 +37,7 @@
         {!! \Form::hNumber('whatsapp', __('enumerator.Whatsapp Number'), old('whatsapp', $enumerator->whatsapp ?? null), true) !!}
         {!! \Form::hText('facebook', __('enumerator.Facebook ID'), old('facebook', $enumerator->facebook ?? null), true) !!}
         {!! \Form::hSelect('exam_level', __('enumerator.Highest Educational Qualification'),$exam_dropdown,
-        old('exam_level', $enumerator->exam_level ?? null), true, 2, ['placeholder' => __('enumerator.Please select highest educational qualification')]) !!}
+        old('exam_level', $enumerator->exam_level ?? 2), true, 2, ['placeholder' => __('enumerator.Please select highest educational qualification')]) !!}
     </fieldset>
     <script>
         let examGroups = [];
@@ -264,7 +264,17 @@
             $("#job_index").val(++index);
         }
 
+        function toggleEducationPanel(value) {
+            if (!isNaN(value)) {
+                $(".exam_level").each(function () {
+                    $(this).removeClass('d-none').removeClass('d-block').addClass('d-none');
+                });
+                $("#exam_level_" + value).addClass("d-block");
+            }
+        }
+
         $(document).ready(function () {
+
             examGroups.forEach(function (item) {
                 getExamGroupDropdown(item.exam_level_id, item.exam_title_id, item.target_select, item.exam_group_id);
             });
@@ -489,12 +499,12 @@
 
             $("#exam_level").on('change', function () {
                 var value = $(this).val();
-
-                $(".exam_level").each(function () {
-                    $(this).removeClass('d-none').removeClass('d-block').addClass('d-none');
-                });
-                $("#exam_level_" + value).addClass("d-block");
+                toggleEducationPanel(value);
             });
+
+            if ($("#exam_level").val().length > 0) {
+                toggleEducationPanel($("#exam_level").val());
+            }
         });
     </script>
 @endpush
