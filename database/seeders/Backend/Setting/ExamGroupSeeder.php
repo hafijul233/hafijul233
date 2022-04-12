@@ -188,6 +188,7 @@ class ExamGroupSeeder extends Seeder
             ['name' => 'Dying Printing and Finishing', 'remarks' => 'n/a', 'enabled' => 'yes', 'exam_level_id' => '1', 'exam_title_id' => '5'],
             ['name' => 'Weaving', 'remarks' => 'n/a', 'enabled' => 'yes', 'exam_level_id' => '1', 'exam_title_id' => '5'],
             ['name' => 'Knitting', 'remarks' => 'n/a', 'enabled' => 'yes', 'exam_level_id' => '1', 'exam_title_id' => '5'],
+            ['name' => 'Others', 'remarks' => 'n/a', 'enabled' => 'yes', 'exam_level_id' => '5', 'exam_title_id' => '5'],
         ];
 
         foreach ($exam_groups as $exam_group):
