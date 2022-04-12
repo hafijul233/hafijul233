@@ -58,6 +58,7 @@ return [
     'Higher Secondary Level Education (HSC/ A-Level/ Equivalent)' => 'উচ্চ মাধ্যমিক স্তরের শিক্ষা (এইচএসসি/এ-লেভেল/সমমান)',
     'Graduation or Equivalent Level' => 'স্নাতক বা সমমানের স্তর',
     'Post-Graduation or Equivalent Level' => 'স্নাতকোত্তর বা সমমানের স্তর',
+    'Extra-Curricular/ Optional or Equivalent Level' => 'এক্সট্রা-কারিকুলার/ ঐচ্ছিক বা সমমানের স্তর',
     'Work Experience' => 'পেশাগত অভিজ্ঞতা',
     'Whatsapp Number' => 'হোয়াট্‌সঅ্যাপ নম্বর',
     'Facebook ID' => 'ফেসবুক আইডি',

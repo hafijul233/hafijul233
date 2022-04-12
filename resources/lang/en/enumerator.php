@@ -58,9 +58,10 @@ return [
     'Higher Secondary Level Education (HSC/ A-Level/ Equivalent)' => 'Higher Secondary Level Education (HSC/ A-Level/ Equivalent)',
     'Graduation or Equivalent Level' => 'Graduation or Equivalent Level',
     'Post-Graduation or Equivalent Level' => 'Post-Graduation or Equivalent Level',
+    'Extra-Curricular/ Optional or Equivalent Level' => 'Extra-Curricular/ Optional or Equivalent Level',
     'Work Experience' => 'Work Experience',
     'Whatsapp Number' => 'Whatsapp Number',
     'Facebook ID' => 'Facebook ID',
     'Highest Educational Qualification' => 'Highest Educational Qualification',
-    'Please select highest educational qualification' => 'Please select highest educational qualification',
+    'Please select highest educational qualification' => 'Please Select Highest Educational Qualification',
 ];

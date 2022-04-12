@@ -37,7 +37,7 @@
         {!! \Form::hNumber('whatsapp', __('enumerator.Whatsapp Number'), old('whatsapp', $enumerator->whatsapp ?? null), true) !!}
         {!! \Form::hText('facebook', __('enumerator.Facebook ID'), old('facebook', $enumerator->facebook ?? null), true) !!}
         {!! \Form::hSelect('exam_level', __('enumerator.Highest Educational Qualification'),$exam_dropdown,
-        old('exam_level', $enumerator->exam_level ?? null), true, 2, ['placeholder' => __('enumerator.Highest Educational Qualification')]) !!}
+        old('exam_level', $enumerator->exam_level ?? null), true, 2, ['placeholder' => __('enumerator.Please select highest educational qualification')]) !!}
     </fieldset>
     <script>
         let examGroups = [];
