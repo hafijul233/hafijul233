@@ -71,7 +71,7 @@ class UserRegisterSeeder extends Seeder
                 'mobile' => '01710534092',
                 'remarks' => 'Database Seeder',
                 'enabled' => Constant::ENABLED_OPTION,
-                'force_pass_reset' => true
+                'force_pass_reset' => false
             ];
 
             $newUser = $this->userRepository->create($newUser);
