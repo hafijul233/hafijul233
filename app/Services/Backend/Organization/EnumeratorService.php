@@ -5,7 +5,6 @@ namespace App\Services\Backend\Organization;
 use App\Abstracts\Service\Service;
 use App\Models\Backend\Organization\Enumerator;
 use App\Models\Backend\Organization\Enumerator\EducationQualification;
-use App\Models\Backend\Organization\Enumerator\WorkQualification;
 use App\Repositories\Eloquent\Backend\Organization\EnumeratorRepository;
 use App\Repositories\Eloquent\Backend\Setting\ExamLevelRepository;
 use App\Supports\Constant;
@@ -95,7 +94,7 @@ class EnumeratorService extends Service
     {
         $newEnumeratorInfo = $this->formatEnumeratorInfo($inputs);
         $educationQualifications = $this->formatEducationQualification($inputs);
-        $workQualifications = $this->formatWorkQualification($inputs);
+        /*$workQualifications = $this->formatWorkQualification($inputs);*/
 
         DB::beginTransaction();
         try {
@@ -108,12 +107,13 @@ class EnumeratorService extends Service
                     $tempQualification->save();
                 endforeach;
 
-                //handling Work Qualification
+                /*//handling Work Qualification
                 foreach ($workQualifications as $qualification):
                     $tempQualification = new WorkQualification($qualification);
                     $tempQualification->enumerator()->associate($newEnumerator);
                     $tempQualification->save();
-                endforeach;
+                endforeach;*/
+
                 DB::commit();
                 return ['status' => true, 'message' => __('New Enumerator Created'),
                     'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
@@ -139,25 +139,28 @@ class EnumeratorService extends Service
     private function formatEnumeratorInfo(array $inputs)
     {
         $enumeratorInfo = [];
-        $enumeratorInfo["survey_id"] = $inputs["survey_id"];
-        $enumeratorInfo["name"] = $inputs["name"];
-        $enumeratorInfo["name_bd"] = $inputs["name_bd"];
-        $enumeratorInfo["father"] = $inputs["father"];
-        $enumeratorInfo["father_bd"] = $inputs["father_bd"];
-        $enumeratorInfo["mother"] = $inputs["mother"];
-        $enumeratorInfo["mother_bd"] = $inputs["mother_bd"];
-        $enumeratorInfo["nid"] = $inputs["nid"];
-        $enumeratorInfo["mobile_1"] = $inputs["mobile_1"];
-        $enumeratorInfo["mobile_2"] = $inputs["mobile_2"];
-        $enumeratorInfo["email"] = $inputs["email"];
-        $enumeratorInfo["present_address"] = $inputs["present_address"];
-        $enumeratorInfo["present_address_bd"] = $inputs["present_address_bd"];
-        $enumeratorInfo["permanent_address"] = $inputs["permanent_address"];
-        $enumeratorInfo["permanent_address_bd"] = $inputs["permanent_address_bd"];
-        $enumeratorInfo["gender_id"] = $inputs["gender_id"];
+        $enumeratorInfo["survey_id"] = null;
+        $enumeratorInfo["name"] = $inputs["name"] ?? null;
+        $enumeratorInfo["name_bd"] = $inputs["name_bd"] ?? null;
+        $enumeratorInfo["father"] = $inputs["father"] ?? null;
+        $enumeratorInfo["father_bd"] = $inputs["father_bd"] ?? null;
+        $enumeratorInfo["mother"] = $inputs["mother"] ?? null;
+        $enumeratorInfo["mother_bd"] = $inputs["mother_bd"] ?? null;
+        $enumeratorInfo["nid"] = $inputs["nid"] ?? null;
+        $enumeratorInfo["mobile_1"] = $inputs["mobile_1"] ?? null;
+        $enumeratorInfo["mobile_2"] = $inputs["mobile_2"] ?? null;
+        $enumeratorInfo["email"] = $inputs["email"] ?? null;
+        $enumeratorInfo["present_address"] = $inputs["present_address"] ?? null;
+        $enumeratorInfo["present_address_bd"] = $inputs["present_address_bd"] ?? null;
+        $enumeratorInfo["permanent_address"] = $inputs["permanent_address"] ?? null;
+        $enumeratorInfo["permanent_address_bd"] = $inputs["permanent_address_bd"] ?? null;
+        $enumeratorInfo["exam_level"] = $inputs["exam_level"] ?? null;
+        $enumeratorInfo["whatsapp"] = $inputs["whatsapp"] ?? null;
+        $enumeratorInfo["facebook"] = $inputs["facebook"] ?? null;
 
         return $enumeratorInfo;
     }
+
     /**
      * Return formatted education qualification model collection
      *
@@ -167,7 +170,8 @@ class EnumeratorService extends Service
      */
     private function formatEducationQualification(array $inputs): array
     {
-        $examLevels = $this->examLevelRepository->getWith(['id_in' => [1, 2, 3, 4]]);
+        $examLevels = $this->examLevelRepository->getWith(['id' => $inputs['exam_level']]);
+
         $qualifications = [];
 
         foreach ($examLevels as $examLevel):
@@ -199,12 +203,12 @@ class EnumeratorService extends Service
         $qualifications = [];
 
         foreach ($inputs['job'] as $index => $input):
-        $qualifications[$index]["company"] = $input["company"] ?? null;
-        $qualifications[$index]["designation"] = $input["designation"] ?? null;
-        $qualifications[$index]["start_date"] = $input["start_date"] ?? null;
-        $qualifications[$index]["end_date"] = $input["end_date"] ?? null;
-        $qualifications[$index]["responsibility"] = $input["responsibility"] ?? null;
-        $qualifications[$index]["enabled"] = "yes";
+            $qualifications[$index]["company"] = $input["company"] ?? null;
+            $qualifications[$index]["designation"] = $input["designation"] ?? null;
+            $qualifications[$index]["start_date"] = $input["start_date"] ?? null;
+            $qualifications[$index]["end_date"] = $input["end_date"] ?? null;
+            $qualifications[$index]["responsibility"] = $input["responsibility"] ?? null;
+            $qualifications[$index]["enabled"] = "yes";
         endforeach;
 
         return $qualifications;
@@ -222,7 +226,7 @@ class EnumeratorService extends Service
     {
         $newEnumeratorInfo = $this->formatEnumeratorInfo($inputs);
         $educationQualifications = $this->formatEducationQualification($inputs);
-        $workQualifications = $this->formatWorkQualification($inputs);
+        /*$workQualifications = $this->formatWorkQualification($inputs);*/
         DB::beginTransaction();
         try {
             $enumerator = $this->enumeratorRepository->show($id);
@@ -237,14 +241,14 @@ class EnumeratorService extends Service
                         $tempQualification->save();
                     endforeach;
 
-                    //remove existing add models
+                    /*//remove existing add models
                     WorkQualification::where('enumerator_id', '=', $enumerator->id)->delete();
                     //load new ones
                     foreach ($workQualifications as $qualification):
                         $tempQualification = new WorkQualification($qualification);
                         $tempQualification->enumerator()->associate($enumerator);
                         $tempQualification->save();
-                    endforeach;
+                    endforeach;*/
 
                     DB::commit();
                     return ['status' => true, 'message' => __('Enumerator Info Updated'),

@@ -45,8 +45,12 @@ class ExamLevelRepository extends EloquentRepository
         if (!empty($filters['enabled'])) :
             $query->where('enabled', '=', $filters['enabled']);
         endif;
-        if (!empty($filters['id_in'])) :
-            $query->whereIn('id', $filters['id_in']);
+        if (!empty($filters['id'])) :
+            if (is_array($filters['id'])) :
+                $query->whereIn('id', $filters['id']);
+            else:
+                $query->where('id', '=', $filters['id']);
+            endif;
         endif;
 
         if (!empty($filters['sort']) && !empty($filters['direction'])) :
