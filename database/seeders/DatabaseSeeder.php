@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use Database\Seeders\Backend\Organization\EnumeratorSeeder;
 use Database\Seeders\Backend\Organization\SurveySeeder;
 use Database\Seeders\Backend\Setting\BoardSeeder;
 use Database\Seeders\Backend\Setting\CitySeeder;
@@ -46,7 +45,7 @@ class DatabaseSeeder extends Seeder
         $this->call(ExamGroupSeeder::class);
         $this->call(InstituteSeeder::class);
         $this->call(SurveySeeder::class);
-        $this->call(EnumeratorSeeder::class);
+/*        $this->call(EnumeratorSeeder::class);*/
         $this->call(UserRegisterSeeder::class);
         Model::reguard();
     }

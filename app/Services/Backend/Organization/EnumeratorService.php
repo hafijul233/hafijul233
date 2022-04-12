@@ -95,7 +95,7 @@ class EnumeratorService extends Service
         $newEnumeratorInfo = $this->formatEnumeratorInfo($inputs);
         $educationQualifications = $this->formatEducationQualification($inputs);
         /*$workQualifications = $this->formatWorkQualification($inputs);*/
-
+        dd($newEnumeratorInfo, $educationQualifications);
         DB::beginTransaction();
         try {
             $newEnumerator = $this->enumeratorRepository->create($newEnumeratorInfo);
@@ -226,6 +226,7 @@ class EnumeratorService extends Service
     {
         $newEnumeratorInfo = $this->formatEnumeratorInfo($inputs);
         $educationQualifications = $this->formatEducationQualification($inputs);
+        dd($newEnumeratorInfo, $educationQualifications);
         /*$workQualifications = $this->formatWorkQualification($inputs);*/
         DB::beginTransaction();
         try {
