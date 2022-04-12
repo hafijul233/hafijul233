@@ -28,13 +28,16 @@
             <div class="col-lg-12">
                 <div class="card card-default">
                     <div class="card-header border-bottom-0">
-                        <p class="mb-1 text-center font-weight-bold">Government of the People’s Republic of Bangladesh</p>
-                        <p class="mb-1 text-center">Bangladesh Bureau of Statistics</p>
-                        <p class="mb-1 text-center">NSDS Implementation Support Project</p>
-                        <p class="mb-1 text-center">Parishankhyan Bhaban (8th Floor, Block-B)</p>
-                        <p class="mb-1 text-center">E-27/A, Agargaon, Dhaka-1207</p>
-                        <p class="mb-1 text-center"><a href="https://www.bbs.gov.bd" style="text-decoration: underline">www.bbs.gov.bd</a></p>
-                        <h3 class="font-weight-bold text-center mt-3" style="text-decoration: underline">Database of Enumerators</h3>
+                        <h4 class="mb-1 text-center font-weight-bold">{!! __('common.Government of the People’s Republic of Bangladesh') !!}</h4>
+                        <h5 class="mb-1 text-center">{!! __('common.Bangladesh Bureau of Statistics') !!}</h5>
+                        <h5 class="mb-1 text-center">{!! __('common.NSDS Implementation Support Project') !!}</h5>
+                        <h5 class="mb-1 text-center">{!! __('common.Parishankhyan Bhaban (8th Floor, Block-B)') !!}</h5>
+                        <h5 class="mb-1 text-center">{!! __('common.E-27/A, Agargaon, Dhaka-1207') !!}</h5>
+                        <h5 class="mb-1 text-center">
+                            <a href="https://www.bbs.gov.bd" style="text-decoration: underline">www.bbs.gov.bd</a>
+                        </h5>
+                        <h3 class="font-weight-bold text-center mt-3"
+                            style="text-decoration: underline">{!! __('common.Database of Enumerators') !!}</h3>
                     </div>
                     {!! \Form::open(['route' => 'frontend.organization.applicants.store', 'id' => 'enumerator-form']) !!}
                     @include('frontend.organization.applicant.form')

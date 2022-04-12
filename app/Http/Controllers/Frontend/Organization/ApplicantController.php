@@ -113,7 +113,7 @@ class ApplicantController extends Controller
 
         return view('frontend.organization.applicant.create', [
             'surveys' => $this->surveyService->getSurveyDropDown(),
-            'genders' => $this->catalogService->getCatalogDropdown(['type' => Constant::CATALOG_TYPE['GENDER']]),
+            'genders' => $this->catalogService->getCatalogDropdown(['type' => Constant::CATALOG_TYPE['GENDER']], 'bn'),
             'boards' => $this->catalogService->getCatalogDropdown(['type' => Constant::CATALOG_TYPE['BOARD']]),
             'universities' => $this->instituteService->getInstituteDropDown(['exam_level_id' => 3]),
             'exam_levels' => $example_levels,

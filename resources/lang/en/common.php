@@ -32,5 +32,12 @@ return [
     'Email'  => 'Email',
     'Enabled' => 'Enabled',
     'Created' => 'Created',
-    'Remarks' => 'Remarks'
+    'Remarks' => 'Remarks',
+    'Government of the People’s Republic of Bangladesh' => 'Government of the People’s Republic of Banglades',
+    'Bangladesh Bureau of Statistics' => 'Bangladesh Bureau of Statistics',
+    'NSDS Implementation Support Project' => 'NSDS Implementation Support Project',
+    'Parishankhyan Bhaban (8th Floor, Block-B)' => 'Parishankhyan Bhaban (8th Floor, Block-B)',
+    'E-27/A, Agargaon, Dhaka-1207' => 'E-27/A, Agargaon, Dhaka-1207',
+    'Database of Enumerators' => 'Database of Enumerators',
+
 ];

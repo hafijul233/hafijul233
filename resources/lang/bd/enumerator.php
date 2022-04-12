@@ -61,6 +61,8 @@ return [
     'Work Experience' => 'পেশাগত অভিজ্ঞতা',
     'Whatsapp Number' => 'হোয়াট্‌সঅ্যাপ নম্বর',
     'Facebook ID' => 'ফেসবুক আইডি',
-    'Highest Educational Qualification' => 'সর্বোচ্চ শিক্ষাগত যোগ্যতা'
+    'Highest Educational Qualification' => 'সর্বোচ্চ শিক্ষাগত যোগ্যতা',
+    'Please select highest educational qualification' => 'সর্বোচ্চ শিক্ষাগত যোগ্যতা নির্বাচন করুন'
+
 
 ];

@@ -62,6 +62,5 @@ return [
     'Whatsapp Number' => 'Whatsapp Number',
     'Facebook ID' => 'Facebook ID',
     'Highest Educational Qualification' => 'Highest Educational Qualification',
-
-
+    'Please select highest educational qualification' => 'Please select highest educational qualification',
 ];
