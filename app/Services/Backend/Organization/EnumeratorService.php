@@ -106,6 +106,10 @@ class EnumeratorService extends Service
                     $tempQualification->save();
                 endforeach;
 
+                //handling Survey List
+                $newEnumerator->surveys()->attach($inputs['survey_id']);
+                $newEnumerator->save();
+
                 /*//handling Work Qualification
                 foreach ($workQualifications as $qualification):
                     $tempQualification = new WorkQualification($qualification);
@@ -240,6 +244,10 @@ class EnumeratorService extends Service
                         $tempQualification->enumerator()->associate($enumerator);
                         $tempQualification->save();
                     endforeach;
+
+                    //handling Survey List
+                    $enumerator->surveys()->sync($inputs['survey_id']);
+                    $enumerator->save();
 
                     /*//remove existing add models
                     WorkQualification::where('enumerator_id', '=', $enumerator->id)->delete();
