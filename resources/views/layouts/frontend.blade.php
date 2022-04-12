@@ -20,9 +20,11 @@
 @endpush
 
 @section('body')
-    <body class=" @yield('body-class') login-page pt-5">
+    <body class=" @yield('body-class') login-page">
 
     @include('layouts.includes.preloader')
+
+    @include('layouts.includes.translator')
 
     @yield('content')
 
