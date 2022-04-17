@@ -4,7 +4,6 @@ namespace App\Services\Backend\Organization;
 
 use App\Abstracts\Service\Service;
 use App\Models\Backend\Organization\Enumerator;
-use App\Models\Backend\Organization\Enumerator\EducationQualification;
 use App\Repositories\Eloquent\Backend\Organization\EnumeratorRepository;
 use App\Repositories\Eloquent\Backend\Setting\ExamLevelRepository;
 use App\Supports\Constant;
@@ -93,30 +92,13 @@ class EnumeratorService extends Service
     public function storeEnumerator(array $inputs): array
     {
         $newEnumeratorInfo = $this->formatEnumeratorInfo($inputs);
-        $educationQualifications = $this->formatEducationQualification($inputs);
-        /*$workQualifications = $this->formatWorkQualification($inputs);*/
         DB::beginTransaction();
         try {
             $newEnumerator = $this->enumeratorRepository->create($newEnumeratorInfo);
             if ($newEnumerator instanceof Enumerator) {
-                //handling Education Qualification
-                foreach ($educationQualifications as $qualification):
-                    $tempQualification = new EducationQualification($qualification);
-                    $tempQualification->enumerator()->associate($newEnumerator);
-                    $tempQualification->save();
-                endforeach;
-
                 //handling Survey List
                 $newEnumerator->surveys()->attach($inputs['survey_id']);
                 $newEnumerator->save();
-
-                /*//handling Work Qualification
-                foreach ($workQualifications as $qualification):
-                    $tempQualification = new WorkQualification($qualification);
-                    $tempQualification->enumerator()->associate($newEnumerator);
-                    $tempQualification->save();
-                endforeach;*/
-
                 DB::commit();
                 return ['status' => true, 'message' => __('New Enumerator Created'),
                     'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
@@ -144,6 +126,7 @@ class EnumeratorService extends Service
         $enumeratorInfo = [];
         $enumeratorInfo["survey_id"] = null;
         $enumeratorInfo["gender_id"] = $inputs['gender_id'] ?? null;
+        $enumeratorInfo["dob"] = $inputs['dob'] ?? null;
         $enumeratorInfo["name"] = $inputs["name"] ?? null;
         $enumeratorInfo["name_bd"] = $inputs["name_bd"] ?? null;
         $enumeratorInfo["father"] = $inputs["father"] ?? null;
@@ -229,35 +212,14 @@ class EnumeratorService extends Service
     public function updateEnumerator(array $inputs, $id): array
     {
         $newEnumeratorInfo = $this->formatEnumeratorInfo($inputs);
-        $educationQualifications = $this->formatEducationQualification($inputs);
-        /*$workQualifications = $this->formatWorkQualification($inputs);*/
         DB::beginTransaction();
         try {
             $enumerator = $this->enumeratorRepository->show($id);
             if ($enumerator instanceof Enumerator) {
                 if ($this->enumeratorRepository->update($newEnumeratorInfo, $id)) {
-                    //remove existing add models
-                    EducationQualification::where('enumerator_id', '=', $enumerator->id)->delete();
-                    //load new ones
-                    foreach ($educationQualifications as $qualification):
-                        $tempQualification = new EducationQualification($qualification);
-                        $tempQualification->enumerator()->associate($enumerator);
-                        $tempQualification->save();
-                    endforeach;
-
                     //handling Survey List
                     $enumerator->surveys()->sync($inputs['survey_id']);
                     $enumerator->save();
-
-                    /*//remove existing add models
-                    WorkQualification::where('enumerator_id', '=', $enumerator->id)->delete();
-                    //load new ones
-                    foreach ($workQualifications as $qualification):
-                        $tempQualification = new WorkQualification($qualification);
-                        $tempQualification->enumerator()->associate($enumerator);
-                        $tempQualification->save();
-                    endforeach;*/
-
                     DB::commit();
                     return ['status' => true, 'message' => __('Enumerator Info Updated'),
                         'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
