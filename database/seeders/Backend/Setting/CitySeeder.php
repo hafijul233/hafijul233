@@ -21,11 +21,9 @@ class CitySeeder extends Seeder
 
         DB::beginTransaction();
         try {
-            DB::disableQueryLog();
             DB::table('cities')->truncate();
             DB::unprepared(file_get_contents(__DIR__ . '/cities/019.sql'));
             DB::commit();
-            DB::enableQueryLog();
         } catch (\PDOException $exception) {
             DB::rollBack();
             throw new \PDOException($exception->getMessage());
