@@ -28,7 +28,7 @@
 
 @section('actions')
     {!! \Html::linkButton(__('enumerator.Add Enumerator'), 'backend.organization.enumerators.create', [], 'fas fa-plus', 'success') !!}
-    {{--{!! \Html::bulkDropdown('backend.organization.enumerators', 0, ['color' => 'warning']) !!}--}}
+    {!! \Html::bulkDropdown('backend.organization.enumerators', 0, ['color' => 'warning']) !!}
 @endsection
 
 @section('content')
@@ -49,8 +49,9 @@
                                             @sortablelink('id', '#')
                                         </th>
                                         <th>@sortablelink('name', __('common.Name'))</th>
-                                        <th>@sortablelink('name', __('common.Mobile'))</th>
-                                        <th>@sortablelink('name', __('common.Email'))</th>
+                                        <th>@sortablelink('mobile_1', __('common.Mobile'))</th>
+                                        <th>@sortablelink('email', __('common.Email'))</th>
+                                        <th>@sortablelink('whatsapp', __('enumerator.Whatsapp Number'))</th>
                                         <th class="text-center">@sortablelink('created_at', __('common.Created'))</th>
                                         <th class="text-center">{!! __('common.Actions') !!}</th>
                                     </tr>
@@ -64,10 +65,13 @@
                                             <td class="text-left">
                                                 @can('backend.organization.enumerators.show')
                                                     <a href="{{ route('backend.organization.enumerators.show', $enumerator->id) }}">
-                                                        {{ $enumerator->name }}
+                                                        {{ $enumerator->name }}<br>
+                                                        {!!  $enumerator->name_bd !!}
+
                                                     </a>
                                                 @else
-                                                    {{ $enumerator->name }}
+                                                    {{ $enumerator->name }}<br>
+                                                    {!!  $enumerator->name_bd !!}
                                                 @endcan
                                             </td>
                                             <td>
@@ -76,6 +80,10 @@
                                             <td>
                                                 {{ $enumerator->email }}
                                             </td>
+                                            <td>
+                                                {{ $enumerator->whatsapp }}
+                                            </td>
+
                                             <td class="text-center">{{ $enumerator->created_at->format(config('backend.datetime')) ?? '' }}</td>
                                             <td class="exclude-search pr-3 text-center align-middle">
                                                 {!! \Html::actionDropdown('backend.organization.enumerators', $enumerator->id, array_merge(['show', 'edit'], ($enumerator->deleted_at == null) ? ['delete'] : ['restore'])) !!}
