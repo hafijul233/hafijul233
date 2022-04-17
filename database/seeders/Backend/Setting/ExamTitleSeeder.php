@@ -60,7 +60,9 @@ class ExamTitleSeeder extends Seeder
             ['name' => 'MBS', 'remarks' => 'n/a', 'enabled' => 'yes', 'exam_level_id' => '4'],
             ['name' => 'ME/Mtech', 'remarks' => 'n/a', 'enabled' => 'yes', 'exam_level_id' => '4'],
             ['name' => 'Mmed', 'remarks' => 'n/a', 'enabled' => 'yes', 'exam_level_id' => '4'],
-            ['name' => 'Others', 'remarks' => 'n/a', 'enabled' => 'yes', 'exam_level_id' => '4']
+            ['name' => 'Others', 'remarks' => 'n/a', 'enabled' => 'yes', 'exam_level_id' => '4'],
+            ['name' => 'Others', 'remarks' => 'n/a', 'enabled' => 'yes', 'exam_level_id' => '5'],
+
         ];
 
         foreach ($exam_titles as $exam_title):
