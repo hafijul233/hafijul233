@@ -17,7 +17,7 @@
         {!! \Form::hText('email', __('enumerator.Email'), old('email', $enumerator->email ?? null), true, 3) !!}
         {!! \Form::hNumber('whatsapp', __('enumerator.Whatsapp Number'), old('whatsapp', $enumerator->whatsapp ?? null), true, 3) !!}
         {!! \Form::hUrl('facebook', __('enumerator.Facebook ID'), old('facebook', $enumerator->facebook ?? null), true, 3) !!}
-        {!! \Form::hCheckbox('survey_id', __('enumerator.Survey'), $surveys, old('survey_id', $enumerator->surveys->pluck('id')->toArray() ?? []),
+        {!! \Form::hCheckbox('survey_id', __('enumerator.Survey'), $surveys, old('survey_id', (isset($enumerator) ? $enumerator->surveys->pluck('id')->toArray() : [])),
     true, 3, ['placeholder' => __("enumerator.Select a Survey Option")]) !!}
         <div class="row mt-3">
             <div class="col-12 justify-content-end d-flex">
@@ -38,207 +38,81 @@
                     },
                     "name": {
                         required: true,
-                        minLength: 2,
-                        maxLength: 255,
+                        minlength: 2,
+                        maxlength: 255,
                         nametitle: true
                     },
-                    "name_bd":
-                        {
-                            required: true,
-                            minLength: 2,
-                            maxLength: 255
+                    "name_bd": {
+                        required: true,
+                        minlength: 2,
+                        maxlength: 255,
+                        nametitle: true
+                    },
+                    "father": {
+                        required: true,
+                        minlength: 2,
+                        maxlength: 255,
+                        nametitle: true
+                    },
+                    "mother": {
+                        required: true,
+                        minlength: 2,
+                        maxlength: 255,
+                        nametitle: true
+                    },
+                    "nid": {
+                        required: true,
+                        digits: true
+                    },
+                    "mobile_1": {
+                        required: true,
+                        digits: true,
+                        mobilenumber: true
+                    },
+                    "mobile_2": {
+                        required: true,
+                        digits: true,
+                        mobilenumber: true
+                    },
+                    "email": {
+                        required: true
+                    },
+                    "whatsapp": {
+                        required: true,
+                        digits: true,
+                        mobilenumber: true
+                    },
 
+                    "present_address": {
+                        required: true
+                    },
+                    "permanent_address": {
+                        required: true
+                    },
+                    "gender_id": {
+                        required: true,
+                        digits: true
+                    },
+                    "exam_level": {
+                        required: true,
+                        digits: true
+                    },
+                    dob : {
+                        required: true,
+                        regex: "[0-9]{4}-[0-9]{2}-[0-9]{2}",
+                        maxDate: function () {
+                            return '{{ date('Y-m-d') }}';
                         },
-                    "father":
-                        {
-                            required: true
+                        minDate: function () {
+                            return '{{ date('Y-m-d', strtotime('-65 years')) }}';
                         },
-                    "father_bd":
-                        {
-                            required: true
-                        },
-                    "mother":
-                        {
-                            required: true
-                        },
-                    "mother_bd":
-                        {
-                            required: true
-                        },
-                    "nid":
-                        {
-                            required: true,
-                        },
-                    "mobile_1":
-                        {
-                            required: true,
-                        },
-                    "mobile_2":
-                        {
-                            required: true,
-                        },
-                    "email":
-                        {
-                            required: true,
-                        },
-                    "present_address":
-                        {
-                            required: true
-                        },
-                    "present_address_bd":
-                        {
-                            required: true
-                        },
-                    "permanent_address":
-                        {
-                            required: true
-                        },
-                    "permanent_address_bd":
-                        {
-                            required: true
-                        },
-                    "gender_id":
-                        {
-                            required: true,
-                        },
-                    "ssc_exam_title_id":
-                        {
-                            required: true,
-                        },
-                    "ssc_board_id":
-                        {
-                            required: true,
-                        },
-                    "ssc_group_id":
-                        {
-                            required: true,
-                        },
-                    "ssc_pass_year":
-                        {
-                            required: true,
-                        },
-                    "ssc_roll_number":
-                        {
-                            required: true,
-                        },
-                    "ssc_grade_type":
-                        {
-                            required: true,
-                        },
-                    "ssc_grade_point":
-                        {
-                            required: true
-                        },
-                    "hsc_exam_title_id":
-                        {
-                            required: true,
-                        },
-                    "hsc_board_id":
-                        {
-                            required: true,
-                        },
-                    "hsc_group_id":
-                        {
-                            required: true,
-                        },
-                    "hsc_pass_year":
-                        {
-                            required: true,
-                        },
-                    "hsc_roll_number":
-                        {
-                            required: true,
-                        }
-                    ,
-                    "hsc_grade_type":
-                        {
-                            required: true,
-                        },
-                    "hsc_grade_point":
-                        {
-                            required: true
-                        },
-                    "gra_exam_title_id":
-                        {
-                            required: true,
-                        },
-                    "gra_institute_id":
-                        {
-                            required: true,
-                        },
-                    "gra_group_id":
-                        {
-                            required: true,
-                        },
-                    "gra_pass_year":
-                        {
-                            required: true,
-                        },
-                    "gra_roll_number":
-                        {
-                            required: true,
-                        },
-                    "gra_grade_type":
-                        {
-                            required: true,
-                        },
-                    "gra_grade_point":
-                        {
-                            required: true
-                        },
-                    "mas_exam_title_id":
-                        {
-                            required: true,
-                        },
-                    "mas_institute_id":
-                        {
-                            required: true,
-                        },
-                    "mas_group_id":
-                        {
-                            required: true,
-                        },
-                    "mas_pass_year":
-                        {
-                            required: true,
-                        },
-                    "mas_roll_number":
-                        {
-                            required: true,
-                        },
-                    "mas_grade_type":
-                        {
-                            required: true,
-                        },
-                    "mas_grade_point":
-                        {
-                            required: true
-                        },
-                    "job_company_name":
-                        {
-                            required: true
-                        },
-                    "job_designation":
-                        {
-                            required: true
-                        },
-                    "job_start_date":
-                        {
-                            required: true
-                        },
-                    "job_end_date":
-                        {
-                            required: true
-                        },
-                    "job_responsibility":
-                        {
-                            required: true
-                        }
+
+                    }
                 },
                 errorElement: 'span',
                 errorPlacement: function (error, element) {
-                    error.addClass('invalid-feedback');
-                    element.closest('.form-group').append(error);
+                    error.addClass('text-danger');
+                    element.siblings("span").append(error);
                 },
                 highlight: function (element, errorClass, validClass) {
                     $(element).removeClass('is-valid').addClass('is-invalid');
