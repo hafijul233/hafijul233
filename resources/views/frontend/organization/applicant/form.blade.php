@@ -105,9 +105,9 @@
     @endforeach--}}
     {{--Work Experience--}}
     <fieldset>
-        <legend class="border-bottom lead mb-3 py-2 ml-0 pxl-0 font-weight-bold">
+{{--        <legend class="border-bottom lead mb-3 py-2 ml-0 pxl-0 font-weight-bold">
             <i class="fas fa-user-cog"></i> {!! __('enumerator.Work Experience') !!}
-        </legend>
+        </legend>--}}
         {!! \Form::hCheckbox('survey_id', __('enumerator.Survey'), $surveys, old('survey_id', $enumerator->survey_id ?? []),
     true, 2, ['placeholder' => __("enumerator.Select a Survey Option")]) !!}
         {{--
