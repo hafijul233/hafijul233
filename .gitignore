@@ -13,7 +13,6 @@ npm-debug.log
 yarn-error.log
 /.idea
 /.vscode
-composer.lock
 .gitmodules
 route.txt
 /Database/Seeders/Setting/mysql.php
