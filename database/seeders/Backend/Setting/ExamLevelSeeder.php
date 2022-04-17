@@ -18,7 +18,7 @@ class ExamLevelSeeder extends Seeder
         $exam_levels = [
             [
                 'id' => '1',
-                'name' => 'Secondary Level Education (SSC/ O-Level/ Equivalent)',
+                'name' => 'SSC or Equivalent',
                 'icon' => 'fas fa-school',
                 'code' => 'ssc',
                 'remarks' => 'n/a',
@@ -26,7 +26,7 @@ class ExamLevelSeeder extends Seeder
             ],
             [
                 'id' => '2',
-                'name' => 'Higher Secondary Level Education (HSC/ A-Level/ Equivalent)',
+                'name' => 'HSC or Equivalent',
                 'icon' => 'fas fa-laptop-code',
                 'code' => 'hsc',
                 'remarks' => 'n/a',
@@ -34,7 +34,7 @@ class ExamLevelSeeder extends Seeder
             ],
             [
                 'id' => '3',
-                'name' => 'Graduation or Equivalent Level',
+                'name' => 'Graduation or Equivalent',
                 'icon' => 'fas fa-graduation-cap',
                 'code' => 'gra',
                 'remarks' => 'n/a',
@@ -42,7 +42,7 @@ class ExamLevelSeeder extends Seeder
             ],
             [
                 'id' => '4',
-                'name' => 'Post-Graduation or Equivalent Level',
+                'name' => 'Post-Graduation or Equivalent',
                 'icon' => 'fas fa-chalkboard-teacher',
                 'code' => 'mas',
                 'remarks' => 'n/a',
@@ -50,7 +50,7 @@ class ExamLevelSeeder extends Seeder
             ],
             [
                 'id' => '5',
-                'name' => 'Extra-Curricular/ Optional or Equivalent Level',
+                'name' => 'Extra-Curricular/ Optional or Equivalent',
                 'icon' => 'fas fa-book',
                 'code' => 'ext',
                 'remarks' => 'n/a',
