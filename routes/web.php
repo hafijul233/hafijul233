@@ -189,9 +189,9 @@ Route::prefix('backend')->group(function () {
             Route::prefix('users')->name('users.')->group(function () {
                 Route::patch('{user}/restore', [UserController::class, 'restore'])->name('restore');
                 Route::get('export', [UserController::class, 'export'])->name('export');
-                Route::get('import', [UserController::class, 'import'])->name('import');
+/*                Route::get('import', [UserController::class, 'import'])->name('import');
                 Route::post('import', [UserController::class, 'importBulk']);
-                Route::post('print', [UserController::class, 'print'])->name('print');
+                Route::post('print', [UserController::class, 'print'])->name('print');*/
             });
             Route::resource('users', UserController::class)->where(['user' => '([0-9]+)']);
 
@@ -199,9 +199,9 @@ Route::prefix('backend')->group(function () {
             Route::prefix('permissions')->name('permissions.')->group(function () {
                 Route::patch('{permission}/restore', [PermissionController::class, 'restore'])->name('restore');
                 Route::get('/export', [PermissionController::class, 'export'])->name('export');
-                Route::get('/import', [PermissionController::class, 'import'])->name('import');
+/*                Route::get('/import', [PermissionController::class, 'import'])->name('import');
                 Route::post('/import', [PermissionController::class, 'importBulk']);
-                Route::post('/print', [PermissionController::class, 'print'])->name('print');
+                Route::post('/print', [PermissionController::class, 'print'])->name('print');*/
             });
             Route::resource('permissions', PermissionController::class)->where(['permission' => '([0-9]+)']);
 
@@ -210,9 +210,9 @@ Route::prefix('backend')->group(function () {
                 Route::patch('{role}/restore', [RoleController::class, 'restore'])->name('restore');
                 Route::get('permission', [RoleController::class, 'permission'])->name('permission');
                 Route::get('export', [RoleController::class, 'export'])->name('export');
-                Route::get('import', [RoleController::class, 'import'])->name('import');
+/*                Route::get('import', [RoleController::class, 'import'])->name('import');
                 Route::post('import', [RoleController::class, 'importBulk']);
-                Route::post('print', [RoleController::class, 'print'])->name('print');
+                Route::post('print', [RoleController::class, 'print'])->name('print');*/
                 Route::get('ajax', [RoleController::class, 'ajax'])->name('ajax')->middleware('ajax');
             });
             Route::resource('roles', RoleController::class)->where(['role' => '([0-9]+)']);
@@ -221,8 +221,8 @@ Route::prefix('backend')->group(function () {
             Route::prefix('catalogs')->name('catalogs.')->group(function () {
                 Route::patch('{catalog}/restore', [CatalogController::class, 'restore'])->name('restore');
                 Route::get('export', [CatalogController::class, 'export'])->name('export');
-                Route::get('import', [CatalogController::class, 'import'])->name('import');
-                Route::post('print', [CatalogController::class, 'print'])->name('print');
+/*                Route::get('import', [CatalogController::class, 'import'])->name('import');
+                Route::post('print', [CatalogController::class, 'print'])->name('print');*/
                 Route::get('ajax', [CatalogController::class, 'ajax'])->name('ajax')->middleware('ajax');
             });
             Route::resource('catalogs', CatalogController::class)->where(['catalog' => '([0-9]+)']);
@@ -231,8 +231,8 @@ Route::prefix('backend')->group(function () {
             Route::prefix('countries')->name('countries.')->group(function () {
                 Route::patch('{country}/restore', [CountryController::class, 'restore'])->name('restore');
                 Route::get('export', [CountryController::class, 'export'])->name('export');
-                Route::get('import', [CountryController::class, 'import'])->name('import');
-                Route::post('import', [CountryController::class, 'importBulk']);
+/*                Route::get('import', [CountryController::class, 'import'])->name('import');
+                Route::post('import', [CountryController::class, 'importBulk']);*/
                 Route::post('print', [CountryController::class, 'print'])->name('print');
             });
             Route::resource('countries', CountryController::class)->where(['country' => '([0-9]+)']);
@@ -241,9 +241,9 @@ Route::prefix('backend')->group(function () {
             Route::prefix('states')->name('states.')->group(function () {
                 Route::patch('{state}/restore', [StateController::class, 'restore'])->name('restore');
                 Route::get('/export', [StateController::class, 'export'])->name('export');
-                Route::get('/import', [StateController::class, 'import'])->name('import');
+/*                Route::get('/import', [StateController::class, 'import'])->name('import');
                 Route::post('/import', [StateController::class, 'importBulk']);
-                Route::post('/print', [StateController::class, 'print'])->name('print');
+                Route::post('/print', [StateController::class, 'print'])->name('print');*/
                 Route::get('ajax', [StateController::class, 'ajax'])->name('ajax')->middleware('ajax');
             });
             Route::resource('states', StateController::class)->where(['state' => '([0-9]+)']);
@@ -252,9 +252,9 @@ Route::prefix('backend')->group(function () {
             Route::prefix('cities')->name('cities.')->group(function () {
                 Route::patch('{city}/restore', [CityController::class, 'restore'])->name('restore');
                 Route::get('export', [CityController::class, 'export'])->name('export');
-                Route::get('import', [CityController::class, 'import'])->name('import');
+/*                Route::get('import', [CityController::class, 'import'])->name('import');
                 Route::post('import', [CityController::class, 'importBulk']);
-                Route::post('print', [CityController::class, 'print'])->name('print');
+                Route::post('print', [CityController::class, 'print'])->name('print');*/
                 Route::get('ajax', [CityController::class, 'ajax'])->name('ajax')->middleware('ajax');
             });
             Route::resource('cities', CityController::class)->where(['city' => '([0-9]+)']);
