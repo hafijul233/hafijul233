@@ -33,7 +33,7 @@ return [
     'Enabled' => 'Enabled',
     'Created' => 'Created',
     'Remarks' => 'Remarks',
-    'Government of the People’s Republic of Bangladesh' => 'Government of the People’s Republic of Banglades',
+    'Government of the People’s Republic of Bangladesh' => 'Government of the People’s Republic of Bangladesh',
     'Bangladesh Bureau of Statistics' => 'Bangladesh Bureau of Statistics',
     'NSDS Implementation Support Project' => 'NSDS Implementation Support Project',
     'Parishankhyan Bhaban (8th Floor, Block-B)' => 'Parishankhyan Bhaban (8th Floor, Block-B)',

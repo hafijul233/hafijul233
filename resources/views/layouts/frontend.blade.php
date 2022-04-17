@@ -20,7 +20,7 @@
 @endpush
 
 @section('body')
-    <body class=" @yield('body-class') login-page">
+    <body class=" @yield('body-class') login-page" style="font-family: @if(session()->get('locale') == 'bd') 'SolaimanLipi' @else 'Times New Roman' @endif !important;">
 
     @include('layouts.includes.preloader')
 
