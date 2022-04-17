@@ -102,7 +102,7 @@ class Constant
     /**
      * Default profile display image is user image is missing
      */
-    const USER_PROFILE_IMAGE = '/assets/img/AdminLTELogo.png';
+    const USER_PROFILE_IMAGE = 'assets/img/logo.png';
 
     /**
      * Default Logged User Redirect Route
