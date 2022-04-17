@@ -177,9 +177,6 @@ Route::prefix('backend')->group(function () {
             Route::prefix('enumerators')->name('enumerators.')->group(function () {
                 Route::patch('{survey}/restore', [EnumeratorController::class, 'restore'])->name('restore');
                 Route::get('export', [EnumeratorController::class, 'export'])->name('export');
-                Route::get('import', [EnumeratorController::class, 'import'])->name('import');
-                Route::post('import', [EnumeratorController::class, 'importBulk']);
-                Route::post('print', [EnumeratorController::class, 'print'])->name('print');
             });
             Route::resource('enumerators', EnumeratorController::class)->where(['enumerator' => '([0-9]+)']);
 
