@@ -17,3 +17,7 @@ use Illuminate\Support\Facades\Artisan;
 Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
 })->purpose('Display an inspiring quote');
+
+Artisan::command('cache-clear', function () {
+    $this->comment(Artisan::call('optimize:clear'));
+})->purpose('Display an inspiring quote');
