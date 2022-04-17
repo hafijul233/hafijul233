@@ -36,7 +36,7 @@ return [
     'Government of the People’s Republic of Bangladesh' => 'গণপ্রজাতন্ত্রী বাংলাদেশ সরকার',
     'Bangladesh Bureau of Statistics' => 'বাংলাদেশ পরিসংখ্যান ব্যুরো',
     'NSDS Implementation Support Project' => 'NSDS বাস্তবায়ন সহায়তা প্রকল্প',
-    'Parishankhyan Bhaban (8th Floor, Block-B)' => 'পরিসংখ্যান ভবনে (৮থ ফ্লোর, ব্লক-বি)',
+    'Parishankhyan Bhaban (8th Floor, Block-B)' => 'পরিসংখ্যান ভবনে (৮ম তলা, ব্লক-বি)',
     'E-27/A, Agargaon, Dhaka-1207' => 'ই-২৭/এ, আগারগাঁও, ঢাকা-১২০৭',
     'Database of Enumerators' => 'গণনাকারীদের ডাটাবেস',
 ];
