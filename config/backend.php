@@ -19,7 +19,7 @@ return [
     | @var string|null
     */
 
-    'preloader' => 'assets/img/AdminLTELogo.png',
+    'preloader' => 'assets/img/logo.png',
 
     /*
     |--------------------------------------------------------------------------
