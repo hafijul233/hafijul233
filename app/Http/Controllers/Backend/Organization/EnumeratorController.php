@@ -12,6 +12,10 @@ use App\Services\Backend\Setting\ExamLevelService;
 use App\Services\Backend\Setting\InstituteService;
 use App\Supports\Constant;
 use App\Supports\Utility;
+use Box\Spout\Common\Exception\InvalidArgumentException;
+use Box\Spout\Common\Exception\IOException;
+use Box\Spout\Common\Exception\UnsupportedTypeException;
+use Box\Spout\Writer\Exception\WriterNotOpenedException;
 use Exception;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -243,21 +247,21 @@ class EnumeratorController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param Request $request
      * @return string|StreamedResponse
+     * @throws IOException
+     * @throws InvalidArgumentException
+     * @throws UnsupportedTypeException
+     * @throws WriterNotOpenedException
      * @throws Exception
      */
     public function export(Request $request)
     {
         $filters = $request->except('page');
-
         $enumeratorExport = $this->enumeratorService->exportEnumerator($filters);
-
         $filename = 'Enumerator-' . date('Ymd-His') . '.' . ($filters['format'] ?? 'xlsx');
-
         return $enumeratorExport->download($filename, function ($enumerator) use ($enumeratorExport) {
             return $enumeratorExport->map($enumerator);
         });
-
     }
-
 }
