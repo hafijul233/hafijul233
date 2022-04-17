@@ -3,8 +3,7 @@
 namespace App\Exports\Backend\Setting;
 
 use App\Abstracts\Export\FastExcelExport;
-use App\Models\Setting\Catalog;
-use App\Models\Setting\Permission;
+use App\Models\Backend\Setting\Catalog;
 use Box\Spout\Common\Exception\InvalidArgumentException;
 use function config;
 

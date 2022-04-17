@@ -3,8 +3,9 @@
 namespace App\Exports\Backend\Organization;
 
 use App\Abstracts\Export\FastExcelExport;
-use App\Models\Backend\Organization\Employee;
+use App\Models\Backend\Organization\Enumerator;
 use Box\Spout\Common\Exception\InvalidArgumentException;
+use Carbon\Carbon;
 
 /**
  * @class EnumeratorExport
@@ -26,21 +27,33 @@ class EnumeratorExport extends FastExcelExport
     }
 
     /**
-     * @param Employee $row
+     * @param Enumerator $row
      * @return array
      */
     public function map($row): array
     {
         $this->formatRow = [
             '#' => $row->id,
-            'Name' => $row->name,
-            'Remarks' => $row->remarks,
-            'Enabled' => ucfirst($row->enabled),
-            'Created' => $row->created_at->format(config('app.datetime')),
-            'Updated' => $row->updated_at->format(config('app.datetime'))
+            trans('Name (in English)', [], 'en') => $row->name ?? null,
+            trans('Name(Bangla)', [], 'en') => $row->name_bd ?? null,
+            trans('Gender', [], 'en') => $row->gender->name ?? null,
+            trans('Date of Birth', [], 'en') => isset($row) ? Carbon::parse($row->dob)->format('d/m/Y') : null,
+            trans('Father Name', [], 'en') => $row->father ?? null,
+            trans('Mother Name', [], 'en') => $row->mother ?? null,
+            trans('NID Number', [], 'en') => $row->nid ?? null,
+            trans('Present Address', [], 'en') => $row->present_address ?? null,
+            trans('Permanent Address', [], 'en') => $row->permanent_address ?? null,
+            trans('Education', [], 'en') => $row->examLevel->name ?? null,
+            trans('Mobile 1', [], 'en') => $row->mobile_1 ?? null,
+            trans('Mobile 2', [], 'en') => $row->mobile_2 ?? null,
+            trans('Email', [], 'en') => $row->email ?? null,
+            trans('Whatsapp Number', [], 'en') => $row->whatsapp ?? null,
+            trans('Facebook ID', [], 'en') => $row->facebook ?? null,
+            'Enabled' => ucfirst(($row->enabled ?? '')),
+            'Created' => $row->created_at->format(config('app.datetime'))
         ];
 
-        $this->getSupperAdminColumns($row);
+        /*$this->getSupperAdminColumns($row);*/
 
         return $this->formatRow;
     }
