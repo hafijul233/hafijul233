@@ -66,17 +66,10 @@ class ApplicantController extends Controller
      */
     public function create()
     {
-        $exam_dropdown = [];
-
-        $example_levels = $this->examLevelService->getAllExamLevels(['id' => [1, 2, 3, 4]]);
-
-        foreach ($example_levels as $level)
-            $exam_dropdown[$level->id] = __('enumerator.' . $level->name);
-
         return view('frontend.organization.applicant.create', [
             'surveys' => $this->surveyService->getSurveyDropDown(),
             'genders' => $this->catalogService->getCatalogDropdown(['type' => Constant::CATALOG_TYPE['GENDER']], 'bn'),
-            'exam_dropdown' => $exam_dropdown,
+            'exam_dropdown' => $this->examLevelService->getExamLevelDropdown(['id' => [1, 2, 3, 4]]),
         ]);
     }
 
