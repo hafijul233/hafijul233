@@ -66,7 +66,7 @@
                             </div>
                             <div class="col-md-9">
                                 @if($enumerator->dob != null)
-                                    {!! \Carbon\Carbon::parse($enumerator->dob)->format('D/m/Y') !!}
+                                    {!! \Carbon\Carbon::parse($enumerator->dob)->format('dS F, Y') !!}
                                 @endif
                             </div>
                         </div>
