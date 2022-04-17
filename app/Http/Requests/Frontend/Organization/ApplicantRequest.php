@@ -51,6 +51,10 @@ class ApplicantRequest extends FormRequest
         return true;
     }
 
+    /**
+     * return label title array
+     * @return array
+     */
     public function attributes()
     {
         return [

@@ -100,7 +100,7 @@ class EnumeratorController extends Controller
      */
     public function create()
     {
-        return view('frontend.organization.applicant.create', [
+        return view('backend.organization.enumerator.create', [
             'surveys' => $this->surveyService->getSurveyDropDown(),
             'genders' => $this->catalogService->getCatalogDropdown(['type' => Constant::CATALOG_TYPE['GENDER']], 'bn'),
             'exam_dropdown' => $this->examLevelService->getExamLevelDropdown(['id' => [1, 2, 3, 4]]),
