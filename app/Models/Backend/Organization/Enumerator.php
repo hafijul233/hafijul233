@@ -37,7 +37,7 @@ class Enumerator extends Model implements Auditable
      *
      * @var array
      */
-    protected $fillable = ['survey_id','gender_id', 'name', 'name_bd', 'father', 'father_bd',
+    protected $fillable = ['survey_id','gender_id', 'dob', 'name', 'name_bd', 'father', 'father_bd',
         'mother', 'mother_bd', 'nid', 'mobile_1', 'mobile_2', 'email',
         'present_address', 'present_address_bd', 'permanent_address',
         'permanent_address_bd', 'gender', 'enabled', 'whatsapp', 'facebook', 'exam_level'];
