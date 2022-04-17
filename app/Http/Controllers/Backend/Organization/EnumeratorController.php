@@ -59,14 +59,12 @@ class EnumeratorController extends Controller
      * @param EnumeratorService $enumeratorService
      * @param SurveyService $surveyService
      * @param CatalogService $catalogService
-     * @param InstituteService $instituteService
      * @param ExamLevelService $examLevelService
      */
     public function __construct(AuthenticatedSessionService $authenticatedSessionService,
                                 EnumeratorService $enumeratorService,
                                 SurveyService $surveyService,
                                 CatalogService $catalogService,
-                                InstituteService $instituteService,
                                 ExamLevelService $examLevelService)
     {
 
@@ -74,7 +72,6 @@ class EnumeratorController extends Controller
         $this->enumeratorService = $enumeratorService;
         $this->surveyService = $surveyService;
         $this->catalogService = $catalogService;
-        $this->instituteService = $instituteService;
         $this->examLevelService = $examLevelService;
     }
 
@@ -103,27 +100,17 @@ class EnumeratorController extends Controller
      */
     public function create()
     {
-        $example_levels = $this->examLevelService->getAllExamLevels(['id' => [1, 2, 3, 4]]);
-
-        $exam_dropdown = [];
-
-        foreach ($example_levels as $level)
-            $exam_dropdown[$level->id] = __('enumerator.' . $level->name);
-
         return view('frontend.organization.applicant.create', [
             'surveys' => $this->surveyService->getSurveyDropDown(),
             'genders' => $this->catalogService->getCatalogDropdown(['type' => Constant::CATALOG_TYPE['GENDER']], 'bn'),
-            'boards' => $this->catalogService->getCatalogDropdown(['type' => Constant::CATALOG_TYPE['BOARD']]),
-            'universities' => $this->instituteService->getInstituteDropDown(['exam_level_id' => 3]),
-            'exam_levels' => $example_levels,
-            'exam_dropdown' => $exam_dropdown,
+            'exam_dropdown' => $this->examLevelService->getExamLevelDropdown(['id' => [1, 2, 3, 4]]),
         ]);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  EnumeratorRequest $request
+     * @param EnumeratorRequest $request
      * @return RedirectResponse
      * @throws Exception|\Throwable
      */
@@ -172,21 +159,11 @@ class EnumeratorController extends Controller
     {
         if ($enumerator = $this->enumeratorService->getEnumeratorById($id)) {
 
-            $example_levels = $this->examLevelService->getAllExamLevels(['id' => [1, 2, 3, 4]]);
-
-            $exam_dropdown = [];
-
-            foreach ($example_levels as $level)
-                $exam_dropdown[$level->id] = __('enumerator.' . $level->name);
-
             return view('backend.organization.enumerator.edit', [
                 'enumerator' => $enumerator,
                 'surveys' => $this->surveyService->getSurveyDropDown(),
                 'genders' => $this->catalogService->getCatalogDropdown(['type' => Constant::CATALOG_TYPE['GENDER']], 'bn'),
-                'boards' => $this->catalogService->getCatalogDropdown(['type' => Constant::CATALOG_TYPE['BOARD']]),
-                'universities' => $this->instituteService->getInstituteDropDown(['exam_level_id' => 3]),
-                'exam_levels' => $example_levels,
-                'exam_dropdown' => $exam_dropdown,
+                'exam_dropdown' => $this->examLevelService->getExamLevelDropdown(['id' => [1, 2, 3, 4]]),
             ]);
         }
 
@@ -283,49 +260,4 @@ class EnumeratorController extends Controller
 
     }
 
-    /**
-     * Return an Import view page
-     *
-     * @return Application|Factory|View
-     */
-    public function import()
-    {
-        return view('backend.organization.enumeratorimport');
-    }
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @return Application|Factory|View
-     * @throws Exception
-     */
-    public function importBulk(Request $request)
-    {
-        $filters = $request->except('page');
-        $enumerators = $this->enumeratorService->getAllEnumerators($filters);
-
-        return view('backend.organization.enumeratorindex', [
-            'enumerators' => $enumerators
-        ]);
-    }
-
-    /**
-     * Display a detail of the resource.
-     *
-     * @return StreamedResponse|string
-     * @throws Exception
-     */
-    public function print(Request $request)
-    {
-        $filters = $request->except('page');
-
-        $enumeratorExport = $this->enumeratorService->exportEnumerator($filters);
-
-        $filename = 'Enumerator-' . date('Ymd-His') . '.' . ($filters['format'] ?? 'xlsx');
-
-        return $enumeratorExport->download($filename, function ($enumerator) use ($enumeratorExport) {
-            return $enumeratorExport->map($enumerator);
-        });
-
-    }
 }

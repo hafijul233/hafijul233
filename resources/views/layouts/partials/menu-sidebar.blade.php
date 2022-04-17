@@ -82,10 +82,7 @@
     'backend.settings.users.index',
     'backend.settings.roles.index',
     'backend.settings.permissions.index',
-    'backend.settings.catalogs.index',
-    'backend.settings.countries.index',
-    'backend.settings.states.index',
-    'backend.settings.cities.index'])
+    'backend.settings.catalogs.index'])
                     <li class="nav-item @if(\Route::is('backend.settings.*')) menu-open @endif">
                         <a href="#" class="nav-link @if(\Route::is('backend.settings.*')) active @endif">
                             <i class="nav-icon fas fa-cogs"></i>
@@ -135,35 +132,6 @@
                                 </li>
                             @endcan
 
-                            @can('backend.settings.countries.index')
-                                <li class="nav-item">
-                                    <a href="{{ route('backend.settings.countries.index') }}"
-                                       class="nav-link @if(\Route::is('backend.settings.countries.*')) active @endif">
-                                        <i class="fas fa-globe-asia nav-icon"></i>
-                                        <p>{!! __('menu-sidebar.Countries') !!}</p>
-                                    </a>
-                                </li>
-                            @endcan
-
-                            @can('backend.settings.states.index')
-                                <li class="nav-item">
-                                    <a href="{{ route('backend.settings.states.index') }}"
-                                       class="nav-link @if(\Route::is('backend.settings.states.*')) active @endif">
-                                        <i class="fas fa-landmark nav-icon"></i>
-                                        <p>{!! __('menu-sidebar.States') !!}</p>
-                                    </a>
-                                </li>
-                            @endcan
-
-                            @can('backend.settings.cities.index')
-                                <li class="nav-item">
-                                    <a href="{{ route('backend.settings.cities.index') }}"
-                                       class="nav-link @if(\Route::is('backend.settings.cities.*')) active @endif">
-                                        <i class="fas fa-mountain nav-icon"></i>
-                                        <p>{!! __('menu-sidebar.Cities') !!}</p>
-                                    </a>
-                                </li>
-                            @endcan
                         </ul>
                     </li>
                 @endcan

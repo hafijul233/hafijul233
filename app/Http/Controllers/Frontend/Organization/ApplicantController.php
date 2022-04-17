@@ -76,7 +76,7 @@ class ApplicantController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  $request
+     * @param EnumeratorRequest $request
      * @return RedirectResponse
      * @throws Exception|\Throwable
      */
