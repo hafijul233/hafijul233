@@ -36,6 +36,6 @@ class PhoneNumber implements Rule
      */
     public function message(): string
     {
-        return 'The :attribute must have valid (01xxxxxxxxx) format.';
+        return __('validation.phonenumber');
     }
 }

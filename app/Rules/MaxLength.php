@@ -37,6 +37,6 @@ class MaxLength implements Rule
      */
     public function message(): string
     {
-        return 'The :attribute must not be greater than ' . $this->limit . ' characters.';
+        return __('validation.maxlength', ['limit' => $this->limit]);
     }
 }

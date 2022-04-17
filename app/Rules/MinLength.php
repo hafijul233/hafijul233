@@ -37,6 +37,6 @@ class MinLength implements Rule
      */
     public function message(): string
     {
-        return 'The :attribute must be at least ' . $this->limit . ' characters.';
+        return __('validation.minlength', ['limit' => $this->limit]);
     }
 }

@@ -125,6 +125,9 @@ return [
     'uploaded' => 'The :attribute failed to upload.',
     'url' => 'The :attribute must be a valid URL.',
     'uuid' => 'The :attribute must be a valid UUID.',
+    'minlength' => 'The :attribute must not be greater than :limit characters.',
+    'maxlength' => 'The :attribute must not be less than :limit characters.',
+    'phonenumber' => 'The :attribute must have valid (01xxxxxxxxx) format.',
 
     /*
     |--------------------------------------------------------------------------
