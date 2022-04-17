@@ -66,7 +66,7 @@ class UserRegisterSeeder extends Seeder
             $newUser = [
                 'name' => 'Mohammad Hafijul Islam',
                 'username' => 'hafijul233',
-                'email' => 'hafijul233@gmail.com',
+                'email' => 'admin@admin.com',
                 'password' => Utility::hashPassword(Constant::PASSWORD),
                 'mobile' => '01710534092',
                 'remarks' => 'Database Seeder',
