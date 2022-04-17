@@ -143,6 +143,7 @@ class EnumeratorService extends Service
     {
         $enumeratorInfo = [];
         $enumeratorInfo["survey_id"] = null;
+        $enumeratorInfo["gender_id"] = $inputs['gender_id'] ?? null;
         $enumeratorInfo["name"] = $inputs["name"] ?? null;
         $enumeratorInfo["name_bd"] = $inputs["name_bd"] ?? null;
         $enumeratorInfo["father"] = $inputs["father"] ?? null;

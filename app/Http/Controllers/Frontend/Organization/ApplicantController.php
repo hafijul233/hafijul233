@@ -132,6 +132,8 @@ class ApplicantController extends Controller
     {
         $inputs = $request->except('_token');
 
+        dd($inputs);
+
         $confirm = $this->enumeratorService->storeEnumerator($inputs);
 
         if ($confirm['status'] == true) {
