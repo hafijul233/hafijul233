@@ -27,6 +27,7 @@ class CitySeeder extends Seeder
             DB::commit();
             DB::enableQueryLog();
         } catch (\PDOException $exception) {
+            DB::rollBack();
             throw new \PDOException($exception->getMessage());
         }
     }
