@@ -28,7 +28,7 @@
         {!! \Form::hCheckbox('survey_id', __('enumerator.Survey'), $surveys, old('survey_id', $enumerator->survey_id ?? []),
     true, 3, ['placeholder' => __("enumerator.Select a Survey Option")]) !!}
         <div class="row mt-3">
-            <div class="col-12 justify-content-end d-flex">
+            <div class="col-12 justify-content-center d-flex">
                 {!! \Form::nSubmit('submit', __('common.Save')) !!}
             </div>
         </div>
