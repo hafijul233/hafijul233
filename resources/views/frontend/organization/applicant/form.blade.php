@@ -38,7 +38,7 @@
 @push('page-script')
     <script>
 
-        function getExamGroupDropdown(examLevelId, examTitleId, targetIdString, preSelected = '') {
+        /*function getExamGroupDropdown(examLevelId, examTitleId, targetIdString, preSelected = '') {
             if (!isNaN(examTitleId)) {
                 $.ajax({
                     method: 'GET',
@@ -157,7 +157,17 @@
             examGroups.forEach(function (item) {
                 getExamGroupDropdown(item.exam_level_id, item.exam_title_id, item.target_select, item.exam_group_id);
             });
+                        $("#exam_level").on('change', function () {
+                            var value = $(this).val();
+                            toggleEducationPanel(value);
+                        });
 
+                        if ($("#exam_level").val().length > 0) {
+                            toggleEducationPanel($("#exam_level").val());
+                        }
+        });
+        */
+        $(document).ready(function () {
             $("#enumerator-form").validate({
                 rules: {
                     "survey_id": {
@@ -375,15 +385,6 @@
                     $(element).removeClass('is-invalid').addClass('is-valid');
                 }
             });
-
-            $("#exam_level").on('change', function () {
-                var value = $(this).val();
-                toggleEducationPanel(value);
-            });
-
-            if ($("#exam_level").val().length > 0) {
-                toggleEducationPanel($("#exam_level").val());
-            }
         });
     </script>
 @endpush

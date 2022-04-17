@@ -74,7 +74,6 @@ class ApplicantController extends Controller
         $this->enumeratorService = $enumeratorService;
         $this->surveyService = $surveyService;
         $this->catalogService = $catalogService;
-        $this->instituteService = $instituteService;
         $this->examLevelService = $examLevelService;
     }
 
@@ -114,9 +113,6 @@ class ApplicantController extends Controller
         return view('frontend.organization.applicant.create', [
             'surveys' => $this->surveyService->getSurveyDropDown(),
             'genders' => $this->catalogService->getCatalogDropdown(['type' => Constant::CATALOG_TYPE['GENDER']], 'bn'),
-            'boards' => $this->catalogService->getCatalogDropdown(['type' => Constant::CATALOG_TYPE['BOARD']]),
-            'universities' => $this->instituteService->getInstituteDropDown(['exam_level_id' => 3]),
-            'exam_levels' => $example_levels,
             'exam_dropdown' => $exam_dropdown,
         ]);
     }
