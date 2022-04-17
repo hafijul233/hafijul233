@@ -10,9 +10,9 @@
     @endif
     {{--Basic Information--}}
     <fieldset>
-        <legend class="border-bottom lead mb-3 py-2 ml-0 pxl-0 font-weight-bold">
+{{--        <legend class="border-bottom lead mb-3 py-2 ml-0 pxl-0 font-weight-bold">
             <i class="fas fa-user-check"></i> {!! __('enumerator.Basic Information') !!}
-        </legend>
+        </legend>--}}
         {!! \Form::hText('name', __('enumerator.Name'), old('name', $enumerator->name ?? null), true, 2) !!}
         {!! \Form::hText('name_bd', __('enumerator.Name(Bangla)'), old('name_bd', $enumerator->name_bd ?? null), true) !!}
         {!!  \Form::hRadio('gender_id', __('enumerator.Gender'), $genders, 1, true) !!}
@@ -43,7 +43,7 @@
         let examGroups = [];
     </script>
     {{-- Education Qualifications --}}
-    @foreach( $exam_levels as $exam_level)
+{{--    @foreach( $exam_levels as $exam_level)
         @php
             $educationQualification = null;
                     if (isset($enumerator)) {
@@ -102,7 +102,7 @@
             {!! \Form::hNumber($exam_level->code . '_grade_point', __('enumerator.GPA Point'),
             old($exam_level->code . '_grade_point', $educationQualification->grade_point ?? null), true) !!}
         </fieldset>
-    @endforeach
+    @endforeach--}}
     {{--Work Experience--}}
     <fieldset>
         <legend class="border-bottom lead mb-3 py-2 ml-0 pxl-0 font-weight-bold">
