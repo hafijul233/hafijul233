@@ -5,6 +5,7 @@ namespace App\Models\Backend\Organization;
 use App\Models\Backend\Organization\Enumerator\EducationQualification;
 use App\Models\Backend\Organization\Enumerator\WorkQualification;
 use App\Models\Backend\Setting\Catalog;
+use App\Models\Backend\Setting\ExamLevel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -81,6 +82,12 @@ class Enumerator extends Model implements Auditable
     {
         return $this->hasMany(WorkQualification::class);
     }
+
+    public function examLevel()
+    {
+        return $this->belongsTo(ExamLevel::class, 'exam_level', 'id');
+    }
+
 
     public function gender()
     {
