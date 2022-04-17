@@ -15,7 +15,6 @@ use Database\Seeders\Backend\Setting\PermissionSeeder;
 use Database\Seeders\Backend\Setting\RolePermissionSeeder;
 use Database\Seeders\Backend\Setting\RoleSeeder;
 use Database\Seeders\Backend\Setting\StateSeeder;
-use Database\Seeders\Backend\Setting\UserSeeder;
 use Database\Seeders\Backend\UserRegisterSeeder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Seeder;
@@ -37,7 +36,7 @@ class DatabaseSeeder extends Seeder
         $this->call(PermissionSeeder::class);
         $this->call(RoleSeeder::class);
         $this->call(RolePermissionSeeder::class);
-        $this->call(UserSeeder::class);
+        /*$this->call(UserSeeder::class);*/
         $this->call(GenderSeeder::class);
         $this->call(BoardSeeder::class);
         $this->call(ExamLevelSeeder::class);
