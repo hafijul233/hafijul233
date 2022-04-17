@@ -25,7 +25,7 @@ class ApplicantRequest extends FormRequest
             "exam_level" => ["required", "integer", "min:1", "max:5"],
             "whatsapp" => ["required", "string", new PhoneNumber],
             "facebook" => ["required", "string", "url"],
-            "survey_id" => ["array"],
+            "survey_id" => ["array", "required"],
             "survey_id.*" => ["required", "integer", "min:1"],
             "name" => ["required", "string", "min:2", "max:255"],
             "name_bd" => ["required", "string", "min:2", "max:255"],

@@ -125,8 +125,8 @@ return [
     'uploaded' => ':attribute আপলোড করতে ব্যর্থ হয়েছে।',
     'url' => ':attribute বিন্যাস অবৈধ।',
     'uuid' => ':attribute একটি বৈধ ইউইউআইডি হতে হবে.',
-    'minlength' => ':attribute, :limit অক্ষরের চেয়ে বেশি হওয়া উচিত নয়',
-    'maxlength' => ':attribute, :limit অক্ষরের থেকে কম হওয়া উচিত নয়',
+    'minlength' => ':attribute, :limit অক্ষরের চেয়ে বেশি হওয়া  যাবে না',
+    'maxlength' => ':attribute, :limit অক্ষরের থেকে কম হওয়া  যাবে না',
     'phonenumber' => ':attribute অবশ্যই বৈধ (01xxxxxxxx) ফর্ম্যাট থাকতে হবে।',
     /*
     |--------------------------------------------------------------------------
