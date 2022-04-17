@@ -65,6 +65,4 @@ return [
     'Facebook ID' => 'ফেসবুক আইডি',
     'Highest Educational Qualification' => 'সর্বোচ্চ শিক্ষাগত যোগ্যতা',
     'Please select highest educational qualification' => 'সর্বোচ্চ শিক্ষাগত যোগ্যতা নির্বাচন করুন'
-
-
 ];

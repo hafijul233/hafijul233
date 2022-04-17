@@ -29,7 +29,7 @@ return [
     'Import' => 'Import',
     'Name' => 'Name',
     'Mobile' => 'Mobile',
-    'Email'  => 'Email',
+    'Email' => 'Email',
     'Enabled' => 'Enabled',
     'Created' => 'Created',
     'Remarks' => 'Remarks',
@@ -39,5 +39,4 @@ return [
     'Parishankhyan Bhaban (8th Floor, Block-B)' => 'Parishankhyan Bhaban (8th Floor, Block-B)',
     'E-27/A, Agargaon, Dhaka-1207' => 'E-27/A, Agargaon, Dhaka-1207',
     'Database of Enumerators' => 'Database of Enumerators',
-
 ];

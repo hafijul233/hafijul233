@@ -13,18 +13,19 @@ return [
     |
     */
 
-    'failed' => 'These credentials do not match our records.',
-    'password' => 'The provided password is incorrect.',
-    'token' => 'New Password Reset Token Created. Expires in :minutes minutes.',
-    'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
+    'failed' => 'এই পরিচয়পত্র আমাদের রেকর্ডের সাথে মেলে না',
+    'password' => 'প্রদত্ত পাসওয়ার্ডটি ভুল',
+    'throttle' => 'লগইন করার জন্য অনেকবার চেষ্টা করেছেন, :seconds সেকেন্ড পরে পুনরায় চেষ্টা করুন',
+    'token' => 'নতুন পাসওয়ার্ড রিসেট টোকেন তৈরি করা হয়েছে। মেয়াদ শেষ হবে :minutes মিনিটে।',
     'register' => [
-        'success' => 'Registration successful. Welcome a aboard.',
-        'failed' => 'Registration Failed. Please try again later.'
+        'success' => 'নিবন্ধন সম্পন্ন. একটি জাহাজে স্বাগতম.',
+        'failed' => 'রেজিস্ট্রেশন ব্যর্থ হয়েছে. পরে আবার চেষ্টা করুন.'
     ],
     'login' => [
-        'failed' => 'These credentials do not match our records.',
-        'success' => 'Credentials verified. Welcome !',
-        'banned' => 'User account is disabled. Contact system administrator.',
-        'forced' => 'Your password has been changed. Please reset password.'
+        'failed' => 'এই পরিচয়পত্র আমাদের রেকর্ডের সাথে মেলে না',
+        'success' => 'প্রমাণপ্রত্রাদি যাচাই করা হয়েছে. স্বাগত !',
+        'banned' => 'ব্যবহারকারী অ্যাকাউন্ট নিষ্ক্রিয় করা হয়েছে। সিস্টেম প্রশাসকের সাথে যোগাযোগ করুন।',
+        'forced' => 'আপনার পাসওয়ার্ড পরিবর্তন করা হয়েছে। পাসওয়ার্ড রিসেট করুন.'
     ]
 ];
+

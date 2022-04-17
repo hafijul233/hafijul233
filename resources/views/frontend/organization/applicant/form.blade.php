@@ -24,7 +24,7 @@
         {!! \Form::hNumber('mobile_2', __('enumerator.Mobile 2'), old('mobile_2', $enumerator->mobile_2 ?? null), true, 3) !!}
         {!! \Form::hText('email', __('enumerator.Email'), old('email', $enumerator->email ?? null), true, 3) !!}
         {!! \Form::hNumber('whatsapp', __('enumerator.Whatsapp Number'), old('whatsapp', $enumerator->whatsapp ?? null), true, 3) !!}
-        {!! \Form::hText('facebook', __('enumerator.Facebook ID'), old('facebook', $enumerator->facebook ?? null), true, 3) !!}
+        {!! \Form::hUrl('facebook', __('enumerator.Facebook ID'), old('facebook', $enumerator->facebook ?? null), true, 3) !!}
         {!! \Form::hCheckbox('survey_id', __('enumerator.Survey'), $surveys, old('survey_id', $enumerator->survey_id ?? []),
     true, 3, ['placeholder' => __("enumerator.Select a Survey Option")]) !!}
         <div class="row mt-3">

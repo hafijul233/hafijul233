@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend\Organization;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Frontend\Organization\ApplicantRequest;
 use App\Services\Backend\Organization\EnumeratorService;
 use App\Services\Backend\Organization\SurveyService;
 use App\Services\Backend\Setting\CatalogService;
@@ -13,7 +14,6 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 
 /**
  * @class ApplicantController
@@ -80,7 +80,7 @@ class ApplicantController extends Controller
      * @return RedirectResponse
      * @throws Exception|\Throwable
      */
-    public function store(Request $request): RedirectResponse
+    public function store(ApplicantRequest $request): RedirectResponse
     {
         $inputs = $request->except('_token');
 
