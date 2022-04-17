@@ -27,6 +27,7 @@ use App\Http\Controllers\Backend\Setting\UserController;
 use App\Http\Controllers\Backend\SettingController;
 use App\Http\Controllers\Frontend\Organization\ApplicantController;
 use App\Http\Controllers\TranslateController;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -46,6 +47,9 @@ Route::get('/', function () {
 
 Route::post('translate-locale', TranslateController::class)->name('translate-locale');
 
+Route::get('cache-clear', function () {
+    Artisan::call('optimize:clear');
+});
 
 //Frontend
 Route::middleware(['guest'])->name('frontend.')->group(function () {
