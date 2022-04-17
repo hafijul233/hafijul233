@@ -13,6 +13,10 @@ class Constant
      * System Model Status
      */
     const ENABLED_OPTIONS = ['yes' => 'Yes', 'no' => 'No'];
+    /**
+     * System Model Status
+     */
+    const GUEST_ROLE_ID = 4;
 
     /**
      * System User Permission Guards

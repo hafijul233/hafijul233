@@ -35,39 +35,14 @@ class RoleSeeder extends Seeder
 
         Role::create([
             'id' => 4,
-            'name' => 'Accountant',
+            'name' => 'Guest',
             'remarks' => 'Role which will have entry and accounts sections.'
         ]);
 
         Role::create([
             'id' => 5,
-            'name' => 'Operator',
+            'name' => 'Enumerator',
             'remarks' => 'Role which will have basic operation and minimal system options.'
-        ]);
-
-        //External
-        Role::create([
-            'id' => 6,
-            'name' => 'Driver',
-            'remarks' => 'Role which will have all privileges.'
-        ]);
-
-        Role::create([
-            'id' => 7,
-            'name' => 'Helper',
-            'remarks' => 'Role which will have all privileges.'
-        ]);
-
-        Role::create([
-            'id' => 8,
-            'name' => 'Sender',
-            'remarks' => 'Role which will no privileges.'
-        ]);
-
-        Role::create([
-            'id' => 9,
-            'name' => 'Recipient',
-            'remarks' => 'Role which will no privileges.'
         ]);
     }
 }
