@@ -207,7 +207,7 @@
                         mobilenumber: true
                     },
                     "mobile_2": {
-                        required: true,
+                        required: false,
                         digits: true,
                         mobilenumber: true
                     },
@@ -215,7 +215,7 @@
                         required: true
                     },
                     "whatsapp": {
-                        required: true,
+                        required: false,
                         digits: true,
                         mobilenumber: true
                     },

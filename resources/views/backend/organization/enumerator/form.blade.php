@@ -13,10 +13,10 @@
                             old('exam_level', $enumerator->exam_level ?? 2), true, 3,
                             ['placeholder' => __('enumerator.Please select highest educational qualification')]) !!}
         {!! \Form::hNumber('mobile_1', __('enumerator.Mobile 1'), old('mobile_1', $enumerator->mobile_1 ?? null), true, 3) !!}
-        {!! \Form::hNumber('mobile_2', __('enumerator.Mobile 2'), old('mobile_2', $enumerator->mobile_2 ?? null), true, 3) !!}
+        {!! \Form::hNumber('mobile_2', __('enumerator.Mobile 2'), old('mobile_2', $enumerator->mobile_2 ?? null), false, 3) !!}
         {!! \Form::hText('email', __('enumerator.Email'), old('email', $enumerator->email ?? null), true, 3) !!}
-        {!! \Form::hNumber('whatsapp', __('enumerator.Whatsapp Number'), old('whatsapp', $enumerator->whatsapp ?? null), true, 3) !!}
-        {!! \Form::hUrl('facebook', __('enumerator.Facebook ID'), old('facebook', $enumerator->facebook ?? null), true, 3) !!}
+        {!! \Form::hNumber('whatsapp', __('enumerator.Whatsapp Number'), old('whatsapp', $enumerator->whatsapp ?? null), false, 3) !!}
+        {!! \Form::hUrl('facebook', __('enumerator.Facebook ID'), old('facebook', $enumerator->facebook ?? null), false, 3) !!}
         {!! \Form::hCheckbox('survey_id', __('enumerator.Survey'), $surveys, old('survey_id', (isset($enumerator) ? $enumerator->surveys->pluck('id')->toArray() : [])),
     true, 3, ['placeholder' => __("enumerator.Select a Survey Option")]) !!}
         <div class="row mt-3">
@@ -69,7 +69,7 @@
                         mobilenumber: true
                     },
                     "mobile_2": {
-                        required: true,
+                        required: false,
                         digits: true,
                         mobilenumber: true
                     },
@@ -77,7 +77,7 @@
                         required: true
                     },
                     "whatsapp": {
-                        required: true,
+                        required: false,
                         digits: true,
                         mobilenumber: true
                     },
