@@ -34,7 +34,7 @@ class ExamLevelSeeder extends Seeder
             ],
             [
                 'id' => '3',
-                'name' => 'Graduation or Equivalent',
+                'name' => 'Graduate or Equivalent',
                 'icon' => 'fas fa-graduation-cap',
                 'code' => 'gra',
                 'remarks' => 'n/a',
@@ -42,7 +42,7 @@ class ExamLevelSeeder extends Seeder
             ],
             [
                 'id' => '4',
-                'name' => 'Post-Graduation or Equivalent',
+                'name' => 'Post-Graduate or Equivalent',
                 'icon' => 'fas fa-chalkboard-teacher',
                 'code' => 'mas',
                 'remarks' => 'n/a',
