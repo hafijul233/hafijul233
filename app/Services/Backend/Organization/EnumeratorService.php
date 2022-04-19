@@ -146,6 +146,15 @@ class EnumeratorService extends Service
         $enumeratorInfo["whatsapp"] = $inputs["whatsapp"] ?? null;
         $enumeratorInfo["facebook"] = $inputs["facebook"] ?? null;
 
+        $enumeratorInfo["is_employee"] = $inputs["is_employee"] ?? 'no';
+        $enumeratorInfo["designation"] = null;
+        $enumeratorInfo["company"] = null;
+
+        if ($enumeratorInfo["is_employee"] == 'yes') {
+            $enumeratorInfo["designation"] = $inputs['designation'] ?? null;
+            $enumeratorInfo["company"] = $inputs['company'] ?? null;
+        }
+
         return $enumeratorInfo;
     }
 
