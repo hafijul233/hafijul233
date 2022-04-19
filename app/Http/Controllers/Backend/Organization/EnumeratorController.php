@@ -112,6 +112,7 @@ class EnumeratorController extends Controller
      * @return Application|Factory|View
      * @throws ContainerExceptionInterface
      * @throws NotFoundExceptionInterface
+     * @throws Exception
      */
     public function create()
     {

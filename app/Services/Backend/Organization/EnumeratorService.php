@@ -232,6 +232,8 @@ class EnumeratorService extends Service
                 if ($this->enumeratorRepository->update($newEnumeratorInfo, $id)) {
                     //handling Survey List
                     $enumerator->surveys()->sync($inputs['survey_id']);
+                    $enumerator->previousPostings()->sync($inputs['prev_post_state_id']);
+                    $enumerator->futurePostings()->sync($inputs['future_post_state_id']);
                     $enumerator->save();
                     DB::commit();
                     return ['status' => true, 'message' => __('Enumerator Info Updated'),
