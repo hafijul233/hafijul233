@@ -102,11 +102,23 @@
                             </tr>
                             <tr>
                                 <th>{!! __('enumerator.Select the district(s) where you have worked earlier (it can be multiple)') !!}</th>
-                                <td>{!! $enumerator->facebook   ?? null !!}</td>
+                                <td>
+                                    @forelse($enumerator->previousPostings as $state)
+                                        {{  $state->name }},
+                                    @empty
+                                        No District Available
+                                    @endforelse
+                                </td>
                             </tr>
                             <tr>
                                 <th>{!! __('enumerator.Select the district(s) where you want to work in future (maximum 3)') !!}</th>
-                                <td>{!! $enumerator->facebook   ?? null !!}</td>
+                                <td>
+                                    @forelse($enumerator->futurePostings as $state)
+                                        {{  $state->name }},
+                                    @empty
+                                        No District Available
+                                    @endforelse
+                                </td>
                             </tr>
                             <tr>
                                 <th>{!! __('enumerator.Are you revenue staff of BBS?') !!}</th>

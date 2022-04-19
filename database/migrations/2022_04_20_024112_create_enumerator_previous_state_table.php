@@ -5,7 +5,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 
-class CreateEnumeratorStateTable extends Migration
+class CreateEnumeratorPreviousStateTable extends Migration
 {
     /**
      * Run the migrations.
@@ -18,10 +18,9 @@ class CreateEnumeratorStateTable extends Migration
         Schema::disableForeignKeyConstraints();
 
         //Table Structure
-        Schema::create('enumerator_state', function (Blueprint $table) {
+        Schema::create('enumerator_previous_state', function (Blueprint $table) {
             $table->foreignId('enumerator_id')->index()->nullable();
             $table->foreignId('state_id')->index()->nullable();
-            $table->string('type')->nullable();
         });
 
         //Temporary Disable Foreign Key Constraints
@@ -39,7 +38,7 @@ class CreateEnumeratorStateTable extends Migration
         Schema::disableForeignKeyConstraints();
 
         //Remove Table Structure
-        Schema::dropIfExists('enumerator_state');
+        Schema::dropIfExists('enumerator_previous_state');
 
         //Temporary Disable Foreign Key Constraints
         Schema::enableForeignKeyConstraints();

@@ -32,7 +32,7 @@
         old('prev_post_state_id', $enumerator->prev_post_state_id ?? null), false, 3) !!}
 
         {!! \Form::hSelectMulti('future_post_state_id', __('enumerator.Select the district(s) where you want to work in future (maximum 3)'),$states,
-        old('prev_post_state_id', $enumerator->prev_post_state_id ?? null), false, 3) !!}
+        old('future_post_state_id', $enumerator->prev_post_state_id ?? null), false, 3) !!}
 
         {!! \Form::hRadio('is_employee', __('enumerator.Are you revenue staff of BBS?'), $enables, old('is_employee', $enumerator->is_employee ?? []), true, 3) !!}
         <div id="work_space">

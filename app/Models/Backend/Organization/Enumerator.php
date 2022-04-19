@@ -95,20 +95,14 @@ class Enumerator extends Model implements Auditable
         return $this->belongsTo(Catalog::class, 'gender_id', 'id');
     }
 
-    public function states()
-    {
-        return $this->belongsToMany(State::class, 'enumerator_state')
-            ->withPivot('type');
-    }
     public function previousPostings()
     {
-        return $this->states()->where('.type', '=', "previous" )->get();
+        return $this->belongsToMany(State::class, 'enumerator_previous_state');
     }
 
-    public function futurePosting()
+    public function futurePostings()
     {
-        return $this->belongsToMany(State::class, 'enumerator_state')
-            ->withPivot('type');
+        return $this->belongsToMany(State::class, 'enumerator_future_state');
     }
 
 }

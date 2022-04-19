@@ -99,7 +99,10 @@ class EnumeratorService extends Service
             if ($newEnumerator instanceof Enumerator) {
                 //handling Survey List
                 $newEnumerator->surveys()->attach($inputs['survey_id']);
+                $newEnumerator->previousPostings()->attach($inputs['prev_post_state_id']);
+                $newEnumerator->futurePostings()->attach($inputs['future_post_state_id']);
                 $newEnumerator->save();
+
                 DB::commit();
                 return ['status' => true, 'message' => __('New Enumerator Created'),
                     'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
