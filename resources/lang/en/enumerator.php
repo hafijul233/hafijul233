@@ -14,7 +14,7 @@ return [
     */
     'Add Enumerator' => 'Add Enumerator',
     'Edit Enumerator' => 'Edit Enumerator',
-    'Survey' => 'Experience to work with the Censuses/Surveys',
+    'Survey' => 'Work Experience in BBS as Enumerator (select multiple options if needed)',
     'Select a Survey Option' => 'Select a Survey Option',
     'Name' => 'Name (in English)',
     'Name(Bangla)' => 'Name (in Bangla)',
