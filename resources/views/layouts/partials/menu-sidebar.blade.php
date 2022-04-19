@@ -82,6 +82,7 @@
     'backend.settings.users.index',
     'backend.settings.roles.index',
     'backend.settings.permissions.index',
+    'backend.settings.states.index',
     'backend.settings.catalogs.index'])
                     <li class="nav-item @if(\Route::is('backend.settings.*')) menu-open @endif">
                         <a href="#" class="nav-link @if(\Route::is('backend.settings.*')) active @endif">
@@ -128,6 +129,16 @@
                                        class="nav-link @if(\Route::is('backend.settings.catalogs.*')) active @endif">
                                         <i class="fas fa-list-alt nav-icon"></i>
                                         <p>{!! __('menu-sidebar.Catalogs') !!}</p>
+                                    </a>
+                                </li>
+                            @endcan
+
+                            @can('backend.settings.states.index')
+                                <li class="nav-item">
+                                    <a href="{{ route('backend.settings.states.index') }}"
+                                       class="nav-link @if(\Route::is('backend.settings.states.*')) active @endif">
+                                        <i class="fas fa-landmark nav-icon"></i>
+                                        <p>{!! __('menu-sidebar.States') !!}</p>
                                     </a>
                                 </li>
                             @endcan
