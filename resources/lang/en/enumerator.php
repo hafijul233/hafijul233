@@ -65,4 +65,8 @@ return [
     'Facebook ID' => 'Facebook ID',
     'Highest Educational Qualification' => 'Highest Educational Qualification',
     'Please select highest educational qualification' => 'Please Select Highest Educational Qualification',
+    'Select the district(s) where you have worked earlier (it can be multiple)' => 'Select the district(s) where you have worked earlier (it can be multiple)',
+    'Select the district(s) where you want to work in future (maximum 3)' => 'Select the district(s) where you want to work in future (maximum 3)',
+    'Are you revenue staff of BBS?' => 'Are you revenue staff of BBS?',
+
 ];

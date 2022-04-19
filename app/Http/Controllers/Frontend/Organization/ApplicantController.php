@@ -8,6 +8,7 @@ use App\Services\Backend\Organization\EnumeratorService;
 use App\Services\Backend\Organization\SurveyService;
 use App\Services\Backend\Setting\CatalogService;
 use App\Services\Backend\Setting\ExamLevelService;
+use App\Services\Backend\Setting\StateService;
 use App\Supports\Constant;
 use Exception;
 use Illuminate\Contracts\Foundation\Application;
@@ -37,6 +38,10 @@ class ApplicantController extends Controller
      * @var ExamLevelService
      */
     private $examLevelService;
+    /**
+     * @var StateService
+     */
+    private $stateService;
 
     /**
      * ApplicantController Constructor
@@ -45,17 +50,20 @@ class ApplicantController extends Controller
      * @param SurveyService $surveyService
      * @param CatalogService $catalogService
      * @param ExamLevelService $examLevelService
+     * @param StateService $stateService
      */
     public function __construct(EnumeratorService $enumeratorService,
                                 SurveyService $surveyService,
                                 CatalogService $catalogService,
-                                ExamLevelService $examLevelService)
+                                ExamLevelService $examLevelService,
+                                StateService $stateService)
     {
 
         $this->enumeratorService = $enumeratorService;
         $this->surveyService = $surveyService;
         $this->catalogService = $catalogService;
         $this->examLevelService = $examLevelService;
+        $this->stateService = $stateService;
     }
 
     /**
@@ -67,6 +75,7 @@ class ApplicantController extends Controller
     public function create()
     {
         return view('frontend.organization.applicant.create', [
+            'states' => $this->stateService->getStateDropdown(['enabled' => Constant::ENABLED_OPTION, 'type' => 'district']),
             'surveys' => $this->surveyService->getSurveyDropDown(['enabled' => Constant::ENABLED_OPTION]),
             'genders' => $this->catalogService->getCatalogDropdown(['type' => Constant::CATALOG_TYPE['GENDER']], 'bn'),
             'exam_dropdown' => $this->examLevelService->getExamLevelDropdown(['id' => [1, 2, 3, 4]]),

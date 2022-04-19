@@ -214,7 +214,7 @@ class StateService extends Service
      * @return array
      * @throws Exception
      */
-    public function getStateDropdown(array $filters = []): array
+    public function getStateDropdown(array $filters = [], bool $showNative = false): array
     {
         $filters = array_merge([
             'enabled' => 'yes',
@@ -224,7 +224,7 @@ class StateService extends Service
         $stateArray = [];
 
         foreach ($states as $state)
-            $stateArray[$state->id] = $state->name;
+            $stateArray[$state->id] = ($showNative == false) ? $state->name : $state->native;
 
         return $stateArray;
     }

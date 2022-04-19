@@ -64,5 +64,6 @@ return [
     'Whatsapp Number' => 'হোয়াট্‌সঅ্যাপ নম্বর',
     'Facebook ID' => 'ফেসবুক আইডি',
     'Highest Educational Qualification' => 'সর্বোচ্চ শিক্ষাগত যোগ্যতা',
-    'Please select highest educational qualification' => 'সর্বোচ্চ শিক্ষাগত যোগ্যতা নির্বাচন করুন'
+    'Please select highest educational qualification' => 'সর্বোচ্চ শিক্ষাগত যোগ্যতা নির্বাচন করুন',
+    'Select the district(s) where you have worked earlier (it can be multiple)' => 'অতীতে কাজ করেছেন এরূপ জেলার নাম নির্বাচন করুন (একাধিক হতে পারে)'
 ];

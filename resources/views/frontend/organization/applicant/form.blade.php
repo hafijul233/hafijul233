@@ -27,6 +27,9 @@
         {!! \Form::hUrl('facebook', __('enumerator.Facebook ID'), old('facebook', $enumerator->facebook ?? null), false, 3) !!}
         {!! \Form::hCheckbox('survey_id', __('enumerator.Survey'), $surveys, old('survey_id', $enumerator->survey_id ?? []),
     true, 3, ['placeholder' => __("enumerator.Select a Survey Option")]) !!}
+        {!! \Form::hSelectMulti('prev_post_state_id', __('enumerator.Select the district(s) where you have worked earlier (it can be multiple)'),$states,
+        old('prev_post_state_id', $enumerator->prev_post_state_id ?? null), false, 3, ['placeholder' => __('enumerator.Select the district(s) where you have worked earlier (it can be multiple)')]) !!}
+
         <div class="row mt-3">
             <div class="col-12 justify-content-center d-flex">
                 {!! \Form::nSubmit('submit', __('common.Save')) !!}
@@ -168,6 +171,9 @@
         });
         */
         $(document).ready(function () {
+            $("select#prev_post_state_id").select2({
+                width: "100%"
+            })
             $("#enumerator-form").validate({
                 rules: {
                     "survey_id": {

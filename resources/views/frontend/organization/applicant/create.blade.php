@@ -15,7 +15,7 @@
 @endpush
 
 @push('plugin-style')
-
+<link rel="stylesheet" href="{{ asset('plugins/select2/css/select2.min.css') }}" type="text/css">
 @endpush
 
 @push('page-style')
@@ -50,7 +50,7 @@
 
 
 @push('plugin-script')
-
+<script type="text/javascript" src="{{ asset('plugins/select2/js/select2.min.js') }}"></script>
 @endpush
 
 @push('page-script')

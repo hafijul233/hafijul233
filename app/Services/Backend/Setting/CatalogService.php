@@ -228,6 +228,7 @@ class CatalogService extends Service
 
     /**
      * @param array $filters
+     * @param null $translation
      * @return array
      * @throws Exception
      */
