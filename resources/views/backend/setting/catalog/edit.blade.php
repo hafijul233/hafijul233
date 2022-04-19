@@ -35,7 +35,7 @@
             <div class="col-lg-12">
                 <div class="card">
                     {!! \Form::open(['route' => ['backend.settings.catalogs.update', $catalog->id], 'method' => 'put', 'id' => 'catalog-form']) !!}
-                    @include('setting.catalog.form')
+                    @include('backend.setting.catalog.form')
                     {!! \Form::close() !!}
                 </div>
             </div>
