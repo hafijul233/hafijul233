@@ -11,7 +11,7 @@
             </button>
             <button type="submit" name="language" value="bd"
                     class="font-weight-bold btn @if(session()->get('locale') == 'bd') btn-success @else btn-default @endif">
-                BD
+                BN
             </button>
         </div>
         {!! \Form::close() !!}
