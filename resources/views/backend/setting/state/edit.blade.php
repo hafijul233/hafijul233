@@ -32,7 +32,7 @@
     <div class="container-fluid">
         <div class="card card-default">
             {!! \Form::open(['route' => ['backend.settings.users.update', $user->id], 'files' => true, 'id' => 'user-form', 'method' => 'put']) !!}
-            @include('setting.user.form')
+            @include('backend.setting.state.form')
             {!! \Form::close() !!}
         </div>
     </div>
