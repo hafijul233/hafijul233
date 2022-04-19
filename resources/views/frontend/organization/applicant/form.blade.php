@@ -28,7 +28,7 @@
         {!! \Form::hCheckbox('survey_id', __('enumerator.Survey'), $surveys, old('survey_id', $enumerator->survey_id ?? []),
     true, 3, ['placeholder' => __("enumerator.Select a Survey Option")]) !!}
 
-        {!! \Form::hSelectMulti('prev_post_state_id', __('enumerator.Select the district(s) where you have worked earlier (it can be multiple)'),$states,
+        {!! \Form::hSelect('prev_post_state_id', __('enumerator.Select the district(s) where you have worked earlier (it can be multiple)'),$states,
         old('prev_post_state_id', $enumerator->prev_post_state_id ?? null), false, 3) !!}
 
         {!! \Form::hSelectMulti('future_post_state_id', __('enumerator.Select the district(s) where you want to work in future (maximum 3)'),$states,
