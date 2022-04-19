@@ -36,140 +36,110 @@
             <div class="col-12">
                 <div class="card card-default">
                     <div class="card-body min-vh-100">
+                        <table class="table table-bordered table-hover">
+                            <tr>
+                                <th width="30%">{!!  __('enumerator.Name') !!}</th>
+                                <td>{!! $enumerator->name   ?? '' !!}</td>
+                            </tr>
+                            <tr>
+                                <th>{!! __('enumerator.Name(Bangla)') !!}</th>
+                                <td>{!! $enumerator->name_bd   ?? '' !!}</td>
+                            </tr>
+                            <tr>
+                                <th>{!! __('enumerator.Gender') !!}</th>
+                                <td>{!! isset($enumerator->gender->name) ? $enumerator->gender->name : null !!}</td>
+                            </tr>
+                            <tr>
+                                <th>{!!  __('enumerator.Date of Birth') !!}</th>
+                                <td>@if($enumerator->dob != null)
+                                        {!! \Carbon\Carbon::parse($enumerator->dob)->format('dS F, Y') !!}
+                                    @endif
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>{!!  __('enumerator.Father Name') !!}</th>
+                                <td>{!! $enumerator->father   ?? '' !!}</td>
+                            </tr>
+                            <tr>
+                                <th>{!! __('enumerator.Mother Name') !!}</th>
+                                <td> {!! $enumerator->mother   ?? '' !!}</td>
+                            </tr>
+                            <tr>
+                                <th>{!! __('enumerator.NID Number') !!}</th>
+                                <td>{!! $enumerator->nid   ?? '' !!}</td>
+                            </tr>
+                            <tr>
+                                <th>{!! __('enumerator.Present Address') !!}</th>
+                                <td>{!! $enumerator->present_address   ?? '' !!}</td>
+                            </tr>
+                            <tr>
+                                <th>{!! __('enumerator.Permanent Address') !!}</th>
+                                <td> {!! $enumerator->permanent_address   ?? '' !!}</td>
+                            </tr>
+                            <tr>
+                                <th>{!! __('enumerator.Highest Educational Qualification') !!}</th>
+                                <td>{!! isset($enumerator->examLevel->name) ? $enumerator->examLevel->name : null !!}</td>
+                            </tr>
+                            <tr>
+                                <th>{!! __('enumerator.Mobile 1') !!}</th>
+                                <td>{!! $enumerator->mobile_1   ?? null !!}</td>
+                            </tr>
+                            <tr>
+                                <th>{!! __('enumerator.Mobile 2') !!}</th>
+                                <td> {!! $enumerator->mobile_2   ?? null !!}</td>
+                            </tr>
+                            <tr>
+                                <th>{!! __('enumerator.Email') !!}</th>
+                                <td>{!! $enumerator->email   ?? null !!}</td>
+                            </tr>
+                            <tr>
+                                <th>{!! __('enumerator.Whatsapp Number') !!}</th>
+                                <td>  {!! $enumerator->whatsapp   ?? null !!}</td>
+                            </tr>
+                            <tr>
+                                <th>{!! __('enumerator.Facebook ID') !!}</th>
+                                <td>{!! $enumerator->facebook   ?? null !!}</td>
+                            </tr>
+                            <tr>
+                                <th>{!! __('enumerator.Select the district(s) where you have worked earlier (it can be multiple)') !!}</th>
+                                <td>{!! $enumerator->facebook   ?? null !!}</td>
+                            </tr>
+                            <tr>
+                                <th>{!! __('enumerator.Select the district(s) where you want to work in future (maximum 3)') !!}</th>
+                                <td>{!! $enumerator->facebook   ?? null !!}</td>
+                            </tr>
+                            <tr>
+                                <th>{!! __('enumerator.Are you revenue staff of BBS?') !!}</th>
+                                <td>{!! isset($enumerator->is_employee) ? ucfirst($enumerator->is_employee) : null !!}</td>
+                            </tr>
+                            <tr>
+                                <th>{!! __('enumerator.Designation') !!}</th>
+                                <td>{!! ($enumerator->is_employee == 'yes') ? $enumerator->designation :   'N/A' !!}</td>
+                            </tr>
+                            <tr>
+                                <th>{!! __('enumerator.Company Name') !!}</th>
+                                <td>{!! ($enumerator->is_employee == 'yes') ? $enumerator->company :   'N/A' !!}</td>
+                            </tr>
+                            <tr>
+                                <th>{!! __('enumerator.Work Experience in BBS as Enumerator') !!}</th>
+                                <td>
+                                    <ul>
+                                        @forelse($enumerator->surveys as $index => $survey)
+                                            <li> {{ $index + 1 }}. {{ $survey->name ?? null }}</li>
+                                        @empty
+                                            <li> No Survey Available</li>
+                                        @endforelse
+                                    </ul>
+                                </td>
+                            </tr>
+
+                        </table>
                         <div class="row">
                             <div class="col-md-3">
-                                <label class="font-weight-bold">{!!  __('enumerator.Name') !!}</label>
+                                <label class="font-weight-bold"></label>
                             </div>
                             <div class="col-md-9">
-                                {!! $enumerator->name   ?? '' !!}
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-3">
-                                <label class="font-weight-bold">{!! __('enumerator.Name(Bangla)') !!}</label>
-                            </div>
-                            <div class="col-md-9">
-                                {!! $enumerator->name_bd   ?? '' !!}
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-3">
-                                <label class="font-weight-bold">{!! __('enumerator.Gender') !!}</label>
-                            </div>
-                            <div class="col-md-9">
-                                {!! isset($enumerator->gender->name) ? $enumerator->gender->name : null !!}
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-3">
-                                <label class="font-weight-bold">{!!  __('enumerator.Date of Birth') !!}</label>
-                            </div>
-                            <div class="col-md-9">
-                                @if($enumerator->dob != null)
-                                    {!! \Carbon\Carbon::parse($enumerator->dob)->format('dS F, Y') !!}
-                                @endif
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-3">
-                                <label class="font-weight-bold">{!!  __('enumerator.Father Name') !!}</label>
-                            </div>
-                            <div class="col-md-9">
-                                {!! $enumerator->father   ?? '' !!}
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-3">
-                                <label class="font-weight-bold">{!! __('enumerator.Mother Name') !!}</label>
-                            </div>
-                            <div class="col-md-9">
-                                {!! $enumerator->mother   ?? '' !!}
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-3">
-                                <label class="font-weight-bold">{!! __('enumerator.NID Number') !!}</label>
-                            </div>
-                            <div class="col-md-9">
-                                {!! $enumerator->nid   ?? '' !!}
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-3">
-                                <label class="font-weight-bold">{!! __('enumerator.Present Address') !!}</label>
-                            </div>
-                            <div class="col-md-9">
-                                {!! $enumerator->present_address   ?? '' !!}
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-3">
-                                <label class="font-weight-bold">{!! __('enumerator.Permanent Address') !!}</label>
-                            </div>
-                            <div class="col-md-9">
-                                {!! $enumerator->permanent_address   ?? '' !!}
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-3">
-                                <label class="font-weight-bold">{!! __('enumerator.Highest Educational Qualification') !!}</label>
-                            </div>
-                            <div class="col-md-9">
-                                {!! isset($enumerator->examLevel->name) ? $enumerator->examLevel->name : null !!}
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-3">
-                                <label class="font-weight-bold">{!! __('enumerator.Mobile 1') !!}</label>
-                            </div>
-                            <div class="col-md-9">
-                                {!! $enumerator->mobile_1   ?? '' !!}
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-3">
-                                <label class="font-weight-bold">{!! __('enumerator.Mobile 2') !!}</label>
-                            </div>
-                            <div class="col-md-9">
-                                {!! $enumerator->mobile_2   ?? '' !!}
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-3">
-                                <label class="font-weight-bold">{!! __('enumerator.Email') !!}</label>
-                            </div>
-                            <div class="col-md-9">
-                                {!! $enumerator->email   ?? '' !!}
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-3">
-                                <label class="font-weight-bold">{!! __('enumerator.Whatsapp Number') !!}</label>
-                            </div>
-                            <div class="col-md-9">
-                                {!! $enumerator->whatsapp   ?? '' !!}
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-3">
-                                <label class="font-weight-bold">{!! __('enumerator.Facebook ID') !!}</label>
-                            </div>
-                            <div class="col-md-9">
-                                {!! $enumerator->facebook   ?? '' !!}
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-3">
-                                <label class="font-weight-bold">{!! __('enumerator.Survey') !!}</label>
-                            </div>
-                            <div class="col-md-9">
-                                <ul class="pl-0">
-                                    @forelse($enumerator->surveys as $index => $survey)
-                                        <li> {{ $index + 1 }}. {{ $survey->name ?? null }}</li>
-                                    @empty
-                                        <li> No Survey Available</li>
-                                    @endforelse
-                                </ul>
+
                             </div>
                         </div>
                     </div>

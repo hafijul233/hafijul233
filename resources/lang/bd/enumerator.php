@@ -68,5 +68,6 @@ return [
     'Select the district(s) where you have worked earlier (it can be multiple)' => 'অতীতে কাজ করেছেন এরূপ জেলার নাম নির্বাচন করুন (একাধিক হতে পারে)',
     'Select the district(s) where you want to work in future (maximum 3)' => 'ভবিষ্যতে কোন কোন জেলায় কাজ করতে আগ্রহী (সর্বাধিক ৩টি)',
     'Are you revenue staff of BBS?' => 'আপনি কি বিবিএস এর রেভিনিউ স্টাফ?',
+    'Work Experience in BBS as Enumerator' => 'গণনাকারী হিসাবে বিবিএস এ কাজের অভিজ্ঞতা',
 
 ];

@@ -6,6 +6,7 @@ use App\Models\Backend\Organization\Enumerator\EducationQualification;
 use App\Models\Backend\Organization\Enumerator\WorkQualification;
 use App\Models\Backend\Setting\Catalog;
 use App\Models\Backend\Setting\ExamLevel;
+use App\Models\Backend\Setting\State;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -38,9 +39,9 @@ class Enumerator extends Model implements Auditable
      *
      * @var array
      */
-    protected $fillable = ['survey_id','gender_id', 'dob', 'name', 'name_bd', 'father', 'father_bd',
-        'mother', 'mother_bd', 'nid', 'mobile_1', 'mobile_2', 'email',
-        'present_address', 'present_address_bd', 'permanent_address',
+    protected $fillable = ['survey_id', 'gender_id', 'dob', 'name', 'name_bd', 'father', 'father_bd',
+        'mother', 'mother_bd', 'nid', 'mobile_1', 'mobile_2', 'email', 'is_employee', 'designation',
+        'present_address', 'present_address_bd', 'permanent_address', 'company',
         'permanent_address_bd', 'gender', 'enabled', 'whatsapp', 'facebook', 'exam_level'];
 
     /**
@@ -92,6 +93,22 @@ class Enumerator extends Model implements Auditable
     public function gender()
     {
         return $this->belongsTo(Catalog::class, 'gender_id', 'id');
+    }
+
+    public function states()
+    {
+        return $this->belongsToMany(State::class, 'enumerator_state')
+            ->withPivot('type');
+    }
+    public function previousPostings()
+    {
+        return $this->states()->where('.type', '=', "previous" )->get();
+    }
+
+    public function futurePosting()
+    {
+        return $this->belongsToMany(State::class, 'enumerator_state')
+            ->withPivot('type');
     }
 
 }

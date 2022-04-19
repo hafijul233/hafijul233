@@ -68,6 +68,7 @@ return [
     'Select the district(s) where you have worked earlier (it can be multiple)' => 'Select the district(s) where you have worked earlier (it can be multiple)',
     'Select the district(s) where you want to work in future (maximum 3)' => 'Select the district(s) where you want to work in future (maximum 3)',
     'Are you revenue staff of BBS?' => 'Are you revenue staff of BBS?',
+    'Work Experience in BBS as Enumerator' => 'Work Experience in BBS as Enumerator',
 
 
 ];
