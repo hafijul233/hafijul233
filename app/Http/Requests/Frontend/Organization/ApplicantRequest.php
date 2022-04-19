@@ -6,6 +6,7 @@ use App\Rules\MaxLength;
 use App\Rules\MinLength;
 use App\Rules\PhoneNumber;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 /**
  * @class EnumeratorRequest
@@ -13,6 +14,17 @@ use Illuminate\Foundation\Http\FormRequest;
  */
 class ApplicantRequest extends FormRequest
 {
+
+    /**
+     * Determine if the user is authorized to make this request.
+     *
+     * @return bool
+     */
+    public function authorize()
+    {
+        return true;
+    }
+
     /**
      * Get the validation rules that apply to the request.
      *
@@ -38,17 +50,14 @@ class ApplicantRequest extends FormRequest
             "present_address" => ["required", "string", "min:2", "max:255"],
             "permanent_address" => ["required", "string", "min:2", "max:255"],
             "gender_id" => ["required", "integer"],
+            "is_employee" => ["required", "string", Rule::in(['yes', 'no'])],
+            "designation" => ["nullable", "string"],
+            "company" => ["nullable", "string"],
+            "prev_post_state_id" => ["array", "nullable"],
+            "prev_post_state_id.*" => ["required", "integer", "min:1"],
+            "future_post_state_id" => ["array", "nullable", "max:3"],
+            "future_post_state_id.*" => ["required", "integer", "min:1"],
         ];
-    }
-
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
-    public function authorize()
-    {
-        return true;
     }
 
     /**
@@ -75,6 +84,11 @@ class ApplicantRequest extends FormRequest
             "present_address" => __('enumerator.Present Address'),
             "permanent_address" => __('enumerator.Permanent Address'),
             "gender_id" => __('enumerator.Gender'),
+            "is_employee" => __('enumerator.Are you revenue staff of BBS?'),
+            "designation" => __('enumerator.Designation'),
+            "company" => __('enumerator.Company Name'),
+            "prev_post_state_id" => __('enumerator.Select the district(s) where you have worked earlier (it can be multiple)'),
+            "future_post_state_id" => __('enumerator.Select the district(s) where you want to work in future (maximum 3)')
         ];
     }
 }

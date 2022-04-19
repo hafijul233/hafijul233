@@ -10,6 +10,7 @@ use App\Services\Backend\Organization\SurveyService;
 use App\Services\Backend\Setting\CatalogService;
 use App\Services\Backend\Setting\ExamLevelService;
 use App\Services\Backend\Setting\InstituteService;
+use App\Services\Backend\Setting\StateService;
 use App\Supports\Constant;
 use App\Supports\Utility;
 use Box\Spout\Common\Exception\InvalidArgumentException;
@@ -22,6 +23,8 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Psr\Container\ContainerExceptionInterface;
+use Psr\Container\NotFoundExceptionInterface;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
 /**
@@ -55,6 +58,10 @@ class EnumeratorController extends Controller
      * @var ExamLevelService
      */
     private $examLevelService;
+    /**
+     * @var StateService
+     */
+    private $stateService;
 
     /**
      * EnumeratorController Constructor
@@ -64,12 +71,14 @@ class EnumeratorController extends Controller
      * @param SurveyService $surveyService
      * @param CatalogService $catalogService
      * @param ExamLevelService $examLevelService
+     * @param StateService $stateService
      */
     public function __construct(AuthenticatedSessionService $authenticatedSessionService,
                                 EnumeratorService $enumeratorService,
                                 SurveyService $surveyService,
                                 CatalogService $catalogService,
-                                ExamLevelService $examLevelService)
+                                ExamLevelService $examLevelService,
+                                StateService $stateService)
     {
 
         $this->authenticatedSessionService = $authenticatedSessionService;
@@ -77,6 +86,7 @@ class EnumeratorController extends Controller
         $this->surveyService = $surveyService;
         $this->catalogService = $catalogService;
         $this->examLevelService = $examLevelService;
+        $this->stateService = $stateService;
     }
 
     /**
@@ -100,11 +110,19 @@ class EnumeratorController extends Controller
      * Show the form for creating a new resource.
      *
      * @return Application|Factory|View
-     * @throws Exception
+     * @throws ContainerExceptionInterface
+     * @throws NotFoundExceptionInterface
      */
     public function create()
     {
+        $enables = [];
+        foreach (Constant::ENABLED_OPTIONS as $field => $label):
+            $enables[$field] = __('common.' . $label);
+        endforeach;
+
         return view('backend.organization.enumerator.create', [
+            'enables' => $enables,
+            'states' => $this->stateService->getStateDropdown(['enabled' => Constant::ENABLED_OPTION, 'type' => 'district'], (session()->get('locale') == 'bd')),
             'surveys' => $this->surveyService->getSurveyDropDown(['enabled' => Constant::ENABLED_OPTION]),
             'genders' => $this->catalogService->getCatalogDropdown(['type' => Constant::CATALOG_TYPE['GENDER']], 'bn'),
             'exam_dropdown' => $this->examLevelService->getExamLevelDropdown(['id' => [1, 2, 3, 4]]),
@@ -157,14 +175,23 @@ class EnumeratorController extends Controller
      *
      * @param $id
      * @return Application|Factory|View
+     * @throws ContainerExceptionInterface
+     * @throws NotFoundExceptionInterface
      * @throws Exception
      */
     public function edit($id)
     {
         if ($enumerator = $this->enumeratorService->getEnumeratorById($id)) {
 
+            $enables = [];
+            foreach (Constant::ENABLED_OPTIONS as $field => $label):
+                $enables[$field] = __('common.' . $label);
+            endforeach;
+
             return view('backend.organization.enumerator.edit', [
                 'enumerator' => $enumerator,
+                'enables' => $enables,
+                'states' => $this->stateService->getStateDropdown(['enabled' => Constant::ENABLED_OPTION, 'type' => 'district'], (session()->get('locale') == 'bd')),
                 'surveys' => $this->surveyService->getSurveyDropDown(),
                 'genders' => $this->catalogService->getCatalogDropdown(['type' => Constant::CATALOG_TYPE['GENDER']], 'bn'),
                 'exam_dropdown' => $this->examLevelService->getExamLevelDropdown(['id' => [1, 2, 3, 4]]),

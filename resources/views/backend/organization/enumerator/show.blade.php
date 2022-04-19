@@ -113,11 +113,14 @@
                             <tr>
                                 <th>{!! __('enumerator.Select the district(s) where you want to work in future (maximum 3)') !!}</th>
                                 <td>
-                                    @forelse($enumerator->futurePostings as $state)
-                                        {{  $state->name }},
-                                    @empty
-                                        No District Available
-                                    @endforelse
+                                    <ul>
+                                        @forelse($enumerator->futurePostings as $state)
+                                            <li>{{  $state->name }}</li>
+                                        @empty
+                                            <li>No District Available</li>
+                                        @endforelse
+                                    </ul>
+
                                 </td>
                             </tr>
                             <tr>
