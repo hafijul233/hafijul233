@@ -179,4 +179,44 @@ return [
         ],
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Application Footer Copyrights
+    |--------------------------------------------------------------------------
+    |
+    | This value is the name of your application. This value is used when the
+    | framework needs to place the application's name in a notification or
+    | any other location as required by the application or its packages.
+    |
+    */
+
+    'copyright' => env('APP_COPYRIGHTS', env('APP_NAME', 'Laravel')),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Application Footer Copyrights
+    |--------------------------------------------------------------------------
+    |
+    | This value is the name of your application. This value is used when the
+    | framework needs to place the application's name in a notification or
+    | any other location as required by the application or its packages.
+    |
+    */
+
+    'sidebar' => env('APP_SHORT_NAME', env('APP_NAME', 'Laravel')),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Application Version
+    |--------------------------------------------------------------------------
+    |
+    | This value is the name of your application. This value is used when the
+    | framework needs to place the application's name in a notification or
+    | any other location as required by the application or its packages.
+    |
+    */
+
+    'version' => env('APP_VERSION', '1.0'),
+
+
 ];
