@@ -67,7 +67,7 @@ class ApplicantController extends Controller
     public function create()
     {
         return view('frontend.organization.applicant.create', [
-            'surveys' => $this->surveyService->getSurveyDropDown(),
+            'surveys' => $this->surveyService->getSurveyDropDown(['enabled' => Constant::ENABLED_OPTION]),
             'genders' => $this->catalogService->getCatalogDropdown(['type' => Constant::CATALOG_TYPE['GENDER']], 'bn'),
             'exam_dropdown' => $this->examLevelService->getExamLevelDropdown(['id' => [1, 2, 3, 4]]),
         ]);
@@ -76,9 +76,9 @@ class ApplicantController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param EnumeratorRequest $request
+     * @param ApplicantRequest $request
      * @return RedirectResponse
-     * @throws Exception|\Throwable
+     * @throws \Throwable
      */
     public function store(ApplicantRequest $request): RedirectResponse
     {
