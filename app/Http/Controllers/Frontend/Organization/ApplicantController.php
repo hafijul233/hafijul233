@@ -74,11 +74,18 @@ class ApplicantController extends Controller
      */
     public function create()
     {
+        $enables = [];
+
+        foreach (Constant::ENABLED_OPTIONS as $field => $label):
+            $enables[$field] = __('common.' . $label);
+        endforeach;
+
         return view('frontend.organization.applicant.create', [
+            'enables' => $enables,
             'states' => $this->stateService->getStateDropdown(['enabled' => Constant::ENABLED_OPTION, 'type' => 'district']),
             'surveys' => $this->surveyService->getSurveyDropDown(['enabled' => Constant::ENABLED_OPTION]),
             'genders' => $this->catalogService->getCatalogDropdown(['type' => Constant::CATALOG_TYPE['GENDER']], 'bn'),
-            'exam_dropdown' => $this->examLevelService->getExamLevelDropdown(['id' => [1, 2, 3, 4]]),
+            'exam_dropdown' => $this->examLevelService->getExamLevelDropdown(['id' => [1, 2, 3, 4]])
         ]);
     }
 

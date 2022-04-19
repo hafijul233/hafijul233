@@ -39,6 +39,9 @@ class CreateEnumeratorsTable extends Migration
             $table->string('present_address_bd')->nullable();
             $table->string('permanent_address')->nullable();
             $table->string('permanent_address_bd')->nullable();
+            $table->string('is_employee')->nullable()->default('no');
+            $table->string('designation')->nullable();
+            $table->string('company')->nullable();
             $table->date('dob')->nullable();
             $table->foreignId('gender_id')->nullable()->index()->constrained('catalogs');
             $table->enum('enabled', array_keys(Constant::ENABLED_OPTIONS))

@@ -27,9 +27,18 @@
         {!! \Form::hUrl('facebook', __('enumerator.Facebook ID'), old('facebook', $enumerator->facebook ?? null), false, 3) !!}
         {!! \Form::hCheckbox('survey_id', __('enumerator.Survey'), $surveys, old('survey_id', $enumerator->survey_id ?? []),
     true, 3, ['placeholder' => __("enumerator.Select a Survey Option")]) !!}
-        {!! \Form::hSelectMulti('prev_post_state_id', __('enumerator.Select the district(s) where you have worked earlier (it can be multiple)'),$states,
-        old('prev_post_state_id', $enumerator->prev_post_state_id ?? null), false, 3, ['placeholder' => __('enumerator.Select the district(s) where you have worked earlier (it can be multiple)')]) !!}
 
+        {!! \Form::hSelectMulti('prev_post_state_id', __('enumerator.Select the district(s) where you have worked earlier (it can be multiple)'),$states,
+        old('prev_post_state_id', $enumerator->prev_post_state_id ?? null), false, 3) !!}
+
+        {!! \Form::hSelectMulti('future_post_state_id', __('enumerator.Select the district(s) where you want to work in future (maximum 3)'),$states,
+        old('prev_post_state_id', $enumerator->prev_post_state_id ?? null), false, 3) !!}
+
+        {!! \Form::hRadio('is_employee', __('enumerator.Are you revenue staff of BBS?'), $enables, old('is_employee', $enumerator->is_employee ?? []), true, 3) !!}
+        <div id="work_space">
+            {!! \Form::hText('designation', __('enumerator.Designation'), old('designation', $enumerator->designation ?? null), false, 3) !!}
+            {!! \Form::hText('company', __('enumerator.Company Name'), old('company', $enumerator->company ?? null), false, 3) !!}
+        </div>
         <div class="row mt-3">
             <div class="col-12 justify-content-center d-flex">
                 {!! \Form::nSubmit('submit', __('common.Save')) !!}
@@ -40,140 +49,35 @@
 
 @push('page-script')
     <script>
-
-        /*function getExamGroupDropdown(examLevelId, examTitleId, targetIdString, preSelected = '') {
-            if (!isNaN(examTitleId)) {
-                $.ajax({
-                    method: 'GET',
-                    url: '{{ route('backend.settings.exam-groups.ajax') }}',
-                    data: {exam_level_id: examLevelId, exam_title_id: examTitleId},
-                    headers: {
-                        'X-Requested-With': 'XMLHttpRequest',
-                        'Accept': 'application/json'
-                    },
-                    cache: false,
-                    dataType: 'json',
-                    success: function (response) {
-                        var targetSelect = $("#" + targetIdString);
-                        targetSelect.empty();
-                        if (response.status === true) {
-                            if (response.data.length > 0) {
-                                targetSelect.append($('<option></option>').val("").text("Please Select a Option"));
-                                $.each(response.data, function (index, element) {
-                                    var option = $('<option></option>').val(element.id).text(element.name);
-
-                                    if (preSelected.length > 0 && element.id === parseInt(preSelected)) {
-                                        option.prop('selected', (preSelected.length > 0));
-                                    }
-
-                                    targetSelect.append(option);
-                                });
-                            } else {
-                                targetSelect.append($('<option></option>').val("").text("No Data Found"));
-                            }
-                        } else {
-                            targetSelect.append($('<option></option>').val("").text("No Data Found"));
-                            notify('No Data Found', 'warning', 'Ajax Response');
-                        }
-                    },
-                    error: function (xhr) {
-                        notify(xhr.responseText, 'error', 'Alert!');
+        $(document).ready(function () {
+            $("#work_space").hide();
+            $("#is_employee-radio-yes, #is_employee-radio-no").change(function () {
+                var option = this;
+                if (option.checked) {
+                    if (option.value === 'yes') {
+                        $("#work_space").show();
+                    } else {
+                        $("#work_space").hide();
                     }
-                });
-            }
-        }
-
-        function addMoreWorkExperience(event) {
-            alert("triggered");
-            var index = parseInt($("#job_index").val());
-
-            $("#work_experiences").append(
-                '<div class="work_experience  py-3 border-bottom">\n' +
-                '                <div class="form-group row">\n' +
-                '    <label for="job[' + index + '][company]" class="col-form-label col-sm-2">{{ __('enumerator.Company Name') }}<span style="color: #dc3545; font-weight:700">*</span></label>\n' +
-                '\n' +
-                '        <div class="col-sm-10">\n' +
-                '        <input class="form-control" required="required" name="job[' + index + '][company]" type="text" id="job[' + index + '][company]">\n' +
-                '\n' +
-                '        <span id="job[' + index + '][company]-error" class="invalid-feedback"></span>\n' +
-                '    </div>\n' +
-                '</div>\n' +
-                '\n' +
-                '                <div class="form-group row">\n' +
-                '    <label for="job[' + index + '][designation]" class="col-form-label col-sm-2">{{ __('enumerator.Designation') }}<span style="color: #dc3545; font-weight:700">*</span></label>\n' +
-                '\n' +
-                '        <div class="col-sm-10">\n' +
-                '        <input class="form-control" required="required" name="job[' + index + '][designation]" type="text" id="job[' + index + '][designation]">\n' +
-                '\n' +
-                '        <span id="job[' + index + '][designation]-error" class="invalid-feedback"></span>\n' +
-                '    </div>\n' +
-                '</div>\n' +
-                '\n' +
-                '\n' +
-                '                <div class="form-group row">\n' +
-                '    <label for="job[' + index + '][start_date]" class="col-form-label col-sm-2">{{ __('enumerator.Service Start Date') }}<span style="color: #dc3545; font-weight:700">*</span></label>\n' +
-                '\n' +
-                '        <div class="col-sm-10">\n' +
-                '        <input class="form-control" required="required" name="job[' + index + '][start_date]" type="date" id="job[' + index + '][start_date]">\n' +
-                '\n' +
-                '        <span id="job[' + index + '][start_date]-error" class="invalid-feedback"></span>\n' +
-                '    </div>\n' +
-                '</div>\n' +
-                '\n' +
-                '                <div class="form-group row">\n' +
-                '    <label for="job[' + index + '][end_date]" class="col-form-label col-sm-2">{{ __('enumerator.Service End Date') }}<span style="color: #dc3545; font-weight:700">*</span></label>\n' +
-                '\n' +
-                '        <div class="col-sm-10">\n' +
-                '        <input class="form-control" required="required" name="job[' + index + '][end_date]" type="date" id="job[' + index + '][end_date]">\n' +
-                '\n' +
-                '        <span id="job[' + index + '][end_date]-error" class="invalid-feedback"></span>\n' +
-                '    </div>\n' +
-                '</div>\n' +
-                '\n' +
-                '\n' +
-                '                <div class="form-group row">\n' +
-                '    <label for="job[' + index + '][responsibility]" class="col-form-label col-sm-2">{{ __('enumerator.Responsibility') }}<span style="color: #dc3545; font-weight:700">*</span></label>\n' +
-                '\n' +
-                '        <div class="col-sm-10">\n' +
-                '        <textarea class="form-control" rows="3" required="required" name="job[' + index + '][responsibility]" cols="50" id="job[' + index + '][responsibility]"></textarea>\n' +
-                '\n' +
-                '        <span id="job[' + index + '][responsibility]-error" class="invalid-feedback"></span>\n' +
-                '    </div>\n' +
-                '</div>\n' +
-                '\n' +
-                '</div>\n');
-
-            $("#job_index").val(++index);
-        }
-
-        function toggleEducationPanel(value) {
-            if (!isNaN(value)) {
-                $(".exam_level").each(function () {
-                    $(this).removeClass('d-none').removeClass('d-block').addClass('d-none');
-                });
-                $("#exam_level_" + value).addClass("d-block");
-            }
-        }
-
-        $(document).ready(function () {
-
-            examGroups.forEach(function (item) {
-                getExamGroupDropdown(item.exam_level_id, item.exam_title_id, item.target_select, item.exam_group_id);
+                }
             });
-                        $("#exam_level").on('change', function () {
-                            var value = $(this).val();
-                            toggleEducationPanel(value);
-                        });
 
-                        if ($("#exam_level").val().length > 0) {
-                            toggleEducationPanel($("#exam_level").val());
-                        }
-        });
-        */
-        $(document).ready(function () {
             $("select#prev_post_state_id").select2({
-                width: "100%"
-            })
+                width: "100%",
+                placeholder: "{{ __('enumerator.Select the district(s) where you have worked earlier (it can be multiple)') }}",
+                multiple: true,
+                allowClear: true,
+                maximumSelectionLength: {{ count($states) }}
+            });
+
+            $("select#future_post_state_id").select2({
+                width: "100%",
+                placeholder: "{{ __('enumerator.Select the district(s) where you want to work in future (maximum 3)') }}",
+                multiple: true,
+                allowClear: true,
+                maximumSelectionLength: 3
+            });
+
             $("#enumerator-form").validate({
                 rules: {
                     "survey_id": {
@@ -240,7 +144,7 @@
                         required: true,
                         digits: true
                     },
-                    dob : {
+                    dob: {
                         required: true,
                         regex: "[0-9]{4}-[0-9]{2}-[0-9]{2}",
                         maxDate: function () {

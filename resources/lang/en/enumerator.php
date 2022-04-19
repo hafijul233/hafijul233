@@ -41,7 +41,7 @@ return [
     'Result' => 'Result',
     'GPA Point' => 'GPA Point',
     'Institute' => 'Institute',
-    'Company Name' => 'Company Name',
+    'Company Name' => 'Present Office',
     'Designation' => 'Designation',
     'Service Start Date' => 'Service Start Date',
     'Service End Date' => 'Service End Date',
@@ -68,5 +68,6 @@ return [
     'Select the district(s) where you have worked earlier (it can be multiple)' => 'Select the district(s) where you have worked earlier (it can be multiple)',
     'Select the district(s) where you want to work in future (maximum 3)' => 'Select the district(s) where you want to work in future (maximum 3)',
     'Are you revenue staff of BBS?' => 'Are you revenue staff of BBS?',
+
 
 ];

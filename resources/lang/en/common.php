@@ -39,4 +39,6 @@ return [
     'Parishankhyan Bhaban (8th Floor, Block-B)' => 'Parishankhyan Bhaban (8th Floor, Block-B)',
     'E-27/A, Agargaon, Dhaka-1207' => 'E-27/A, Agargaon, Dhaka-1207',
     'Database of Enumerators' => 'Database of Enumerators',
+    'Yes' => 'Yes',
+    'No' => 'No',
 ];

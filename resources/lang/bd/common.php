@@ -39,4 +39,6 @@ return [
     'Parishankhyan Bhaban (8th Floor, Block-B)' => 'পরিসংখ্যান ভবনে (৮ম তলা, ব্লক-বি)',
     'E-27/A, Agargaon, Dhaka-1207' => 'ই-২৭/এ, আগারগাঁও, ঢাকা-১২০৭',
     'Database of Enumerators' => 'গণনাকারীদের ডাটাবেস',
+    'Yes' => 'হ্যাঁ',
+    'No' => 'না',
 ];

@@ -41,8 +41,8 @@ return [
     'Result' => 'ফলাফল',
     'GPA Point' => 'জিপিএ পয়েন্ট',
     'Institute' => 'ইনস্টিটিউট',
-    'Company Name' => 'কোম্পানির নাম',
-    'Designation' => 'উপাধি',
+    'Company Name' => 'বর্তমান কর্মস্থল',
+    'Designation' => 'পদবি',
     'Service Start Date' => 'পরিষেবা শুরুর তারিখ',
     'Service End Date' => 'পরিষেবা শেষ তারিখ',
     'Responsibility' => 'কর্তব্য ও দায়িত্ব',
@@ -65,5 +65,8 @@ return [
     'Facebook ID' => 'ফেসবুক আইডি',
     'Highest Educational Qualification' => 'সর্বোচ্চ শিক্ষাগত যোগ্যতা',
     'Please select highest educational qualification' => 'সর্বোচ্চ শিক্ষাগত যোগ্যতা নির্বাচন করুন',
-    'Select the district(s) where you have worked earlier (it can be multiple)' => 'অতীতে কাজ করেছেন এরূপ জেলার নাম নির্বাচন করুন (একাধিক হতে পারে)'
+    'Select the district(s) where you have worked earlier (it can be multiple)' => 'অতীতে কাজ করেছেন এরূপ জেলার নাম নির্বাচন করুন (একাধিক হতে পারে)',
+    'Select the district(s) where you want to work in future (maximum 3)' => 'ভবিষ্যতে কোন কোন জেলায় কাজ করতে আগ্রহী (সর্বাধিক ৩টি)',
+    'Are you revenue staff of BBS?' => 'আপনি কি বিবিএস এর রেভিনিউ স্টাফ?',
+
 ];
