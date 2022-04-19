@@ -7,7 +7,6 @@ use App\Models\Backend\Setting\Role;
 use Illuminate\Console\Command;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Seeder;
-use Spatie\Permission\PermissionRegistrar;
 
 class RolePermissionSeeder extends Seeder
 {
@@ -39,13 +38,6 @@ class RolePermissionSeeder extends Seeder
                     throw new \PDOException($exception->getMessage());
                 }
             endif;
-        }
-
-        //reset Spatie Permission cache
-        if (app(PermissionRegistrar::class)->forgetCachedPermissions()) {
-            $this->command->info('Permission cache reset' . PHP_EOL);
-        } else {
-            $this->command->error('Permission cache reset failed' . PHP_EOL);
         }
     }
 }
