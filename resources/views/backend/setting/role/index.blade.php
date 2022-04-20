@@ -54,7 +54,7 @@
                                         </th>
                                         <th>@sortablelink('name', __('common.Name'))</th>
                                         <th class="text-center">@sortablelink('guard_name', 'Guard')</th>
-                                        <th class="text-center">@sortablelink('permissions', 'Permissions')</th>
+                                        <th class="text-center">Permissions</th>
                                         <th class="text-center">@sortablelink('users', 'Users')</th>
                                         <th class="text-center">@sortablelink('enabled', __('common.Enabled'))</th>
                                         <th class="text-center">@sortablelink('created_at', __('common.Created'))</th>
