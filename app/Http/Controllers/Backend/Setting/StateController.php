@@ -7,7 +7,6 @@ use App\Http\Requests\Backend\Setting\StateRequest;
 use App\Services\Auth\AuthenticatedSessionService;
 use App\Services\Backend\Setting\CountryService;
 use App\Services\Backend\Setting\StateService;
-use App\Supports\Constant;
 use App\Supports\Utility;
 use Exception;
 use Illuminate\Contracts\Foundation\Application;
@@ -36,16 +35,13 @@ class StateController extends Controller
     /**
      * @param AuthenticatedSessionService $authenticatedSessionService
      * @param StateService $stateService
-     * @param CountryService $countryService
      */
     public function __construct(AuthenticatedSessionService $authenticatedSessionService,
-                                StateService $stateService,
-                                CountryService $countryService)
+                                StateService $stateService)
     {
 
         $this->authenticatedSessionService = $authenticatedSessionService;
         $this->stateService = $stateService;
-        $this->countryService = $countryService;
     }
 
     /**
@@ -73,9 +69,7 @@ class StateController extends Controller
      */
     public function create()
     {
-        return view('backend.setting.state.create', [
-            'countries' => $this->countryService->getCountryDropdown(['enabled' => Constant::ENABLED_OPTION]),
-        ]);
+        return view('backend.setting.state.create');
     }
 
     /**

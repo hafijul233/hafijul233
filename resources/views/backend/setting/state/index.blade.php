@@ -40,7 +40,7 @@
                     @if(!empty($states))
                         <div class="card-body p-0">
                             {!! \Html::cardSearch('search', 'backend.settings.states.index',
-                            ['placeholder' => 'Search Permission Display Name, Code, Guard, Status, etc.',
+                            ['placeholder' => 'Search State Name, Status, etc.',
                             'class' => 'form-control', 'id' => 'search', 'data-target-table' => 'state-table']) !!}
                             <div class="table-responsive">
                                 <table class="table table-hover mb-0" id="permission-table">

@@ -1,6 +1,6 @@
-@extends('core::layouts.app')
+@extends('layouts.app')
 
-@section('title', 'Edit User')
+@section('title', 'Edit State')
 
 @push('meta')
 
@@ -22,17 +22,17 @@
 
 @endpush
 
-@section('breadcrumbs', Breadcrumbs::render(Route::getCurrentRoute()->getName(), $user))
+@section('breadcrumbs', Breadcrumbs::render(Route::getCurrentRoute()->getName(), $state))
 
 @section('actions')
-    {!! \Html::backButton('core.settings.users.index') !!}
+    {!! \Html::backButton('backend.settings.states.index') !!}
 @endsection
 
 @section('content')
     <div class="container-fluid">
         <div class="card card-default">
-            {!! \Form::open(['route' => ['core.settings.users.update', $user->id], 'files' => true, 'id' => 'user-form', 'method' => 'put']) !!}
-            @include('core::setting.user.form')
+            {!! \Form::open(['route' => ['backend.settings.states.update', $state->id], 'id' => 'user-form', 'method' => 'put']) !!}
+            @include('backend.setting.state.form')
             {!! \Form::close() !!}
         </div>
     </div>

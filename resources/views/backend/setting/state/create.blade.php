@@ -1,6 +1,6 @@
-@extends('core::layouts.app')
+@extends('layouts.app')
 
-@section('title', 'Add User')
+@section('title', 'Add State')
 
 @push('meta')
 
@@ -26,14 +26,14 @@
 @section('breadcrumbs', Breadcrumbs::render(Route::getCurrentRoute()->getName()))
 
 @section('actions')
-    {!! \Html::backButton('core.settings.users.index') !!}
+    {!! \Html::backButton('backend.settings.states.index') !!}
 @endsection
 
 @section('content')
     <div class="container-fluid">
         <div class="card">
-            {!! \Form::open(['route' => 'core.settings.users.store', 'files' => true, 'id' => 'user-form']) !!}
-            @include('core::setting.user.form')
+            {!! \Form::open(['route' => 'backend.settings.states.store', 'id' => 'state-form']) !!}
+            @include('backend.setting.state.form')
             {!! \Form::close() !!}
         </div>
     </div>
