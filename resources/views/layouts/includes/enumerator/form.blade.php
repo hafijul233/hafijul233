@@ -22,13 +22,13 @@
     {!! \Form::hText('email', __('enumerator.Email'), old('email', $enumerator->email ?? null), true, 3) !!}
     {!! \Form::hNumber('whatsapp', __('enumerator.Whatsapp Number'), old('whatsapp', $enumerator->whatsapp ?? null), false, 3) !!}
     {!! \Form::hUrl('facebook', __('enumerator.Facebook ID'), old('facebook', $enumerator->facebook ?? null), false, 3) !!}
-    {!! \Form::hCheckbox('survey_id', __('enumerator.Survey'), $surveys, old('survey_id', $enumerator->survey_id ?? []),true, 3) !!}
+    {!! \Form::hCheckbox('survey_id', __('enumerator.Survey'), $surveys, old('survey_id', $enumerator->surveys->pluck('id')->toArray() ?? []),true, 3) !!}
 
     {!! \Form::hSelectMulti('prev_post_state_id', __('enumerator.Select the district(s) where you have worked earlier (it can be multiple)'),$states,
-    old('prev_post_state_id', $enumerator->prev_post_state_id ?? null), false, 3) !!}
+    old('prev_post_state_id', $enumerator->previousPostings->pluck('id')->toArray() ?? []), false, 3) !!}
 
     {!! \Form::hSelectMulti('future_post_state_id', __('enumerator.Select the district(s) where you want to work in future (maximum 3)'),$states,
-    old('future_post_state_id', $enumerator->prev_post_state_id ?? null), false, 3) !!}
+    old('future_post_state_id', $enumerator->futurePostings->pluck('id')->toArray() ?? []), false, 3) !!}
 
     {!! \Form::hRadio('is_employee', __('enumerator.Are you revenue staff of BBS?'), $enables, old('is_employee', $enumerator->is_employee ?? 'no'), true, 3) !!}
     <div id="work_space">

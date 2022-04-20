@@ -205,12 +205,12 @@ class EnumeratorController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
+     * @param EnumeratorRequest $request
      * @param  $id
      * @return RedirectResponse
      * @throws \Throwable
      */
-    public function update(Request $request, $id): RedirectResponse
+    public function update(EnumeratorRequest $request, $id): RedirectResponse
     {
         $inputs = $request->except('_token', 'submit', '_method');
         $confirm = $this->enumeratorService->updateEnumerator($inputs, $id);
