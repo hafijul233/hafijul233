@@ -17,6 +17,7 @@ class UserRepository extends EloquentRepository
 {
     /**
      * UserRepository constructor.
+     * @param null $model
      */
     public function __construct($model = null)
     {
@@ -59,7 +60,6 @@ class UserRepository extends EloquentRepository
         endif;
 
         $roleIds = ($detachOldRoles) ? $roles : array_unique(array_merge($alreadyAssignedRoles, $roles));
-
 
         return (bool)$this->model->roles()->sync($roleIds, ['model_type' => get_class($this->model)]);
     }

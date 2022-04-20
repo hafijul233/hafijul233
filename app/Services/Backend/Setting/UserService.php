@@ -96,7 +96,7 @@ class UserService extends Service
         try {
             if ($newUser = $this->userRepository->create($requestData)) {
                 if (($newUser instanceof User) &&
-                    $this->userRepository->manageRoles($roles) &&
+                    $this->userRepository->manageRoles($roles, true) &&
                     $this->attachAvatarImage($newUser, $photo)) {
                     DB::commit();
                     return ['status' => true, 'message' => __('New User Created'),
@@ -178,7 +178,7 @@ class UserService extends Service
             if ($selectUserModel = $this->getUserById($id)) {
                 $this->userRepository->setModel($selectUserModel);
                 if ($this->userRepository->update($requestData, $id) &&
-                    $this->userRepository->manageRoles($roles) &&
+                    $this->userRepository->manageRoles($roles, true) &&
                     $this->attachAvatarImage($selectUserModel, $photo, true)
                 ) {
                     $selectUserModel->save();
