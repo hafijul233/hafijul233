@@ -16,10 +16,10 @@
             ,old('type', $state->type ?? null), true) !!}
         </div>
         <div class="col-md-6">
-            {!! \Form::nText('latitude', 'Latitude', old('latitude', $state->latitude ?? null), false) !!}
+            {!! \Form::nNumber('latitude', 'Latitude', old('latitude', $state->latitude ?? null), false) !!}
         </div>
         <div class="col-md-6">
-            {!! \Form::nText('longitude', 'longitude', old('longitude', $state->longitude ?? null), false) !!}
+            {!! \Form::nNumber('longitude', 'longitude', old('longitude', $state->longitude ?? null), false) !!}
         </div>
         <div class="col-md-6">
             {!! \Form::nSelect('enabled', 'Enabled', \App\Supports\Constant::ENABLED_OPTIONS,

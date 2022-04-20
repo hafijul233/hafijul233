@@ -64,20 +64,20 @@
                                             <td class="text-left">
                                                 @can('backend.settings.states.show')
                                                     <a href="{{ route('backend.settings.states.show', $state->id) }}">
-                                                        {{ $state->name }}
+                                                        {{ $state->name ?? null }}
                                                     </a>
                                                 @else
-                                                    {{ $state->name }}
+                                                    {{ $state->name ?? null }}
                                                 @endcan
                                                 <span class="mb-0 d-block">
-                                            {!! $state->native !!}
+                                            {!! $state->native ?? null !!}
                                         </span>
                                             </td>
                                             <td class="text-center">
-                                                {{ $state->type }}
+                                                {{ $state->type  ?? null}}
                                             </td>
                                             <td>
-                                                {{ $state->country->name }}
+                                                {{ $state->country->name ?? null }}
                                             </td>
                                             <td class="text-center exclude-search">
                                                 {!! \Html::enableToggle($state) !!}

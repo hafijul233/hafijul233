@@ -81,6 +81,7 @@ class StateController extends Controller
      */
     public function store(StateRequest $request): RedirectResponse
     {
+        dd($request->all());
         $confirm = $this->stateService->storeState($request->except('_token'));
         if ($confirm['status'] == true) {
             notify($confirm['message'], $confirm['level'], $confirm['title']);
