@@ -1,7 +1,7 @@
 <div class="card-body">
     <div class="row">
         <div class="col-md-4">
-            {!! \Form::nSelect('model_type', 'Model', $catalogTypes, old('model_type', ($catalog->model_type ?? null)), true) !!}
+            {!! \Form::nSelect('type', 'Type', \App\Supports\Constant::CATALOG_LABEL, old('type', ($catalog->type ?? null)), true) !!}
         </div>
         <div class="col-md-4">
             {!! \Form::nText('name', __('common.Name'), old('name', $catalog->name ?? null), true) !!}
@@ -38,8 +38,7 @@
                     enabled: {
                         required: true
                     },
-                    remarks: {
-                    },
+                    remarks: {},
                 }
             });
         });

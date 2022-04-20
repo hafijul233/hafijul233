@@ -45,10 +45,11 @@ class CatalogController extends Controller
         $this->authenticatedSessionService = $authenticatedSessionService;
         $this->catalogService = $catalogService;
     }
-    
+
     /**
      * Display a listing of the resource.
      *
+     * @param Request $request
      * @return Application|Factory|View
      * @throws Exception
      */
