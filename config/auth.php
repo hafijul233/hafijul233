@@ -176,7 +176,7 @@ return [
      *
      * @var bool
      */
-    'allow_remembering' => false,
+    'allow_remembering' => true,
 
     /*
      * --------------------------------------------------------------------

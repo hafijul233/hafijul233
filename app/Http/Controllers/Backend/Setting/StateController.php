@@ -32,7 +32,7 @@ class StateController extends Controller
      * @param StateService $stateService
      */
     public function __construct(AuthenticatedSessionService $authenticatedSessionService,
-                                StateService              $stateService)
+                                StateService $stateService)
     {
 
         $this->authenticatedSessionService = $authenticatedSessionService;
@@ -50,7 +50,7 @@ class StateController extends Controller
         $filters = $request->except('page');
         $states = $this->stateService->statePaginate($filters);
 
-        return view('setting.state.index', [
+        return view('backend.setting.state.index', [
             'states' => $states
         ]);
     }
@@ -62,7 +62,7 @@ class StateController extends Controller
      */
     public function create()
     {
-        return view('setting.state.create');
+        return view('backend.setting.state.create');
     }
 
     /**
@@ -94,7 +94,7 @@ class StateController extends Controller
     public function show($id)
     {
         if ($state = $this->stateService->getStateById($id)) {
-            return view('setting.state.show', [
+            return view('backend.setting.state.show', [
                 'state' => $state,
                 'timeline' => Utility::modelAudits($state)
             ]);
@@ -113,7 +113,7 @@ class StateController extends Controller
     public function edit($id)
     {
         if ($state = $this->stateService->getStateById($id)) {
-            return view('setting.state.edit', [
+            return view('backend.setting.state.edit', [
                 'state' => $state
             ]);
         }
@@ -217,7 +217,7 @@ class StateController extends Controller
      */
     public function import()
     {
-        return view('setting.state.import');
+        return view('backend.setting.state.import');
     }
 
     /**
@@ -229,9 +229,9 @@ class StateController extends Controller
     public function importBulk(Request $request)
     {
         $filters = $request->except('page');
-        $states = $this->stateService->getAllCountries($filters);
+        $states = $this->stateService->getAllStates($filters);
 
-        return view('setting.state.index', [
+        return view('backend.setting.state.index', [
             'states' => $states
         ]);
     }
@@ -268,7 +268,7 @@ class StateController extends Controller
 
         $states = $this->stateService->getAllStates($filters)->toArray();
 
-        if(count($states) > 0):
+        if (count($states) > 0):
             $jsonReturn = ['status' => true, 'data' => $states];
         else :
             $jsonReturn = ['status' => false, 'data' => []];

@@ -28,8 +28,8 @@
 @section('breadcrumbs', \Breadcrumbs::render())
 
 @section('actions')
-    {!! \Html::linkButton('Add Country', 'contact.settings.countries.create', [], 'fas fa-plus', 'success') !!}
-    {!! \Html::bulkDropdown('contact.settings.countries', 0, ['color' => 'warning']) !!}
+    {!! \Html::linkButton('Add Country', 'backend.setting.countries.create', [], 'fas fa-plus', 'success') !!}
+    {!! \Html::bulkDropdown('backend.setting.countries', 0, ['color' => 'warning']) !!}
 @endsection
 
 @section('content')
@@ -39,7 +39,7 @@
                 <div class="card card-default">
                     @if(!empty($countries))
                         <div class="card-body p-0">
-                            {!! \Html::cardSearch('search', 'contact.settings.countries.index',
+                            {!! \Html::cardSearch('search', 'backend.setting.countries.index',
                             ['placeholder' => 'Search Permission Display Name, Code, Guard, Status, etc.',
                             'class' => 'form-control', 'id' => 'search', 'data-target-table' => 'permission-table']) !!}
                             <div class="table-responsive">
@@ -69,8 +69,8 @@
                                         </span>
                                             </th>
                                             <td class="text-left">
-                                                @can('contact.settings.countries.show')
-                                                    <a href="{{ route('contact.settings.countries.show', $country->id) }}">
+                                                @can('backend.setting.countries.show')
+                                                    <a href="{{ route('backend.setting.countries.show', $country->id) }}">
                                                         {{ $country->name }}
                                                     </a>
                                                 @else
@@ -97,7 +97,7 @@
                                             </td>
                                             <td class="text-center">{{ $country->created_at->format(config('backend.datetime')) ?? '' }}</td>
                                             <td class="exclude-search pr-3 text-center align-middle">
-                                                {!! \Html::actionDropdown('contact.settings.countries', $country->id, array_merge(['show', 'edit'], ($country->deleted_at == null) ? ['delete'] : ['restore'])) !!}
+                                                {!! \Html::actionDropdown('backend.setting.countries', $country->id, array_merge(['show', 'edit'], ($country->deleted_at == null) ? ['delete'] : ['restore'])) !!}
                                             </td>
                                         </tr>
                                     @empty

@@ -31,8 +31,8 @@
 @section('breadcrumbs', Breadcrumbs::render(Route::getCurrentRoute()->getName(), $country))
 
 @section('actions')
-    {!! \Html::backButton('contact.settings.countries.index') !!}
-    {!! \Html::modelDropdown('contact.settings.countries', $country->id, ['color' => 'success',
+    {!! \Html::backButton('backend.setting.countries.index') !!}
+    {!! \Html::modelDropdown('backend.setting.countries', $country->id, ['color' => 'success',
         'actions' => array_merge(['edit'], ($country->deleted_at == null) ? ['delete'] : ['restore'])]) !!}
 @endsection
 
@@ -231,8 +231,8 @@
                                                     {{ $state->id }}
                                                 </td>
                                                 <td class="text-left">
-                                                    @can('contact.settings.states.show')
-                                                        <a href="{{ route('contact.settings.states.show', $state->id) }}">
+                                                    @can('backend.setting.states.show')
+                                                        <a href="{{ route('backend.setting.states.show', $state->id) }}">
                                                             {{ $state->name }}
                                                         </a>
                                                     @else
@@ -250,7 +250,7 @@
                                                 </td>
                                                 <td class="text-center">{{ $state->created_at->format(config('backend.datetime')) ?? '' }}</td>
                                                 <td class="exclude-search pr-3 text-center align-middle">
-                                                    {!! \Html::actionDropdown('contact.settings.states', $state->id, array_merge(['show', 'edit'], ($state->deleted_at == null) ? ['delete'] : ['restore'])) !!}
+                                                    {!! \Html::actionDropdown('backend.setting.states', $state->id, array_merge(['show', 'edit'], ($state->deleted_at == null) ? ['delete'] : ['restore'])) !!}
                                                 </td>
                                             </tr>
                                         @empty

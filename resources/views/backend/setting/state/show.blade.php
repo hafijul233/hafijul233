@@ -31,8 +31,8 @@
 @section('breadcrumbs', Breadcrumbs::render(Route::getCurrentRoute()->getName(), $state))
 
 @section('actions')
-    {!! \Html::backButton('contact.settings.states.index') !!}
-    {!! \Html::modelDropdown('contact.settings.states', $state->id, ['color' => 'success',
+    {!! \Html::backButton('backend.setting.states.index') !!}
+    {!! \Html::modelDropdown('backend.setting.states', $state->id, ['color' => 'success',
         'actions' => array_merge(['edit'], ($state->deleted_at == null) ? ['delete'] : ['restore'])]) !!}
 @endsection
 
@@ -133,8 +133,8 @@
                                                     {{ $city->id }}
                                                 </td>
                                                 <td class="text-left">
-                                                    @can('contact.settings.states.show')
-                                                        <a href="{{ route('contact.settings.states.show', $city->id) }}">
+                                                    @can('backend.setting.states.show')
+                                                        <a href="{{ route('backend.setting.states.show', $city->id) }}">
                                                             {{ $city->name }}
                                                         </a>
                                                     @else
@@ -152,7 +152,7 @@
                                                 </td>
                                                 <td class="text-center">{{ $city->created_at->format(config('backend.datetime')) ?? '' }}</td>
                                                 <td class="exclude-search pr-3 text-center align-middle">
-                                                    {!! \Html::actionDropdown('contact.settings.states', $city->id, array_merge(['show', 'edit'], ($city->deleted_at == null) ? ['delete'] : ['restore'])) !!}
+                                                    {!! \Html::actionDropdown('backend.setting.states', $city->id, array_merge(['show', 'edit'], ($city->deleted_at == null) ? ['delete'] : ['restore'])) !!}
                                                 </td>
                                             </tr>
                                         @empty

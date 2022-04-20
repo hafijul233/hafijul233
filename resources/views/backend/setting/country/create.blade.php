@@ -26,7 +26,7 @@
 @section('breadcrumbs', \Breadcrumbs::render(Route::getCurrentRoute()->getName()))
 
 @section('actions')
-    {!! \Html::backButton('contact.settings.countries.index') !!}
+    {!! \Html::backButton('backend.setting.countries.index') !!}
 @endsection
 
 @section('content')
@@ -34,7 +34,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="card">
-                    {!! \Form::open(['route' => 'contact.settings.countries.store', 'id' => 'country-form']) !!}
+                    {!! \Form::open(['route' => 'backend.setting.countries.store', 'id' => 'country-form']) !!}
                     @include('contact::setting.country.form')
                     {!! \Form::close() !!}
                 </div>

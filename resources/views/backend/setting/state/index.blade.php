@@ -28,8 +28,8 @@
 @section('breadcrumbs', \Breadcrumbs::render())
 
 @section('actions')
-    {!! \Html::linkButton('Add State', 'contact.settings.states.create', [], 'fas fa-plus', 'success') !!}
-    {!! \Html::bulkDropdown('contact.settings.states', 0, ['color' => 'warning']) !!}
+    {!! \Html::linkButton('Add State', 'backend.setting.states.create', [], 'fas fa-plus', 'success') !!}
+    {!! \Html::bulkDropdown('backend.setting.states', 0, ['color' => 'warning']) !!}
 @endsection
 
 @section('content')
@@ -39,7 +39,7 @@
                 <div class="card card-default">
                     @if(!empty($states))
                         <div class="card-body p-0">
-                            {!! \Html::cardSearch('search', 'contact.settings.states.index',
+                            {!! \Html::cardSearch('search', 'backend.setting.states.index',
                             ['placeholder' => 'Search Permission Display Name, Code, Guard, Status, etc.',
                             'class' => 'form-control', 'id' => 'search', 'data-target-table' => 'state-table']) !!}
                             <div class="table-responsive">
@@ -62,8 +62,8 @@
                                                 {{ $state->id }}
                                             </td>
                                             <td class="text-left">
-                                                @can('contact.settings.states.show')
-                                                    <a href="{{ route('contact.settings.states.show', $state->id) }}">
+                                                @can('backend.setting.states.show')
+                                                    <a href="{{ route('backend.setting.states.show', $state->id) }}">
                                                         {{ $state->name }}
                                                     </a>
                                                 @else
@@ -84,7 +84,7 @@
                                             </td>
                                             <td class="text-center">{{ $state->created_at->format(config('backend.datetime')) ?? '' }}</td>
                                             <td class="exclude-search pr-3 text-center align-middle">
-                                                {!! \Html::actionDropdown('contact.settings.states', $state->id, array_merge(['show', 'edit'], ($state->deleted_at == null) ? ['delete'] : ['restore'])) !!}
+                                                {!! \Html::actionDropdown('backend.setting.states', $state->id, array_merge(['show', 'edit'], ($state->deleted_at == null) ? ['delete'] : ['restore'])) !!}
                                             </td>
                                         </tr>
                                     @empty

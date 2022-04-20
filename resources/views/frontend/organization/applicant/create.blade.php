@@ -15,7 +15,7 @@
 @endpush
 
 @push('plugin-style')
-<link rel="stylesheet" href="{{ asset('plugins/select2/css/select2.min.css') }}" type="text/css">
+
 @endpush
 
 @push('page-style')
@@ -36,8 +36,9 @@
                         <h5 class="mb-1 text-center">
                             <a href="https://www.bbs.gov.bd" style="text-decoration: underline">www.bbs.gov.bd</a>
                         </h5>
-                        <h3 class="font-weight-bold text-center mt-3"
-                            style="text-decoration: underline">{!! __('common.Database of Enumerators') !!}</h3>
+                        <h3 class="font-weight-bold text-center mt-3" style="text-decoration: underline">
+                            {!! __('common.Database of Enumerators') !!}
+                        </h3>
                     </div>
                     {!! \Form::open(['route' => 'frontend.organization.applicants.store', 'id' => 'enumerator-form']) !!}
                     @include('frontend.organization.applicant.form')
@@ -48,9 +49,8 @@
     </div>
 @endsection
 
-
 @push('plugin-script')
-<script type="text/javascript" src="{{ asset('plugins/select2/js/select2.min.js') }}"></script>
+
 @endpush
 
 @push('page-script')
