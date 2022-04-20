@@ -48,7 +48,8 @@
 
             if ('yes' === '{{ old('is_employee', 'no') }}') {
                 $("#work_space").show();
-            } else {
+            }
+            else {
                 $("#work_space").hide();
             }
 
@@ -65,7 +66,8 @@
 
             $("select#exam_level").select2({
                 width: "100%",
-                placeholder: '{!! __('enumerator.Please select highest educational qualification')  !!}'
+                placeholder: '{!! __('enumerator.Please select highest educational qualification')  !!}',
+                minimumResultsForSearch: Infinity
             });
 
             $("select#prev_post_state_id").select2({
