@@ -41,7 +41,7 @@ class UserService extends Service
      * @param UserRepository $userRepository
      * @param FileUploadService $fileUploadService
      */
-    public function __construct(UserRepository    $userRepository,
+    public function __construct(UserRepository $userRepository,
                                 FileUploadService $fileUploadService)
     {
         $this->userRepository = $userRepository;
@@ -78,25 +78,25 @@ class UserService extends Service
      */
     public function storeUser(array $requestData, UploadedFile $photo = null): array
     {
-        $roleId = [Constant::GUEST_ROLE_ID];
-
         //extract role id
         if (!empty($requestData['role_id'])) {
-            $roleId = $requestData['role_id'];
+            $roles = $requestData['role_id'];
             unset($requestData['role_id']);
+        } else {
+            $roles = [Constant::GUEST_ROLE_ID];
         }
 
         //hash user password
         $requestData['password'] = Utility::hashPassword(($requestData['password'] ?? Constant::PASSWORD));
 
         //force password reset
-        $requestData['force_pass_reset'] = true;
+        $requestData['force_pass_reset'] = false;
 
         DB::beginTransaction();
         try {
             if ($newUser = $this->userRepository->create($requestData)) {
                 if (($newUser instanceof User) &&
-                    $this->userRepository->manageRoles($roleId) &&
+                    $this->userRepository->manageRoles($roles) &&
                     $this->attachAvatarImage($newUser, $photo)) {
                     DB::commit();
                     return ['status' => true, 'message' => __('New User Created'),
