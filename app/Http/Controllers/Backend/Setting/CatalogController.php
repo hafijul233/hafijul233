@@ -82,6 +82,7 @@ class CatalogController extends Controller
      */
     public function store(CatalogRequest $request): RedirectResponse
     {
+        dd($request->all());
         $confirm = $this->catalogService->storeCatalog($request->except('_token'));
         if ($confirm['status'] == true) {
             notify($confirm['message'], $confirm['level'], $confirm['title']);

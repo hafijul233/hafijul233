@@ -18,7 +18,10 @@ class CatalogRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            "type" => "required|string",
+            "name" => "required|string",
+            "enabled" => "required|string",
+            "remarks" => "nullable|string"
         ];
     }
 
