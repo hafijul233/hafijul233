@@ -28,7 +28,7 @@
 
 @section('actions')
     {!! \Html::linkButton('Add Catalog', 'backend.settings.catalogs.create', [], 'fas fa-plus', 'success') !!}
-    {!! \Html::bulkDropdown('backend.settings.catalogs', 0, ['color' => 'warning']) !!}
+   {{-- {!! \Html::bulkDropdown('backend.settings.catalogs', 0, ['color' => 'warning']) !!}--}}
 @endsection
 
 @section('content')

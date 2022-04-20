@@ -31,7 +31,7 @@
 
 @section('actions')
     {!! \Html::linkButton('Add Permission', 'backend.settings.permissions.create', [], 'fas fa-plus', 'success') !!}
-    {!! \Html::bulkDropdown('backend.settings.permissions', 0, ['color' => 'warning']) !!}
+    {{--{!! \Html::bulkDropdown('backend.settings.permissions', 0, ['color' => 'warning']) !!}--}}
 @endsection
 
 @section('content')

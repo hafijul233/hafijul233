@@ -32,7 +32,7 @@
 
 @section('actions')
     {!! \Html::linkButton('Add Role', 'backend.settings.roles.create', [], 'fas fa-plus', 'success') !!}
-    {!! \Html::bulkDropdown('backend.settings.roles', 0, ['color' => 'warning']) !!}
+   {{-- {!! \Html::bulkDropdown('backend.settings.roles', 0, ['color' => 'warning']) !!}--}}
 @endsection
 
 @section('content')

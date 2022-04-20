@@ -29,7 +29,7 @@
 
 @section('actions')
     {!! \Html::linkButton('Add Country', 'backend.setting.countries.create', [], 'fas fa-plus', 'success') !!}
-    {!! \Html::bulkDropdown('backend.setting.countries', 0, ['color' => 'warning']) !!}
+    {{--{!! \Html::bulkDropdown('backend.setting.countries', 0, ['color' => 'warning']) !!}--}}
 @endsection
 
 @section('content')

@@ -28,8 +28,8 @@
 @section('breadcrumbs', \Breadcrumbs::render())
 
 @section('actions')
-    {!! \Html::linkButton('Add State', 'backend.settings.states.create', [], 'mdi mdi-plus', 'success') !!}
-    {!! \Html::bulkDropdown('backend.settings.states', 0, ['color' => 'warning']) !!}
+    {!! \Html::linkButton('Add State', 'backend.settings.states.create', [], 'fa fa-plus', 'success') !!}
+    {{--{!! \Html::bulkDropdown('backend.settings.states', 0, ['color' => 'warning']) !!}--}}
 @endsection
 
 @section('content')

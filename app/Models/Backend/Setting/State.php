@@ -32,7 +32,7 @@ class State extends Model implements Auditable
      *
      * @var array
      */
-    protected $fillable = [ /*****/'enabled', 'created_by', 'updated_by', 'deleted_by'];
+    protected $fillable = [ 'name', 'country_id', 'type', 'native', 'latitude', 'longitude', 'enabled'];
 
     /**
      * The attributes that should be hidden for arrays.
@@ -57,12 +57,6 @@ class State extends Model implements Auditable
         'enabled' => 'yes'
     ];
 
-    /************************ Static Factory ************************/
-
-    protected static function newFactory()
-    {
-        return \App\Database\Factories\GeoInfo\StateFactory::new();
-    }
 
     /************************ Audit Relations ************************/
 

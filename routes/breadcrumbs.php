@@ -269,7 +269,7 @@ Breadcrumbs::for('backend.settings.states.show', function (BreadcrumbTrail $trai
 
     $state = ($state instanceof State) ? $state : $state[0];
 
-    $trail->push($state->name, route('backend.settings.states.show', $state->id));
+    $trail->push($state->name ?? '', route('backend.settings.states.show', $state->id));
 });
 
 Breadcrumbs::for('backend.settings.states.edit', function (BreadcrumbTrail $trail, State $state) {
