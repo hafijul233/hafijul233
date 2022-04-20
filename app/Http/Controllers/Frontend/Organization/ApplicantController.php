@@ -85,7 +85,7 @@ class ApplicantController extends Controller
 
         return view('frontend.organization.applicant.create', [
             'enables' => $enables,
-            'states' => $this->stateService->getStateDropdown(['enabled' => Constant::ENABLED_OPTION, 'type' => 'district'], (session()->get('locale') == 'bd')),
+            'states' => $this->stateService->getStateDropdown(['enabled' => Constant::ENABLED_OPTION, 'type' => 'district', 'sort' => ((session()->get('locale') == 'bd') ?'native' : 'name'), 'direction' => 'asc'], (session()->get('locale') == 'bd')),
             'surveys' => $this->surveyService->getSurveyDropDown(['enabled' => Constant::ENABLED_OPTION]),
             'genders' => $this->catalogService->getCatalogDropdown(['type' => Constant::CATALOG_TYPE['GENDER']], 'bn'),
             'exam_dropdown' => $this->examLevelService->getExamLevelDropdown(['id' => [1, 2, 3, 4]])
