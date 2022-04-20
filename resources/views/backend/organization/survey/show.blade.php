@@ -46,17 +46,11 @@
                                 <p class="font-weight-bold">{{ \App\Supports\Constant::ENABLED_OPTIONS[$survey->enabled] }}</p>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-12">
-                                <label class="d-block">Remarks</label>
-                                <p class="font-weight-bold">{{ $survey->remarks ?? null }}</p>
-                            </div>
-                        </div>
+
                     </div>
                 </div>
             </div>
         </div>
-    </div>
     </div>
     {!! \App\Supports\CHTML::confirmModal('Enumerator', ['delete', 'restore']) !!}
 @endsection
