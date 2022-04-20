@@ -49,7 +49,7 @@
                                         <th class="align-middle">@sortablelink('id', '#')</th>
                                         <th>@sortablelink('name', 'Name')</th>
                                         <th class="text-center">@sortablelink('type', 'Type')</th>
-                                        <th>@sortablelink('country.name', 'Country')</th>
+                                        <th class="text-center">Country</th>
                                         <th class="text-center">@sortablelink('enabled', 'Enabled')</th>
                                         <th class="text-center">@sortablelink('created_at', 'Created')</th>
                                         <th class="text-center">Actions</th>
