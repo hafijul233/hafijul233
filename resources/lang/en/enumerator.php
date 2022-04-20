@@ -67,7 +67,7 @@ return [
     'Please select highest educational qualification' => 'Please Select Highest Educational Qualification',
     'Select the district(s) where you have worked earlier (it can be multiple)' => 'Select the district(s) where you have worked earlier (it can be multiple)',
     'Select the district(s) where you want to work in future (maximum 3)' => 'Select the district(s) where you want to work in future (maximum 3)',
-    'Are you revenue staff of BBS?' => 'Are you revenue staff of BBS?',
+    'Are you revenue staff of BBS?' => 'Are you a revenue staff of BBS?',
     'Work Experience in BBS as Enumerator' => 'Work Experience in BBS as Enumerator',
 
 
