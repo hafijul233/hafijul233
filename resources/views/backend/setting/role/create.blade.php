@@ -40,7 +40,7 @@
             <div class="col-lg-12">
                 <div class="card">
                     {!! \Form::open(['route' => 'backend.settings.roles.store', 'id' => 'role-form']) !!}
-                    @include('setting.role.form')
+                    @include('backend.setting.role.form')
                     {!! \Form::close() !!}
                 </div>
             </div>
