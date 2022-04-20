@@ -8,5 +8,5 @@
             </ul>
         </div>
     @endif
-    @include('layouts.includes.enumerator.form')
+    @include('layouts.partials.enumerator.form')
 </div>

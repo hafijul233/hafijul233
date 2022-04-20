@@ -1,5 +1,5 @@
 <div class="card-body">
-    @include('layouts.includes.enumerator.form')
+    @include('layouts.partials.enumerator.form')
 </div>
 
 
