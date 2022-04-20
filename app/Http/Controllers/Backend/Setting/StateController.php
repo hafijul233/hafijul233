@@ -42,6 +42,7 @@ class StateController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param Request $request
      * @return Application|Factory|View
      * @throws Exception
      */

@@ -28,8 +28,8 @@
 @section('breadcrumbs', \Breadcrumbs::render())
 
 @section('actions')
-    {!! \Html::linkButton('Add State', 'backend.setting.states.create', [], 'fas fa-plus', 'success') !!}
-    {!! \Html::bulkDropdown('backend.setting.states', 0, ['color' => 'warning']) !!}
+    {!! \Html::linkButton('Add State', 'backend.settings.states.create', [], 'fas fa-plus', 'success') !!}
+    {!! \Html::bulkDropdown('backend.settings.states', 0, ['color' => 'warning']) !!}
 @endsection
 
 @section('content')
@@ -39,7 +39,7 @@
                 <div class="card card-default">
                     @if(!empty($states))
                         <div class="card-body p-0">
-                            {!! \Html::cardSearch('search', 'backend.setting.states.index',
+                            {!! \Html::cardSearch('search', 'backend.settings.states.index',
                             ['placeholder' => 'Search Permission Display Name, Code, Guard, Status, etc.',
                             'class' => 'form-control', 'id' => 'search', 'data-target-table' => 'state-table']) !!}
                             <div class="table-responsive">
@@ -63,7 +63,7 @@
                                             </td>
                                             <td class="text-left">
                                                 @can('backend.setting.states.show')
-                                                    <a href="{{ route('backend.setting.states.show', $state->id) }}">
+                                                    <a href="{{ route('backend.settings.states.show', $state->id) }}">
                                                         {{ $state->name }}
                                                     </a>
                                                 @else
