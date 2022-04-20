@@ -113,7 +113,7 @@
                                 </li>
                             @endcan
 
-                            @can('backend.settings.permissions.index')
+                            {{--@can('backend.settings.permissions.index')
                                 <li class="nav-item">
                                     <a href="{{ route('backend.settings.permissions.index') }}"
                                        class="nav-link @if(\Route::is('backend.settings.permissions.*')) active @endif">
@@ -121,7 +121,7 @@
                                         <p>{!! __('menu-sidebar.Permissions') !!}</p>
                                     </a>
                                 </li>
-                            @endcan
+                            @endcan--}}
 
                             @can('backend.settings.catalogs.index')
                                 <li class="nav-item">

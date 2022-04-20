@@ -39,19 +39,19 @@
             <div class="col-12">
                 <div class="card card-default">
                     @if(!empty($settings))
-                        <div class="card-body min-vh-100 pt-0">
+                        <div class="card-body min-vh-100">
                             <div class="row">
                                 @foreach($settings as $setting)
                                     <div class="col-sm-12 col-md-6 col-lg-4">
-                                        <div class="info-box shadow-sm">
-                                <span class="info-box-icon shadow-lg" style="background-color: {{ $setting->color }}">
-                                    <i class="{{ $setting->icon }} text-white"></i>
+                                        <div class="info-box shadow-sm border">
+                                <span class="info-box-icon shadow-lg" style="background-color: {{ $setting['color'] ?? null }}">
+                                    <i class="{{ $setting['icon'] ?? null }} text-white"></i>
                                 </span>
                                             <div class="info-box-content">
-                                                <a href="{{ route($setting->route) }}"
-                                                   class="h5 font-weight-bold info-box-text text-capitalize">{{ $setting->name }}</a>
+                                                <a href="{{ route($setting['route'] ?? null) }}"
+                                                   class="h5 font-weight-bold info-box-text text-capitalize">{{ $setting['name'] ?? null }}</a>
                                                 <span class="info-box-number text-muted font-weight-normal text-sm text-truncate">
-                                            {{ $setting->description }}
+                                            {{ $setting['description'] ?? null }}
                                         </span>
                                             </div>
                                             <!-- /.info-box-content -->

@@ -73,7 +73,7 @@ return [
             'module' => 'Contact',
             'name' => 'Country',
             'icon' => 'fas fa-globe',
-            'route' => 'contact.settings.countries.index',
+            'route' => 'backend.settings.countries.index',
             'color' => '#007bff',
             'description' => 'Countries list on this system',
             'enabled' => Constant::ENABLED_OPTION
@@ -82,7 +82,7 @@ return [
             'module' => 'Contact',
             'name' => 'State',
             'icon' => 'fas fa-mountain',
-            'route' => 'contact.settings.states.index',
+            'route' => 'backend.settings.states.index',
             'color' => '#007bff',
             'description' => 'states available on countries',
             'enabled' => Constant::ENABLED_OPTION
@@ -91,34 +91,34 @@ return [
             'module' => 'Contact',
             'name' => 'City',
             'icon' => 'fas fa-building',
-            'route' => 'contact.settings.cities.index',
+            'route' => 'backend.settings.cities.index',
             'color' => '#007bff',
             'description' => 'user who can access this system',
             'enabled' => Constant::ENABLED_OPTION
         ],
-        'blood-group' => [
+        /*'blood-group' => [
             'module' => 'Contact',
             'name' => 'Blood Group',
             'icon' => 'fas fa-object-group',
-            'route' => 'contact.settings.blood-groups.index',
+            'route' => 'backend.settings.blood-groups.index',
             'color' => '#007bff',
             'description' => 'user who can access this system',
             'enabled' => Constant::ENABLED_OPTION
-        ],
-        'gender' => [
+        ],*/
+        /*'gender' => [
             'module' => 'Contact',
             'name' => 'Gender',
             'icon' => 'fas fa-venus-mars',
-            'route' => 'contact.settings.genders.index',
+            'route' => 'backend.settings.genders.index',
             'color' => '#007bff',
             'description' => 'user who can access this system',
             'enabled' => Constant::ENABLED_OPTION
-        ],
-        'occupation' => [
+        ],*/
+       /* 'occupation' => [
             'module' => 'Contact',
             'name' => 'ExamGroup',
             'icon' => 'fas fa-user-md',
-            'route' => 'contact.settings.occupations.index',
+            'route' => 'backend.settings.occupations.index',
             'color' => '#007bff',
             'description' => 'user who can access this system',
             'enabled' => Constant::ENABLED_OPTION
@@ -127,7 +127,7 @@ return [
             'module' => 'Contact',
             'name' => 'Relation',
             'icon' => 'fas fa-people-arrows',
-            'route' => 'contact.settings.relations.index',
+            'route' => 'backend.settings.relations.index',
             'color' => '#007bff',
             'description' => 'user who can access this system',
             'enabled' => Constant::ENABLED_OPTION
@@ -136,16 +136,16 @@ return [
             'module' => 'Contact',
             'name' => 'Religion',
             'icon' => 'fas fa-place-of-worship',
-            'route' => 'contact.settings.religions.index',
+            'route' => 'backend.settings.religions.index',
             'color' => '#007bff',
             'description' => 'user who can access this system',
             'enabled' => Constant::ENABLED_OPTION
-        ],
+        ],*/
         'user' => [
             'module' => 'Core',
             'name' => 'User',
             'icon' => 'fas fa-users',
-            'route' => 'core.settings.users.index',
+            'route' => 'backend.settings.users.index',
             'color' => '#007bff',
             'description' => 'user who can access this system',
             'enabled' => Constant::ENABLED_OPTION
@@ -154,7 +154,7 @@ return [
             'module' => 'Core',
             'name' => 'Role',
             'icon' => 'fas fa-address-card',
-            'route' => 'core.settings.roles.index',
+            'route' => 'backend.settings.roles.index',
             'color' => '#007bff',
             'description' => 'user who can access this system',
             'enabled' => Constant::ENABLED_OPTION
@@ -163,7 +163,7 @@ return [
             'module' => 'Core',
             'name' => 'Permission',
             'icon' => 'fas fa-list-alt',
-            'route' => 'core.settings.permissions.index',
+            'route' => 'backend.settings.permissions.index',
             'color' => '#007bff',
             'description' => 'user who can access this system',
             'enabled' => Constant::ENABLED_OPTION
@@ -172,7 +172,7 @@ return [
             'module' => 'Core',
             'name' => 'Catalog',
             'icon' => 'fas fa-clipboard-list',
-            'route' => 'core.settings.catalogs.index',
+            'route' => 'backend.settings.catalogs.index',
             'color' => '#007bff',
             'description' => 'user who can access this system',
             'enabled' => Constant::ENABLED_OPTION

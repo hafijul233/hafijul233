@@ -15,7 +15,10 @@ class SettingController extends Controller
 
     public function __invoke(Request $request)
     {
-        return view('backend.setting');
+        $settings = config('backend.settings');
+        return view('backend.setting', [
+            'settings' => $settings
+        ]);
     }
 
 }
