@@ -302,7 +302,7 @@ if (typeof $.validator === 'function') {
 
     //mobile number match method
     $.validator.addMethod("mobilenumber", function (value, element) {
-            return this.optional(element) || /^01[0-9]{9}$/.test(value);
+            return this.optional(element) || /^01[1-9][0-9]{8}$/.test(value);
         },
         "Please enter value on this 01XXXXXXXXX format."
     );
