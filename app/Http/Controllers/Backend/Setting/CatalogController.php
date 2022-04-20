@@ -85,7 +85,7 @@ class CatalogController extends Controller
         $confirm = $this->catalogService->storeCatalog($request->except('_token'));
         if ($confirm['status'] == true) {
             notify($confirm['message'], $confirm['level'], $confirm['title']);
-            return redirect()->route('backend.setting.catalogs.index');
+            return redirect()->route('backend.settings.catalogs.index');
         }
 
         notify($confirm['message'], $confirm['level'], $confirm['title']);
@@ -146,7 +146,7 @@ class CatalogController extends Controller
 
         if ($confirm['status'] == true) {
             notify($confirm['message'], $confirm['level'], $confirm['title']);
-            return redirect()->route('backend.setting.catalogs.index');
+            return redirect()->route('backend.settings.catalogs.index');
         }
 
         notify($confirm['message'], $confirm['level'], $confirm['title']);
@@ -172,7 +172,7 @@ class CatalogController extends Controller
             } else {
                 notify($confirm['message'], $confirm['level'], $confirm['title']);
             }
-            return redirect()->route('backend.setting.catalogs.index');
+            return redirect()->route('backend.settings.catalogs.index');
         }
         abort(403, 'Wrong user credentials');
     }
@@ -196,7 +196,7 @@ class CatalogController extends Controller
             } else {
                 notify($confirm['message'], $confirm['level'], $confirm['title']);
             }
-            return redirect()->route('backend.setting.catalogs.index');
+            return redirect()->route('backend.settings.catalogs.index');
         }
         abort(403, 'Wrong user credentials');
     }

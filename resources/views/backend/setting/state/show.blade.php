@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('core::layouts.app')
 
 @section('title', $state->name)
 
@@ -31,8 +31,8 @@
 @section('breadcrumbs', Breadcrumbs::render(Route::getCurrentRoute()->getName(), $state))
 
 @section('actions')
-    {!! \Html::backButton('backend.setting.states.index') !!}
-    {!! \Html::modelDropdown('backend.setting.states', $state->id, ['color' => 'success',
+    {!! \Html::backButton('contact.settings.states.index') !!}
+    {!! \Html::modelDropdown('contact.settings.states', $state->id, ['color' => 'success',
         'actions' => array_merge(['edit'], ($state->deleted_at == null) ? ['delete'] : ['restore'])]) !!}
 @endsection
 
@@ -73,41 +73,41 @@
                                 <div class="row mb-3">
                                     <div class="col-md-6">
                                         <label class="d-block">Name</label>
-                                        <p class="font-weight-bold">{{ $state->name ?? null }}</p>
+                                        <p class="fw-bolder">{{ $state->name ?? null }}</p>
                                     </div>
                                     <div class="col-md-6">
                                         <label class="d-block">Native</label>
-                                        <p class="font-weight-bold">{!! $state->native ?? null  !!}</p>
+                                        <p class="fw-bolder">{!! $state->native ?? null  !!}</p>
                                     </div>
                                     <div class="col-md-6">
                                         <label class="d-block">Country</label>
-                                        <p class="font-weight-bold">{{ $state->country->name ?? null }}</p>
+                                        <p class="fw-bolder">{{ $state->country->name ?? null }}</p>
                                     </div>
                                     <div class="col-md-6">
                                         <label class="d-block">Region</label>
-                                        <p class="font-weight-bold">{{ $state->country->region ?? null }}</p>
+                                        <p class="fw-bolder">{{ $state->country->region ?? null }}</p>
                                     </div>
                                     <div class="col-md-6">
                                         <label class="d-block">Sub-Region</label>
-                                        <p class="font-weight-bold">{{ $state->country->subregion ?? null }}</p>
+                                        <p class="fw-bolder">{{ $state->country->subregion ?? null }}</p>
                                     </div>
                                     <div class="col-md-6">
                                         <label class="d-block">Latitude</label>
-                                        <p class="font-weight-bold">{{ $state->latitude ?? null }}</p>
+                                        <p class="fw-bolder">{{ $state->latitude ?? null }}</p>
                                     </div>
                                     <div class="col-md-6">
                                         <label class="d-block">Longitude</label>
-                                        <p class="font-weight-bold">{{ $state->longitude ?? null }}</p>
+                                        <p class="fw-bolder">{{ $state->longitude ?? null }}</p>
                                     </div>
                                     <div class="col-md-6">
                                         <label class="d-block">Enabled</label>
-                                        <p class="font-weight-bold">{{ \App\Supports\Constant::ENABLED_OPTIONS[$state->enabled] }}</p>
+                                        <p class="fw-bolder">{{ \Modules\Core\Supports\Constant::ENABLED_OPTIONS[$state->enabled] }}</p>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-12">
                                         <label class="d-block">Remarks</label>
-                                        <p class="font-weight-bold">{{ $state->remarks ?? null }}</p>
+                                        <p class="fw-bolder">{{ $state->remarks ?? null }}</p>
                                     </div>
                                 </div>
                             </div>
@@ -122,7 +122,7 @@
                                             <th class="align-middle">Type</th>
                                             <th class="text-center">Enabled</th>
                                             <th class="text-center">Created</th>
-                                            <th class="text-center">{!! __('common.Actions') !!}</th>
+                                            <th class="text-center">Actions</th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -133,8 +133,8 @@
                                                     {{ $city->id }}
                                                 </td>
                                                 <td class="text-left">
-                                                    @can('backend.setting.states.show')
-                                                        <a href="{{ route('backend.setting.states.show', $city->id) }}">
+                                                    @can('contact.settings.states.show')
+                                                        <a href="{{ route('contact.settings.states.show', $city->id) }}">
                                                             {{ $city->name }}
                                                         </a>
                                                     @else
@@ -150,9 +150,9 @@
                                                 <td class="text-center exclude-search">
                                                     {!! \Html::enableToggle($city) !!}
                                                 </td>
-                                                <td class="text-center">{{ $city->created_at->format(config('backend.datetime')) ?? '' }}</td>
+                                                <td class="text-center">{{ $city->created_at->format(config('core.datetime')) ?? '' }}</td>
                                                 <td class="exclude-search pr-3 text-center align-middle">
-                                                    {!! \Html::actionDropdown('backend.setting.states', $city->id, array_merge(['show', 'edit'], ($city->deleted_at == null) ? ['delete'] : ['restore'])) !!}
+                                                    {!! \Html::actionDropdown('contact.settings.states', $city->id, array_merge(['show', 'edit'], ($city->deleted_at == null) ? ['delete'] : ['restore'])) !!}
                                                 </td>
                                             </tr>
                                         @empty
@@ -165,7 +165,7 @@
                                 </div>
                             </div>
                             <div class="tab-pane fade" id="pills-timeline" role="tabpanel" aria-labelledby="pills-timeline-tab">
-                                @include('layouts.partials.timeline', $timeline)
+                                @include('core::layouts.partials.timeline', $timeline)
                             </div>
                         </div>
                     </div>
@@ -173,7 +173,7 @@
             </div>
         </div>
     </div>
-    {!! \App\Supports\CHTML::confirmModal('Country', ['delete', 'restore']) !!}
+    {!! \Modules\Core\Supports\CHTML::confirmModal('Country', ['delete', 'restore']) !!}
 @endsection
 
 
