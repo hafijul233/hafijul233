@@ -8,6 +8,7 @@ use App\Services\Auth\AuthenticatedSessionService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 /**
  * @class AuthenticatedSessionController
@@ -50,6 +51,7 @@ class AuthenticatedSessionController extends Controller
 
         \Log::info("Login Info Tapping", $confirm);
         if ($confirm['status'] === true) {
+            Session::put('locale', 'en');
             notify($confirm['message'], $confirm['level'], $confirm['title']);
             return redirect()->route($confirm['landing_page']);
         }
