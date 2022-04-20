@@ -154,18 +154,19 @@ class UserService extends Service
      */
     public function updateUser(array $requestData, $id, UploadedFile $photo = null): array
     {
-        $roleId = [Constant::GUEST_ROLE_ID];
         //extract role id
         if (!empty($requestData['role_id'])) {
-            $roleId = $requestData['role_id'];
+            $roles = $requestData['role_id'];
             unset($requestData['role_id']);
+        } else {
+            $roles = [Constant::GUEST_ROLE_ID];
         }
         //hash user password
         if (!empty($requestData['password'])) {
             $requestData['password'] = Utility::hashPassword($requestData['password']);
 
             //force password reset
-            $requestData['force_pass_reset'] = 1;
+            $requestData['force_pass_reset'] = false;
 
         } else {
             unset($requestData['password']);
@@ -177,7 +178,7 @@ class UserService extends Service
             if ($selectUserModel = $this->getUserById($id)) {
                 $this->userRepository->setModel($selectUserModel);
                 if ($this->userRepository->update($requestData, $id) &&
-                    $this->userRepository->manageRoles($roleId) &&
+                    $this->userRepository->manageRoles($roles) &&
                     $this->attachAvatarImage($selectUserModel, $photo, true)
                 ) {
                     $selectUserModel->save();
