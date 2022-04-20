@@ -48,8 +48,7 @@
 
             if ('yes' === '{{ old('is_employee', 'no') }}') {
                 $("#work_space").show();
-            }
-            else {
+            } else {
                 $("#work_space").hide();
             }
 
@@ -117,25 +116,34 @@
                     },
                     "nid": {
                         required: true,
-                        digits: true
+                        digits: true,
+                        minlength: 10,
+                        maxlength: 17
                     },
                     "mobile_1": {
                         required: true,
                         digits: true,
-                        mobilenumber: true
+                        mobilenumber: true,
+                        minlength: 11,
+                        maxlength: 11
                     },
                     "mobile_2": {
                         required: false,
                         digits: true,
-                        mobilenumber: true
+                        mobilenumber: true,
+                        minlength: 11,
+                        maxlength: 11
                     },
                     "email": {
-                        required: true
+                        required: true,
+                        email: true
                     },
                     "whatsapp": {
                         required: false,
                         digits: true,
-                        mobilenumber: true
+                        mobilenumber: true,
+                        minlength: 11,
+                        maxlength: 11
                     },
 
                     "present_address": {
@@ -146,7 +154,9 @@
                     },
                     "gender_id": {
                         required: true,
-                        digits: true
+                        digits: true,
+                        minlength: 1,
+                        maxlength: 1
                     },
                     "exam_level": {
                         required: true,
