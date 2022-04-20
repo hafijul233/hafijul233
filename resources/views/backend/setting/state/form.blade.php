@@ -26,11 +26,6 @@
 old('enabled', ($state->enabled ?? \App\Supports\Constant::ENABLED_OPTION))) !!}
         </div>
     </div>
-    <div class="row">
-        <div class="col-12">
-            {!! \Form::nTextarea('remarks', 'Remarks', old('remarks', $state->remarks ?? null)) !!}
-        </div>
-    </div>
     <div class="row mt-3">
         <div class="col-12 justify-content-between d-flex">
             {!! \Form::nCancel('Cancel') !!}

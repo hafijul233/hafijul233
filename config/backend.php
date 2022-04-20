@@ -69,7 +69,7 @@ return [
     | @var string|null
     */
     'settings' => [
-        'country' => [
+        /*'country' => [
             'module' => 'Contact',
             'name' => 'Country',
             'icon' => 'fas fa-globe',
@@ -77,7 +77,7 @@ return [
             'color' => '#007bff',
             'description' => 'Countries list on this system',
             'enabled' => Constant::ENABLED_OPTION
-        ],
+        ],*/
         'state' => [
             'module' => 'Contact',
             'name' => 'State',
@@ -87,7 +87,7 @@ return [
             'description' => 'states available on countries',
             'enabled' => Constant::ENABLED_OPTION
         ],
-        'city' => [
+/*        'city' => [
             'module' => 'Contact',
             'name' => 'City',
             'icon' => 'fas fa-building',
@@ -96,7 +96,7 @@ return [
             'description' => 'user who can access this system',
             'enabled' => Constant::ENABLED_OPTION
         ],
-        /*'blood-group' => [
+        'blood-group' => [
             'module' => 'Contact',
             'name' => 'Blood Group',
             'icon' => 'fas fa-object-group',
@@ -104,8 +104,8 @@ return [
             'color' => '#007bff',
             'description' => 'user who can access this system',
             'enabled' => Constant::ENABLED_OPTION
-        ],*/
-        /*'gender' => [
+        ],
+        'gender' => [
             'module' => 'Contact',
             'name' => 'Gender',
             'icon' => 'fas fa-venus-mars',
@@ -113,8 +113,8 @@ return [
             'color' => '#007bff',
             'description' => 'user who can access this system',
             'enabled' => Constant::ENABLED_OPTION
-        ],*/
-       /* 'occupation' => [
+        ],
+        'occupation' => [
             'module' => 'Contact',
             'name' => 'ExamGroup',
             'icon' => 'fas fa-user-md',

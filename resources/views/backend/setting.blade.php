@@ -42,7 +42,7 @@
                         <div class="card-body min-vh-100">
                             <div class="row">
                                 @foreach($settings as $setting)
-                                    <div class="col-sm-12 col-md-6 col-lg-4">
+                                    <div class="col-sm-12 col-md-6">
                                         <div class="info-box shadow-sm border">
                                 <span class="info-box-icon shadow-lg" style="background-color: {{ $setting['color'] ?? null }}">
                                     <i class="{{ $setting['icon'] ?? null }} text-white"></i>
