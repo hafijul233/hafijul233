@@ -62,12 +62,6 @@
                                    role="tab" aria-controls="pills-permission"
                                    aria-selected="false"><strong>Permissions</strong></a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" id="pills-timeline-tab"
-                                   data-toggle="pill" href="#pills-timeline"
-                                   role="tab" aria-controls="pills-timeline"
-                                   aria-selected="false"><strong>Timeline</strong></a>
-                            </li>
                         </ul>
                     </div>
                     <div class="card-body">
@@ -155,10 +149,6 @@
                                         </div>
                                     @endforelse
                                 </div>
-                            </div>
-                            <div class="tab-pane fade" id="pills-timeline" role="tabpanel"
-                                 aria-labelledby="pills-timeline-tab">
-                                @include('layouts.partials.timeline', $timeline)
                             </div>
                         </div>
                     </div>
