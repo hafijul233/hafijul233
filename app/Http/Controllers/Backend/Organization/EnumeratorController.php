@@ -123,7 +123,7 @@ class EnumeratorController extends Controller
 
         return view('backend.organization.enumerator.create', [
             'enables' => $enables,
-            'states' => $this->stateService->getStateDropdown(['enabled' => Constant::ENABLED_OPTION, 'type' => 'district'], (session()->get('locale') == 'bd')),
+            'states' => $this->stateService->getStateDropdown(['enabled' => Constant::ENABLED_OPTION, 'type' => 'district', 'sort' => ((session()->get('locale') == 'bd') ?'native' : 'name'), 'direction' => 'asc'], (session()->get('locale') == 'bd')),
             'surveys' => $this->surveyService->getSurveyDropDown(['enabled' => Constant::ENABLED_OPTION]),
             'genders' => $this->catalogService->getCatalogDropdown(['type' => Constant::CATALOG_TYPE['GENDER']], 'bn'),
             'exam_dropdown' => $this->examLevelService->getExamLevelDropdown(['id' => [1, 2, 3, 4]]),
@@ -192,7 +192,7 @@ class EnumeratorController extends Controller
             return view('backend.organization.enumerator.edit', [
                 'enumerator' => $enumerator,
                 'enables' => $enables,
-                'states' => $this->stateService->getStateDropdown(['enabled' => Constant::ENABLED_OPTION, 'type' => 'district'], (session()->get('locale') == 'bd')),
+                'states' => $this->stateService->getStateDropdown(['enabled' => Constant::ENABLED_OPTION, 'type' => 'district', 'sort' => ((session()->get('locale') == 'bd') ?'native' : 'name'), 'direction' => 'asc'], (session()->get('locale') == 'bd')),
                 'surveys' => $this->surveyService->getSurveyDropDown(),
                 'genders' => $this->catalogService->getCatalogDropdown(['type' => Constant::CATALOG_TYPE['GENDER']], 'bn'),
                 'exam_dropdown' => $this->examLevelService->getExamLevelDropdown(['id' => [1, 2, 3, 4]]),
