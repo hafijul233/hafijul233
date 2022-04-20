@@ -304,40 +304,11 @@ class RoleController extends Controller
 
     /**
      * @param $id
-     * @param RolePermissionRequest $request
+     * @param Request $request
      * @return JsonResponse|void
      * @throws Exception
      */
-    public function permission($id, RolePermissionRequest $request)
-    {
-        if ($request->ajax()) {
-
-            $jsonResponse = ['message' => null, 'errors' => []];
-
-            if ($role = $this->roleService->getRoleById($id)) {
-                $roles = $request->get('permissions', []);
-                $confirm = $this->roleService->syncPermission($id, $roles);
-
-                //formatted response is collected from service
-                return response()->json(array_merge($jsonResponse, $confirm));
-
-            } else {
-                throw ValidationException::withMessages([
-                    'role' => 'Invalid Role Id Provided'
-                ]);
-            }
-        }
-
-        abort(403);
-    }
-
-    /**
-     * @param $id
-     * @param RolePermissionRequest $request
-     * @return JsonResponse|void
-     * @throws Exception
-     */
-    public function user($id, RolePermissionRequest $request)
+    public function permission($id, Request $request)
     {
         if ($request->ajax()) {
 

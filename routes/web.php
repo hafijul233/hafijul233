@@ -208,7 +208,8 @@ Route::prefix('backend')->group(function () {
             //Role
             Route::prefix('roles')->name('roles.')->group(function () {
                 Route::patch('{role}/restore', [RoleController::class, 'restore'])->name('restore');
-                Route::get('permission', [RoleController::class, 'permission'])->name('permission');
+                Route::put('{role}/permission', [RoleController::class, 'permission'])
+                    ->name('permission')->where(['role' => '([0-9]+)']);
                 Route::get('export', [RoleController::class, 'export'])->name('export');
 /*                Route::get('import', [RoleController::class, 'import'])->name('import');
                 Route::post('import', [RoleController::class, 'importBulk']);
