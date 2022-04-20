@@ -37,19 +37,15 @@
                 <div class="card card-default">
                     <div class="card-body min-vh-100">
                         <div class="row mb-3">
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <label class="d-block">Name</label>
                                 <p class="font-weight-bold">{{ $catalog->name ?? null }}</p>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <label class="d-block">Type</label>
                                 <p class="font-weight-bold">{{ \App\Supports\Constant::CATALOG_LABEL[$catalog->type] ?? null }}</p>
                             </div>
-                            <div class="col-md-6">
-                                <label class="d-block">Location</label>
-                                <p class="font-weight-bold">{{ $catalog->model_type }}</p>
-                            </div>
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <label class="d-block">Enabled</label>
                                 <p class="font-weight-bold">{{ \App\Supports\Constant::ENABLED_OPTIONS[$catalog->enabled] }}</p>
                             </div>
