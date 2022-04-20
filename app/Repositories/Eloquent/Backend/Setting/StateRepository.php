@@ -44,8 +44,13 @@ class StateRepository extends EloquentRepository
         if (!empty($filters['enabled'])) :
             $query->where('enabled', '=', $filters['enabled']);
         endif;
+
         if (!empty($filters['type'])) :
             $query->where('type', '=', $filters['type']);
+        endif;
+
+        if (!empty($filters['sort'])) :
+            $query->orderBy($filters['sort'], $filters['direction'] ?? 'asc');
         endif;
 
         if ($is_sortable == true) :
