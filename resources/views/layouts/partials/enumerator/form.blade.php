@@ -9,7 +9,7 @@
 <div class="container-fluid">
     {!! \Form::hText('name', __('enumerator.Name'), old('name', $enumerator->name ?? null), true, 3) !!}
     {!! \Form::hText('name_bd', __('enumerator.Name(Bangla)'), old('name_bd', $enumerator->name_bd ?? null), true, 3) !!}
-    {!! \Form::hRadio('gender_id', __('enumerator.Gender'), $genders, 1, true, 3) !!}
+    {!! \Form::hRadio('gender_id', __('enumerator.Gender'), $genders, old('gender_id', ($enumerator->gender_id ?? 1)), true, 3) !!}
     {!! \Form::hDate('dob', __('enumerator.Date of Birth'), old('dob', $enumerator->dob ?? null), true, 3) !!}
     {!! \Form::hText('mother', __('enumerator.Mother Name'), old('mother', $enumerator->mother ?? null), true, 3) !!}
     {!! \Form::hText('father', __('enumerator.Father Name'), old('father', $enumerator->father ?? null), true, 3) !!}
@@ -46,7 +46,7 @@
     <script>
         $(document).ready(function () {
 
-            if ('yes' === '{{ old('is_employee', 'no') }}') {
+            if ('yes' === '{{ old('is_employee', ($enumerator->is_employee ?? 'no')) }}') {
                 $("#work_space").show();
             } else {
                 $("#work_space").hide();
