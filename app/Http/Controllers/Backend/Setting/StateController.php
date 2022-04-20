@@ -84,7 +84,7 @@ class StateController extends Controller
         $confirm = $this->stateService->storeState($request->except('_token'));
         if ($confirm['status'] == true) {
             notify($confirm['message'], $confirm['level'], $confirm['title']);
-            return redirect()->route('contact.settings.states.index');
+            return redirect()->route('backend.settings.states.index');
         }
 
         notify($confirm['message'], $confirm['level'], $confirm['title']);
@@ -142,7 +142,7 @@ class StateController extends Controller
 
         if ($confirm['status'] == true) {
             notify($confirm['message'], $confirm['level'], $confirm['title']);
-            return redirect()->route('contact.settings.states.index');
+            return redirect()->route('backend.settings.states.index');
         }
 
         notify($confirm['message'], $confirm['level'], $confirm['title']);
@@ -168,7 +168,7 @@ class StateController extends Controller
             } else {
                 notify($confirm['message'], $confirm['level'], $confirm['title']);
             }
-            return redirect()->route('contact.settings.states.index');
+            return redirect()->route('backend.settings.states.index');
         }
         abort(403, 'Wrong user credentials');
     }
@@ -192,7 +192,7 @@ class StateController extends Controller
             } else {
                 notify($confirm['message'], $confirm['level'], $confirm['title']);
             }
-            return redirect()->route('contact.settings.states.index');
+            return redirect()->route('backend.settings.states.index');
         }
         abort(403, 'Wrong user credentials');
     }
