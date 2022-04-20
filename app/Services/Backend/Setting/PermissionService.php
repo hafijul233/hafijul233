@@ -5,7 +5,7 @@ namespace App\Services\Backend\Setting;
 
 use App\Abstracts\Service\Service;
 use App\Exports\Backend\Setting\CountryExport;
-use App\Models\Setting\Permission;
+use App\Models\Backend\Setting\Permission;
 use App\Repositories\Eloquent\Backend\Setting\PermissionRepository;
 use App\Supports\Constant;
 use Exception;
