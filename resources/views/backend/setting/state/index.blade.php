@@ -1,4 +1,4 @@
-@extends('core::layouts.app')
+@extends('layouts.app')
 
 @section('title', 'States')
 
@@ -28,8 +28,8 @@
 @section('breadcrumbs', \Breadcrumbs::render())
 
 @section('actions')
-    {!! \Html::linkButton('Add State', 'contact.settings.states.create', [], 'mdi mdi-plus', 'success') !!}
-    {!! \Html::bulkDropdown('contact.settings.states', 0, ['color' => 'warning']) !!}
+    {!! \Html::linkButton('Add State', 'backend.settings.states.create', [], 'mdi mdi-plus', 'success') !!}
+    {!! \Html::bulkDropdown('backend.settings.states', 0, ['color' => 'warning']) !!}
 @endsection
 
 @section('content')
@@ -39,7 +39,7 @@
                 <div class="card card-default">
                     @if(!empty($states))
                         <div class="card-body p-0">
-                            {!! \Html::cardSearch('search', 'contact.settings.states.index',
+                            {!! \Html::cardSearch('search', 'backend.settings.states.index',
                             ['placeholder' => 'Search Permission Display Name, Code, Guard, Status, etc.',
                             'class' => 'form-control', 'id' => 'search', 'data-target-table' => 'state-table']) !!}
                             <div class="table-responsive">
@@ -62,8 +62,8 @@
                                                 {{ $state->id }}
                                             </td>
                                             <td class="text-left">
-                                                @can('contact.settings.states.show')
-                                                    <a href="{{ route('contact.settings.states.show', $state->id) }}">
+                                                @can('backend.settings.states.show')
+                                                    <a href="{{ route('backend.settings.states.show', $state->id) }}">
                                                         {{ $state->name }}
                                                     </a>
                                                 @else
@@ -82,9 +82,9 @@
                                             <td class="text-center exclude-search">
                                                 {!! \Html::enableToggle($state) !!}
                                             </td>
-                                            <td class="text-center">{{ $state->created_at->format(config('core.datetime')) ?? '' }}</td>
+                                            <td class="text-center">{{ $state->created_at->format(config('backend.datetime')) ?? '' }}</td>
                                             <td class="exclude-search pr-3 text-center align-middle">
-                                                {!! \Html::actionDropdown('contact.settings.states', $state->id, array_merge(['show', 'edit'], ($state->deleted_at == null) ? ['delete'] : ['restore'])) !!}
+                                                {!! \Html::actionDropdown('backend.settings.states', $state->id, array_merge(['show', 'edit'], ($state->deleted_at == null) ? ['delete'] : ['restore'])) !!}
                                             </td>
                                         </tr>
                                     @empty
@@ -97,7 +97,7 @@
                             </div>
                         </div>
                         <div class="card-footer bg-transparent pb-0">
-                            {!! \Modules\Core\Supports\CHTML::pagination($states) !!}
+                            {!! \App\Supports\CHTML::pagination($states) !!}
                         </div>
                     @else
                         <div class="card-body min-vh-100">
@@ -109,7 +109,7 @@
         </div>
     </div>
     <!-- /.container-fluid -->
-    {!! \Modules\Core\Supports\CHTML::confirmModal('Country', ['export', 'delete', 'restore']) !!}
+    {!! \App\Supports\CHTML::confirmModal('Country', ['export', 'delete', 'restore']) !!}
 @endsection
 
 

@@ -8,49 +8,26 @@
             {!! \Form::nText('name', 'Name', old('name', $user->name ?? null), true) !!}
         </div>
         <div class="col-md-6">
-            {!! \Form::nText('username', 'Username', old('username', $user->username ?? null),
-                (config('auth.credential_field') == \Modules\Core\Supports\Constant::LOGIN_USERNAME)) !!}
+            {!! \Form::nSelect('country_id', 'Country', $countries,old('country_id', $user->countrty_id ?? null), true) !!}
         </div>
     </div>
     <div class="row">
         <div class="col-md-6">
-            {!! \Form::nEmail('email', 'Email Address', old('email', $user->email ?? null),
-                (config('auth.credential_field') == \Modules\Core\Supports\Constant::LOGIN_EMAIL
-                || (config('auth.credential_field') == \Modules\Core\Supports\Constant::LOGIN_OTP
-                    && config('auth.credential_otp_field') == \Modules\Core\Supports\Constant::OTP_EMAIL))) !!}
         </div>
         <div class="col-md-6">
-            {!! \Form::nTel('mobile', 'Mobile', old('mobile', $user->mobile ?? null),
-                (config('auth.credential_field') == \Modules\Core\Supports\Constant::LOGIN_MOBILE
-                || (config('auth.credential_field') == \Modules\Core\Supports\Constant::LOGIN_OTP
-                    && config('auth.credential_otp_field') == \Modules\Core\Supports\Constant::OTP_MOBILE))) !!}
         </div>
     </div>
-    @if(config('auth.credential_field') != \Modules\Core\Supports\Constant::LOGIN_OTP)
-        <div class="row">
-            <div class="col-md-6">
-                {!! \Form::nPassword('password', 'Password', empty($user->password)) !!}
-            </div>
-            <div class="col-md-6">
-                {!! \Form::nPassword('password_confirmation', 'Retype Password', empty($user->password)) !!}
-            </div>
-        </div>
-    @endif
     <div class="row">
         <div class="col-md-6">
-            {!! \Form::nSelectMulti('role_id', 'Role', $roles,
-    old('role_id.*', ($user_roles ?? [\Modules\Core\Supports\Constant::GUEST_ROLE_ID])), true,
-    ['class' => 'form-control custom-select select2']) !!}
-
-            {!! \Form::nSelect('enabled', 'Enabled', \Modules\Core\Supports\Constant::ENABLED_OPTIONS,
-old('enabled', ($user->enabled ?? \Modules\Core\Supports\Constant::ENABLED_OPTION))) !!}
+            {!! \Form::nSelect('enabled', 'Enabled', \App\Supports\Constant::ENABLED_OPTIONS,
+old('enabled', ($user->enabled ?? \App\Supports\Constant::ENABLED_OPTION))) !!}
         </div>
         <div class="col-md-6">
             {!! \Form::nImage('photo', 'Photo', false,
                 ['preview' => true, 'height' => '69',
                  'default' => (isset($user))
                  ? $user->getFirstMediaUrl('avatars')
-                 : asset(\Modules\Core\Supports\Constant::USER_PROFILE_IMAGE)]) !!}
+                 : asset(\App\Supports\Constant::USER_PROFILE_IMAGE)]) !!}
         </div>
     </div>
     <div class="row">
