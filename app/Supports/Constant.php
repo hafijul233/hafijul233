@@ -24,6 +24,11 @@ class Constant
     const PERMISSION_GUARDS = ['web' => 'WEB'];
 
     /**
+     * System User Permission Guard
+     */
+    const PERMISSION_GUARD = 'web';
+
+    /**
      * System Permission Title Constraint
      */
     const PERMISSION_NAME_ALLOW_CHAR = '([a-zA-Z0-9.-_]+)';

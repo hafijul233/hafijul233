@@ -40,7 +40,7 @@
             <div class="col-lg-12">
                 <div class="card">
                     {!! \Form::open(['route' => ['backend.settings.permissions.update', $permission->id], 'method' => 'put', 'id' => 'permission-form']) !!}
-                    @include('setting.permission.form')
+                    @include('backend.setting.permission.form')
                     {!! \Form::close() !!}
                 </div>
             </div>

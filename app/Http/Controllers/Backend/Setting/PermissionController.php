@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Backend\Setting;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Setting\PermissionRequest;
+use App\Http\Requests\Backend\Setting\PermissionRequest;
 use App\Services\Auth\AuthenticatedSessionService;
 use App\Services\Backend\Setting\PermissionService;
 use App\Supports\Utility;
@@ -41,6 +41,7 @@ class PermissionController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param Request $request
      * @return Application|Factory|View
      * @throws Exception
      */

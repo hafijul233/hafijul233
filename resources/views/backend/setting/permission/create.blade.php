@@ -35,7 +35,7 @@
             <div class="col-lg-12">
                 <div class="card card-default">
                     {!! \Form::open(['route' => 'backend.settings.permissions.store', 'id' => 'permission-form']) !!}
-                    @include('setting.permission.form')
+                    @include('backend.setting.permission.form')
                     {!! \Form::close() !!}
                 </div>
             </div>

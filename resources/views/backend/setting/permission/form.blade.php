@@ -1,16 +1,19 @@
 <div class="card-body">
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-6">
             {!! \Form::nText('display_name', 'Display Name', old('display_name', $permission->display_name ?? null), true) !!}
         </div>
-        <div class="col-md-4">
+        <div class="col-md-6">
             {!! \Form::nText('name', __('common.Name'), old('name', $permission->name ?? null), true ,[
             'pattern' => \App\Supports\Constant::PERMISSION_NAME_ALLOW_CHAR,
              'onkeyup' => 'this.value = this.value.replace(/\s+/g, \'-\').toLowerCase()',
              'title' => 'Only Alphanumeric, Hyphen(-), UnderScope(_), Fullstops(.) Allowed'
              ]) !!}
         </div>
-        <div class="col-md-4">
+        <div class="col-md-6">
+            {!! \Form::nSelect('guard_name', 'Guard', config('backend.guard'), old('guard_name', $role->guard_name ?? \App\Supports\Constant::PERMISSION_GUARD)) !!}
+        </div>
+        <div class="col-md-6">
             {!! \Form::nSelect('enabled', __('common.Enabled'), \App\Supports\Constant::ENABLED_OPTIONS,
                 old('enabled', ($permission->enabled ?? \App\Supports\Constant::ENABLED_OPTION)), true) !!}
         </div>
