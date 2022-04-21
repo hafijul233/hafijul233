@@ -19,7 +19,7 @@
 
     @if(in_array('delete', $options) && Route::has($resourceRouteName . '.destroy'))
         @can($resourceRouteName . '.destroy')
-            <a href="{{ route('common.delete', [$resourceRouteName, $id]) }}" title="{!! __('common.Delete') !!}"
+            <a href="{{ route('backend.common.delete', [$resourceRouteName, $id]) }}" title="{!! __('common.Delete') !!}"
                class="btn btn-danger btn-sm mx-1 delete-btn">
                 <i class="mdi mdi-close-thick fw-bold"></i>
             </a>

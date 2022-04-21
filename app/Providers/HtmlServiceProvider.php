@@ -36,7 +36,7 @@ class HtmlServiceProvider extends ServiceProvider
     {
         //Buttons
         Html::component('linkButton', 'htmls.link-button', ['title', 'route', 'param' => [], 'icon', 'color' => 'success']);
-        Html::component('actionButton', 'htmls.action-buttons', ['resourceRouteName', 'id', 'options' => []]);
+        Html::component('actionButton', 'htmls.action-buttons', ['resourceRouteName', 'id' => 0, 'options' => []]);
         Html::component('backButton', 'htmls.back-button', ['route', 'param' => []]);
         Html::component('editButton', 'htmls.edit-button', ['route', 'param' => []]);
         Html::component('showButton', 'htmls.show-button', ['route', 'param' => []]);
