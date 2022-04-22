@@ -34,15 +34,15 @@
                     </a>
                 </li>
 
-                {{--@can('backend.common.address-books.index')
+                @can('backend.organization.enumerators.create')
                     <li class="nav-item">
-                        <a href="{{ route('backend.common.address-books.index') }}"
-                           class="nav-link @if(\Route::is('backend.common.address-books.*')) active @endif">
-                            <i class="fas fa-address-book nav-icon"></i>
-                            <p>{!! __('menu-sidebar.Address Book') !!}</p>
+                        <a href="{{ route('backend.organization.enumerators.create') }}"
+                           class="nav-link @if(\Route::is('backend.organization.enumerators.create')) active @endif">
+                            <i class="fas fa-user-plus nav-icon"></i>
+                            <p>{!! __('enumerator.Add Enumerator') !!}</p>
                         </a>
                     </li>
-                @endcan--}}
+                @endcan
 
                 @canany(['backend.organization.surveys.index', 'backend.organization.enumerators.index'])
                     <li class="nav-item @if(\Route::is('backend.organization.*')) menu-open @endif">
