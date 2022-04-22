@@ -42,7 +42,7 @@ class EnumeratorRequest extends FormRequest
             "name_bd" => ["required", "string", "min:2", "max:255"],
             "father" => ["required", "string", "min:2", "max:255"],
             "mother" => ["required", "string", "min:2", "max:255"],
-            "nid" => ["required", "integer", new MinLength(10), new MaxLength(17)],
+            "nid" => ["required", "integer", new MinLength(10), new MaxLength(17), 'unique:App\Models\Backend\Organization\Enumerator,nid'],
             "mobile_1" => ["required", "string", new PhoneNumber],
             "mobile_2" => ["nullable", "string", new PhoneNumber],
             "email" => ["required", "string", "email:rfc,dns"],
