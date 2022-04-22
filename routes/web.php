@@ -143,9 +143,6 @@ Route::prefix('backend')->group(function () {
         Route::get('applicant-registration', [ApplicantController::class, 'create'])
             ->name('applicants.create');
 
-        Route::post('applicant-registration', [ApplicantController::class, 'store'])
-            ->name('applicants.store');
-
         //Common Operations
         Route::prefix('common')->name('common.')->group(function () {
             Route::get('delete/{route}/{id}', ModelSoftDeleteController::class)->name('delete');

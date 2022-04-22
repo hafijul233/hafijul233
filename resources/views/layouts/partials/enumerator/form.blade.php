@@ -7,6 +7,7 @@
 @endpush
 
 <div class="container-fluid">
+    <input type="hidden" id="id" name="id" value="">
     {!! \Form::hNumber('nid', __('enumerator.NID Number'), old('nid', $enumerator->nid ?? null), true, 3, ['oninput' => 'loadApplicantInfoFromNID(this.value);']) !!}
     {!! \Form::hText('name', __('enumerator.Name'), old('name', $enumerator->name ?? null), true, 3) !!}
     {!! \Form::hText('name_bd', __('enumerator.Name(Bangla)'), old('name_bd', $enumerator->name_bd ?? null), true, 3) !!}
@@ -45,6 +46,7 @@
 @push('page-script')
     <script>
         function loadApplicantInfoFromNID(nidNumber = null) {
+            $("#id").val('');
             @can('backend.organization.enumerators.store')
             if (!isNaN(nidNumber) && (nidNumber.length === 10 || nidNumber.length === 13 || nidNumber.length === 17)) {
                 $.ajax({
@@ -59,7 +61,17 @@
                     dataType: 'json',
                     success: function (response) {
                         if (response.status === true) {
-                            console.log(response);
+                            notify('Already Registered Applicant', 'warning', 'Notification');
+                            const applicant = response.data.pop();
+                            for (const field in applicant) {
+                                if ($("body").find("#" + field) && applicant.hasOwnProperty(field)) {
+                                    const inputField = $("#" + field);
+                                    inputField.val(applicant[field]);
+                                    inputField.trigger('change');
+                                }
+                            }
+                        } else {
+                            $("#id").val('');
                         }
                     }
                 });
