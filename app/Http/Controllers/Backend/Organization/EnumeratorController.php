@@ -305,12 +305,15 @@ class EnumeratorController extends Controller
     {
         $filters = $request->except('page');
 
-        $enumerators = $this->enumeratorService->getAllEnumerators($filters)->toArray();
+        $enumerators = $this->enumeratorService->getAllEnumerators($filters);
 
         if (count($enumerators) > 0):
-
             foreach ($enumerators as $index => $enumerator) :
-                $enumerators[$index]['update_route'] = route('backend.organization.enumerators.update', $enumerator['id']);
+                $enumerators[$index]->update_route = route('backend.organization.enumerators.update', $enumerator->id);
+                $enumerators[$index]->survey_id = $enumerator->surveys->pluck('id')->toArray();
+                $enumerators[$index]->prev_post_state_id = $enumerator->previousPostings->pluck('id')->toArray();
+                $enumerators[$index]->future_post_state_id = $enumerator->futurePostings->pluck('id')->toArray();
+                unset($enumerators[$index]->surveys, $enumerators[$index]->previousPostings, $enumerators[$index]->futurePostings);
             endforeach;
 
             $jsonReturn = ['status' => true, 'data' => $enumerators];

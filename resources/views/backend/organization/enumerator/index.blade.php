@@ -35,12 +35,36 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-12">
+                <div class="card">
+                    <div class="card-header border-transparent pb-0">
+                        <h2 class="card-title">Filter Results</h2>
+                        <div class="card-tools">
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                            <button type="button" class="btn btn-tool" data-card-widget="remove">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <form method="GET" action="{{ route('backend.organization.enumerators.index') }}"
+                              accept-charset="UTF-8">
+                            <div class="input-group">
+                                <input class="form-control" placeholder="Search Enumerator Name etc." id="search"
+                                       data-target-table="enumerator-table" name="search" type="search" value="{{ request('search') }}">
+                                <div class="input-group-append">
+                                    <input class="btn btn-primary input-group-right-btn" type="submit" value="Search">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12">
                 <div class="card card-default">
                     @if(!empty($enumerators))
                         <div class="card-body p-0">
-                            {!! \Html::cardSearch('search', 'backend.organization.enumerators.index',
-                            ['placeholder' => 'Search Enumerator Name etc.',
-                            'class' => 'form-control', 'id' => 'search', 'data-target-table' => 'enumerator-table']) !!}
                             <div class="table-responsive">
                                 <table class="table table-hover mb-0" id="employee-table">
                                     <thead class="thead-light">
@@ -75,7 +99,8 @@
                                                 @endcan
                                             </td>
                                             <td>
-                                                {{ $enumerator->mobile_1 }}@if(!empty($enumerator->mobile_2)), <br>{{ $enumerator->mobile_2 }}@endif
+                                                {{ $enumerator->mobile_1 }}@if(!empty($enumerator->mobile_2)),
+                                                <br>{{ $enumerator->mobile_2 }}@endif
                                             </td>
                                             <td>
                                                 {{ $enumerator->email }}
