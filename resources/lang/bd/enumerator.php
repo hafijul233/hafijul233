@@ -22,7 +22,7 @@ return [
     'Father Name(Bangla)' => 'পিতার নাম(বাংলায়)',
     'Mother Name' => 'মাতার নাম',
     'Mother Name(Bangla)' => 'মাতার নাম(বাংলায়)',
-    'NID Number' => 'এনআইডি',
+    'NID Number' => 'এনআইডি (ইংরেজিতে)',
     'Mobile 1' => 'মোবাইল ফোন ১',
     'Mobile 2' => 'মোবাইল ফোন ২',
     'Email' => 'ইমেইল',
