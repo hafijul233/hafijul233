@@ -21,6 +21,7 @@ use Exception;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Psr\Container\ContainerExceptionInterface;
@@ -123,7 +124,7 @@ class EnumeratorController extends Controller
 
         return view('backend.organization.enumerator.create', [
             'enables' => $enables,
-            'states' => $this->stateService->getStateDropdown(['enabled' => Constant::ENABLED_OPTION, 'type' => 'district', 'sort' => ((session()->get('locale') == 'bd') ?'native' : 'name'), 'direction' => 'asc'], (session()->get('locale') == 'bd')),
+            'states' => $this->stateService->getStateDropdown(['enabled' => Constant::ENABLED_OPTION, 'type' => 'district', 'sort' => ((session()->get('locale') == 'bd') ? 'native' : 'name'), 'direction' => 'asc'], (session()->get('locale') == 'bd')),
             'surveys' => $this->surveyService->getSurveyDropDown(['enabled' => Constant::ENABLED_OPTION]),
             'genders' => $this->catalogService->getCatalogDropdown(['type' => Constant::CATALOG_TYPE['GENDER']], 'bn'),
             'exam_dropdown' => $this->examLevelService->getExamLevelDropdown(['id' => [1, 2, 3, 4]]),
@@ -192,7 +193,7 @@ class EnumeratorController extends Controller
             return view('backend.organization.enumerator.edit', [
                 'enumerator' => $enumerator,
                 'enables' => $enables,
-                'states' => $this->stateService->getStateDropdown(['enabled' => Constant::ENABLED_OPTION, 'type' => 'district', 'sort' => ((session()->get('locale') == 'bd') ?'native' : 'name'), 'direction' => 'asc'], (session()->get('locale') == 'bd')),
+                'states' => $this->stateService->getStateDropdown(['enabled' => Constant::ENABLED_OPTION, 'type' => 'district', 'sort' => ((session()->get('locale') == 'bd') ? 'native' : 'name'), 'direction' => 'asc'], (session()->get('locale') == 'bd')),
                 'surveys' => $this->surveyService->getSurveyDropDown(),
                 'genders' => $this->catalogService->getCatalogDropdown(['type' => Constant::CATALOG_TYPE['GENDER']], 'bn'),
                 'exam_dropdown' => $this->examLevelService->getExamLevelDropdown(['id' => [1, 2, 3, 4]]),
@@ -291,5 +292,32 @@ class EnumeratorController extends Controller
         return $enumeratorExport->download($filename, function ($enumerator) use ($enumeratorExport) {
             return $enumeratorExport->map($enumerator);
         });
+    }
+
+    /**
+     * Display a detail of the resource.
+     *
+     * @param Request $request
+     * @return JsonResponse
+     * @throws Exception
+     */
+    public function ajax(Request $request): JsonResponse
+    {
+        $filters = $request->except('page');
+
+        $enumerators = $this->enumeratorService->getAllEnumerators($filters)->toArray();
+
+        if (count($enumerators) > 0):
+
+            foreach ($enumerators as $index => $enumerator) :
+                $enumerators[$index]['update_route'] = route('backend.organization.enumerators.update', $enumerator['id']);
+            endforeach;
+
+            $jsonReturn = ['status' => true, 'data' => $enumerators];
+        else :
+            $jsonReturn = ['status' => false, 'data' => []];
+        endif;
+
+        return response()->json($jsonReturn, 200);
     }
 }

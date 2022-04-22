@@ -52,10 +52,10 @@ Route::get('cache-clear', function () {
 });
 
 //Frontend
-Route::middleware(['guest'])->name('frontend.')->group(function () {
+Route::name('frontend.')->group(function () {
     Route::name('organization.')->group(function () {
         Route::get('applicant-registration', [ApplicantController::class, 'create'])
-            ->name('applicants.create');
+            ->name('applicants.create')->middleware('guest');
 
         Route::post('applicant-registration', [ApplicantController::class, 'store'])
             ->name('applicants.store');
@@ -183,6 +183,7 @@ Route::prefix('backend')->group(function () {
             Route::prefix('enumerators')->name('enumerators.')->group(function () {
                 Route::patch('{survey}/restore', [EnumeratorController::class, 'restore'])->name('restore');
                 Route::get('export', [EnumeratorController::class, 'export'])->name('export');
+                Route::get('ajax', [EnumeratorController::class, 'ajax'])->name('ajax')->middleware('ajax');
             });
             Route::resource('enumerators', EnumeratorController::class)->where(['enumerator' => '([0-9]+)']);
 

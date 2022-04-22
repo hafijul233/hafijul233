@@ -7,7 +7,7 @@
 @endpush
 
 <div class="container-fluid">
-    {!! \Form::hNumber('nid', __('enumerator.NID Number'), old('nid', $enumerator->nid ?? null), true, 3) !!}
+    {!! \Form::hNumber('nid', __('enumerator.NID Number'), old('nid', $enumerator->nid ?? null), true, 3, ['oninput' => 'loadApplicantInfoFromNID(this.value);']) !!}
     {!! \Form::hText('name', __('enumerator.Name'), old('name', $enumerator->name ?? null), true, 3) !!}
     {!! \Form::hText('name_bd', __('enumerator.Name(Bangla)'), old('name_bd', $enumerator->name_bd ?? null), true, 3) !!}
     {!! \Form::hRadio('gender_id', __('enumerator.Gender'), $genders, old('gender_id', ($enumerator->gender_id ?? 1)), true, 3) !!}
@@ -44,6 +44,29 @@
 
 @push('page-script')
     <script>
+        function loadApplicantInfoFromNID(nidNumber = null) {
+            @can('backend.organization.enumerators.store')
+            if (!isNaN(nidNumber) && (nidNumber.length === 10 || nidNumber.length === 13 || nidNumber.length === 17)) {
+                $.ajax({
+                    method: 'GET',
+                    url: '{{route('backend.organization.enumerators.ajax')}}',
+                    data: {'nid': nidNumber},
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest',
+                        'Accept': 'application/json'
+                    },
+                    cache: false,
+                    dataType: 'json',
+                    success: function (response) {
+                        if (response.status === true) {
+                            console.log(response);
+                        }
+                    }
+                });
+            }
+            @endcan
+        }
+
         $(document).ready(function () {
 
             if ('yes' === '{{ old('is_employee', ($enumerator->is_employee ?? 'no')) }}') {

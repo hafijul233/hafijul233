@@ -52,6 +52,9 @@ class EnumeratorRepository extends EloquentRepository
         if (!empty($filters['enabled'])) :
             $query->where('enabled', '=', $filters['enabled']);
         endif;
+        if (!empty($filters['nid'])) :
+            $query->where('nid', '=', $filters['nid']);
+        endif;
 
         if (!empty($filters['sort']) && !empty($filters['direction'])) :
             $query->orderBy($filters['sort'], $filters['direction']);

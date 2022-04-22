@@ -107,7 +107,7 @@ class ApplicantController extends Controller
 
         if ($confirm['status'] == true) {
             notify('Applicant Registration Successful', $confirm['level'], $confirm['title']);
-            return redirect()->route('frontend.organization.applicants.create');
+            return redirect()->back();
         }
 
         notify($confirm['message'], $confirm['level'], $confirm['title']);
