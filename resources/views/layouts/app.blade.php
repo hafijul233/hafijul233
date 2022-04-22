@@ -5,8 +5,7 @@
 @endpush
 
 @push('icon')
-    <!-- Material Design Icons -->
-    <link rel="stylesheet" href="{{ asset('plugins/mdi/css/materialdesignicons.min.css') }}">
+
 @endpush
 
 @push('plugin-style')
