@@ -26,18 +26,19 @@
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <!-- Add icons to the links using the .nav-icon class
                      with font-awesome or any other icon font library -->
-                <li class="nav-item">
-                    <a href="{{ route('backend.dashboard') }}"
-                       class="nav-link  @if(\Route::is('backend.dashboard')) active @endif">
-                        <i class="nav-icon fas fa-tachometer-alt"></i>
-                        <p>{!! __('menu-sidebar.Dashboard') !!}</p>
-                    </a>
-                </li>
-
+                @can('backend.dashboard')
+                    <li class="nav-item">
+                        <a href="{{ route('backend.dashboard') }}"
+                           class="nav-link  @if(\Route::is('backend.dashboard')) active @endif">
+                            <i class="nav-icon fas fa-tachometer-alt"></i>
+                            <p>{!! __('menu-sidebar.Dashboard') !!}</p>
+                        </a>
+                    </li>
+                @endcan
                 @can('backend.organization.enumerators.create')
                     <li class="nav-item">
-                        <a href="{{ route('backend.organization.enumerators.create') }}"
-                           class="nav-link @if(\Route::is('backend.organization.enumerators.create')) active @endif">
+                        <a href="{{ route('backend.applicants.create') }}"
+                           class="nav-link @if(\Route::is('backend.applicants.create')) active @endif">
                             <i class="fas fa-user-plus nav-icon"></i>
                             <p>{!! __('enumerator.Add Enumerator') !!}</p>
                         </a>

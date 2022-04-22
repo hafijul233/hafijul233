@@ -137,7 +137,14 @@ Route::prefix('backend')->group(function () {
     })->name('backend');
 
     Route::middleware(['auth'])->name('backend.')->group(function () {
+
         Route::get('/dashboard', DashboardController::class)->name('dashboard');
+
+        Route::get('applicant-registration', [ApplicantController::class, 'create'])
+            ->name('applicants.create');
+
+        Route::post('applicant-registration', [ApplicantController::class, 'store'])
+            ->name('applicants.store');
 
         //Common Operations
         Route::prefix('common')->name('common.')->group(function () {
@@ -157,7 +164,6 @@ Route::prefix('backend')->group(function () {
                 Route::post('print', [AddressBookController::class, 'print'])->name('print');
             });
         });
-
 
         //Organization
         Route::get('organization', OrganizationController::class)->name('organization');

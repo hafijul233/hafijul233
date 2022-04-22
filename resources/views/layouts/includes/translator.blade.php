@@ -1,5 +1,12 @@
 <div class="container-fluid my-3">
-    <div class="row d-flex justify-content-md-end justify-content-center pr-3">
+    <div class="row d-flex @can('backend.dashboard') justify-content-md-between @else justify-content-md-end @endcan justify-content-center pr-3">
+        @can('backend.dashboard')
+            <a href="{{ route('backend.dashboard') }}"
+               class="ml-3 btn btn-light font-weight-bold">
+                <i class="fas fa-arrow-left"></i>
+                {!! __('menu-sidebar.Dashboard') !!}
+            </a>
+        @endcan
         {!! \Form::open(['route' => 'translate-locale', 'method' => 'post']) !!}
         <div class="btn-group">
             <button type="button" class="font-weight-bold btn btn-default">
