@@ -12,7 +12,7 @@ use Illuminate\Validation\Rule;
  * @class EnumeratorRequest
  * @package App\Http\Requests\Backend\Organization
  */
-class EnumeratorRequest extends FormRequest
+class UpdateEnumeratorRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -32,6 +32,7 @@ class EnumeratorRequest extends FormRequest
     public function rules()
     {
         return [
+            "id" => ["required", "integer"],
             "dob" => ["required", "date"],
             "exam_level" => ["required", "integer", "min:1", "max:5"],
             "whatsapp" => ["nullable", "string", new PhoneNumber],
@@ -42,7 +43,9 @@ class EnumeratorRequest extends FormRequest
             "name_bd" => ["required", "string", "min:2", "max:255"],
             "father" => ["required", "string", "min:2", "max:255"],
             "mother" => ["required", "string", "min:2", "max:255"],
-            "nid" => ["required", "integer", new MinLength(10), new MaxLength(17), 'unique:App\Models\Backend\Organization\Enumerator,nid'],
+            "nid" => ["required", "integer", new MinLength(10), new MaxLength(17),
+                Rule::unique('enumerators', 'nid')->ignore($this->id)
+            ],
             "mobile_1" => ["required", "string", new PhoneNumber],
             "mobile_2" => ["nullable", "string", new PhoneNumber],
             "email" => ["required", "string", "email:rfc,dns"],

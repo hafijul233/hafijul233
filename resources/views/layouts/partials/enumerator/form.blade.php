@@ -7,7 +7,7 @@
 @endpush
 
 <div class="container-fluid">
-    <input type="hidden" id="id" name="id" value="">
+    <input type="hidden" id="id" name="id" value="{{ old('id', $enumerator->id ?? null) }}">
     {!! \Form::hNumber('nid', __('enumerator.NID Number'), old('nid', $enumerator->nid ?? null), true, 3, ['oninput' => 'loadApplicantInfoFromNID(this.value);']) !!}
     {!! \Form::hText('name', __('enumerator.Name'), old('name', $enumerator->name ?? null), true, 3) !!}
     {!! \Form::hText('name_bd', __('enumerator.Name(Bangla)'), old('name_bd', $enumerator->name_bd ?? null), true, 3) !!}
@@ -47,7 +47,7 @@
     <script>
         function loadApplicantInfoFromNID(nidNumber = null) {
             $("#id").val('');
-            @can('backend.organization.enumerators.store')
+            @if(\Route::is('backend.applicants.create'))
             if (!isNaN(nidNumber) && (nidNumber.length === 10 || nidNumber.length === 13 || nidNumber.length === 17)) {
                 $.ajax({
                     method: 'GET',
@@ -63,6 +63,7 @@
                         if (response.status === true) {
                             notify('Already Registered Applicant', 'warning', 'Notification');
                             const applicant = response.data.pop();
+                            //load all except checkbox
                             for (const field in applicant) {
                                 if ($("body").find("#" + field) && applicant.hasOwnProperty(field)) {
                                     const inputField = $("#" + field);
@@ -70,13 +71,27 @@
                                     inputField.trigger('change');
                                 }
                             }
+                            //checkbox
+                            applicant.survey_id.forEach(function (element) {
+                                $("#survey_id-checkbox-" + element).prop("checked", true);
+                            });
+                            //radio
+                            $("#is_employee-radio-" + applicant.is_employee).prop("checked", true);
+                            $("#gender_id-radio-" + applicant.gender_id).prop("checked", true);
+
+                            if (applicant.is_employee === 'yes') {
+                                $("#work_space").show();
+                            } else {
+                                $("#work_space").hide();
+                            }
+
                         } else {
                             $("#id").val('');
                         }
                     }
                 });
             }
-            @endcan
+            @endif
         }
 
         $(document).ready(function () {

@@ -3,7 +3,8 @@
 namespace App\Http\Controllers\Backend\Organization;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Backend\Organization\EnumeratorRequest;
+use App\Http\Requests\Backend\Organization\CreateEnumeratorRequest;
+use App\Http\Requests\Backend\Organization\UpdateEnumeratorRequest;
 use App\Services\Auth\AuthenticatedSessionService;
 use App\Services\Backend\Organization\EnumeratorService;
 use App\Services\Backend\Organization\SurveyService;
@@ -134,11 +135,11 @@ class EnumeratorController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param EnumeratorRequest $request
+     * @param CreateEnumeratorRequest $request
      * @return RedirectResponse
      * @throws Exception|\Throwable
      */
-    public function store(EnumeratorRequest $request): RedirectResponse
+    public function store(CreateEnumeratorRequest $request): RedirectResponse
     {
         $inputs = $request->except('_token');
 
@@ -206,12 +207,12 @@ class EnumeratorController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param EnumeratorRequest $request
+     * @param CreateEnumeratorRequest $request
      * @param  $id
      * @return RedirectResponse
      * @throws \Throwable
      */
-    public function update(EnumeratorRequest $request, $id): RedirectResponse
+    public function update(UpdateEnumeratorRequest $request, $id): RedirectResponse
     {
         $inputs = $request->except('_token', 'submit', '_method');
         $confirm = $this->enumeratorService->updateEnumerator($inputs, $id);
