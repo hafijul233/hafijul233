@@ -63,14 +63,19 @@
                         if (response.status === true) {
                             notify('Already Registered Applicant', 'warning', 'Notification');
                             const applicant = response.data.pop();
+
                             //load all except checkbox
                             for (const field in applicant) {
-                                if ($("body").find("#" + field) && applicant.hasOwnProperty(field)) {
-                                    const inputField = $("#" + field);
-                                    inputField.val(applicant[field]);
-                                    inputField.trigger('change');
+                                const fieldId = "#" + field;
+                                if ($("body").find(fieldId)) {
+                                    const inputField = $(fieldId);
+                                    if (applicant.hasOwnProperty(field)) {
+                                        inputField.val(applicant[field]);
+                                        inputField.trigger('change');
+                                    }
                                 }
                             }
+
                             //checkbox
                             applicant.survey_id.forEach(function (element) {
                                 $("#survey_id-checkbox-" + element).prop("checked", true);

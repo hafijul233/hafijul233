@@ -40,7 +40,7 @@
                             {!! __('common.Database of Enumerators') !!}
                         </h3>
                     </div>
-                    {!! \Form::open(['route' => 'frontend.organization.applicants.store', 'id' => 'enumerator-form']) !!}
+                    {!! \Form::open(['route' => 'backend.applicants.store', 'id' => 'enumerator-form']) !!}
                     @include('frontend.organization.applicant.form')
                     {!! \Form::close() !!}
                 </div>

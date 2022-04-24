@@ -42,7 +42,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return redirect()->to('applicant-registration');
+    return redirect()->to('backend/login');
 })->name('home');
 
 Route::post('translate-locale', TranslateController::class)->name('translate-locale');
@@ -52,7 +52,7 @@ Route::get('cache-clear', function () {
 });
 
 //Frontend
-Route::name('frontend.')->group(function () {
+/*Route::name('frontend.')->group(function () {
     Route::name('organization.')->group(function () {
         Route::get('applicant-registration', [ApplicantController::class, 'create'])
             ->name('applicants.create')->middleware('guest');
@@ -60,7 +60,7 @@ Route::name('frontend.')->group(function () {
         Route::post('applicant-registration', [ApplicantController::class, 'store'])
             ->name('applicants.store');
     });
-});
+});*/
 
 
 Route::prefix('backend')->group(function () {
@@ -143,6 +143,8 @@ Route::prefix('backend')->group(function () {
         Route::get('applicant-registration', [ApplicantController::class, 'create'])
             ->name('applicants.create');
 
+        Route::post('applicant-registration', [ApplicantController::class, 'store'])
+            ->name('applicants.store');
         //Common Operations
         Route::prefix('common')->name('common.')->group(function () {
             Route::get('delete/{route}/{id}', ModelSoftDeleteController::class)->name('delete');
