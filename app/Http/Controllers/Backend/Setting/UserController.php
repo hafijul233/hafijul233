@@ -45,8 +45,8 @@ class UserController extends Controller
      * @param RoleService $roleService
      */
     public function __construct(AuthenticatedSessionService $authenticatedSessionService,
-                                UserService                 $userService,
-                                RoleService                 $roleService)
+                                UserService $userService,
+                                RoleService $roleService)
     {
         $this->userService = $userService;
         $this->authenticatedSessionService = $authenticatedSessionService;
@@ -62,6 +62,12 @@ class UserController extends Controller
     public function index(Request $request): View
     {
         $filters = $request->except('page');
+        $filters['role'] = [2, 3, 4];
+
+        if (AuthenticatedSessionService::isSuperAdmin()) {
+            $filters['role'][] = 1;
+        }
+
         $users = $this->userService->userPaginate($filters);
 
         return view('backend.setting.user.index', [

@@ -35,12 +35,6 @@ class RoleSeeder extends Seeder
 
         Role::create([
             'id' => 4,
-            'name' => 'Guest',
-            'remarks' => 'Role which will have entry and accounts sections.'
-        ]);
-
-        Role::create([
-            'id' => 5,
             'name' => 'Enumerator',
             'remarks' => 'Role which will have basic operation and minimal system options.'
         ]);

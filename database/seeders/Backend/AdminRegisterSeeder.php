@@ -16,7 +16,7 @@ use Spatie\MediaLibrary\MediaCollections\Exceptions\FileDoesNotExist;
 use Spatie\MediaLibrary\MediaCollections\Exceptions\FileIsTooBig;
 use Throwable;
 
-class UserRegisterSeeder extends Seeder
+class AdminRegisterSeeder extends Seeder
 {
     /**
      * @var UserRepository
@@ -64,12 +64,12 @@ class UserRegisterSeeder extends Seeder
 
         try {
             $newUser = [
-                'name' => 'Mohammad Hafijul Islam',
-                'username' => 'hafijul233',
+                'name' => 'Super Admin of BBS',
+                'username' => 'admin',
                 'email' => 'admin@admin.com',
                 'password' => Utility::hashPassword(Constant::PASSWORD),
-                'mobile' => '01710534092',
-                'remarks' => 'Database Seeder',
+                'mobile' => '01111111111',
+                'remarks' => 'System User',
                 'enabled' => Constant::ENABLED_OPTION,
                 'force_pass_reset' => false
             ];
@@ -123,8 +123,7 @@ class UserRegisterSeeder extends Seeder
     protected function attachUserRoles(User $user): bool
     {
 
-        $adminRole = Role::findByName(Constant::SUPER_ADMIN_ROLE);
-/*        return (bool)$user->assignRole($adminRole);*/
+        $adminRole = Role::findByName("Administrator");
         $this->userRepository->setModel($user);
         return $this->userRepository->manageRoles([$adminRole->id]);
     }

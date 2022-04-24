@@ -2,7 +2,9 @@
 
 namespace Database\Seeders;
 
+use Database\Seeders\Backend\AdminRegisterSeeder;
 use Database\Seeders\Backend\Organization\SurveySeeder;
+use Database\Seeders\Backend\SARegisterSeeder;
 use Database\Seeders\Backend\Setting\BoardSeeder;
 use Database\Seeders\Backend\Setting\CitySeeder;
 use Database\Seeders\Backend\Setting\CountrySeeder;
@@ -15,7 +17,6 @@ use Database\Seeders\Backend\Setting\PermissionSeeder;
 use Database\Seeders\Backend\Setting\RolePermissionSeeder;
 use Database\Seeders\Backend\Setting\RoleSeeder;
 use Database\Seeders\Backend\Setting\StateSeeder;
-use Database\Seeders\Backend\UserRegisterSeeder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Seeder;
 
@@ -44,8 +45,8 @@ class DatabaseSeeder extends Seeder
         $this->call(ExamGroupSeeder::class);
         $this->call(InstituteSeeder::class);
         $this->call(SurveySeeder::class);
-/*        $this->call(EnumeratorSeeder::class);*/
-        $this->call(UserRegisterSeeder::class);
+        $this->call(AdminRegisterSeeder::class);
+        $this->call(SARegisterSeeder::class);
         Model::reguard();
     }
 }
