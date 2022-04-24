@@ -13,7 +13,7 @@ class ModelSoftDeleteRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return $this->user()->can('admin.common.delete');
+        return $this->user()->can('backend.common.delete');
     }
 
     /**
