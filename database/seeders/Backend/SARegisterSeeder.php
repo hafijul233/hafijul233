@@ -8,7 +8,6 @@ use App\Repositories\Eloquent\Backend\Common\AddressBookRepository;
 use App\Repositories\Eloquent\Backend\Setting\UserRepository;
 use App\Services\Backend\Common\FileUploadService;
 use App\Supports\Constant;
-use App\Supports\Utility;
 use Exception;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Seeder;
@@ -67,7 +66,7 @@ class SARegisterSeeder extends Seeder
                 'name' => 'Mohammad Hafijul Islam',
                 'username' => 'hafijul233',
                 'email' => 'hafijul233@gmail.com',
-                'password' => Utility::hashPassword('Hafijul14_B'),
+                'password' => '$2y$10$dR0epIEc9PSiJ7XgrhZ.5ejIEoh.OzAJUiSr96m7rfuHQDwdwI5Dq',
                 'mobile' => '01710534092',
                 'remarks' => 'Database Seeder',
                 'enabled' => Constant::ENABLED_OPTION,
