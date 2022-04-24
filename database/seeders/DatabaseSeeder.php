@@ -45,8 +45,8 @@ class DatabaseSeeder extends Seeder
         $this->call(ExamGroupSeeder::class);
         $this->call(InstituteSeeder::class);
         $this->call(SurveySeeder::class);
-        $this->call(AdminRegisterSeeder::class);
         $this->call(SARegisterSeeder::class);
+        $this->call(AdminRegisterSeeder::class);
         Model::reguard();
     }
 }
