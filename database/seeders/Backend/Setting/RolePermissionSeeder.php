@@ -4,6 +4,7 @@ namespace Database\Seeders\Backend\Setting;
 
 use App\Models\Backend\Setting\Permission;
 use App\Models\Backend\Setting\Role;
+use App\Supports\Constant;
 use Illuminate\Console\Command;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Seeder;
@@ -27,17 +28,31 @@ class RolePermissionSeeder extends Seeder
         Model::unguard();
 
         //get all Routes
-        $roles = Role::all();
-        $permissions = Permission::all()->pluck('id');
+        $permissions = Permission::all();
 
-        foreach ($roles as $role) {
-            if ($role->id < 7):
-                try {
-                    $role->permissions()->attach($permissions);
-                } catch (\PDOException  $exception) {
-                    throw new \PDOException($exception->getMessage());
+        $superAdminRole = Role::findByName(Constant::SUPER_ADMIN_ROLE); //super admin
+
+        $adminRole = Role::findByName('Administrator'); //admin
+
+        $operatorRole = Role::findByName('Manager'); //manager&operator
+
+        foreach ($permissions as $permission) :
+            $superAdminRole->givePermissionTo($permission);
+
+            if (strpos($permission->name, 'restore') === false) {
+
+                $this->command->line('A -> ' . $permission->name . PHP_EOL);
+
+                $adminRole->givePermissionTo($permission);
+
+                if ((strpos($permission->name, 'destroy') === false) &&
+                    (strpos($permission->name, 'delete') === false)
+                ) {
+                    $this->command->line('M -> ' . $permission->name . PHP_EOL);
+                    $operatorRole->givePermissionTo($permission);
                 }
-            endif;
-        }
+            }
+
+        endforeach;
     }
 }
