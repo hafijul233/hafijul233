@@ -160,14 +160,12 @@
                     "father": {
                         required: true,
                         minlength: 2,
-                        maxlength: 255,
-                        nametitle: true
+                        maxlength: 255
                     },
                     "mother": {
                         required: true,
                         minlength: 2,
-                        maxlength: 255,
-                        nametitle: true
+                        maxlength: 255
                     },
                     "nid": {
                         required: true,
