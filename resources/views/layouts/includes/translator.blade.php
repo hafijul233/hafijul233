@@ -12,13 +12,13 @@
             <button type="button" class="font-weight-bold btn btn-default">
                 <i class="fas fa-globe"></i>
             </button>
-            <button type="submit" name="language" value="en"
-                    class="font-weight-bold btn @if(session()->get('locale') == 'en') btn-success @else btn-default @endif">
-                EN
-            </button>
             <button type="submit" name="language" value="bd"
                     class="font-weight-bold btn @if(session()->get('locale') == 'bd') btn-success @else btn-default @endif">
                 BN
+            </button>
+            <button type="submit" name="language" value="en"
+                    class="font-weight-bold btn @if(session()->get('locale') == 'en') btn-success @else btn-default @endif">
+                EN
             </button>
         </div>
         {!! \Form::close() !!}
