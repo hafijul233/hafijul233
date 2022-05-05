@@ -5,7 +5,7 @@ namespace App\Services\Backend\Resume;
 use App\Abstracts\Service\Service;
 use App\Exports\Backend\Organization\EnumeratorExport;
 use App\Models\Backend\Organization\Enumerator;
-use App\Repositories\Eloquent\Backend\Organization\EnumeratorRepository;
+use App\Repositories\Eloquent\Backend\Portfolio\ServiceRepository;
 use App\Repositories\Eloquent\Backend\Setting\ExamLevelRepository;
 use App\Supports\Constant;
 use Exception;
@@ -22,7 +22,7 @@ use Throwable;
 class AwardService extends Service
 {
     /**
-     * @var EnumeratorRepository
+     * @var ServiceRepository
      */
     private $enumeratorRepository;
     /**
@@ -32,10 +32,10 @@ class AwardService extends Service
 
     /**
      * PostService constructor.
-     * @param EnumeratorRepository $enumeratorRepository
+     * @param ServiceRepository $enumeratorRepository
      * @param ExamLevelRepository $examLevelRepository
      */
-    public function __construct(EnumeratorRepository $enumeratorRepository,
+    public function __construct(ServiceRepository $enumeratorRepository,
                                 ExamLevelRepository $examLevelRepository)
     {
         $this->enumeratorRepository = $enumeratorRepository;

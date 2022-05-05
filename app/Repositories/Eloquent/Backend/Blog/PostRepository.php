@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Repositories\Eloquent\Backend\Organization;
+namespace App\Repositories\Eloquent\Backend\Blog;
 
 use App\Abstracts\Repository\EloquentRepository;
-use App\Models\Backend\Organization\Survey;
+use App\Models\Backend\Organization\Enumerator;
 use App\Services\Auth\AuthenticatedSessionService;
 use Exception;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
@@ -11,20 +11,20 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 
 /**
- * @class SurveyRepository
- * @package App\Repositories\Eloquent\Backend\Portfolio
+ * @class PostRepository
+ * @package App\Repositories\Eloquent\Backend\Blog
  */
-class SurveyRepository extends EloquentRepository
+class PostRepository extends EloquentRepository
 {
     /**
-     * SurveyRepository constructor.
+     * PostRepository constructor.
      */
     public function __construct()
     {
         /**
          * Set the model that will be used for repo
          */
-        parent::__construct(new Survey);
+        parent::__construct(new Enumerator);
     }
 
     /**
@@ -39,11 +39,21 @@ class SurveyRepository extends EloquentRepository
         $query = $this->getQueryBuilder();
         if (!empty($filters['search'])) :
             $query->where('name', 'like', "%{$filters['search']}%")
-                ->orWhere('enabled', '=', "%{$filters['search']}%");
+                ->orWhere('enabled', 'like', "%{$filters['search']}%")
+                ->orWhere('nid', 'like', "%{$filters['search']}%")
+                ->orWhere('mobile_1', 'like', "%{$filters['search']}%")
+                ->orWhere('mobile_2', 'like', "%{$filters['search']}%")
+                ->orWhere('email', 'like', "%{$filters['search']}%")
+                ->orWhere('present_address', 'like', "%{$filters['search']}%")
+                ->orWhere('permanent_address', 'like', "%{$filters['search']}%")
+            ;
         endif;
 
         if (!empty($filters['enabled'])) :
             $query->where('enabled', '=', $filters['enabled']);
+        endif;
+        if (!empty($filters['nid'])) :
+            $query->where('nid', '=', $filters['nid']);
         endif;
 
         if (!empty($filters['sort']) && !empty($filters['direction'])) :

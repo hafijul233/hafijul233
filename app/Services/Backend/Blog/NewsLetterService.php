@@ -5,7 +5,7 @@ namespace App\Services\Backend\Blog;
 use App\Abstracts\Service\Service;
 use App\Exports\Backend\Organization\SurveyExport;
 use App\Models\Backend\Organization\Survey;
-use App\Repositories\Eloquent\Backend\Organization\SurveyRepository;
+use App\Repositories\Eloquent\Backend\Portfolio\CertificateRepository;
 use App\Supports\Constant;
 use Exception;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
@@ -21,15 +21,15 @@ use Throwable;
 class NewsLetterService extends Service
 {
     /**
-     * @var SurveyRepository 
+     * @var CertificateRepository
      */
     private $surveyRepository;
 
     /**
      * CommentService constructor.
-     * @param SurveyRepository $surveyRepository
+     * @param CertificateRepository $surveyRepository
      */
-    public function __construct(SurveyRepository $surveyRepository)
+    public function __construct(CertificateRepository $surveyRepository)
     {
         $this->surveyRepository = $surveyRepository;
         $this->surveyRepository->itemsPerPage = 10;
