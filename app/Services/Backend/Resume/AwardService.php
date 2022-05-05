@@ -4,7 +4,7 @@ namespace App\Services\Backend\Resume;
 
 use App\Abstracts\Service\Service;
 use App\Exports\Backend\Organization\EnumeratorExport;
-use App\Models\Backend\Organization\Enumerator;
+use App\Models\Backend\Portfolio\Post;
 use App\Repositories\Eloquent\Backend\Portfolio\ServiceRepository;
 use App\Repositories\Eloquent\Backend\Setting\ExamLevelRepository;
 use App\Supports\Constant;
@@ -44,7 +44,7 @@ class AwardService extends Service
     }
 
     /**
-     * Get All Enumerator models as collection
+     * Get All Post models as collection
      *
      * @param array $filters
      * @param array $eagerRelations
@@ -57,7 +57,7 @@ class AwardService extends Service
     }
 
     /**
-     * Create Enumerator Model Pagination
+     * Create Post Model Pagination
      *
      * @param array $filters
      * @param array $eagerRelations
@@ -70,7 +70,7 @@ class AwardService extends Service
     }
 
     /**
-     * Show Enumerator Model
+     * Show Post Model
      *
      * @param int $id
      * @param bool $purge
@@ -83,7 +83,7 @@ class AwardService extends Service
     }
 
     /**
-     * Save Enumerator Model
+     * Save Post Model
      *
      * @param array $inputs
      * @return array
@@ -96,19 +96,19 @@ class AwardService extends Service
         DB::beginTransaction();
         try {
             $newEnumerator = $this->enumeratorRepository->create($newEnumeratorInfo);
-            if ($newEnumerator instanceof Enumerator) {
-                //handling Survey List
+            if ($newEnumerator instanceof Post) {
+                //handling Comment List
                 $newEnumerator->surveys()->attach($inputs['survey_id']);
                 $newEnumerator->previousPostings()->attach($inputs['prev_post_state_id']);
                 $newEnumerator->futurePostings()->attach($inputs['future_post_state_id']);
                 $newEnumerator->save();
 
                 DB::commit();
-                return ['status' => true, 'message' => __('New Enumerator Created'),
+                return ['status' => true, 'message' => __('New Post Created'),
                     'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
             } else {
                 DB::rollBack();
-                return ['status' => false, 'message' => __('New Enumerator Creation Failed'),
+                return ['status' => false, 'message' => __('New Post Creation Failed'),
                     'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!'];
             }
         } catch (Exception $exception) {
@@ -215,7 +215,7 @@ class AwardService extends Service
     }
 
     /**
-     * Update Enumerator Model
+     * Update Post Model
      *
      * @param array $inputs
      * @param $id
@@ -228,23 +228,23 @@ class AwardService extends Service
         DB::beginTransaction();
         try {
             $enumerator = $this->enumeratorRepository->show($id);
-            if ($enumerator instanceof Enumerator) {
+            if ($enumerator instanceof Post) {
                 if ($this->enumeratorRepository->update($newEnumeratorInfo, $id)) {
-                    //handling Survey List
+                    //handling Comment List
                     $enumerator->surveys()->sync($inputs['survey_id']);
                     $enumerator->previousPostings()->sync($inputs['prev_post_state_id']);
                     $enumerator->futurePostings()->sync($inputs['future_post_state_id']);
                     $enumerator->save();
                     DB::commit();
-                    return ['status' => true, 'message' => __('Enumerator Info Updated'),
+                    return ['status' => true, 'message' => __('Post Info Updated'),
                         'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
                 } else {
                     DB::rollBack();
-                    return ['status' => false, 'message' => __('Enumerator Info Update Failed'),
+                    return ['status' => false, 'message' => __('Post Info Update Failed'),
                         'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!'];
                 }
             } else {
-                return ['status' => false, 'message' => __('Enumerator Model Not Found'),
+                return ['status' => false, 'message' => __('Post Model Not Found'),
                     'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Alert!'];
             }
         } catch (Exception $exception) {
@@ -256,7 +256,7 @@ class AwardService extends Service
     }
 
     /**
-     * Destroy Enumerator Model
+     * Destroy Post Model
      *
      * @param $id
      * @return array
@@ -268,12 +268,12 @@ class AwardService extends Service
         try {
             if ($this->enumeratorRepository->delete($id)) {
                 DB::commit();
-                return ['status' => true, 'message' => __('Enumerator is Trashed'),
+                return ['status' => true, 'message' => __('Post is Trashed'),
                     'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
 
             } else {
                 DB::rollBack();
-                return ['status' => false, 'message' => __('Enumerator is Delete Failed'),
+                return ['status' => false, 'message' => __('Post is Delete Failed'),
                     'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!'];
             }
         } catch (Exception $exception) {
@@ -285,7 +285,7 @@ class AwardService extends Service
     }
 
     /**
-     * Restore Enumerator Model
+     * Restore Post Model
      *
      * @param $id
      * @return array
@@ -297,12 +297,12 @@ class AwardService extends Service
         try {
             if ($this->enumeratorRepository->restore($id)) {
                 DB::commit();
-                return ['status' => true, 'message' => __('Enumerator is Restored'),
+                return ['status' => true, 'message' => __('Post is Restored'),
                     'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
 
             } else {
                 DB::rollBack();
-                return ['status' => false, 'message' => __('Enumerator is Restoration Failed'),
+                return ['status' => false, 'message' => __('Post is Restoration Failed'),
                     'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!'];
             }
         } catch (Exception $exception) {

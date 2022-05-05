@@ -104,7 +104,7 @@ class ServiceController extends Controller
         $filters = $request->except('page');
         $enumerators = $this->enumeratorService->enumeratorPaginate($filters);
 
-        return view('backend.organization.enumerator.index', [
+        return view('backend.portfolio.certificate.index', [
             'enumerators' => $enumerators
         ]);
     }
@@ -124,7 +124,7 @@ class ServiceController extends Controller
             $enables[$field] = __('common.' . $label);
         endforeach;
 
-        return view('backend.organization.enumerator.create', [
+        return view('backend.portfolio.certificate.create', [
             'enables' => $enables,
             'states' => $this->stateService->getStateDropdown(['enabled' => Constant::ENABLED_OPTION, 'type' => 'district', 'sort' => ((session()->get('locale') == 'bd') ? 'native' : 'name'), 'direction' => 'asc'], (session()->get('locale') == 'bd')),
             'surveys' => $this->surveyService->getSurveyDropDown(['enabled' => Constant::ENABLED_OPTION]),
@@ -148,7 +148,7 @@ class ServiceController extends Controller
 
         if ($confirm['status'] == true) {
             notify($confirm['message'], $confirm['level'], $confirm['title']);
-            return redirect()->route('backend.organization.enumerators.index');
+            return redirect()->route('backend.portfolio.enumerators.index');
         }
 
         notify($confirm['message'], $confirm['level'], $confirm['title']);
@@ -165,8 +165,8 @@ class ServiceController extends Controller
     public function show($id)
     {
         if ($enumerator = $this->enumeratorService->getEnumeratorById($id)) {
-            return view('backend.organization.enumerator.show', [
-                'enumerator' => $enumerator,
+            return view('backend.portfolio.certificate.show', [
+                'certificate' => $enumerator,
                 'timeline' => Utility::modelAudits($enumerator)
             ]);
         }
@@ -192,8 +192,8 @@ class ServiceController extends Controller
                 $enables[$field] = __('common.' . $label);
             endforeach;
 
-            return view('backend.organization.enumerator.edit', [
-                'enumerator' => $enumerator,
+            return view('backend.portfolio.certificate.edit', [
+                'certificate' => $enumerator,
                 'enables' => $enables,
                 'states' => $this->stateService->getStateDropdown(['enabled' => Constant::ENABLED_OPTION, 'type' => 'district', 'sort' => ((session()->get('locale') == 'bd') ? 'native' : 'name'), 'direction' => 'asc'], (session()->get('locale') == 'bd')),
                 'surveys' => $this->surveyService->getSurveyDropDown(),
@@ -220,7 +220,7 @@ class ServiceController extends Controller
 
         if ($confirm['status'] == true) {
             notify($confirm['message'], $confirm['level'], $confirm['title']);
-            return redirect()->route('backend.organization.enumerators.index');
+            return redirect()->route('backend.portfolio.enumerators.index');
         }
 
         notify($confirm['message'], $confirm['level'], $confirm['title']);
@@ -246,7 +246,7 @@ class ServiceController extends Controller
             } else {
                 notify($confirm['message'], $confirm['level'], $confirm['title']);
             }
-            return redirect()->route('backend.organization.enumerators.index');
+            return redirect()->route('backend.portfolio.enumerators.index');
         }
         abort(403, 'Wrong user credentials');
     }
@@ -270,7 +270,7 @@ class ServiceController extends Controller
             } else {
                 notify($confirm['message'], $confirm['level'], $confirm['title']);
             }
-            return redirect()->route('backend.organization.enumerators.index');
+            return redirect()->route('backend.portfolio.enumerators.index');
         }
         abort(403, 'Wrong user credentials');
     }
@@ -290,7 +290,7 @@ class ServiceController extends Controller
     {
         $filters = $request->except('page');
         $enumeratorExport = $this->enumeratorService->exportEnumerator($filters);
-        $filename = 'Enumerator-' . date('Ymd-His') . '.' . ($filters['format'] ?? 'xlsx');
+        $filename = 'Post-' . date('Ymd-His') . '.' . ($filters['format'] ?? 'xlsx');
         return $enumeratorExport->download($filename, function ($enumerator) use ($enumeratorExport) {
             return $enumeratorExport->map($enumerator);
         });
@@ -311,7 +311,7 @@ class ServiceController extends Controller
 
         if (count($enumerators) > 0):
             foreach ($enumerators as $index => $enumerator) :
-                $enumerators[$index]->update_route = route('backend.organization.enumerators.update', $enumerator->id);
+                $enumerators[$index]->update_route = route('backend.portfolio.enumerators.update', $enumerator->id);
                 $enumerators[$index]->survey_id = $enumerator->surveys->pluck('id')->toArray();
                 $enumerators[$index]->prev_post_state_id = $enumerator->previousPostings->pluck('id')->toArray();
                 $enumerators[$index]->future_post_state_id = $enumerator->futurePostings->pluck('id')->toArray();

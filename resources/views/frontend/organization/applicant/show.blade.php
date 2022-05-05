@@ -25,8 +25,8 @@
 @section('breadcrumbs', Breadcrumbs::render(Route::getCurrentRoute()->getName(), $enumerator))
 
 @section('actions')
-    {!! \Html::backButton('backend.organization.enumerators.index') !!}
-    {!! \Html::modelDropdown('backend.organization.enumerators', $enumerator->id, ['color' => 'success',
+    {!! \Html::backButton('backend.portfolio.enumerators.index') !!}
+    {!! \Html::modelDropdown('backend.portfolio.enumerators', $enumerator->id, ['color' => 'success',
         'actions' => array_merge(['edit'], ($enumerator->deleted_at == null) ? ['delete'] : ['restore'])]) !!}
 @endsection
 
@@ -43,7 +43,7 @@
                             </legend>
                             <div class="row">
                                 <div class="col-md-2">
-                                    <label class="font-weight-bold">{!!  __('enumerator.Survey') !!}</label>
+                                    <label class="font-weight-bold">{!!  __('certificate.Comment') !!}</label>
                                 </div>
                                 <div class="col-md-10">
                                     {!! $enumerator->survey->name !!}
@@ -51,7 +51,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-2">
-                                    <label class="font-weight-bold">{!!  __('enumerator.Name') !!}</label>
+                                    <label class="font-weight-bold">{!!  __('certificate.Name') !!}</label>
                                 </div>
                                 <div class="col-md-10">
                                     {!! $enumerator->name !!}
@@ -59,7 +59,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-2">
-                                    <label class="font-weight-bold">{!! __('enumerator.Name(Bangla)') !!}</label>
+                                    <label class="font-weight-bold">{!! __('certificate.Name(Bangla)') !!}</label>
                                 </div>
                                 <div class="col-md-10">
                                     {!! $enumerator->name_bd !!}
@@ -67,7 +67,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-2">
-                                    <label class="font-weight-bold">{!!  __('enumerator.Father Name') !!}</label>
+                                    <label class="font-weight-bold">{!!  __('certificate.Father Name') !!}</label>
                                 </div>
                                 <div class="col-md-10">
                                     {!! $enumerator->father !!}
@@ -76,7 +76,7 @@
 
                             <div class="row">
                                 <div class="col-md-2">
-                                    <label class="font-weight-bold">{!!  __('enumerator.Father Name(Bangla)') !!}</label>
+                                    <label class="font-weight-bold">{!!  __('certificate.Father Name(Bangla)') !!}</label>
                                 </div>
                                 <div class="col-md-10">
                                     {!! $enumerator->father_bd !!}
@@ -84,7 +84,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-2">
-                                    <label class="font-weight-bold">{!! __('enumerator.Mother Name') !!}</label>
+                                    <label class="font-weight-bold">{!! __('certificate.Mother Name') !!}</label>
                                 </div>
                                 <div class="col-md-10">
                                     {!! $enumerator->mother !!}
@@ -92,7 +92,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-2">
-                                    <label class="font-weight-bold">{!! __('enumerator.Mother Name(Bangla)') !!}</label>
+                                    <label class="font-weight-bold">{!! __('certificate.Mother Name(Bangla)') !!}</label>
                                 </div>
                                 <div class="col-md-10">
                                     {!! $enumerator->mother_bd !!}
@@ -100,7 +100,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-2">
-                                    <label class="font-weight-bold">{!! __('enumerator.NID Number') !!}</label>
+                                    <label class="font-weight-bold">{!! __('certificate.NID Number') !!}</label>
                                 </div>
                                 <div class="col-md-10">
                                     {!! $enumerator->nid !!}
@@ -108,7 +108,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-2">
-                                    <label class="font-weight-bold">{!! __('enumerator.Mobile 1') !!}</label>
+                                    <label class="font-weight-bold">{!! __('certificate.Mobile 1') !!}</label>
                                 </div>
                                 <div class="col-md-10">
                                     {!! $enumerator->mobile_1 !!}
@@ -116,7 +116,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-2">
-                                    <label class="font-weight-bold">{!! __('enumerator.Mobile 2') !!}</label>
+                                    <label class="font-weight-bold">{!! __('certificate.Mobile 2') !!}</label>
                                 </div>
                                 <div class="col-md-10">
                                     {!! $enumerator->mobile_2 !!}
@@ -124,7 +124,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-2">
-                                    <label class="font-weight-bold">{!! __('enumerator.Email') !!}</label>
+                                    <label class="font-weight-bold">{!! __('certificate.Email') !!}</label>
                                 </div>
                                 <div class="col-md-10">
                                     {!! $enumerator->email !!}
@@ -132,7 +132,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-2">
-                                    <label class="font-weight-bold">{!! __('enumerator.Present Address') !!}</label>
+                                    <label class="font-weight-bold">{!! __('certificate.Present Address') !!}</label>
                                 </div>
                                 <div class="col-md-10">
                                     {!! $enumerator->present_address !!}
@@ -140,7 +140,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-2">
-                                    <label class="font-weight-bold">{!! __('enumerator.Present Address(Bangla)') !!}</label>
+                                    <label class="font-weight-bold">{!! __('certificate.Present Address(Bangla)') !!}</label>
                                 </div>
                                 <div class="col-md-10">
                                     {!! $enumerator->present_address_bd !!}
@@ -149,7 +149,7 @@
 
                             <div class="row">
                                 <div class="col-md-2">
-                                    <label class="font-weight-bold">{!! __('enumerator.Permanent Address') !!}</label>
+                                    <label class="font-weight-bold">{!! __('certificate.Permanent Address') !!}</label>
                                 </div>
                                 <div class="col-md-10">
                                     {!! $enumerator->permanent_address !!}
@@ -157,7 +157,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-2">
-                                    <label class="font-weight-bold">{!! __('enumerator.Permanent Address(Bangla)') !!}</label>
+                                    <label class="font-weight-bold">{!! __('certificate.Permanent Address(Bangla)') !!}</label>
                                 </div>
                                 <div class="col-md-10">
                                     {!! $enumerator->permanent_address_bd !!}
@@ -165,7 +165,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-2">
-                                    <label class="font-weight-bold">{!! __('enumerator.Gender') !!}</label>
+                                    <label class="font-weight-bold">{!! __('certificate.Gender') !!}</label>
                                 </div>
                                 <div class="col-md-10">
                                     {!! $enumerator->gender->name !!}
@@ -183,13 +183,13 @@
                                     <table class="table table-bordered table-hover">
                                         <thead class="thead-light">
                                         <tr class="text-center font-weight-bold">
-                                            <th>{!!  __('enumerator.Examination') !!}</th>
-                                            <th>{!!  __('enumerator.Board') !!}
-                                                / {!! __('enumerator.Institute') !!}</th>
-                                            <th> {!! __('enumerator.Group/Subject') !!}</th>
-                                            <th>{!! __('enumerator.Passing Year') !!}</th>
-                                            <th>{!! __('enumerator.Result') !!}</th>
-                                            <th>{!! __('enumerator.GPA Point') !!}</th>
+                                            <th>{!!  __('certificate.Examination') !!}</th>
+                                            <th>{!!  __('certificate.Board') !!}
+                                                / {!! __('certificate.Institute') !!}</th>
+                                            <th> {!! __('certificate.Group/Subject') !!}</th>
+                                            <th>{!! __('certificate.Passing Year') !!}</th>
+                                            <th>{!! __('certificate.Result') !!}</th>
+                                            <th>{!! __('certificate.GPA Point') !!}</th>
 
                                         </tr>
                                         </thead>
@@ -235,13 +235,13 @@
                                     <table class="table table-bordered table-hover">
                                         <thead class="thead-light">
                                         <tr class="text-center font-weight-bold">
-                                            <th>{!!  __('enumerator.Company Name') !!}</th>
-                                            <th>{!!  __('enumerator.Designation') !!}</th>
-                                            <th> {!! __('enumerator.Service Start Date') !!}</th>
-                                            <th>{!! __('enumerator.Service End Date') !!}</th>
-                                            <th>{!! __('enumerator.Total Experience') !!}</th>
-                                            <th>{!! __('enumerator.Currently Working') !!}</th>
-                                            <th>{!! __('enumerator.Responsibility') !!}</th>
+                                            <th>{!!  __('certificate.Company Name') !!}</th>
+                                            <th>{!!  __('certificate.Designation') !!}</th>
+                                            <th> {!! __('certificate.Service Start Date') !!}</th>
+                                            <th>{!! __('certificate.Service End Date') !!}</th>
+                                            <th>{!! __('certificate.Total Experience') !!}</th>
+                                            <th>{!! __('certificate.Currently Working') !!}</th>
+                                            <th>{!! __('certificate.Responsibility') !!}</th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -286,7 +286,7 @@
             </div>
         </div>
     </div>
-    {!! \App\Supports\CHTML::confirmModal('Enumerator', ['delete', 'restore']) !!}
+    {!! \App\Supports\CHTML::confirmModal('Post', ['delete', 'restore']) !!}
 @endsection
 
 

@@ -4,7 +4,7 @@ namespace App\Services\Backend\Blog;
 
 use App\Abstracts\Service\Service;
 use App\Exports\Backend\Organization\SurveyExport;
-use App\Models\Backend\Organization\Survey;
+use App\Models\Backend\Portfolio\Comment;
 use App\Repositories\Eloquent\Backend\Portfolio\CertificateRepository;
 use App\Supports\Constant;
 use Exception;
@@ -36,7 +36,7 @@ class NewsLetterService extends Service
     }
 
     /**
-     * Get All Survey models as collection
+     * Get All Comment models as collection
      * 
      * @param array $filters
      * @param array $eagerRelations
@@ -49,7 +49,7 @@ class NewsLetterService extends Service
     }
 
     /**
-     * Create Survey Model Pagination
+     * Create Comment Model Pagination
      * 
      * @param array $filters
      * @param array $eagerRelations
@@ -62,7 +62,7 @@ class NewsLetterService extends Service
     }
 
     /**
-     * Show Survey Model
+     * Show Comment Model
      * 
      * @param int $id
      * @param bool $purge
@@ -75,7 +75,7 @@ class NewsLetterService extends Service
     }
 
     /**
-     * Save Survey Model
+     * Save Comment Model
      * 
      * @param array $inputs
      * @return array
@@ -87,13 +87,13 @@ class NewsLetterService extends Service
         DB::beginTransaction();
         try {
             $newSurvey = $this->surveyRepository->create($inputs);
-            if ($newSurvey instanceof Survey) {
+            if ($newSurvey instanceof Comment) {
                 DB::commit();
-                return ['status' => true, 'message' => __('New Survey Created'),
+                return ['status' => true, 'message' => __('New Comment Created'),
                     'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
             } else {
                 DB::rollBack();
-                return ['status' => false, 'message' => __('New Survey Creation Failed'),
+                return ['status' => false, 'message' => __('New Comment Creation Failed'),
                     'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!'];
             }
         } catch (Exception $exception) {
@@ -105,7 +105,7 @@ class NewsLetterService extends Service
     }
 
     /**
-     * Update Survey Model
+     * Update Comment Model
      * 
      * @param array $inputs
      * @param $id
@@ -117,18 +117,18 @@ class NewsLetterService extends Service
         DB::beginTransaction();
         try {
             $survey = $this->surveyRepository->show($id);
-            if ($survey instanceof Survey) {
+            if ($survey instanceof Comment) {
                 if ($this->surveyRepository->update($inputs, $id)) {
                     DB::commit();
-                    return ['status' => true, 'message' => __('Survey Info Updated'),
+                    return ['status' => true, 'message' => __('Comment Info Updated'),
                         'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
                 } else {
                     DB::rollBack();
-                    return ['status' => false, 'message' => __('Survey Info Update Failed'),
+                    return ['status' => false, 'message' => __('Comment Info Update Failed'),
                         'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!'];
                 }
             } else {
-                return ['status' => false, 'message' => __('Survey Model Not Found'),
+                return ['status' => false, 'message' => __('Comment Model Not Found'),
                     'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Alert!'];
             }
         } catch (Exception $exception) {
@@ -140,7 +140,7 @@ class NewsLetterService extends Service
     }
 
     /**
-     * Destroy Survey Model
+     * Destroy Comment Model
      * 
      * @param $id
      * @return array
@@ -152,12 +152,12 @@ class NewsLetterService extends Service
         try {
             if ($this->surveyRepository->delete($id)) {
                 DB::commit();
-                return ['status' => true, 'message' => __('Survey is Trashed'),
+                return ['status' => true, 'message' => __('Comment is Trashed'),
                     'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
 
             } else {
                 DB::rollBack();
-                return ['status' => false, 'message' => __('Survey is Delete Failed'),
+                return ['status' => false, 'message' => __('Comment is Delete Failed'),
                     'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!'];
             }
         } catch (Exception $exception) {
@@ -169,7 +169,7 @@ class NewsLetterService extends Service
     }
 
     /**
-     * Restore Survey Model
+     * Restore Comment Model
      * 
      * @param $id
      * @return array
@@ -181,12 +181,12 @@ class NewsLetterService extends Service
         try {
             if ($this->surveyRepository->restore($id)) {
                 DB::commit();
-                return ['status' => true, 'message' => __('Survey is Restored'),
+                return ['status' => true, 'message' => __('Comment is Restored'),
                     'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
 
             } else {
                 DB::rollBack();
-                return ['status' => false, 'message' => __('Survey is Restoration Failed'),
+                return ['status' => false, 'message' => __('Comment is Restoration Failed'),
                     'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!'];
             }
         } catch (Exception $exception) {
@@ -210,7 +210,7 @@ class NewsLetterService extends Service
     }
 
     /**
-     * Created Array Styled Survey List for dropdown
+     * Created Array Styled Comment List for dropdown
      *
      * @param array $filters
      * @return array

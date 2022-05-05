@@ -3,7 +3,7 @@
 namespace App\Repositories\Eloquent\Backend;
 
 use App\Abstracts\Repository\EloquentRepository;
-use App\Models\Backend\Organization;
+use App\Models\Backend\Portfolio;
 use App\Services\Auth\AuthenticatedSessionService;
 use Exception;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;

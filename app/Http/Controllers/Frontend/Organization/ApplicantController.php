@@ -84,7 +84,7 @@ class ApplicantController extends Controller
             $enables[$field] = __('common.' . $label);
         endforeach;
 
-        return view('frontend.organization.applicant.create', [
+        return view('frontend.portfolio.applicant.create', [
             'enables' => $enables,
             'states' => $this->stateService->getStateDropdown(['enabled' => Constant::ENABLED_OPTION, 'type' => 'district', 'sort' => ((session()->get('locale') == 'bd') ? 'native' : 'name'), 'direction' => 'asc'], (session()->get('locale') == 'bd')),
             'surveys' => $this->surveyService->getSurveyDropDown(['enabled' => Constant::ENABLED_OPTION]),

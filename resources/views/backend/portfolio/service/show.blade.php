@@ -25,9 +25,9 @@
 @section('breadcrumbs', Breadcrumbs::render(Route::getCurrentRoute()->getName(), $survey))
 
 @section('actions')
-    {!! \Html::backButton('backend.organization.surveys.index') !!}
-    {{--    {!! \Html::modelDropdown('backend.organization.surveys', $survey->id, ['color' => 'success',
-            'actions' => array_merge(['edit'], ($survey->deleted_at == null) ? ['delete'] : ['restore'])]) !!}--}}
+    {!! \Html::backButton('backend.portfolio.surveys.index') !!}
+    {{--    {!! \Html::modelDropdown('backend.portfolio.surveys', $service->id, ['color' => 'success',
+            'actions' => array_merge(['edit'], ($service->deleted_at == null) ? ['delete'] : ['restore'])]) !!}--}}
 @endsection
 
 @section('content')
@@ -52,7 +52,7 @@
             </div>
         </div>
     </div>
-    {!! \App\Supports\CHTML::confirmModal('Enumerator', ['delete', 'restore']) !!}
+    {!! \App\Supports\CHTML::confirmModal('Post', ['delete', 'restore']) !!}
 @endsection
 
 

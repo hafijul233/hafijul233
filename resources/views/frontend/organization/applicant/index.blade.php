@@ -27,8 +27,8 @@
 @section('breadcrumbs', \Breadcrumbs::render())
 
 @section('actions')
-    {!! \Html::linkButton(__('enumerator.Add Enumerator'), 'backend.organization.enumerators.create', [], 'fas fa-plus', 'success') !!}
-    {{--{!! \Html::bulkDropdown('backend.organization.enumerators', 0, ['color' => 'warning']) !!}--}}
+    {!! \Html::linkButton(__('certificate.Add Post'), 'backend.portfolio.enumerators.create', [], 'fas fa-plus', 'success') !!}
+    {{--{!! \Html::bulkDropdown('backend.portfolio.enumerators', 0, ['color' => 'warning']) !!}--}}
 @endsection
 
 @section('content')
@@ -38,9 +38,9 @@
                 <div class="card card-default">
                     @if(!empty($enumerators))
                         <div class="card-body p-0">
-                            {!! \Html::cardSearch('search', 'backend.organization.enumerators.index',
-                            ['placeholder' => 'Search Enumerator Name etc.',
-                            'class' => 'form-control', 'id' => 'search', 'data-target-table' => 'enumerator-table']) !!}
+                            {!! \Html::cardSearch('search', 'backend.portfolio.enumerators.index',
+                            ['placeholder' => 'Search Post Name etc.',
+                            'class' => 'form-control', 'id' => 'search', 'data-target-table' => 'certificate-table']) !!}
                             <div class="table-responsive">
                                 <table class="table table-hover mb-0" id="employee-table">
                                     <thead class="thead-light">
@@ -62,8 +62,8 @@
                                                 {{ $enumerator->id }}
                                             </td>
                                             <td class="text-left">
-                                                @can('backend.organization.enumerators.show')
-                                                    <a href="{{ route('backend.organization.enumerators.show', $enumerator->id) }}">
+                                                @can('backend.portfolio.enumerators.show')
+                                                    <a href="{{ route('backend.portfolio.enumerators.show', $enumerator->id) }}">
                                                         {{ $enumerator->name }}
                                                     </a>
                                                 @else
@@ -78,7 +78,7 @@
                                             </td>
                                             <td class="text-center">{{ $enumerator->created_at->format(config('backend.datetime')) ?? '' }}</td>
                                             <td class="exclude-search pr-3 text-center align-middle">
-                                                {!! \Html::actionDropdown('backend.organization.enumerators', $enumerator->id, array_merge(['show', 'edit'], ($enumerator->deleted_at == null) ? ['delete'] : ['restore'])) !!}
+                                                {!! \Html::actionDropdown('backend.portfolio.enumerators', $enumerator->id, array_merge(['show', 'edit'], ($enumerator->deleted_at == null) ? ['delete'] : ['restore'])) !!}
                                             </td>
                                         </tr>
                                     @empty
@@ -103,7 +103,7 @@
         </div>
     </div>
     <!-- /.container-fluid -->
-    {!! \App\Supports\CHTML::confirmModal('Enumerator', ['export', 'delete', 'restore']) !!}
+    {!! \App\Supports\CHTML::confirmModal('Post', ['export', 'delete', 'restore']) !!}
 @endsection
 
 

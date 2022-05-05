@@ -3,7 +3,7 @@
 namespace App\Repositories\Eloquent\Backend\Blog;
 
 use App\Abstracts\Repository\EloquentRepository;
-use App\Models\Backend\Organization\Survey;
+use App\Models\Backend\Portfolio\Comment;
 use App\Services\Auth\AuthenticatedSessionService;
 use Exception;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
@@ -24,7 +24,7 @@ class CommentRepository extends EloquentRepository
         /**
          * Set the model that will be used for repo
          */
-        parent::__construct(new Survey);
+        parent::__construct(new Comment);
     }
 
     /**

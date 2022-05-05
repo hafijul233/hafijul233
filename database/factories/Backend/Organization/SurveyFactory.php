@@ -2,12 +2,12 @@
 
 namespace Database\Factories\Backend\Organization;
 
-use App\Models\Backend\Organization\Survey;
+use App\Models\Backend\Portfolio\Comment;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class SurveyFactory extends Factory
 {
-    protected $model = Survey::class;
+    protected $model = Comment::class;
 
     /**
      * Define the model's default state.

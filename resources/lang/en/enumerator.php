@@ -4,7 +4,7 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Enumerator Language
+    | Post Language
     |--------------------------------------------------------------------------
     |
     | The following language lines are used during authentication for various
@@ -12,10 +12,10 @@ return [
     | these language lines according to your application's requirements.
     |
     */
-    'Add Enumerator' => 'Add Enumerator',
-    'Edit Enumerator' => 'Edit Enumerator',
-    'Survey' => 'Work Experience in BBS as Enumerator (select multiple options if needed)',
-    'Select a Survey Option' => 'Select a Survey Option',
+    'Add Post' => 'Add Post',
+    'Edit Post' => 'Edit Post',
+    'Comment' => 'Work Experience in BBS as Post (select multiple options if needed)',
+    'Select a Comment Option' => 'Select a Comment Option',
     'Name' => 'Name (in English)',
     'Name(Bangla)' => 'Name (in Bangla)',
     'Father Name' => 'Father’s Name',
@@ -68,7 +68,7 @@ return [
     'Select the district(s) where you have worked earlier (it can be multiple)' => 'Select the district(s) where you have worked earlier (it can be multiple)',
     'Select the district(s) where you want to work in future (maximum 3)' => 'Select the district(s) where you want to work in future (maximum 3)',
     'Are you revenue staff of BBS?' => 'Are you a revenue staff of BBS?',
-    'Work Experience in BBS as Enumerator' => 'Work Experience in BBS as Enumerator',
+    'Work Experience in BBS as Post' => 'Work Experience in BBS as Post',
 
 
 ];

@@ -20,7 +20,7 @@
 @push('page-script')
     <script>
         $(function () {
-            $("#survey-form").validate({
+            $("#service-form").validate({
                 rules: {
                     name: {
                         required: true,

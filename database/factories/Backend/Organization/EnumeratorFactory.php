@@ -2,7 +2,7 @@
 
 namespace Database\Factories\Backend\Organization;
 
-use App\Models\Backend\Organization\Survey;
+use App\Models\Backend\Portfolio\Comment;
 use App\Models\Backend\Setting\Catalog;
 use App\Supports\Constant;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -17,7 +17,7 @@ class EnumeratorFactory extends Factory
     public function definition()
     {
         return [
-            'survey_id' => Survey::all()->random()->id,
+            'survey_id' => Comment::all()->random()->id,
             'name' => $this->faker->name,
             'name_bd' => 'বাংলা নাম',
             'father' => $this->faker->name,

@@ -58,7 +58,7 @@ class EducationController extends Controller
         $filters = $request->except('page');
         $surveys = $this->surveyService->surveyPaginate($filters);
 
-        return view('backend.organization.survey.index', [
+        return view('backend.portfolio.service.index', [
             'surveys' => $surveys
         ]);
     }
@@ -70,7 +70,7 @@ class EducationController extends Controller
      */
     public function create()
     {
-        return view('backend.organization.survey.create');
+        return view('backend.portfolio.service.create');
     }
 
     /**
@@ -85,7 +85,7 @@ class EducationController extends Controller
         $confirm = $this->surveyService->storeSurvey($request->except('_token'));
         if ($confirm['status'] == true) {
             notify($confirm['message'], $confirm['level'], $confirm['title']);
-            return redirect()->route('backend.organization.surveys.index');
+            return redirect()->route('backend.portfolio.surveys.index');
         }
 
         notify($confirm['message'], $confirm['level'], $confirm['title']);
@@ -102,8 +102,8 @@ class EducationController extends Controller
     public function show($id)
     {
         if ($survey = $this->surveyService->getSurveyById($id)) {
-            return view('backend.organization.survey.show', [
-                'survey' => $survey,
+            return view('backend.portfolio.service.show', [
+                'service' => $survey,
                 'timeline' => Utility::modelAudits($survey)
             ]);
         }
@@ -121,8 +121,8 @@ class EducationController extends Controller
     public function edit($id)
     {
         if ($survey = $this->surveyService->getSurveyById($id)) {
-            return view('backend.organization.survey.edit', [
-                'survey' => $survey
+            return view('backend.portfolio.service.edit', [
+                'service' => $survey
             ]);
         }
 
@@ -143,7 +143,7 @@ class EducationController extends Controller
 
         if ($confirm['status'] == true) {
             notify($confirm['message'], $confirm['level'], $confirm['title']);
-            return redirect()->route('backend.organization.surveys.index');
+            return redirect()->route('backend.portfolio.surveys.index');
         }
 
         notify($confirm['message'], $confirm['level'], $confirm['title']);
@@ -169,7 +169,7 @@ class EducationController extends Controller
             } else {
                 notify($confirm['message'], $confirm['level'], $confirm['title']);
             }
-            return redirect()->route('backend.organization.surveys.index');
+            return redirect()->route('backend.portfolio.surveys.index');
         }
         abort(403, 'Wrong user credentials');
     }
@@ -193,7 +193,7 @@ class EducationController extends Controller
             } else {
                 notify($confirm['message'], $confirm['level'], $confirm['title']);
             }
-            return redirect()->route('backend.organization.surveys.index');
+            return redirect()->route('backend.portfolio.surveys.index');
         }
         abort(403, 'Wrong user credentials');
     }
@@ -210,7 +210,7 @@ class EducationController extends Controller
 
         $surveyExport = $this->surveyService->exportSurvey($filters);
 
-        $filename = 'Survey-' . date('Ymd-His') . '.' . ($filters['format'] ?? 'xlsx');
+        $filename = 'Comment-' . date('Ymd-His') . '.' . ($filters['format'] ?? 'xlsx');
 
         return $surveyExport->download($filename, function ($survey) use ($surveyExport) {
             return $surveyExport->map($survey);
@@ -225,7 +225,7 @@ class EducationController extends Controller
      */
     public function import()
     {
-        return view('backend.organization.surveyimport');
+        return view('backend.portfolio.surveyimport');
     }
 
     /**
@@ -239,7 +239,7 @@ class EducationController extends Controller
         $filters = $request->except('page');
         $surveys = $this->surveyService->getAllSurveys($filters);
 
-        return view('backend.organization.surveyindex', [
+        return view('backend.portfolio.surveyindex', [
             'surveys' => $surveys
         ]);
     }
@@ -256,7 +256,7 @@ class EducationController extends Controller
 
         $surveyExport = $this->surveyService->exportSurvey($filters);
 
-        $filename = 'Survey-' . date('Ymd-His') . '.' . ($filters['format'] ?? 'xlsx');
+        $filename = 'Comment-' . date('Ymd-His') . '.' . ($filters['format'] ?? 'xlsx');
 
         return $surveyExport->download($filename, function ($survey) use ($surveyExport) {
             return $surveyExport->map($survey);

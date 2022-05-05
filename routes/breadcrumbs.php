@@ -1,7 +1,7 @@
 <?php
 
-use App\Models\Backend\Organization\Enumerator;
-use App\Models\Backend\Organization\Survey;
+use App\Models\Backend\Portfolio\Post;
+use App\Models\Backend\Portfolio\Comment;
 use App\Models\Backend\Setting\Catalog;
 use App\Models\Backend\Setting\City;
 use App\Models\Backend\Setting\Country;
@@ -25,9 +25,9 @@ Breadcrumbs::for('home', function (BreadcrumbTrail $trail) {
 
 /****************************************** Http Error ******************************************/
 
-Breadcrumbs::for('frontend.organization.applicants.create', function ($trail) {
+Breadcrumbs::for('frontend.portfolio.applicants.create', function ($trail) {
    $trail->parent('home');
-    $trail->push(__('enumerator.Applicant Registration'), route('frontend.organization.applicants.create'));
+    $trail->push(__('certificate.Applicant Registration'), route('frontend.portfolio.applicants.create'));
 });
 
 Breadcrumbs::for('backend', function (BreadcrumbTrail $trail) {
@@ -313,73 +313,73 @@ Breadcrumbs::for('backend.settings.cities.edit', function (BreadcrumbTrail $trai
 
 /****************************************** Portfolio ******************************************/
 
-Breadcrumbs::for('backend.organization', function (BreadcrumbTrail $trail) {
+Breadcrumbs::for('backend.portfolio', function (BreadcrumbTrail $trail) {
 
     $trail->parent('backend');
 
-    $trail->push(__('menu-sidebar.Portfolio'), route('backend.organization'));
+    $trail->push(__('menu-sidebar.Portfolio'), route('backend.portfolio'));
 });
 
-/****************************************** Survey ******************************************/
+/****************************************** Comment ******************************************/
 
-Breadcrumbs::for('backend.organization.surveys.index', function (BreadcrumbTrail $trail) {
+Breadcrumbs::for('backend.portfolio.surveys.index', function (BreadcrumbTrail $trail) {
 
-    $trail->parent('backend.organization');
+    $trail->parent('backend.portfolio');
 
-    $trail->push(__('menu-sidebar.Surveys'), route('backend.organization.surveys.index'));
+    $trail->push(__('menu-sidebar.Surveys'), route('backend.portfolio.surveys.index'));
 });
 
-Breadcrumbs::for('backend.organization.surveys.create', function (BreadcrumbTrail $trail) {
+Breadcrumbs::for('backend.portfolio.surveys.create', function (BreadcrumbTrail $trail) {
 
-    $trail->parent('backend.organization.surveys.index');
+    $trail->parent('backend.portfolio.surveys.index');
 
-    $trail->push(__('common.Add'), route('backend.organization.surveys.create'));
+    $trail->push(__('common.Add'), route('backend.portfolio.surveys.create'));
 });
 
-Breadcrumbs::for('backend.organization.surveys.show', function (BreadcrumbTrail $trail, $survey) {
+Breadcrumbs::for('backend.portfolio.surveys.show', function (BreadcrumbTrail $trail, $survey) {
 
-    $trail->parent('backend.organization.surveys.index');
+    $trail->parent('backend.portfolio.surveys.index');
 
-    $survey = ($survey instanceof Survey) ? $survey : $survey[0];
+    $survey = ($survey instanceof Comment) ? $survey : $survey[0];
 
-    $trail->push($survey->name, route('backend.organization.surveys.show', $survey->id));
+    $trail->push($survey->name, route('backend.portfolio.surveys.show', $survey->id));
 });
 
-Breadcrumbs::for('backend.organization.surveys.edit', function (BreadcrumbTrail $trail, Survey $survey) {
+Breadcrumbs::for('backend.portfolio.surveys.edit', function (BreadcrumbTrail $trail, Comment $survey) {
 
-    $trail->parent('backend.organization.surveys.show', [$survey]);
+    $trail->parent('backend.portfolio.surveys.show', [$survey]);
 
-    $trail->push(__('common.Edit'), route('backend.organization.surveys.edit', $survey->id));
+    $trail->push(__('common.Edit'), route('backend.portfolio.surveys.edit', $survey->id));
 });
 
-/****************************************** Enumerator ******************************************/
+/****************************************** Post ******************************************/
 
-Breadcrumbs::for('backend.organization.enumerators.index', function (BreadcrumbTrail $trail) {
+Breadcrumbs::for('backend.portfolio.enumerators.index', function (BreadcrumbTrail $trail) {
 
-    $trail->parent('backend.organization');
+    $trail->parent('backend.portfolio');
 
-    $trail->push(__('menu-sidebar.Enumerators'), route('backend.organization.enumerators.index'));
+    $trail->push(__('menu-sidebar.Enumerators'), route('backend.portfolio.enumerators.index'));
 });
 
-Breadcrumbs::for('backend.organization.enumerators.create', function (BreadcrumbTrail $trail) {
+Breadcrumbs::for('backend.portfolio.enumerators.create', function (BreadcrumbTrail $trail) {
 
-    $trail->parent('backend.organization.enumerators.index');
+    $trail->parent('backend.portfolio.enumerators.index');
 
-    $trail->push(__('common.Add'), route('backend.organization.enumerators.create'));
+    $trail->push(__('common.Add'), route('backend.portfolio.enumerators.create'));
 });
 
-Breadcrumbs::for('backend.organization.enumerators.show', function (BreadcrumbTrail $trail, $enumerator) {
+Breadcrumbs::for('backend.portfolio.enumerators.show', function (BreadcrumbTrail $trail, $enumerator) {
 
-    $trail->parent('backend.organization.enumerators.index');
+    $trail->parent('backend.portfolio.enumerators.index');
 
-    $enumerator = ($enumerator instanceof Enumerator) ? $enumerator : $enumerator[0];
+    $enumerator = ($enumerator instanceof Post) ? $enumerator : $enumerator[0];
 
-    $trail->push($enumerator->name, route('backend.organization.enumerators.show', $enumerator->id));
+    $trail->push($enumerator->name, route('backend.portfolio.enumerators.show', $enumerator->id));
 });
 
-Breadcrumbs::for('backend.organization.enumerators.edit', function (BreadcrumbTrail $trail, Enumerator $enumerator) {
+Breadcrumbs::for('backend.portfolio.enumerators.edit', function (BreadcrumbTrail $trail, Post $enumerator) {
 
-    $trail->parent('backend.organization.enumerators.show', [$enumerator]);
+    $trail->parent('backend.portfolio.enumerators.show', [$enumerator]);
 
-    $trail->push(__('common.Edit'), route('backend.organization.enumerators.edit', $enumerator->id));
+    $trail->push(__('common.Edit'), route('backend.portfolio.enumerators.edit', $enumerator->id));
 });

@@ -27,8 +27,8 @@
 @section('breadcrumbs', \Breadcrumbs::render())
 
 @section('actions')
-    {!! \Html::linkButton(__('survey.Add Survey'), 'backend.organization.surveys.create', [], 'fas fa-plus', 'success') !!}
-    {{--{!! \Html::bulkDropdown('backend.organization.surveys', 0, ['color' => 'warning']) !!}--}}
+    {!! \Html::linkButton(__('service.Add Comment'), 'backend.portfolio.surveys.create', [], 'fas fa-plus', 'success') !!}
+    {{--{!! \Html::bulkDropdown('backend.portfolio.surveys', 0, ['color' => 'warning']) !!}--}}
 @endsection
 
 @section('content')
@@ -38,9 +38,9 @@
                 <div class="card card-default">
                     @if(!empty($surveys))
                         <div class="card-body p-0">
-                            {!! \Html::cardSearch('search', 'backend.organization.surveys.index',
-                            ['placeholder' => 'Search Survey Name etc.',
-                            'class' => 'form-control', 'id' => 'search', 'data-target-table' => 'survey-table']) !!}
+                            {!! \Html::cardSearch('search', 'backend.portfolio.surveys.index',
+                            ['placeholder' => 'Search Comment Name etc.',
+                            'class' => 'form-control', 'id' => 'search', 'data-target-table' => 'service-table']) !!}
                             <div class="table-responsive">
                                 <table class="table table-hover mb-0" id="branch-table">
                                     <thead class="thead-light">
@@ -59,8 +59,8 @@
                                                 {{ $survey->id }}
                                             </td>
                                             <td class="text-left">
-                                                @can('backend.organization.surveys.show')
-                                                    <a href="{{ route('backend.organization.surveys.show', $survey->id) }}">
+                                                @can('backend.portfolio.surveys.show')
+                                                    <a href="{{ route('backend.portfolio.surveys.show', $survey->id) }}">
                                                         {{ $survey->name }}
                                                     </a>
                                                 @else
@@ -72,7 +72,7 @@
                                             </td>
                                             <td class="text-center">{{ $survey->created_at->format(config('backend.datetime')) ?? '' }}</td>
                                             <td class="exclude-search pr-3 text-center align-middle">
-                                                {!! \Html::actionDropdown('backend.organization.surveys', $survey->id, array_merge(['show', 'edit'], ($survey->deleted_at == null) ? ['delete'] : ['restore'])) !!}
+                                                {!! \Html::actionDropdown('backend.portfolio.surveys', $survey->id, array_merge(['show', 'edit'], ($survey->deleted_at == null) ? ['delete'] : ['restore'])) !!}
                                             </td>
                                         </tr>
                                     @empty
@@ -97,7 +97,7 @@
         </div>
     </div>
     <!-- /.container-fluid -->
-    {!! \App\Supports\CHTML::confirmModal('Enumerator', ['export', 'delete', 'restore']) !!}
+    {!! \App\Supports\CHTML::confirmModal('Post', ['export', 'delete', 'restore']) !!}
 @endsection
 
 

@@ -25,8 +25,8 @@
 @section('breadcrumbs', Breadcrumbs::render(Route::getCurrentRoute()->getName(), $enumerator))
 
 @section('actions')
-    {!! \Html::backButton('backend.organization.enumerators.index') !!}
-    {!! \Html::modelDropdown('backend.organization.enumerators', $enumerator->id, ['color' => 'success',
+    {!! \Html::backButton('backend.portfolio.enumerators.index') !!}
+    {!! \Html::modelDropdown('backend.portfolio.enumerators', $enumerator->id, ['color' => 'success',
         'actions' => array_merge(['edit'], ($enumerator->deleted_at == null) ? ['delete'] : ['restore'])]) !!}
 @endsection
 
@@ -38,70 +38,70 @@
                     <div class="card-body min-vh-100">
                         <table class="table table-bordered table-hover">
                             <tr>
-                                <th width="30%">{!!  __('enumerator.Name') !!}</th>
+                                <th width="30%">{!!  __('certificate.Name') !!}</th>
                                 <td>{!! $enumerator->name   ?? '' !!}</td>
                             </tr>
                             <tr>
-                                <th>{!! __('enumerator.Name(Bangla)') !!}</th>
+                                <th>{!! __('certificate.Name(Bangla)') !!}</th>
                                 <td>{!! $enumerator->name_bd   ?? '' !!}</td>
                             </tr>
                             <tr>
-                                <th>{!! __('enumerator.Gender') !!}</th>
+                                <th>{!! __('certificate.Gender') !!}</th>
                                 <td>{!! isset($enumerator->gender->name) ? $enumerator->gender->name : null !!}</td>
                             </tr>
                             <tr>
-                                <th>{!!  __('enumerator.Date of Birth') !!}</th>
+                                <th>{!!  __('certificate.Date of Birth') !!}</th>
                                 <td>@if($enumerator->dob != null)
                                         {!! \Carbon\Carbon::parse($enumerator->dob)->format('dS F, Y') !!}
                                     @endif
                                 </td>
                             </tr>
                             <tr>
-                                <th>{!!  __('enumerator.Father Name') !!}</th>
+                                <th>{!!  __('certificate.Father Name') !!}</th>
                                 <td>{!! $enumerator->father   ?? '' !!}</td>
                             </tr>
                             <tr>
-                                <th>{!! __('enumerator.Mother Name') !!}</th>
+                                <th>{!! __('certificate.Mother Name') !!}</th>
                                 <td> {!! $enumerator->mother   ?? '' !!}</td>
                             </tr>
                             <tr>
-                                <th>{!! __('enumerator.NID Number') !!}</th>
+                                <th>{!! __('certificate.NID Number') !!}</th>
                                 <td>{!! $enumerator->nid   ?? '' !!}</td>
                             </tr>
                             <tr>
-                                <th>{!! __('enumerator.Present Address') !!}</th>
+                                <th>{!! __('certificate.Present Address') !!}</th>
                                 <td>{!! $enumerator->present_address   ?? '' !!}</td>
                             </tr>
                             <tr>
-                                <th>{!! __('enumerator.Permanent Address') !!}</th>
+                                <th>{!! __('certificate.Permanent Address') !!}</th>
                                 <td> {!! $enumerator->permanent_address   ?? '' !!}</td>
                             </tr>
                             <tr>
-                                <th>{!! __('enumerator.Highest Educational Qualification') !!}</th>
+                                <th>{!! __('certificate.Highest Educational Qualification') !!}</th>
                                 <td>{!! isset($enumerator->examLevel->name) ? $enumerator->examLevel->name : null !!}</td>
                             </tr>
                             <tr>
-                                <th>{!! __('enumerator.Mobile 1') !!}</th>
+                                <th>{!! __('certificate.Mobile 1') !!}</th>
                                 <td>{!! $enumerator->mobile_1   ?? null !!}</td>
                             </tr>
                             <tr>
-                                <th>{!! __('enumerator.Mobile 2') !!}</th>
+                                <th>{!! __('certificate.Mobile 2') !!}</th>
                                 <td> {!! $enumerator->mobile_2   ?? null !!}</td>
                             </tr>
                             <tr>
-                                <th>{!! __('enumerator.Email') !!}</th>
+                                <th>{!! __('certificate.Email') !!}</th>
                                 <td>{!! $enumerator->email   ?? null !!}</td>
                             </tr>
                             <tr>
-                                <th>{!! __('enumerator.Whatsapp Number') !!}</th>
+                                <th>{!! __('certificate.Whatsapp Number') !!}</th>
                                 <td>  {!! $enumerator->whatsapp   ?? null !!}</td>
                             </tr>
                             <tr>
-                                <th>{!! __('enumerator.Facebook ID') !!}</th>
+                                <th>{!! __('certificate.Facebook ID') !!}</th>
                                 <td>{!! $enumerator->facebook   ?? null !!}</td>
                             </tr>
                             <tr>
-                                <th>{!! __('enumerator.Select the district(s) where you have worked earlier (it can be multiple)') !!}</th>
+                                <th>{!! __('certificate.Select the district(s) where you have worked earlier (it can be multiple)') !!}</th>
                                 <td>
                                     @forelse($enumerator->previousPostings as $state)
                                         {{  $state->name }},
@@ -111,7 +111,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <th>{!! __('enumerator.Select the district(s) where you want to work in future (maximum 3)') !!}</th>
+                                <th>{!! __('certificate.Select the district(s) where you want to work in future (maximum 3)') !!}</th>
                                 <td>
                                     <ul>
                                         @forelse($enumerator->futurePostings as $state)
@@ -124,19 +124,19 @@
                                 </td>
                             </tr>
                             <tr>
-                                <th>{!! __('enumerator.Are you revenue staff of BBS?') !!}</th>
+                                <th>{!! __('certificate.Are you revenue staff of BBS?') !!}</th>
                                 <td>{!! isset($enumerator->is_employee) ? ucfirst($enumerator->is_employee) : null !!}</td>
                             </tr>
                             <tr>
-                                <th>{!! __('enumerator.Designation') !!}</th>
+                                <th>{!! __('certificate.Designation') !!}</th>
                                 <td>{!! ($enumerator->is_employee == 'yes') ? $enumerator->designation :   'N/A' !!}</td>
                             </tr>
                             <tr>
-                                <th>{!! __('enumerator.Company Name') !!}</th>
+                                <th>{!! __('certificate.Company Name') !!}</th>
                                 <td>{!! ($enumerator->is_employee == 'yes') ? $enumerator->company :   'N/A' !!}</td>
                             </tr>
                             <tr>
-                                <th>{!! __('enumerator.Work Experience in BBS as Enumerator') !!}</th>
+                                <th>{!! __('certificate.Work Experience in BBS as Post') !!}</th>
                                 <td>
                                     <ul>
                                         @forelse($enumerator->surveys as $index => $survey)
@@ -162,7 +162,7 @@
             </div>
         </div>
     </div>
-    {!! \App\Supports\CHTML::confirmModal('Enumerator', ['delete', 'restore']) !!}
+    {!! \App\Supports\CHTML::confirmModal('Post', ['delete', 'restore']) !!}
 @endsection
 
 

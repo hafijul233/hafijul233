@@ -1,8 +1,7 @@
 <?php
 
-namespace App\Models\Backend\Organization\Enumerator;
+namespace App\Models\Backend\Portfolio;
 
-use App\Models\Backend\Organization\Enumerator;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -10,14 +9,18 @@ use Kyslik\ColumnSortable\Sortable;
 use OwenIt\Auditing\Auditable as AuditableTrait;
 use OwenIt\Auditing\Contracts\Auditable;
 
-class WorkQualification extends Model implements Auditable
+/**
+ * @class Post
+ * @package App\Models\Backend\Portfolio
+ */
+class Language extends Model implements Auditable
 {
     use AuditableTrait, HasFactory, SoftDeletes, Sortable;
 
     /**
      * @var string $table
      */
-    protected $table = 'work_qualifications';
+    protected $table = 'surveys';
 
     /**
      * @var string $primaryKey
@@ -31,8 +34,7 @@ class WorkQualification extends Model implements Auditable
      *
      * @var array
      */
-    protected $fillable = ['enumerator_id', 'company', 'designation', 'start_date', 'end_date', 'responsibility', 'enabled'];
-
+    protected $fillable = ['survey_id', 'name', 'name_bd', 'father', 'father_bd', 'mother', 'mother_bd', 'nid', 'mobile_1', 'mobile_2', 'email', 'present_address', 'present_address_bd', 'permanent_address', 'permanent_address_bd', 'gender', 'enabled'];
 
     /**
      * The attributes that should be hidden for arrays.
@@ -46,10 +48,7 @@ class WorkQualification extends Model implements Auditable
      *
      * @var array
      */
-    protected $casts = [
-        'start_date' => 'datetime',
-        'end_date' => 'datetime'
-    ];
+    protected $casts = [];
 
     /**
      * The model's default values for attributes when new instance created.
@@ -62,8 +61,8 @@ class WorkQualification extends Model implements Auditable
 
     /************************ Audit Relations ************************/
 
-    public function enumerator()
+    public function enumerators()
     {
-        return $this->belongsTo(Enumerator::class);
+        return $this->hasMany(Post::class);
     }
 }

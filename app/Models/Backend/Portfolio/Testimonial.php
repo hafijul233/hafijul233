@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Models\Backend\Organization;
+namespace App\Models\Backend\Portfolio;
 
-use App\Models\Backend\Organization\Enumerator\EducationQualification;
-use App\Models\Backend\Organization\Enumerator\WorkQualification;
+use App\Models\Backend\Portfolio\Enumerator\EducationQualification;
+use App\Models\Backend\Portfolio\Enumerator\WorkQualification;
 use App\Models\Backend\Setting\Catalog;
 use App\Models\Backend\Setting\ExamLevel;
 use App\Models\Backend\Setting\State;
@@ -15,10 +15,10 @@ use OwenIt\Auditing\Auditable as AuditableTrait;
 use OwenIt\Auditing\Contracts\Auditable;
 
 /**
- * @class Enumerator
+ * @class Post
  * @package App\Models\Backend\Portfolio
  */
-class Enumerator extends Model implements Auditable
+class Testimonial extends Model implements Auditable
 {
     use AuditableTrait, HasFactory, SoftDeletes, Sortable;
 
@@ -71,7 +71,7 @@ class Enumerator extends Model implements Auditable
 
     public function surveys()
     {
-        return $this->belongsToMany(Survey::class);
+        return $this->belongsToMany(Comment::class);
     }
 
     public function educationQualifications()

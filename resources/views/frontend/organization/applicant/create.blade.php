@@ -1,6 +1,6 @@
 @extends('layouts.frontend')
 
-@section('title', __('enumerator.Applicant Registration'))
+@section('title', __('certificate.Applicant Registration'))
 
 @push('meta')
 
@@ -40,7 +40,7 @@
                             {!! __('common.Database of Enumerators') !!}
                         </h3>
                     </div>
-                    {!! \Form::open(['route' => 'backend.applicants.store', 'id' => 'enumerator-form']) !!}
+                    {!! \Form::open(['route' => 'backend.applicants.store', 'id' => 'certificate-form']) !!}
                     @include('frontend.organization.applicant.form')
                     {!! \Form::close() !!}
                 </div>

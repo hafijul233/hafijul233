@@ -35,7 +35,7 @@ class RoleSeeder extends Seeder
 
         Role::create([
             'id' => 4,
-            'name' => 'Enumerator',
+            'name' => 'Post',
             'remarks' => 'Role which will have basic operation and minimal system options.'
         ]);
     }

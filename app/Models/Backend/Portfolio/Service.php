@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Backend\Organization;
+namespace App\Models\Backend\Portfolio;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -10,10 +10,10 @@ use OwenIt\Auditing\Auditable as AuditableTrait;
 use OwenIt\Auditing\Contracts\Auditable;
 
 /**
- * @class Enumerator
+ * @class Post
  * @package App\Models\Backend\Portfolio
  */
-class Survey extends Model implements Auditable
+class Service extends Model implements Auditable
 {
     use AuditableTrait, HasFactory, SoftDeletes, Sortable;
 
@@ -63,6 +63,6 @@ class Survey extends Model implements Auditable
 
     public function enumerators()
     {
-        return $this->hasMany(Enumerator::class);
+        return $this->hasMany(Post::class);
     }
 }

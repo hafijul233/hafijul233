@@ -3,7 +3,7 @@
 namespace App\Exports\Backend\Organization;
 
 use App\Abstracts\Export\FastExcelExport;
-use App\Models\Backend\Organization\Enumerator;
+use App\Models\Backend\Portfolio\Post;
 use Box\Spout\Common\Exception\InvalidArgumentException;
 use Carbon\Carbon;
 
@@ -27,7 +27,7 @@ class EnumeratorExport extends FastExcelExport
     }
 
     /**
-     * @param Enumerator $row
+     * @param Post $row
      * @return array
      */
     public function map($row): array

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', __('enumerator.Add Enumerator'))
+@section('title', 'Edit Post')
 
 @push('meta')
 
@@ -23,19 +23,19 @@
 @endpush
 
 
-@section('breadcrumbs', \Breadcrumbs::render(Route::getCurrentRoute()->getName()))
+@section('breadcrumbs', \Breadcrumbs::render(Route::getCurrentRoute()->getName(), $enumerator))
 
 @section('actions')
-    {!! \Html::backButton('backend.organization.enumerators.index') !!}
+    {!! \Html::backButton('backend.portfolio.enumerators.index') !!}
 @endsection
 
 @section('content')
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-12">
-                <div class="card card-default">
-                    {!! \Form::open(['route' => 'backend.organization.enumerators.store', 'id' => 'enumerator-form']) !!}
-                    @include('backend.organization.enumerator.form')
+                <div class="card">
+                    {!! \Form::open(['route' => ['backend.portfolio.enumerators.update', $enumerator->id], 'method' => 'put', 'id' => 'certificate-form']) !!}
+                    @include('backend.portfolio.certificate.form')
                     {!! \Form::close() !!}
                 </div>
             </div>

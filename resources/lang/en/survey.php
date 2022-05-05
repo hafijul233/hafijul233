@@ -4,7 +4,7 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Survey Language
+    | Comment Language
     |--------------------------------------------------------------------------
     |
     | The following language lines are used during authentication for various
@@ -12,6 +12,6 @@ return [
     | these language lines according to your application's requirements.
     |
     */
-    'Add Survey' => 'Add Survey',
-    'Edit Survey' => 'Edit Survey',
+    'Add Comment' => 'Add Comment',
+    'Edit Comment' => 'Edit Comment',
 ];

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', __('survey.Edit Survey'))
+@section('title', __('service.Add Comment'))
 
 @push('meta')
 
@@ -23,19 +23,19 @@
 @endpush
 
 
-@section('breadcrumbs', \Breadcrumbs::render(Route::getCurrentRoute()->getName(), $survey))
+@section('breadcrumbs', \Breadcrumbs::render(Route::getCurrentRoute()->getName()))
 
 @section('actions')
-    {!! \Html::backButton('backend.organization.surveys.index') !!}
+    {!! \Html::backButton('backend.portfolio.surveys.index') !!}
 @endsection
 
 @section('content')
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-12">
-                <div class="card">
-                    {!! \Form::open(['route' => ['backend.organization.surveys.update', $survey->id], 'method' => 'put', 'id' => 'survey-form']) !!}
-                    @include('backend.organization.survey.form')
+                <div class="card card-default">
+                    {!! \Form::open(['route' => 'backend.portfolio.surveys.store', 'id' => 'service-form']) !!}
+                    @include('backend.portfolio.service.form')
                     {!! \Form::close() !!}
                 </div>
             </div>
