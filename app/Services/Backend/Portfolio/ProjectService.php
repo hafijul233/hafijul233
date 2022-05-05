@@ -3,9 +3,9 @@
 namespace App\Services\Backend\Portfolio;
 
 use App\Abstracts\Service\Service;
-use App\Exports\Backend\Organization\EnumeratorExport;
-use App\Models\Backend\Portfolio\Post;
-use App\Repositories\Eloquent\Backend\Portfolio\ServiceRepository;
+use App\Exports\Backend\Organization\ProjectExport;
+use App\Models\Backend\Portfolio\Project;
+use App\Repositories\Eloquent\Backend\Portfolio\ProjectRepository;
 use App\Repositories\Eloquent\Backend\Setting\ExamLevelRepository;
 use App\Supports\Constant;
 use Exception;
@@ -17,30 +17,23 @@ use Throwable;
 
 /**
  * @class ProjectService
- * @package App\Services\Backend\Portfolio
+ * @package App\Projects\Backend\Portfolio
  */
 class ProjectService extends Service
 {
     /**
-     * @var ServiceRepository
+     * @var ProjectRepository
      */
-    private $enumeratorRepository;
+    private $projectRepository;
+    
     /**
-     * @var ExamLevelRepository
+     * PostProject constructor.
+     * @param ProjectRepository $projectRepository
      */
-    private $examLevelRepository;
-
-    /**
-     * PostService constructor.
-     * @param ServiceRepository $enumeratorRepository
-     * @param ExamLevelRepository $examLevelRepository
-     */
-    public function __construct(ServiceRepository $enumeratorRepository,
-                                ExamLevelRepository $examLevelRepository)
+    public function __construct(ProjectRepository $projectRepository)
     {
-        $this->enumeratorRepository = $enumeratorRepository;
-        $this->enumeratorRepository->itemsPerPage = 10;
-        $this->examLevelRepository = $examLevelRepository;
+        $this->projectRepository = $projectRepository;
+        $this->projectRepository->itemsPerPage = 10;
     }
 
     /**
@@ -51,9 +44,9 @@ class ProjectService extends Service
      * @return Builder[]|Collection
      * @throws Exception
      */
-    public function getAllEnumerators(array $filters = [], array $eagerRelations = [])
+    public function getAllProjects(array $filters = [], array $eagerRelations = [])
     {
-        return $this->enumeratorRepository->getWith($filters, $eagerRelations, true);
+        return $this->projectRepository->getWith($filters, $eagerRelations, true);
     }
 
     /**
@@ -64,9 +57,9 @@ class ProjectService extends Service
      * @return LengthAwarePaginator
      * @throws Exception
      */
-    public function enumeratorPaginate(array $filters = [], array $eagerRelations = []): LengthAwarePaginator
+    public function projectPaginate(array $filters = [], array $eagerRelations = []): LengthAwarePaginator
     {
-        return $this->enumeratorRepository->paginateWith($filters, $eagerRelations, true);
+        return $this->projectRepository->paginateWith($filters, $eagerRelations, true);
     }
 
     /**
@@ -77,9 +70,9 @@ class ProjectService extends Service
      * @return mixed
      * @throws Exception
      */
-    public function getEnumeratorById($id, bool $purge = false)
+    public function getProjectById($id, bool $purge = false)
     {
-        return $this->enumeratorRepository->show($id, $purge);
+        return $this->projectRepository->show($id, $purge);
     }
 
     /**
@@ -90,18 +83,18 @@ class ProjectService extends Service
      * @throws Exception
      * @throws Throwable
      */
-    public function storeEnumerator(array $inputs): array
+    public function storeProject(array $inputs): array
     {
-        $newEnumeratorInfo = $this->formatEnumeratorInfo($inputs);
+        $newProjectInfo = $this->formatProjectInfo($inputs);
         DB::beginTransaction();
         try {
-            $newEnumerator = $this->enumeratorRepository->create($newEnumeratorInfo);
-            if ($newEnumerator instanceof Post) {
+            $newProject = $this->projectRepository->create($newProjectInfo);
+            if ($newProject instanceof Project) {
                 //handling Comment List
-                $newEnumerator->surveys()->attach($inputs['survey_id']);
-                $newEnumerator->previousPostings()->attach($inputs['prev_post_state_id']);
-                $newEnumerator->futurePostings()->attach($inputs['future_post_state_id']);
-                $newEnumerator->save();
+                $newProject->surveys()->attach($inputs['survey_id']);
+                $newProject->previousPostings()->attach($inputs['prev_post_state_id']);
+                $newProject->futurePostings()->attach($inputs['future_post_state_id']);
+                $newProject->save();
 
                 DB::commit();
                 return ['status' => true, 'message' => __('New Post Created'),
@@ -112,7 +105,7 @@ class ProjectService extends Service
                     'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!'];
             }
         } catch (Exception $exception) {
-            $this->enumeratorRepository->handleException($exception);
+            $this->projectRepository->handleException($exception);
             DB::rollBack();
             return ['status' => false, 'message' => $exception->getMessage(),
                 'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Error!'];
@@ -125,93 +118,40 @@ class ProjectService extends Service
      * @param array $inputs
      * @return array
      */
-    private function formatEnumeratorInfo(array $inputs)
+    private function formatProjectInfo(array $inputs)
     {
-        $enumeratorInfo = [];
-        $enumeratorInfo["survey_id"] = null;
-        $enumeratorInfo["gender_id"] = $inputs['gender_id'] ?? null;
-        $enumeratorInfo["dob"] = $inputs['dob'] ?? null;
-        $enumeratorInfo["name"] = $inputs["name"] ?? null;
-        $enumeratorInfo["name_bd"] = $inputs["name_bd"] ?? null;
-        $enumeratorInfo["father"] = $inputs["father"] ?? null;
-        $enumeratorInfo["father_bd"] = $inputs["father_bd"] ?? null;
-        $enumeratorInfo["mother"] = $inputs["mother"] ?? null;
-        $enumeratorInfo["mother_bd"] = $inputs["mother_bd"] ?? null;
-        $enumeratorInfo["nid"] = $inputs["nid"] ?? null;
-        $enumeratorInfo["mobile_1"] = $inputs["mobile_1"] ?? null;
-        $enumeratorInfo["mobile_2"] = $inputs["mobile_2"] ?? null;
-        $enumeratorInfo["email"] = $inputs["email"] ?? null;
-        $enumeratorInfo["present_address"] = $inputs["present_address"] ?? null;
-        $enumeratorInfo["present_address_bd"] = $inputs["present_address_bd"] ?? null;
-        $enumeratorInfo["permanent_address"] = $inputs["permanent_address"] ?? null;
-        $enumeratorInfo["permanent_address_bd"] = $inputs["permanent_address_bd"] ?? null;
-        $enumeratorInfo["exam_level"] = $inputs["exam_level"] ?? null;
-        $enumeratorInfo["whatsapp"] = $inputs["whatsapp"] ?? null;
-        $enumeratorInfo["facebook"] = $inputs["facebook"] ?? null;
+        $projectInfo = [];
+        $projectInfo["survey_id"] = null;
+        $projectInfo["gender_id"] = $inputs['gender_id'] ?? null;
+        $projectInfo["dob"] = $inputs['dob'] ?? null;
+        $projectInfo["name"] = $inputs["name"] ?? null;
+        $projectInfo["name_bd"] = $inputs["name_bd"] ?? null;
+        $projectInfo["father"] = $inputs["father"] ?? null;
+        $projectInfo["father_bd"] = $inputs["father_bd"] ?? null;
+        $projectInfo["mother"] = $inputs["mother"] ?? null;
+        $projectInfo["mother_bd"] = $inputs["mother_bd"] ?? null;
+        $projectInfo["nid"] = $inputs["nid"] ?? null;
+        $projectInfo["mobile_1"] = $inputs["mobile_1"] ?? null;
+        $projectInfo["mobile_2"] = $inputs["mobile_2"] ?? null;
+        $projectInfo["email"] = $inputs["email"] ?? null;
+        $projectInfo["present_address"] = $inputs["present_address"] ?? null;
+        $projectInfo["present_address_bd"] = $inputs["present_address_bd"] ?? null;
+        $projectInfo["permanent_address"] = $inputs["permanent_address"] ?? null;
+        $projectInfo["permanent_address_bd"] = $inputs["permanent_address_bd"] ?? null;
+        $projectInfo["exam_level"] = $inputs["exam_level"] ?? null;
+        $projectInfo["whatsapp"] = $inputs["whatsapp"] ?? null;
+        $projectInfo["facebook"] = $inputs["facebook"] ?? null;
 
-        $enumeratorInfo["is_employee"] = $inputs["is_employee"] ?? 'no';
-        $enumeratorInfo["designation"] = null;
-        $enumeratorInfo["company"] = null;
+        $projectInfo["is_employee"] = $inputs["is_employee"] ?? 'no';
+        $projectInfo["designation"] = null;
+        $projectInfo["company"] = null;
 
-        if ($enumeratorInfo["is_employee"] == 'yes') {
-            $enumeratorInfo["designation"] = $inputs['designation'] ?? null;
-            $enumeratorInfo["company"] = $inputs['company'] ?? null;
+        if ($projectInfo["is_employee"] == 'yes') {
+            $projectInfo["designation"] = $inputs['designation'] ?? null;
+            $projectInfo["company"] = $inputs['company'] ?? null;
         }
 
-        return $enumeratorInfo;
-    }
-
-    /**
-     * Return formatted education qualification model collection
-     *
-     * @param array $inputs
-     * @return array
-     * @throws Exception
-     */
-    private function formatEducationQualification(array $inputs): array
-    {
-        $examLevels = $this->examLevelRepository->getWith(['id' => $inputs['exam_level']]);
-
-        $qualifications = [];
-
-        foreach ($examLevels as $examLevel):
-            $prefix = $examLevel->code;
-            $qualifications[$examLevel->id]["exam_level_id"] = $inputs["{$prefix}_exam_level_id"] ?? null;
-            $qualifications[$examLevel->id]["exam_title_id"] = $inputs["{$prefix}_exam_title_id"] ?? null;
-            $qualifications[$examLevel->id]["exam_board_id"] = $inputs["{$prefix}_exam_board_id"] ?? null;
-            $qualifications[$examLevel->id]["exam_group_id"] = $inputs["{$prefix}_exam_group_id"] ?? null;
-            $qualifications[$examLevel->id]["institute_id"] = $inputs["{$prefix}_institute_id"] ?? null;
-            $qualifications[$examLevel->id]["pass_year"] = $inputs["{$prefix}_pass_year"] ?? null;
-            $qualifications[$examLevel->id]["roll_number"] = $inputs["{$prefix}_roll_number"] ?? null;
-            $qualifications[$examLevel->id]["grade_type"] = $inputs["{$prefix}_grade_type"] ?? null;
-            $qualifications[$examLevel->id]["grade_point"] = $inputs["{$prefix}_grade_point"] ?? null;
-            $qualifications[$examLevel->id]["enabled"] = "yes";
-        endforeach;
-
-        return $qualifications;
-    }
-
-    /**
-     * Return formatted work experience model collection
-     *
-     * @param array $inputs
-     * @return array
-     * @throws Exception
-     */
-    private function formatWorkQualification(array $inputs): array
-    {
-        $qualifications = [];
-
-        foreach ($inputs['job'] as $index => $input):
-            $qualifications[$index]["company"] = $input["company"] ?? null;
-            $qualifications[$index]["designation"] = $input["designation"] ?? null;
-            $qualifications[$index]["start_date"] = $input["start_date"] ?? null;
-            $qualifications[$index]["end_date"] = $input["end_date"] ?? null;
-            $qualifications[$index]["responsibility"] = $input["responsibility"] ?? null;
-            $qualifications[$index]["enabled"] = "yes";
-        endforeach;
-
-        return $qualifications;
+        return $projectInfo;
     }
 
     /**
@@ -222,19 +162,19 @@ class ProjectService extends Service
      * @return array
      * @throws Throwable
      */
-    public function updateEnumerator(array $inputs, $id): array
+    public function updateProject(array $inputs, $id): array
     {
-        $newEnumeratorInfo = $this->formatEnumeratorInfo($inputs);
+        $newProjectInfo = $this->formatProjectInfo($inputs);
         DB::beginTransaction();
         try {
-            $enumerator = $this->enumeratorRepository->show($id);
-            if ($enumerator instanceof Post) {
-                if ($this->enumeratorRepository->update($newEnumeratorInfo, $id)) {
+            $project = $this->projectRepository->show($id);
+            if ($project instanceof Project) {
+                if ($this->projectRepository->update($newProjectInfo, $id)) {
                     //handling Comment List
-                    $enumerator->surveys()->sync($inputs['survey_id']);
-                    $enumerator->previousPostings()->sync($inputs['prev_post_state_id']);
-                    $enumerator->futurePostings()->sync($inputs['future_post_state_id']);
-                    $enumerator->save();
+                    $project->surveys()->sync($inputs['survey_id']);
+                    $project->previousPostings()->sync($inputs['prev_post_state_id']);
+                    $project->futurePostings()->sync($inputs['future_post_state_id']);
+                    $project->save();
                     DB::commit();
                     return ['status' => true, 'message' => __('Post Info Updated'),
                         'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
@@ -248,7 +188,7 @@ class ProjectService extends Service
                     'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Alert!'];
             }
         } catch (Exception $exception) {
-            $this->enumeratorRepository->handleException($exception);
+            $this->projectRepository->handleException($exception);
             DB::rollBack();
             return ['status' => false, 'message' => $exception->getMessage(),
                 'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Error!'];
@@ -262,11 +202,11 @@ class ProjectService extends Service
      * @return array
      * @throws Throwable
      */
-    public function destroyEnumerator($id): array
+    public function destroyProject($id): array
     {
         DB::beginTransaction();
         try {
-            if ($this->enumeratorRepository->delete($id)) {
+            if ($this->projectRepository->delete($id)) {
                 DB::commit();
                 return ['status' => true, 'message' => __('Post is Trashed'),
                     'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
@@ -277,7 +217,7 @@ class ProjectService extends Service
                     'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!'];
             }
         } catch (Exception $exception) {
-            $this->enumeratorRepository->handleException($exception);
+            $this->projectRepository->handleException($exception);
             DB::rollBack();
             return ['status' => false, 'message' => $exception->getMessage(),
                 'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Error!'];
@@ -291,11 +231,11 @@ class ProjectService extends Service
      * @return array
      * @throws Throwable
      */
-    public function restoreEnumerator($id): array
+    public function restoreProject($id): array
     {
         DB::beginTransaction();
         try {
-            if ($this->enumeratorRepository->restore($id)) {
+            if ($this->projectRepository->restore($id)) {
                 DB::commit();
                 return ['status' => true, 'message' => __('Post is Restored'),
                     'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
@@ -306,7 +246,7 @@ class ProjectService extends Service
                     'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!'];
             }
         } catch (Exception $exception) {
-            $this->enumeratorRepository->handleException($exception);
+            $this->projectRepository->handleException($exception);
             DB::rollBack();
             return ['status' => false, 'message' => $exception->getMessage(),
                 'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Error!'];
@@ -317,11 +257,11 @@ class ProjectService extends Service
      * Export Object for Export Download
      *
      * @param array $filters
-     * @return EnumeratorExport
+     * @return ProjectExport
      * @throws Exception
      */
-    public function exportEnumerator(array $filters = []): EnumeratorExport
+    public function exportProject(array $filters = []): ProjectExport
     {
-        return (new EnumeratorExport($this->enumeratorRepository->getWith($filters)));
+        return (new ProjectExport($this->projectRepository->getWith($filters)));
     }
 }

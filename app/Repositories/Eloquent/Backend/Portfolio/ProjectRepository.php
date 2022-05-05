@@ -3,7 +3,7 @@
 namespace App\Repositories\Eloquent\Backend\Portfolio;
 
 use App\Abstracts\Repository\EloquentRepository;
-use App\Models\Backend\Portfolio\Post;
+use App\Models\Backend\Portfolio\Project;
 use App\Services\Auth\AuthenticatedSessionService;
 use Exception;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
@@ -11,20 +11,20 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 
 /**
- * @class PostRepository
+ * @class ProjectRepository
  * @package App\Repositories\Eloquent\Backend\Portfolio
  */
 class ProjectRepository extends EloquentRepository
 {
     /**
-     * PostRepository constructor.
+     * ProjectRepository constructor.
      */
     public function __construct()
     {
         /**
          * Set the model that will be used for repo
          */
-        parent::__construct(new Post);
+        parent::__construct(new Project);
     }
 
     /**

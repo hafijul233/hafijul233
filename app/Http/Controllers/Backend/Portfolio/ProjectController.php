@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Backend\Portfolio;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Backend\Organization\SurveyRequest;
 use App\Services\Auth\AuthenticatedSessionService;
-use App\Services\Backend\Portfolio\CommentService;
+use App\Services\Backend\Portfolio\ProjectService;
 use App\Supports\Utility;
 use Exception;
 use Illuminate\Contracts\Foundation\Application;
@@ -28,22 +28,22 @@ class ProjectController extends Controller
     private $authenticatedSessionService;
 
     /**
-     * @var CommentService
+     * @var ProjectService
      */
-    private $surveyService;
+    private $projectService;
 
     /**
-     * CommentController Constructor
+     * ProjectController Constructor
      *
      * @param AuthenticatedSessionService $authenticatedSessionService
-     * @param CommentService $surveyService
+     * @param ProjectService $projectService
      */
     public function __construct(AuthenticatedSessionService $authenticatedSessionService,
-                                CommentService $surveyService)
+                                ProjectService $projectService)
     {
 
         $this->authenticatedSessionService = $authenticatedSessionService;
-        $this->surveyService = $surveyService;
+        $this->projectService = $projectService;
     }
 
     /**
@@ -56,10 +56,10 @@ class ProjectController extends Controller
     public function index(Request $request)
     {
         $filters = $request->except('page');
-        $surveys = $this->surveyService->surveyPaginate($filters);
+        $projects = $this->projectService->projectPaginate($filters);
 
         return view('backend.portfolio.service.index', [
-            'surveys' => $surveys
+            'projects' => $projects
         ]);
     }
 
@@ -82,10 +82,10 @@ class ProjectController extends Controller
      */
     public function store(SurveyRequest $request): RedirectResponse
     {
-        $confirm = $this->surveyService->storeSurvey($request->except('_token'));
+        $confirm = $this->projectService->storeSurvey($request->except('_token'));
         if ($confirm['status'] == true) {
             notify($confirm['message'], $confirm['level'], $confirm['title']);
-            return redirect()->route('backend.portfolio.surveys.index');
+            return redirect()->route('backend.portfolio.projects.index');
         }
 
         notify($confirm['message'], $confirm['level'], $confirm['title']);
@@ -101,10 +101,10 @@ class ProjectController extends Controller
      */
     public function show($id)
     {
-        if ($survey = $this->surveyService->getSurveyById($id)) {
+        if ($project = $this->projectService->getSurveyById($id)) {
             return view('backend.portfolio.service.show', [
-                'service' => $survey,
-                'timeline' => Utility::modelAudits($survey)
+                'service' => $project,
+                'timeline' => Utility::modelAudits($project)
             ]);
         }
 
@@ -120,9 +120,9 @@ class ProjectController extends Controller
      */
     public function edit($id)
     {
-        if ($survey = $this->surveyService->getSurveyById($id)) {
+        if ($project = $this->projectService->getSurveyById($id)) {
             return view('backend.portfolio.service.edit', [
-                'service' => $survey
+                'service' => $project
             ]);
         }
 
@@ -139,11 +139,11 @@ class ProjectController extends Controller
      */
     public function update(SurveyRequest $request, $id): RedirectResponse
     {
-        $confirm = $this->surveyService->updateSurvey($request->except('_token', 'submit', '_method'), $id);
+        $confirm = $this->projectService->updateSurvey($request->except('_token', 'submit', '_method'), $id);
 
         if ($confirm['status'] == true) {
             notify($confirm['message'], $confirm['level'], $confirm['title']);
-            return redirect()->route('backend.portfolio.surveys.index');
+            return redirect()->route('backend.portfolio.projects.index');
         }
 
         notify($confirm['message'], $confirm['level'], $confirm['title']);
@@ -162,14 +162,14 @@ class ProjectController extends Controller
     {
         if ($this->authenticatedSessionService->validate($request)) {
 
-            $confirm = $this->surveyService->destroySurvey($id);
+            $confirm = $this->projectService->destroySurvey($id);
 
             if ($confirm['status'] == true) {
                 notify($confirm['message'], $confirm['level'], $confirm['title']);
             } else {
                 notify($confirm['message'], $confirm['level'], $confirm['title']);
             }
-            return redirect()->route('backend.portfolio.surveys.index');
+            return redirect()->route('backend.portfolio.projects.index');
         }
         abort(403, 'Wrong user credentials');
     }
@@ -186,14 +186,14 @@ class ProjectController extends Controller
     {
         if ($this->authenticatedSessionService->validate($request)) {
 
-            $confirm = $this->surveyService->restoreSurvey($id);
+            $confirm = $this->projectService->restoreSurvey($id);
 
             if ($confirm['status'] == true) {
                 notify($confirm['message'], $confirm['level'], $confirm['title']);
             } else {
                 notify($confirm['message'], $confirm['level'], $confirm['title']);
             }
-            return redirect()->route('backend.portfolio.surveys.index');
+            return redirect()->route('backend.portfolio.projects.index');
         }
         abort(403, 'Wrong user credentials');
     }
@@ -208,12 +208,12 @@ class ProjectController extends Controller
     {
         $filters = $request->except('page');
 
-        $surveyExport = $this->surveyService->exportSurvey($filters);
+        $projectExport = $this->projectService->exportSurvey($filters);
 
-        $filename = 'Comment-' . date('Ymd-His') . '.' . ($filters['format'] ?? 'xlsx');
+        $filename = 'Project-' . date('Ymd-His') . '.' . ($filters['format'] ?? 'xlsx');
 
-        return $surveyExport->download($filename, function ($survey) use ($surveyExport) {
-            return $surveyExport->map($survey);
+        return $projectExport->download($filename, function ($project) use ($projectExport) {
+            return $projectExport->map($project);
         });
 
     }
@@ -225,7 +225,7 @@ class ProjectController extends Controller
      */
     public function import()
     {
-        return view('backend.portfolio.surveyimport');
+        return view('backend.portfolio.projectimport');
     }
 
     /**
@@ -237,10 +237,10 @@ class ProjectController extends Controller
     public function importBulk(Request $request)
     {
         $filters = $request->except('page');
-        $surveys = $this->surveyService->getAllSurveys($filters);
+        $projects = $this->projectService->getAllSurveys($filters);
 
-        return view('backend.portfolio.surveyindex', [
-            'surveys' => $surveys
+        return view('backend.portfolio.projectindex', [
+            'projects' => $projects
         ]);
     }
 
@@ -254,12 +254,12 @@ class ProjectController extends Controller
     {
         $filters = $request->except('page');
 
-        $surveyExport = $this->surveyService->exportSurvey($filters);
+        $projectExport = $this->projectService->exportSurvey($filters);
 
-        $filename = 'Comment-' . date('Ymd-His') . '.' . ($filters['format'] ?? 'xlsx');
+        $filename = 'Project-' . date('Ymd-His') . '.' . ($filters['format'] ?? 'xlsx');
 
-        return $surveyExport->download($filename, function ($survey) use ($surveyExport) {
-            return $surveyExport->map($survey);
+        return $projectExport->download($filename, function ($project) use ($projectExport) {
+            return $projectExport->map($project);
         });
 
     }

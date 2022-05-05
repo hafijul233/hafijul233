@@ -21,7 +21,13 @@ class CreateProjectsTable extends Migration
         //Table Structure
         Schema::create('projects', function (Blueprint $table) {
             $table->id();
-
+            $table->string('name');
+            $table->date('start_date');
+            $table->date('end_date')->nullable();
+            $table->json('stack_holder')->nullable();
+            $table->string('associate')->nullable();
+            $table->string('url')->nullable();
+            $table->longText('description')->nullable();
             $table->enum('enabled', array_keys(Constant::ENABLED_OPTIONS))
                   ->default(Constant::ENABLED_OPTION)->nullable();
             $table->foreignId('created_by')->index()->nullable();

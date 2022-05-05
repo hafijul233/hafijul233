@@ -2,8 +2,6 @@
 
 namespace App\Models\Backend\Portfolio;
 
-use App\Models\Backend\Portfolio\Enumerator\EducationQualification;
-use App\Models\Backend\Portfolio\Enumerator\WorkQualification;
 use App\Models\Backend\Setting\Catalog;
 use App\Models\Backend\Setting\ExamLevel;
 use App\Models\Backend\Setting\State;
@@ -25,7 +23,7 @@ class Project extends Model implements Auditable
     /**
      * @var string $table
      */
-    protected $table = 'enumerators';
+    protected $table = 'projects';
 
     /**
      * @var string $primaryKey
