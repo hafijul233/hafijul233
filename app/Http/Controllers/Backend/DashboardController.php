@@ -17,29 +17,15 @@ class DashboardController extends Controller
      * @var UserService
      */
     private $userService;
-    /**
-     * @var EnumeratorService
-     */
-    private $enumeratorService;
-    /**
-     * @var SurveyService
-     */
-    private $surveyService;
 
     /**
      * DashboardController constructor.
      * @param UserService $userService
-     * @param EnumeratorService $enumeratorService
-     * @param SurveyService $surveyService
      */
-    public function __construct(UserService $userService,
-                                EnumeratorService $enumeratorService,
-                                SurveyService $surveyService)
+    public function __construct(UserService $userService)
     {
 
         $this->userService = $userService;
-        $this->enumeratorService = $enumeratorService;
-        $this->surveyService = $surveyService;
     }
 
     /**
@@ -52,8 +38,8 @@ class DashboardController extends Controller
 
         return view('backend.dashboard', [
             'users' => $this->userService->getAllUsers(['role' => [2, 3, 4]])->count(),
-            'enumerators' => $this->enumeratorService->getAllEnumerators()->count(),
-            'surveys' => $this->surveyService->getAllSurveys()->count()
+            'enumerators' => 0,
+            'surveys' => 0
         ]);
     }
 

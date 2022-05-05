@@ -11,7 +11,6 @@ use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\Model\ModelEnabledController;
 use App\Http\Controllers\Backend\Model\ModelRestoreController;
 use App\Http\Controllers\Backend\Model\ModelSoftDeleteController;
-use App\Http\Controllers\Backend\Organization\EnumeratorController;
 use App\Http\Controllers\Backend\Organization\SurveyController;
 use App\Http\Controllers\Backend\OrganizationController;
 use App\Http\Controllers\Backend\Setting\CatalogController;
@@ -21,21 +20,20 @@ use App\Http\Controllers\Backend\Setting\RoleController;
 use App\Http\Controllers\Backend\Setting\StateController;
 use App\Http\Controllers\Backend\Setting\UserController;
 use App\Http\Controllers\Backend\SettingController;
-use App\Http\Controllers\Frontend\Organization\ApplicantController;
 use App\Http\Controllers\TranslateController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
 /**
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+ * |--------------------------------------------------------------------------
+ * | Web Routes
+ * |--------------------------------------------------------------------------
+ * |
+ * | Here is where you can register web routes for your application. These
+ * | routes are loaded by the RouteServiceProvider within a group which
+ * | contains the "web" middleware group. Now create something great!
+ * |
+ */
 
 Route::get('/', function () {
     return redirect()->to('backend/login');
@@ -133,14 +131,7 @@ Route::prefix('backend')->group(function () {
     })->name('backend');
 
     Route::middleware(['auth'])->name('backend.')->group(function () {
-
-        Route::get('/dashboard', DashboardController::class)
-            ->name('dashboard');
-        Route::get('applicant-registration', [ApplicantController::class, 'create'])
-            ->name('applicants.create');
-        Route::post('applicant-registration', [ApplicantController::class, 'store'])
-            ->name('applicants.store');
-
+        Route::get('dashboard', DashboardController::class)->name('dashboard');
         //Common Operations
         Route::prefix('common')->name('common.')->group(function () {
             Route::get('delete/{route}/{id}', ModelSoftDeleteController::class)->name('delete');
@@ -148,25 +139,100 @@ Route::prefix('backend')->group(function () {
             Route::get('enabled', ModelEnabledController::class)->name('enabled');
         });
 
-        //Organization
-        Route::get('organization', OrganizationController::class)->name('organization');
-        Route::prefix('organization')->name('organization.')->group(function () {
-            //Survey
-            Route::prefix('surveys')->name('surveys.')->group(function () {
-                Route::patch('{survey}/restore', [SurveyController::class, 'restore'])->name('restore');
+        //Portfolio
+        Route::get('portfolio', OrganizationController::class)->name('portfolio');
+        Route::prefix('portfolio')->name('portfolio.')->group(function () {
+            //Service
+            Route::prefix('services')->name('services.')->group(function () {
+                Route::patch('{service}/restore', [SurveyController::class, 'restore'])->name('restore');
                 Route::get('export', [SurveyController::class, 'export'])->name('export');
             });
-            Route::resource('surveys', SurveyController::class)->where(['survey' => '([0-9]+)']);
+            Route::resource('services', SurveyController::class)->where(['service' => '([0-9]+)']);
 
-
-            //Enumerator
-            Route::prefix('enumerators')->name('enumerators.')->group(function () {
-                Route::patch('{survey}/restore', [EnumeratorController::class, 'restore'])->name('restore');
-                Route::get('export', [EnumeratorController::class, 'export'])->name('export');
-                Route::get('ajax', [EnumeratorController::class, 'ajax'])->name('ajax')->middleware('ajax');
+            //Certificate
+            Route::prefix('certificates')->name('certificates.')->group(function () {
+                Route::patch('{certificate}/restore', [SurveyController::class, 'restore'])->name('restore');
+                Route::get('export', [SurveyController::class, 'export'])->name('export');
             });
-            Route::resource('enumerators', EnumeratorController::class)->where(['enumerator' => '([0-9]+)']);
+            Route::resource('certificates', SurveyController::class)->where(['certificate' => '([0-9]+)']);
 
+            //Project
+            Route::prefix('projects')->name('projects.')->group(function () {
+                Route::patch('{project}/restore', [SurveyController::class, 'restore'])->name('restore');
+                Route::get('export', [SurveyController::class, 'export'])->name('export');
+            });
+            Route::resource('projects', SurveyController::class)->where(['project' => '([0-9]+)']);
+
+            //Testimonial
+            Route::prefix('testimonials')->name('testimonials.')->group(function () {
+                Route::patch('{testimonial}/restore', [SurveyController::class, 'restore'])->name('restore');
+                Route::get('export', [SurveyController::class, 'export'])->name('export');
+            });
+            Route::resource('testimonials', SurveyController::class)->where(['testimonial' => '([0-9]+)']);
+        });
+
+        //Resume
+        Route::get('resume', OrganizationController::class)->name('resume');
+        Route::prefix('resume')->name('resume.')->group(function () {
+            //experience
+            Route::prefix('experiences')->name('experiences.')->group(function () {
+                Route::patch('{experience}/restore', [SurveyController::class, 'restore'])->name('restore');
+                Route::get('export', [SurveyController::class, 'export'])->name('export');
+            });
+            Route::resource('experiences', SurveyController::class)->where(['experience' => '([0-9]+)']);
+
+            //education
+            Route::prefix('educations')->name('educations.')->group(function () {
+                Route::patch('{education}/restore', [SurveyController::class, 'restore'])->name('restore');
+                Route::get('export', [SurveyController::class, 'export'])->name('export');
+            });
+            Route::resource('educations', SurveyController::class)->where(['education' => '([0-9]+)']);
+
+            //award
+            Route::prefix('awards')->name('awards.')->group(function () {
+                Route::patch('{award}/restore', [SurveyController::class, 'restore'])->name('restore');
+                Route::get('export', [SurveyController::class, 'export'])->name('export');
+            });
+            Route::resource('awards', SurveyController::class)->where(['award' => '([0-9]+)']);
+
+            //skill
+            Route::prefix('skills')->name('skills.')->group(function () {
+                Route::patch('{skill}/restore', [SurveyController::class, 'restore'])->name('restore');
+                Route::get('export', [SurveyController::class, 'export'])->name('export');
+            });
+            Route::resource('skills', SurveyController::class)->where(['skill' => '([0-9]+)']);
+
+            //language
+            Route::prefix('languages')->name('languages.')->group(function () {
+                Route::patch('{language}/restore', [SurveyController::class, 'restore'])->name('restore');
+                Route::get('export', [SurveyController::class, 'export'])->name('export');
+            });
+            Route::resource('languages', SurveyController::class)->where(['language' => '([0-9]+)']);
+        });
+
+        //Blog
+        Route::get('blog', OrganizationController::class)->name('blog');
+        Route::prefix('blog')->name('blog.')->group(function () {
+            //Post
+            Route::prefix('posts')->name('posts.')->group(function () {
+                Route::patch('{post}/restore', [SurveyController::class, 'restore'])->name('restore');
+                Route::get('export', [SurveyController::class, 'export'])->name('export');
+            });
+            Route::resource('posts', SurveyController::class)->where(['post' => '([0-9]+)']);
+
+            //Comment
+            Route::prefix('comments')->name('comments.')->group(function () {
+                Route::patch('{comment}/restore', [SurveyController::class, 'restore'])->name('restore');
+                Route::get('export', [SurveyController::class, 'export'])->name('export');
+            });
+            Route::resource('comments', SurveyController::class)->where(['comment' => '([0-9]+)']);
+
+            //Newsletter
+            Route::prefix('newsletters')->name('newsletters.')->group(function () {
+                Route::patch('{newsletter}/restore', [SurveyController::class, 'restore'])->name('restore');
+                Route::get('export', [SurveyController::class, 'export'])->name('export');
+            });
+            Route::resource('newsletters', SurveyController::class)->where(['newsletter' => '([0-9]+)']);
         });
 
         //Setting

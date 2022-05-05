@@ -3,16 +3,9 @@
 namespace Database\Seeders;
 
 use Database\Seeders\Backend\AdminRegisterSeeder;
-use Database\Seeders\Backend\Organization\SurveySeeder;
 use Database\Seeders\Backend\SARegisterSeeder;
-use Database\Seeders\Backend\Setting\BoardSeeder;
 use Database\Seeders\Backend\Setting\CitySeeder;
 use Database\Seeders\Backend\Setting\CountrySeeder;
-use Database\Seeders\Backend\Setting\ExamGroupSeeder;
-use Database\Seeders\Backend\Setting\ExamLevelSeeder;
-use Database\Seeders\Backend\Setting\ExamTitleSeeder;
-use Database\Seeders\Backend\Setting\GenderSeeder;
-use Database\Seeders\Backend\Setting\InstituteSeeder;
 use Database\Seeders\Backend\Setting\PermissionSeeder;
 use Database\Seeders\Backend\Setting\RolePermissionSeeder;
 use Database\Seeders\Backend\Setting\RoleSeeder;
@@ -37,14 +30,6 @@ class DatabaseSeeder extends Seeder
         $this->call(PermissionSeeder::class);
         $this->call(RoleSeeder::class);
         $this->call(RolePermissionSeeder::class);
-        /*$this->call(UserSeeder::class);*/
-        $this->call(GenderSeeder::class);
-        $this->call(BoardSeeder::class);
-        $this->call(ExamLevelSeeder::class);
-        $this->call(ExamTitleSeeder::class);
-        $this->call(ExamGroupSeeder::class);
-        $this->call(InstituteSeeder::class);
-        $this->call(SurveySeeder::class);
         $this->call(SARegisterSeeder::class);
         $this->call(AdminRegisterSeeder::class);
         Model::reguard();
