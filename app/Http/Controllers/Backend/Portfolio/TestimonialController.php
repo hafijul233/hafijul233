@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Backend\Portfolio;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Backend\Organization\SurveyRequest;
 use App\Services\Auth\AuthenticatedSessionService;
-use App\Services\Backend\Portfolio\CommentService;
+use App\Services\Backend\Portfolio\TestimonialService;
 use App\Supports\Utility;
 use Exception;
 use Illuminate\Contracts\Foundation\Application;
@@ -28,22 +28,22 @@ class TestimonialController extends Controller
     private $authenticatedSessionService;
 
     /**
-     * @var CommentService
+     * @var TestimonialService
      */
-    private $surveyService;
+    private $testimonialService;
 
     /**
      * CommentController Constructor
      *
      * @param AuthenticatedSessionService $authenticatedSessionService
-     * @param CommentService $surveyService
+     * @param TestimonialService $testimonialService
      */
     public function __construct(AuthenticatedSessionService $authenticatedSessionService,
-                                CommentService $surveyService)
+                                TestimonialService $testimonialService)
     {
 
         $this->authenticatedSessionService = $authenticatedSessionService;
-        $this->surveyService = $surveyService;
+        $this->testimonialService = $testimonialService;
     }
 
     /**
@@ -56,10 +56,10 @@ class TestimonialController extends Controller
     public function index(Request $request)
     {
         $filters = $request->except('page');
-        $surveys = $this->surveyService->surveyPaginate($filters);
+        $testimonials = $this->testimonialService->testimonialPaginate($filters);
 
         return view('backend.portfolio.service.index', [
-            'surveys' => $surveys
+            'testimonials' => $testimonials
         ]);
     }
 
@@ -82,10 +82,10 @@ class TestimonialController extends Controller
      */
     public function store(SurveyRequest $request): RedirectResponse
     {
-        $confirm = $this->surveyService->storeSurvey($request->except('_token'));
+        $confirm = $this->testimonialService->storeSurvey($request->except('_token'));
         if ($confirm['status'] == true) {
             notify($confirm['message'], $confirm['level'], $confirm['title']);
-            return redirect()->route('backend.portfolio.surveys.index');
+            return redirect()->route('backend.portfolio.testimonials.index');
         }
 
         notify($confirm['message'], $confirm['level'], $confirm['title']);
@@ -101,10 +101,10 @@ class TestimonialController extends Controller
      */
     public function show($id)
     {
-        if ($survey = $this->surveyService->getSurveyById($id)) {
+        if ($testimonial = $this->testimonialService->getSurveyById($id)) {
             return view('backend.portfolio.service.show', [
-                'service' => $survey,
-                'timeline' => Utility::modelAudits($survey)
+                'service' => $testimonial,
+                'timeline' => Utility::modelAudits($testimonial)
             ]);
         }
 
@@ -120,9 +120,9 @@ class TestimonialController extends Controller
      */
     public function edit($id)
     {
-        if ($survey = $this->surveyService->getSurveyById($id)) {
+        if ($testimonial = $this->testimonialService->getSurveyById($id)) {
             return view('backend.portfolio.service.edit', [
-                'service' => $survey
+                'service' => $testimonial
             ]);
         }
 
@@ -139,11 +139,11 @@ class TestimonialController extends Controller
      */
     public function update(SurveyRequest $request, $id): RedirectResponse
     {
-        $confirm = $this->surveyService->updateSurvey($request->except('_token', 'submit', '_method'), $id);
+        $confirm = $this->testimonialService->updateSurvey($request->except('_token', 'submit', '_method'), $id);
 
         if ($confirm['status'] == true) {
             notify($confirm['message'], $confirm['level'], $confirm['title']);
-            return redirect()->route('backend.portfolio.surveys.index');
+            return redirect()->route('backend.portfolio.testimonials.index');
         }
 
         notify($confirm['message'], $confirm['level'], $confirm['title']);
@@ -162,14 +162,14 @@ class TestimonialController extends Controller
     {
         if ($this->authenticatedSessionService->validate($request)) {
 
-            $confirm = $this->surveyService->destroySurvey($id);
+            $confirm = $this->testimonialService->destroySurvey($id);
 
             if ($confirm['status'] == true) {
                 notify($confirm['message'], $confirm['level'], $confirm['title']);
             } else {
                 notify($confirm['message'], $confirm['level'], $confirm['title']);
             }
-            return redirect()->route('backend.portfolio.surveys.index');
+            return redirect()->route('backend.portfolio.testimonials.index');
         }
         abort(403, 'Wrong user credentials');
     }
@@ -186,14 +186,14 @@ class TestimonialController extends Controller
     {
         if ($this->authenticatedSessionService->validate($request)) {
 
-            $confirm = $this->surveyService->restoreSurvey($id);
+            $confirm = $this->testimonialService->restoreSurvey($id);
 
             if ($confirm['status'] == true) {
                 notify($confirm['message'], $confirm['level'], $confirm['title']);
             } else {
                 notify($confirm['message'], $confirm['level'], $confirm['title']);
             }
-            return redirect()->route('backend.portfolio.surveys.index');
+            return redirect()->route('backend.portfolio.testimonials.index');
         }
         abort(403, 'Wrong user credentials');
     }
@@ -208,12 +208,12 @@ class TestimonialController extends Controller
     {
         $filters = $request->except('page');
 
-        $surveyExport = $this->surveyService->exportSurvey($filters);
+        $testimonialExport = $this->testimonialService->exportSurvey($filters);
 
         $filename = 'Comment-' . date('Ymd-His') . '.' . ($filters['format'] ?? 'xlsx');
 
-        return $surveyExport->download($filename, function ($survey) use ($surveyExport) {
-            return $surveyExport->map($survey);
+        return $testimonialExport->download($filename, function ($testimonial) use ($testimonialExport) {
+            return $testimonialExport->map($testimonial);
         });
 
     }
@@ -225,7 +225,7 @@ class TestimonialController extends Controller
      */
     public function import()
     {
-        return view('backend.portfolio.surveyimport');
+        return view('backend.portfolio.testimonialimport');
     }
 
     /**
@@ -237,10 +237,10 @@ class TestimonialController extends Controller
     public function importBulk(Request $request)
     {
         $filters = $request->except('page');
-        $surveys = $this->surveyService->getAllSurveys($filters);
+        $testimonials = $this->testimonialService->getAllSurveys($filters);
 
-        return view('backend.portfolio.surveyindex', [
-            'surveys' => $surveys
+        return view('backend.portfolio.testimonialindex', [
+            'testimonials' => $testimonials
         ]);
     }
 
@@ -254,12 +254,12 @@ class TestimonialController extends Controller
     {
         $filters = $request->except('page');
 
-        $surveyExport = $this->surveyService->exportSurvey($filters);
+        $testimonialExport = $this->testimonialService->exportSurvey($filters);
 
         $filename = 'Comment-' . date('Ymd-His') . '.' . ($filters['format'] ?? 'xlsx');
 
-        return $surveyExport->download($filename, function ($survey) use ($surveyExport) {
-            return $surveyExport->map($survey);
+        return $testimonialExport->download($filename, function ($testimonial) use ($testimonialExport) {
+            return $testimonialExport->map($testimonial);
         });
 
     }

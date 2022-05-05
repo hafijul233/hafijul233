@@ -25,7 +25,7 @@ class Testimonial extends Model implements Auditable
     /**
      * @var string $table
      */
-    protected $table = 'enumerators';
+    protected $table = 'testimonials';
 
     /**
      * @var string $primaryKey

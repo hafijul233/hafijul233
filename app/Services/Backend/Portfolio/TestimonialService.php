@@ -3,9 +3,9 @@
 namespace App\Services\Backend\Portfolio;
 
 use App\Abstracts\Service\Service;
-use App\Exports\Backend\Organization\EnumeratorExport;
-use App\Models\Backend\Portfolio\Post;
-use App\Repositories\Eloquent\Backend\Portfolio\ServiceRepository;
+use App\Exports\Backend\Organization\TestimonialExport;
+use App\Models\Backend\Portfolio\Testimonial;
+use App\Repositories\Eloquent\Backend\Portfolio\TestimonialRepository;
 use App\Repositories\Eloquent\Backend\Setting\ExamLevelRepository;
 use App\Supports\Constant;
 use Exception;
@@ -16,103 +16,96 @@ use Illuminate\Support\Facades\DB;
 use Throwable;
 
 /**
- * @class PostService
+ * @class TestimonialService
  * @package App\Services\Backend\Portfolio
  */
 class TestimonialService extends Service
 {
     /**
-     * @var ServiceRepository
+     * @var TestimonialRepository
      */
-    private $enumeratorRepository;
-    /**
-     * @var ExamLevelRepository
-     */
-    private $examLevelRepository;
+    private $testimonialRepository;
 
     /**
-     * PostService constructor.
-     * @param ServiceRepository $enumeratorRepository
-     * @param ExamLevelRepository $examLevelRepository
+     * TestimonialService constructor.
+     * @param TestimonialRepository $testimonialRepository
      */
-    public function __construct(ServiceRepository $enumeratorRepository,
-                                ExamLevelRepository $examLevelRepository)
+    public function __construct(TestimonialRepository $testimonialRepository)
     {
-        $this->enumeratorRepository = $enumeratorRepository;
-        $this->enumeratorRepository->itemsPerPage = 10;
-        $this->examLevelRepository = $examLevelRepository;
+        $this->testimonialRepository = $testimonialRepository;
+        $this->testimonialRepository->itemsPerPage = 10;
     }
 
     /**
-     * Get All Post models as collection
+     * Get All Testimonial models as collection
      *
      * @param array $filters
      * @param array $eagerRelations
      * @return Builder[]|Collection
      * @throws Exception
      */
-    public function getAllEnumerators(array $filters = [], array $eagerRelations = [])
+    public function getAllTestimonials(array $filters = [], array $eagerRelations = [])
     {
-        return $this->enumeratorRepository->getWith($filters, $eagerRelations, true);
+        return $this->testimonialRepository->getWith($filters, $eagerRelations, true);
     }
 
     /**
-     * Create Post Model Pagination
+     * Create Testimonial Model Pagination
      *
      * @param array $filters
      * @param array $eagerRelations
      * @return LengthAwarePaginator
      * @throws Exception
      */
-    public function enumeratorPaginate(array $filters = [], array $eagerRelations = []): LengthAwarePaginator
+    public function testimonialPaginate(array $filters = [], array $eagerRelations = []): LengthAwarePaginator
     {
-        return $this->enumeratorRepository->paginateWith($filters, $eagerRelations, true);
+        return $this->testimonialRepository->paginateWith($filters, $eagerRelations, true);
     }
 
     /**
-     * Show Post Model
+     * Show Testimonial Model
      *
      * @param int $id
      * @param bool $purge
      * @return mixed
      * @throws Exception
      */
-    public function getEnumeratorById($id, bool $purge = false)
+    public function getTestimonialById($id, bool $purge = false)
     {
-        return $this->enumeratorRepository->show($id, $purge);
+        return $this->testimonialRepository->show($id, $purge);
     }
 
     /**
-     * Save Post Model
+     * Save Testimonial Model
      *
      * @param array $inputs
      * @return array
      * @throws Exception
      * @throws Throwable
      */
-    public function storeEnumerator(array $inputs): array
+    public function storeTestimonial(array $inputs): array
     {
-        $newEnumeratorInfo = $this->formatEnumeratorInfo($inputs);
+        $newTestimonialInfo = $this->formatTestimonialInfo($inputs);
         DB::beginTransaction();
         try {
-            $newEnumerator = $this->enumeratorRepository->create($newEnumeratorInfo);
-            if ($newEnumerator instanceof Post) {
+            $newTestimonial = $this->testimonialRepository->create($newTestimonialInfo);
+            if ($newTestimonial instanceof Testimonial) {
                 //handling Comment List
-                $newEnumerator->surveys()->attach($inputs['survey_id']);
-                $newEnumerator->previousPostings()->attach($inputs['prev_post_state_id']);
-                $newEnumerator->futurePostings()->attach($inputs['future_post_state_id']);
-                $newEnumerator->save();
+                $newTestimonial->surveys()->attach($inputs['survey_id']);
+                $newTestimonial->previousTestimonialings()->attach($inputs['prev_post_state_id']);
+                $newTestimonial->futureTestimonialings()->attach($inputs['future_post_state_id']);
+                $newTestimonial->save();
 
                 DB::commit();
-                return ['status' => true, 'message' => __('New Post Created'),
+                return ['status' => true, 'message' => __('New Testimonial Created'),
                     'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
             } else {
                 DB::rollBack();
-                return ['status' => false, 'message' => __('New Post Creation Failed'),
+                return ['status' => false, 'message' => __('New Testimonial Creation Failed'),
                     'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!'];
             }
         } catch (Exception $exception) {
-            $this->enumeratorRepository->handleException($exception);
+            $this->testimonialRepository->handleException($exception);
             DB::rollBack();
             return ['status' => false, 'message' => $exception->getMessage(),
                 'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Error!'];
@@ -125,40 +118,40 @@ class TestimonialService extends Service
      * @param array $inputs
      * @return array
      */
-    private function formatEnumeratorInfo(array $inputs)
+    private function formatTestimonialInfo(array $inputs)
     {
-        $enumeratorInfo = [];
-        $enumeratorInfo["survey_id"] = null;
-        $enumeratorInfo["gender_id"] = $inputs['gender_id'] ?? null;
-        $enumeratorInfo["dob"] = $inputs['dob'] ?? null;
-        $enumeratorInfo["name"] = $inputs["name"] ?? null;
-        $enumeratorInfo["name_bd"] = $inputs["name_bd"] ?? null;
-        $enumeratorInfo["father"] = $inputs["father"] ?? null;
-        $enumeratorInfo["father_bd"] = $inputs["father_bd"] ?? null;
-        $enumeratorInfo["mother"] = $inputs["mother"] ?? null;
-        $enumeratorInfo["mother_bd"] = $inputs["mother_bd"] ?? null;
-        $enumeratorInfo["nid"] = $inputs["nid"] ?? null;
-        $enumeratorInfo["mobile_1"] = $inputs["mobile_1"] ?? null;
-        $enumeratorInfo["mobile_2"] = $inputs["mobile_2"] ?? null;
-        $enumeratorInfo["email"] = $inputs["email"] ?? null;
-        $enumeratorInfo["present_address"] = $inputs["present_address"] ?? null;
-        $enumeratorInfo["present_address_bd"] = $inputs["present_address_bd"] ?? null;
-        $enumeratorInfo["permanent_address"] = $inputs["permanent_address"] ?? null;
-        $enumeratorInfo["permanent_address_bd"] = $inputs["permanent_address_bd"] ?? null;
-        $enumeratorInfo["exam_level"] = $inputs["exam_level"] ?? null;
-        $enumeratorInfo["whatsapp"] = $inputs["whatsapp"] ?? null;
-        $enumeratorInfo["facebook"] = $inputs["facebook"] ?? null;
+        $testimonialInfo = [];
+        $testimonialInfo["survey_id"] = null;
+        $testimonialInfo["gender_id"] = $inputs['gender_id'] ?? null;
+        $testimonialInfo["dob"] = $inputs['dob'] ?? null;
+        $testimonialInfo["name"] = $inputs["name"] ?? null;
+        $testimonialInfo["name_bd"] = $inputs["name_bd"] ?? null;
+        $testimonialInfo["father"] = $inputs["father"] ?? null;
+        $testimonialInfo["father_bd"] = $inputs["father_bd"] ?? null;
+        $testimonialInfo["mother"] = $inputs["mother"] ?? null;
+        $testimonialInfo["mother_bd"] = $inputs["mother_bd"] ?? null;
+        $testimonialInfo["nid"] = $inputs["nid"] ?? null;
+        $testimonialInfo["mobile_1"] = $inputs["mobile_1"] ?? null;
+        $testimonialInfo["mobile_2"] = $inputs["mobile_2"] ?? null;
+        $testimonialInfo["email"] = $inputs["email"] ?? null;
+        $testimonialInfo["present_address"] = $inputs["present_address"] ?? null;
+        $testimonialInfo["present_address_bd"] = $inputs["present_address_bd"] ?? null;
+        $testimonialInfo["permanent_address"] = $inputs["permanent_address"] ?? null;
+        $testimonialInfo["permanent_address_bd"] = $inputs["permanent_address_bd"] ?? null;
+        $testimonialInfo["exam_level"] = $inputs["exam_level"] ?? null;
+        $testimonialInfo["whatsapp"] = $inputs["whatsapp"] ?? null;
+        $testimonialInfo["facebook"] = $inputs["facebook"] ?? null;
 
-        $enumeratorInfo["is_employee"] = $inputs["is_employee"] ?? 'no';
-        $enumeratorInfo["designation"] = null;
-        $enumeratorInfo["company"] = null;
+        $testimonialInfo["is_employee"] = $inputs["is_employee"] ?? 'no';
+        $testimonialInfo["designation"] = null;
+        $testimonialInfo["company"] = null;
 
-        if ($enumeratorInfo["is_employee"] == 'yes') {
-            $enumeratorInfo["designation"] = $inputs['designation'] ?? null;
-            $enumeratorInfo["company"] = $inputs['company'] ?? null;
+        if ($testimonialInfo["is_employee"] == 'yes') {
+            $testimonialInfo["designation"] = $inputs['designation'] ?? null;
+            $testimonialInfo["company"] = $inputs['company'] ?? null;
         }
 
-        return $enumeratorInfo;
+        return $testimonialInfo;
     }
 
     /**
@@ -215,40 +208,40 @@ class TestimonialService extends Service
     }
 
     /**
-     * Update Post Model
+     * Update Testimonial Model
      *
      * @param array $inputs
      * @param $id
      * @return array
      * @throws Throwable
      */
-    public function updateEnumerator(array $inputs, $id): array
+    public function updateTestimonial(array $inputs, $id): array
     {
-        $newEnumeratorInfo = $this->formatEnumeratorInfo($inputs);
+        $newTestimonialInfo = $this->formatTestimonialInfo($inputs);
         DB::beginTransaction();
         try {
-            $enumerator = $this->enumeratorRepository->show($id);
-            if ($enumerator instanceof Post) {
-                if ($this->enumeratorRepository->update($newEnumeratorInfo, $id)) {
+            $testimonial = $this->testimonialRepository->show($id);
+            if ($testimonial instanceof Testimonial) {
+                if ($this->testimonialRepository->update($newTestimonialInfo, $id)) {
                     //handling Comment List
-                    $enumerator->surveys()->sync($inputs['survey_id']);
-                    $enumerator->previousPostings()->sync($inputs['prev_post_state_id']);
-                    $enumerator->futurePostings()->sync($inputs['future_post_state_id']);
-                    $enumerator->save();
+                    $testimonial->surveys()->sync($inputs['survey_id']);
+                    $testimonial->previousTestimonialings()->sync($inputs['prev_post_state_id']);
+                    $testimonial->futureTestimonialings()->sync($inputs['future_post_state_id']);
+                    $testimonial->save();
                     DB::commit();
-                    return ['status' => true, 'message' => __('Post Info Updated'),
+                    return ['status' => true, 'message' => __('Testimonial Info Updated'),
                         'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
                 } else {
                     DB::rollBack();
-                    return ['status' => false, 'message' => __('Post Info Update Failed'),
+                    return ['status' => false, 'message' => __('Testimonial Info Update Failed'),
                         'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!'];
                 }
             } else {
-                return ['status' => false, 'message' => __('Post Model Not Found'),
+                return ['status' => false, 'message' => __('Testimonial Model Not Found'),
                     'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Alert!'];
             }
         } catch (Exception $exception) {
-            $this->enumeratorRepository->handleException($exception);
+            $this->testimonialRepository->handleException($exception);
             DB::rollBack();
             return ['status' => false, 'message' => $exception->getMessage(),
                 'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Error!'];
@@ -256,28 +249,28 @@ class TestimonialService extends Service
     }
 
     /**
-     * Destroy Post Model
+     * Destroy Testimonial Model
      *
      * @param $id
      * @return array
      * @throws Throwable
      */
-    public function destroyEnumerator($id): array
+    public function destroyTestimonial($id): array
     {
         DB::beginTransaction();
         try {
-            if ($this->enumeratorRepository->delete($id)) {
+            if ($this->testimonialRepository->delete($id)) {
                 DB::commit();
-                return ['status' => true, 'message' => __('Post is Trashed'),
+                return ['status' => true, 'message' => __('Testimonial is Trashed'),
                     'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
 
             } else {
                 DB::rollBack();
-                return ['status' => false, 'message' => __('Post is Delete Failed'),
+                return ['status' => false, 'message' => __('Testimonial is Delete Failed'),
                     'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!'];
             }
         } catch (Exception $exception) {
-            $this->enumeratorRepository->handleException($exception);
+            $this->testimonialRepository->handleException($exception);
             DB::rollBack();
             return ['status' => false, 'message' => $exception->getMessage(),
                 'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Error!'];
@@ -285,28 +278,28 @@ class TestimonialService extends Service
     }
 
     /**
-     * Restore Post Model
+     * Restore Testimonial Model
      *
      * @param $id
      * @return array
      * @throws Throwable
      */
-    public function restoreEnumerator($id): array
+    public function restoreTestimonial($id): array
     {
         DB::beginTransaction();
         try {
-            if ($this->enumeratorRepository->restore($id)) {
+            if ($this->testimonialRepository->restore($id)) {
                 DB::commit();
-                return ['status' => true, 'message' => __('Post is Restored'),
+                return ['status' => true, 'message' => __('Testimonial is Restored'),
                     'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
 
             } else {
                 DB::rollBack();
-                return ['status' => false, 'message' => __('Post is Restoration Failed'),
+                return ['status' => false, 'message' => __('Testimonial is Restoration Failed'),
                     'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!'];
             }
         } catch (Exception $exception) {
-            $this->enumeratorRepository->handleException($exception);
+            $this->testimonialRepository->handleException($exception);
             DB::rollBack();
             return ['status' => false, 'message' => $exception->getMessage(),
                 'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Error!'];
@@ -317,11 +310,11 @@ class TestimonialService extends Service
      * Export Object for Export Download
      *
      * @param array $filters
-     * @return EnumeratorExport
+     * @return TestimonialExport
      * @throws Exception
      */
-    public function exportEnumerator(array $filters = []): EnumeratorExport
+    public function exportTestimonial(array $filters = []): TestimonialExport
     {
-        return (new EnumeratorExport($this->enumeratorRepository->getWith($filters)));
+        return (new TestimonialExport($this->testimonialRepository->getWith($filters)));
     }
 }

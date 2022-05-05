@@ -3,7 +3,7 @@
 namespace App\Repositories\Eloquent\Backend\Portfolio;
 
 use App\Abstracts\Repository\EloquentRepository;
-use App\Models\Backend\Portfolio\Post;
+use App\Models\Backend\Portfolio\Testimonial;
 use App\Services\Auth\AuthenticatedSessionService;
 use Exception;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
@@ -11,20 +11,20 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 
 /**
- * @class PostRepository
+ * @class TestimonialRepository
  * @package App\Repositories\Eloquent\Backend\Portfolio
  */
 class TestimonialRepository extends EloquentRepository
 {
     /**
-     * PostRepository constructor.
+     * TestimonialRepository constructor.
      */
     public function __construct()
     {
         /**
          * Set the model that will be used for repo
          */
-        parent::__construct(new Post);
+        parent::__construct(new Testimonial);
     }
 
     /**
