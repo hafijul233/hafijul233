@@ -15,9 +15,9 @@ return [
     'Home' => 'Home',
     'Backend' => 'Backend',
     'Dashboard' => 'Dashboard',
-    'Address Book' => 'Address Book',
-    'Organization' => 'Organization',
-    'Enumerators' => 'Enumerators',
+    'Portfolio' => 'Portfolio',
+    'Resume' => 'Resume',
+    'Blog' => 'Blog',
     'Users' => 'Users',
     'Roles' => 'Roles',
     'Permissions' => 'Permissions',
@@ -26,5 +26,18 @@ return [
     'States' => 'States',
     'Cities' => 'Cities',
     'Settings' => 'Settings',
-    'Surveys' => 'Surveys'
+    'Services' => 'Services',
+    'Projects' => 'Projects',
+    'Testimonials' => 'Testimonials',
+    'Certificates' => 'Certificates',
+    'Experiences' => 'Experiences',
+    'Educations' => 'Educations',
+    'Awards' => 'Awards',
+    'Skills' => 'Skills',
+    'Languages' => 'Languages',
+    'Posts' => 'Posts',
+    'Comments' => 'Comments',
+    'Newsletters' => 'Newsletters'
+
+
 ];

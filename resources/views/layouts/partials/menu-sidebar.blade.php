@@ -35,43 +35,174 @@
                         </a>
                     </li>
                 @endcan
-                @can('backend.organization.enumerators.create')
-                    <li class="nav-item">
-                        <a href="{{ route('backend.applicants.create') }}"
-                           class="nav-link @if(\Route::is('backend.applicants.create')) active @endif">
-                            <i class="fas fa-user-plus nav-icon"></i>
-                            <p>{!! __('enumerator.Add Enumerator') !!}</p>
-                        </a>
-                    </li>
-                @endcan
 
-                @canany(['backend.organization.surveys.index', 'backend.organization.enumerators.index'])
-                    <li class="nav-item @if(\Route::is('backend.organization.*')) menu-open @endif">
-                        <a href="#" class="nav-link @if(\Route::is('backend.organization.*')) active @endif">
-                            <i class="nav-icon fas fa-building"></i>
-                            <p> {!! __('menu-sidebar.Organization') !!}
+                @canany([
+    'backend.portfolio.services.index',
+    'backend.portfolio.certificates.index',
+    'backend.portfolio.projects.index',
+    'backend.portfolio.testimonials.index'])
+                    <li class="nav-item @if(\Route::is('backend.portfolio.*')) menu-open @endif">
+                        <a href="#" class="nav-link @if(\Route::is('backend.portfolio.*')) active @endif">
+                            <i class="nav-icon fas fa-portrait"></i>
+                            <p> {!! __('menu-sidebar.Portfolio') !!}
                                 <i class="right fas fa-angle-left"></i>
                             </p>
                         </a>
                         <ul class="nav nav-treeview"
-                            @if(\Route::is('backend.organization.*')) style="display: block;" @endif>
+                            @if(\Route::is('backend.portfolio.*')) style="display: block;" @endif>
 
-                            @can('backend.organization.surveys.index')
+                            @can('backend.portfolio.services.index')
                                 <li class="nav-item">
-                                    <a href="{{ route('backend.organization.surveys.index') }}"
-                                       class="nav-link @if(\Route::is('backend.organization.surveys.*')) active @endif">
-                                        <i class="fas fa-address-card nav-icon"></i>
-                                        <p>{!! __('menu-sidebar.Surveys') !!}</p>
+                                    <a href="{{ route('backend.portfolio.services.index') }}"
+                                       class="nav-link @if(\Route::is('backend.portfolio.services.*')) active @endif">
+                                        <i class="fas fa-circle-notch nav-icon"></i>
+                                        <p>{!! __('menu-sidebar.Services') !!}</p>
                                     </a>
                                 </li>
                             @endcan
 
-                            @can('backend.organization.enumerators.index')
+                            @can('backend.portfolio.certificates.index')
                                 <li class="nav-item">
-                                    <a href="{{ route('backend.organization.enumerators.index') }}"
-                                       class="nav-link @if(\Route::is('backend.organization.enumerators.*')) active @endif">
-                                        <i class="fas fa-address-card nav-icon"></i>
-                                        <p>{!! __('menu-sidebar.Enumerators') !!}</p>
+                                    <a href="{{ route('backend.portfolio.certificates.index') }}"
+                                       class="nav-link @if(\Route::is('backend.portfolio.certificates.*')) active @endif">
+                                        <i class="fas fa-circle-notch nav-icon"></i>
+                                        <p>{!! __('menu-sidebar.Certificates') !!}</p>
+                                    </a>
+                                </li>
+                            @endcan
+
+                            @can('backend.portfolio.projects.index')
+                                <li class="nav-item">
+                                    <a href="{{ route('backend.portfolio.projects.index') }}"
+                                       class="nav-link @if(\Route::is('backend.portfolio.projects.*')) active @endif">
+                                        <i class="fas fa-circle-notch nav-icon"></i>
+                                        <p>{!! __('menu-sidebar.Projects') !!}</p>
+                                    </a>
+                                </li>
+                            @endcan
+
+                            @can('backend.portfolio.testimonials.index')
+                                <li class="nav-item">
+                                    <a href="{{ route('backend.portfolio.testimonials.index') }}"
+                                       class="nav-link @if(\Route::is('backend.portfolio.testimonials.*')) active @endif">
+                                        <i class="fas fa-circle-notch nav-icon"></i>
+                                        <p>{!! __('menu-sidebar.Testimonials') !!}</p>
+                                    </a>
+                                </li>
+                            @endcan
+                        </ul>
+                    </li>
+                @endcanany
+
+                @canany([
+    'backend.resume.experiences.index',
+    'backend.resume.educations.index',
+    'backend.resume.awards.index',
+    'backend.resume.skills.index',
+    'backend.resume.languages.index'])
+                    <li class="nav-item @if(\Route::is('backend.resume.*')) menu-open @endif">
+                        <a href="#" class="nav-link @if(\Route::is('backend.resume.*')) active @endif">
+                            <i class="nav-icon fas fa-user-tie"></i>
+                            <p> {!! __('menu-sidebar.Resume') !!}
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview"
+                            @if(\Route::is('backend.resume.*')) style="display: block;" @endif>
+
+                            @can('backend.resume.experiences.index')
+                                <li class="nav-item">
+                                    <a href="{{ route('backend.resume.experiences.index') }}"
+                                       class="nav-link @if(\Route::is('backend.resume.experiences.*')) active @endif">
+                                        <i class="fas fa-circle-notch nav-icon"></i>
+                                        <p>{!! __('menu-sidebar.Experiences') !!}</p>
+                                    </a>
+                                </li>
+                            @endcan
+
+                            @can('backend.resume.educations.index')
+                                <li class="nav-item">
+                                    <a href="{{ route('backend.resume.educations.index') }}"
+                                       class="nav-link @if(\Route::is('backend.resume.educations.*')) active @endif">
+                                        <i class="fas fa-circle-notch nav-icon"></i>
+                                        <p>{!! __('menu-sidebar.Educations') !!}</p>
+                                    </a>
+                                </li>
+                            @endcan
+
+                            @can('backend.resume.awards.index')
+                                <li class="nav-item">
+                                    <a href="{{ route('backend.resume.awards.index') }}"
+                                       class="nav-link @if(\Route::is('backend.resume.awards.*')) active @endif">
+                                        <i class="fas fa-circle-notch nav-icon"></i>
+                                        <p>{!! __('menu-sidebar.Awards') !!}</p>
+                                    </a>
+                                </li>
+                            @endcan
+
+                            @can('backend.resume.skills.index')
+                                <li class="nav-item">
+                                    <a href="{{ route('backend.resume.skills.index') }}"
+                                       class="nav-link @if(\Route::is('backend.resume.skills.*')) active @endif">
+                                        <i class="fas fa-circle-notch nav-icon"></i>
+                                        <p>{!! __('menu-sidebar.Skills') !!}</p>
+                                    </a>
+                                </li>
+                            @endcan
+
+                            @can('backend.resume.languages.index')
+                                <li class="nav-item">
+                                    <a href="{{ route('backend.resume.languages.index') }}"
+                                       class="nav-link @if(\Route::is('backend.resume.languages.*')) active @endif">
+                                        <i class="fas fa-circle-notch nav-icon"></i>
+                                        <p>{!! __('menu-sidebar.Languages') !!}</p>
+                                    </a>
+                                </li>
+                            @endcan
+                        </ul>
+                    </li>
+                @endcanany
+
+                @canany([
+    'backend.blog.posts.index',
+    'backend.blog.comments.index',
+    'backend.blog.newsletters.index'])
+                    <li class="nav-item @if(\Route::is('backend.blog.*')) menu-open @endif">
+                        <a href="#" class="nav-link @if(\Route::is('backend.blog.*')) active @endif">
+                            <i class="nav-icon fas fa-blog"></i>
+                            <p> {!! __('menu-sidebar.Blog') !!}
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview"
+                            @if(\Route::is('backend.blog.*')) style="display: block;" @endif>
+
+                            @can('backend.blog.posts.index')
+                                <li class="nav-item">
+                                    <a href="{{ route('backend.blog.posts.index') }}"
+                                       class="nav-link @if(\Route::is('backend.blog.posts.*')) active @endif">
+                                        <i class="fas fa-circle-notch nav-icon"></i>
+                                        <p>{!! __('menu-sidebar.Posts') !!}</p>
+                                    </a>
+                                </li>
+                            @endcan
+
+                            @can('backend.blog.comments.index')
+                                <li class="nav-item">
+                                    <a href="{{ route('backend.blog.comments.index') }}"
+                                       class="nav-link @if(\Route::is('backend.blog.comments.*')) active @endif">
+                                        <i class="fas fa-circle-notch nav-icon"></i>
+                                        <p>{!! __('menu-sidebar.Comments') !!}</p>
+                                    </a>
+                                </li>
+                            @endcan
+
+                            @can('backend.blog.newsletters.index')
+                                <li class="nav-item">
+                                    <a href="{{ route('backend.blog.newsletters.index') }}"
+                                       class="nav-link @if(\Route::is('backend.blog.newsletters.*')) active @endif">
+                                        <i class="fas fa-circle-notch nav-icon"></i>
+                                        <p>{!! __('menu-sidebar.Newsletters') !!}</p>
                                     </a>
                                 </li>
                             @endcan
@@ -94,6 +225,7 @@
                         </a>
                         <ul class="nav nav-treeview"
                             @if(\Route::is('backend.settings.*')) style="display: block;" @endif>
+
                             @can('backend.settings.users.index')
                                 <li class="nav-item">
                                     <a href="{{ route('backend.settings.users.index') }}"
@@ -108,13 +240,13 @@
                                 <li class="nav-item">
                                     <a href="{{ route('backend.settings.roles.index') }}"
                                        class="nav-link @if(\Route::is('backend.settings.roles.*')) active @endif">
-                                        <i class="fas fa-address-card nav-icon"></i>
+                                        <i class="fas fa-circle-notch nav-icon"></i>
                                         <p>{!! __('menu-sidebar.Roles') !!}</p>
                                     </a>
                                 </li>
                             @endcan
 
-                            {{--@can('backend.settings.permissions.index')
+                            @can('backend.settings.permissions.index')
                                 <li class="nav-item">
                                     <a href="{{ route('backend.settings.permissions.index') }}"
                                        class="nav-link @if(\Route::is('backend.settings.permissions.*')) active @endif">
@@ -122,7 +254,7 @@
                                         <p>{!! __('menu-sidebar.Permissions') !!}</p>
                                     </a>
                                 </li>
-                            @endcan--}}
+                            @endcan
 
                             @can('backend.settings.catalogs.index')
                                 <li class="nav-item">
