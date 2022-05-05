@@ -3,7 +3,7 @@
 namespace App\Repositories\Eloquent\Backend\Portfolio;
 
 use App\Abstracts\Repository\EloquentRepository;
-use App\Models\Backend\Portfolio\Comment;
+use App\Models\Backend\Portfolio\Certificate;
 use App\Services\Auth\AuthenticatedSessionService;
 use Exception;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 
 /**
- * @class CommentRepository
+ * @class CertificateRepository
  * @package App\Repositories\Eloquent\Backend\Portfolio
  */
 class CertificateRepository extends EloquentRepository
@@ -24,7 +24,7 @@ class CertificateRepository extends EloquentRepository
         /**
          * Set the model that will be used for repo
          */
-        parent::__construct(new Comment);
+        parent::__construct(new Certificate);
     }
 
     /**

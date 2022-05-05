@@ -4,7 +4,6 @@ namespace App\Services\Backend\Portfolio;
 
 use App\Abstracts\Service\Service;
 use App\Exports\Backend\Organization\SurveyExport;
-use App\Models\Backend\Portfolio\Comment;
 use App\Repositories\Eloquent\Backend\Portfolio\CertificateRepository;
 use App\Supports\Constant;
 use Exception;
@@ -15,7 +14,7 @@ use Illuminate\Support\Facades\DB;
 use Throwable;
 
 /**
- * @class CommentService
+ * @class CertificateService
  * @package App\Services\Backend\Portfolio
  */
 class CertificateService extends Service
@@ -23,16 +22,16 @@ class CertificateService extends Service
     /**
      * @var CertificateRepository
      */
-    private $surveyRepository;
+    private $certificateRepository;
 
     /**
      * CommentService constructor.
-     * @param CertificateRepository $surveyRepository
+     * @param CertificateRepository $certificateRepository
      */
-    public function __construct(CertificateRepository $surveyRepository)
+    public function __construct(CertificateRepository $certificateRepository)
     {
-        $this->surveyRepository = $surveyRepository;
-        $this->surveyRepository->itemsPerPage = 10;
+        $this->certificateRepository = $certificateRepository;
+        $this->certificateRepository->itemsPerPage = 10;
     }
 
     /**
@@ -45,7 +44,7 @@ class CertificateService extends Service
      */
     public function getAllSurveys(array $filters = [], array $eagerRelations = [])
     {
-        return $this->surveyRepository->getWith($filters, $eagerRelations, true);
+        return $this->certificateRepository->getWith($filters, $eagerRelations, true);
     }
 
     /**
@@ -56,9 +55,9 @@ class CertificateService extends Service
      * @return LengthAwarePaginator
      * @throws Exception
      */
-    public function surveyPaginate(array $filters = [], array $eagerRelations = []): LengthAwarePaginator
+    public function certificatePaginate(array $filters = [], array $eagerRelations = []): LengthAwarePaginator
     {
-        return $this->surveyRepository->paginateWith($filters, $eagerRelations, true);
+        return $this->certificateRepository->paginateWith($filters, $eagerRelations, true);
     }
 
     /**
@@ -71,7 +70,7 @@ class CertificateService extends Service
      */
     public function getSurveyById($id, bool $purge = false)
     {
-        return $this->surveyRepository->show($id, $purge);
+        return $this->certificateRepository->show($id, $purge);
     }
 
     /**
@@ -86,7 +85,7 @@ class CertificateService extends Service
     {
         DB::beginTransaction();
         try {
-            $newSurvey = $this->surveyRepository->create($inputs);
+            $newSurvey = $this->certificateRepository->create($inputs);
             if ($newSurvey instanceof Comment) {
                 DB::commit();
                 return ['status' => true, 'message' => __('New Comment Created'),
@@ -97,7 +96,7 @@ class CertificateService extends Service
                     'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!'];
             }
         } catch (Exception $exception) {
-            $this->surveyRepository->handleException($exception);
+            $this->certificateRepository->handleException($exception);
             DB::rollBack();
             return ['status' => false, 'message' => $exception->getMessage(),
                 'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Error!'];
@@ -116,9 +115,9 @@ class CertificateService extends Service
     {
         DB::beginTransaction();
         try {
-            $survey = $this->surveyRepository->show($id);
-            if ($survey instanceof Comment) {
-                if ($this->surveyRepository->update($inputs, $id)) {
+            $certificate = $this->certificateRepository->show($id);
+            if ($certificate instanceof Comment) {
+                if ($this->certificateRepository->update($inputs, $id)) {
                     DB::commit();
                     return ['status' => true, 'message' => __('Comment Info Updated'),
                         'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
@@ -132,7 +131,7 @@ class CertificateService extends Service
                     'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Alert!'];
             }
         } catch (Exception $exception) {
-            $this->surveyRepository->handleException($exception);
+            $this->certificateRepository->handleException($exception);
             DB::rollBack();
             return ['status' => false, 'message' => $exception->getMessage(),
                 'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Error!'];
@@ -150,7 +149,7 @@ class CertificateService extends Service
     {
         DB::beginTransaction();
         try {
-            if ($this->surveyRepository->delete($id)) {
+            if ($this->certificateRepository->delete($id)) {
                 DB::commit();
                 return ['status' => true, 'message' => __('Comment is Trashed'),
                     'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
@@ -161,7 +160,7 @@ class CertificateService extends Service
                     'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!'];
             }
         } catch (Exception $exception) {
-            $this->surveyRepository->handleException($exception);
+            $this->certificateRepository->handleException($exception);
             DB::rollBack();
             return ['status' => false, 'message' => $exception->getMessage(),
                 'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Error!'];
@@ -179,7 +178,7 @@ class CertificateService extends Service
     {
         DB::beginTransaction();
         try {
-            if ($this->surveyRepository->restore($id)) {
+            if ($this->certificateRepository->restore($id)) {
                 DB::commit();
                 return ['status' => true, 'message' => __('Comment is Restored'),
                     'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
@@ -190,7 +189,7 @@ class CertificateService extends Service
                     'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!'];
             }
         } catch (Exception $exception) {
-            $this->surveyRepository->handleException($exception);
+            $this->certificateRepository->handleException($exception);
             DB::rollBack();
             return ['status' => false, 'message' => $exception->getMessage(),
                 'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Error!'];
@@ -206,7 +205,7 @@ class CertificateService extends Service
      */
     public function exportSurvey(array $filters = []): SurveyExport
     {
-        return (new SurveyExport($this->surveyRepository->getWith($filters)));
+        return (new SurveyExport($this->certificateRepository->getWith($filters)));
     }
 
     /**
@@ -218,11 +217,11 @@ class CertificateService extends Service
      */
     public function getSurveyDropDown(array $filters = [])
     {
-        $surveys = $this->getAllSurveys($filters);
-        $surveyArray = [];
-        foreach ($surveys as $survey)
-            $surveyArray[$survey->id] = $survey->name;
+        $certificates = $this->getAllSurveys($filters);
+        $certificateArray = [];
+        foreach ($certificates as $certificate)
+            $certificateArray[$certificate->id] = $certificate->name;
 
-        return $surveyArray;
+        return $certificateArray;
     }
 }

@@ -25,7 +25,7 @@ class Certificate extends Model implements Auditable
     /**
      * @var string $table
      */
-    protected $table = 'enumerators';
+    protected $table = 'certificates';
 
     /**
      * @var string $primaryKey
