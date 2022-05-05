@@ -6,12 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Backend\Organization\CreateEnumeratorRequest;
 use App\Http\Requests\Backend\Organization\UpdateEnumeratorRequest;
 use App\Services\Auth\AuthenticatedSessionService;
-use App\Services\Backend\Portfolio\PostService;
-use App\Services\Backend\Portfolio\CommentService;
-use App\Services\Backend\Setting\CatalogService;
-use App\Services\Backend\Setting\ExamLevelService;
-use App\Services\Backend\Setting\InstituteService;
-use App\Services\Backend\Setting\StateService;
+use App\Services\Backend\Portfolio\ServiceService;
 use App\Supports\Constant;
 use App\Supports\Utility;
 use Box\Spout\Common\Exception\InvalidArgumentException;
@@ -40,56 +35,22 @@ class ServiceController extends Controller
      * @var AuthenticatedSessionService
      */
     private $authenticatedSessionService;
-
     /**
-     * @var PostService
+     * @var ServiceService
      */
-    private $enumeratorService;
-    /**
-     * @var CommentService
-     */
-    private $surveyService;
-    /**
-     * @var CatalogService
-     */
-    private $catalogService;
-    /**
-     * @var InstituteService
-     */
-    private $instituteService;
-    /**
-     * @var ExamLevelService
-     */
-    private $examLevelService;
-    /**
-     * @var StateService
-     */
-    private $stateService;
+    private ServiceService $serviceService;
 
     /**
      * PostController Constructor
      *
      * @param AuthenticatedSessionService $authenticatedSessionService
-     * @param PostService $enumeratorService
-     * @param CommentService $surveyService
-     * @param CatalogService $catalogService
-     * @param ExamLevelService $examLevelService
-     * @param StateService $stateService
+     * @param ServiceService $serviceService
      */
-    public function __construct(AuthenticatedSessionService $authenticatedSessionService,
-                                PostService $enumeratorService,
-                                CommentService $surveyService,
-                                CatalogService $catalogService,
-                                ExamLevelService $examLevelService,
-                                StateService $stateService)
+    public function __construct(AuthenticatedSessionService $authenticatedSessionService, ServiceService $serviceService)
     {
 
         $this->authenticatedSessionService = $authenticatedSessionService;
-        $this->enumeratorService = $enumeratorService;
-        $this->surveyService = $surveyService;
-        $this->catalogService = $catalogService;
-        $this->examLevelService = $examLevelService;
-        $this->stateService = $stateService;
+        $this->serviceService = $serviceService;
     }
 
     /**
@@ -102,10 +63,10 @@ class ServiceController extends Controller
     public function index(Request $request)
     {
         $filters = $request->except('page');
-        $enumerators = $this->enumeratorService->enumeratorPaginate($filters);
+        $services = $this->serviceService->servicePaginate($filters);
 
         return view('backend.portfolio.certificate.index', [
-            'enumerators' => $enumerators
+            'services' => $services
         ]);
     }
 
@@ -144,11 +105,11 @@ class ServiceController extends Controller
     {
         $inputs = $request->except('_token');
 
-        $confirm = $this->enumeratorService->storeEnumerator($inputs);
+        $confirm = $this->serviceService->storeEnumerator($inputs);
 
         if ($confirm['status'] == true) {
             notify($confirm['message'], $confirm['level'], $confirm['title']);
-            return redirect()->route('backend.portfolio.enumerators.index');
+            return redirect()->route('backend.portfolio.services.index');
         }
 
         notify($confirm['message'], $confirm['level'], $confirm['title']);
@@ -164,10 +125,10 @@ class ServiceController extends Controller
      */
     public function show($id)
     {
-        if ($enumerator = $this->enumeratorService->getEnumeratorById($id)) {
+        if ($service = $this->serviceService->getEnumeratorById($id)) {
             return view('backend.portfolio.certificate.show', [
-                'certificate' => $enumerator,
-                'timeline' => Utility::modelAudits($enumerator)
+                'certificate' => $service,
+                'timeline' => Utility::modelAudits($service)
             ]);
         }
 
@@ -185,7 +146,7 @@ class ServiceController extends Controller
      */
     public function edit($id)
     {
-        if ($enumerator = $this->enumeratorService->getEnumeratorById($id)) {
+        if ($service = $this->serviceService->getEnumeratorById($id)) {
 
             $enables = [];
             foreach (Constant::ENABLED_OPTIONS as $field => $label):
@@ -193,7 +154,7 @@ class ServiceController extends Controller
             endforeach;
 
             return view('backend.portfolio.certificate.edit', [
-                'certificate' => $enumerator,
+                'certificate' => $service,
                 'enables' => $enables,
                 'states' => $this->stateService->getStateDropdown(['enabled' => Constant::ENABLED_OPTION, 'type' => 'district', 'sort' => ((session()->get('locale') == 'bd') ? 'native' : 'name'), 'direction' => 'asc'], (session()->get('locale') == 'bd')),
                 'surveys' => $this->surveyService->getSurveyDropDown(),
@@ -216,11 +177,11 @@ class ServiceController extends Controller
     public function update(UpdateEnumeratorRequest $request, $id): RedirectResponse
     {
         $inputs = $request->except('_token', 'submit', '_method');
-        $confirm = $this->enumeratorService->updateEnumerator($inputs, $id);
+        $confirm = $this->serviceService->updateEnumerator($inputs, $id);
 
         if ($confirm['status'] == true) {
             notify($confirm['message'], $confirm['level'], $confirm['title']);
-            return redirect()->route('backend.portfolio.enumerators.index');
+            return redirect()->route('backend.portfolio.services.index');
         }
 
         notify($confirm['message'], $confirm['level'], $confirm['title']);
@@ -239,14 +200,14 @@ class ServiceController extends Controller
     {
         if ($this->authenticatedSessionService->validate($request)) {
 
-            $confirm = $this->enumeratorService->destroyEnumerator($id);
+            $confirm = $this->serviceService->destroyEnumerator($id);
 
             if ($confirm['status'] == true) {
                 notify($confirm['message'], $confirm['level'], $confirm['title']);
             } else {
                 notify($confirm['message'], $confirm['level'], $confirm['title']);
             }
-            return redirect()->route('backend.portfolio.enumerators.index');
+            return redirect()->route('backend.portfolio.services.index');
         }
         abort(403, 'Wrong user credentials');
     }
@@ -263,14 +224,14 @@ class ServiceController extends Controller
     {
         if ($this->authenticatedSessionService->validate($request)) {
 
-            $confirm = $this->enumeratorService->restoreEnumerator($id);
+            $confirm = $this->serviceService->restoreEnumerator($id);
 
             if ($confirm['status'] == true) {
                 notify($confirm['message'], $confirm['level'], $confirm['title']);
             } else {
                 notify($confirm['message'], $confirm['level'], $confirm['title']);
             }
-            return redirect()->route('backend.portfolio.enumerators.index');
+            return redirect()->route('backend.portfolio.services.index');
         }
         abort(403, 'Wrong user credentials');
     }
@@ -289,10 +250,10 @@ class ServiceController extends Controller
     public function export(Request $request)
     {
         $filters = $request->except('page');
-        $enumeratorExport = $this->enumeratorService->exportEnumerator($filters);
+        $serviceExport = $this->serviceService->exportEnumerator($filters);
         $filename = 'Post-' . date('Ymd-His') . '.' . ($filters['format'] ?? 'xlsx');
-        return $enumeratorExport->download($filename, function ($enumerator) use ($enumeratorExport) {
-            return $enumeratorExport->map($enumerator);
+        return $serviceExport->download($filename, function ($service) use ($serviceExport) {
+            return $serviceExport->map($service);
         });
     }
 
@@ -307,18 +268,18 @@ class ServiceController extends Controller
     {
         $filters = $request->except('page');
 
-        $enumerators = $this->enumeratorService->getAllEnumerators($filters);
+        $services = $this->serviceService->getAllEnumerators($filters);
 
-        if (count($enumerators) > 0):
-            foreach ($enumerators as $index => $enumerator) :
-                $enumerators[$index]->update_route = route('backend.portfolio.enumerators.update', $enumerator->id);
-                $enumerators[$index]->survey_id = $enumerator->surveys->pluck('id')->toArray();
-                $enumerators[$index]->prev_post_state_id = $enumerator->previousPostings->pluck('id')->toArray();
-                $enumerators[$index]->future_post_state_id = $enumerator->futurePostings->pluck('id')->toArray();
-                unset($enumerators[$index]->surveys, $enumerators[$index]->previousPostings, $enumerators[$index]->futurePostings);
+        if (count($services) > 0):
+            foreach ($services as $index => $service) :
+                $services[$index]->update_route = route('backend.portfolio.services.update', $service->id);
+                $services[$index]->survey_id = $service->surveys->pluck('id')->toArray();
+                $services[$index]->prev_post_state_id = $service->previousPostings->pluck('id')->toArray();
+                $services[$index]->future_post_state_id = $service->futurePostings->pluck('id')->toArray();
+                unset($services[$index]->surveys, $services[$index]->previousPostings, $services[$index]->futurePostings);
             endforeach;
 
-            $jsonReturn = ['status' => true, 'data' => $enumerators];
+            $jsonReturn = ['status' => true, 'data' => $services];
         else :
             $jsonReturn = ['status' => false, 'data' => []];
         endif;

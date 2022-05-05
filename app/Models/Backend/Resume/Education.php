@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Backend\Portfolio;
+namespace App\Models\Backend\Resume;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -11,7 +11,7 @@ use OwenIt\Auditing\Contracts\Auditable;
 
 /**
  * @class Post
- * @package App\Models\Backend\Portfolio
+ * @package App\Models\Backend\Resume
  */
 class Education extends Model implements Auditable
 {

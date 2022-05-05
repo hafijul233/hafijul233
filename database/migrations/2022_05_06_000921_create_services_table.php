@@ -21,12 +21,14 @@ class CreateServicesTable extends Migration
         //Table Structure
         Schema::create('services', function (Blueprint $table) {
             $table->id();
-
+            $table->string('name');
+            $table->string('image')->nullable();
+            $table->string('icon')->nullable();
+            $table->string('thumbnail')->nullable();
+            $table->text('short_description')->nullable();
+            $table->longText('long_description')->nullable();
             $table->enum('enabled', array_keys(Constant::ENABLED_OPTIONS))
                   ->default(Constant::ENABLED_OPTION)->nullable();
-            $table->foreignId('created_by')->index()->nullable();
-            $table->foreignId('updated_by')->index()->nullable();
-            $table->foreignId('deleted_by')->index()->nullable();
             $table->dateTime('created_at')->nullable();
             $table->dateTime('updated_at')->nullable();
             $table->dateTime('deleted_at')->nullable();

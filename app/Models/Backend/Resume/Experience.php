@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Models\Backend\Portfolio;
+namespace App\Models\Backend\Resume;
 
-use App\Models\Backend\Portfolio\Enumerator\EducationQualification;
-use App\Models\Backend\Portfolio\Enumerator\WorkQualification;
+use App\Models\Backend\Resume\Enumerator\EducationQualification;
+use App\Models\Backend\Resume\Enumerator\WorkQualification;
 use App\Models\Backend\Setting\Catalog;
 use App\Models\Backend\Setting\ExamLevel;
 use App\Models\Backend\Setting\State;
@@ -16,7 +16,7 @@ use OwenIt\Auditing\Contracts\Auditable;
 
 /**
  * @class Post
- * @package App\Models\Backend\Portfolio
+ * @package App\Models\Backend\Resume
  */
 class Experience extends Model implements Auditable
 {

@@ -3,10 +3,9 @@
 namespace App\Services\Backend\Portfolio;
 
 use App\Abstracts\Service\Service;
-use App\Exports\Backend\Organization\EnumeratorExport;
-use App\Models\Backend\Portfolio\Post;
+use App\Models\Backend\Portfolio\Service as ServiceModel;
+use App\Exports\Backend\Organization\ServiceExport;
 use App\Repositories\Eloquent\Backend\Portfolio\ServiceRepository;
-use App\Repositories\Eloquent\Backend\Setting\ExamLevelRepository;
 use App\Supports\Constant;
 use Exception;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
@@ -24,23 +23,16 @@ class ServiceService extends Service
     /**
      * @var ServiceRepository
      */
-    private $enumeratorRepository;
-    /**
-     * @var ExamLevelRepository
-     */
-    private $examLevelRepository;
-
+    private $serviceRepository;
+    
     /**
      * PostService constructor.
-     * @param ServiceRepository $enumeratorRepository
-     * @param ExamLevelRepository $examLevelRepository
+     * @param ServiceRepository $serviceRepository
      */
-    public function __construct(ServiceRepository $enumeratorRepository,
-                                ExamLevelRepository $examLevelRepository)
+    public function __construct(ServiceRepository $serviceRepository)
     {
-        $this->enumeratorRepository = $enumeratorRepository;
-        $this->enumeratorRepository->itemsPerPage = 10;
-        $this->examLevelRepository = $examLevelRepository;
+        $this->serviceRepository = $serviceRepository;
+        $this->serviceRepository->itemsPerPage = 10;
     }
 
     /**
@@ -51,9 +43,9 @@ class ServiceService extends Service
      * @return Builder[]|Collection
      * @throws Exception
      */
-    public function getAllEnumerators(array $filters = [], array $eagerRelations = [])
+    public function getAllServices(array $filters = [], array $eagerRelations = [])
     {
-        return $this->enumeratorRepository->getWith($filters, $eagerRelations, true);
+        return $this->serviceRepository->getWith($filters, $eagerRelations, true);
     }
 
     /**
@@ -64,9 +56,9 @@ class ServiceService extends Service
      * @return LengthAwarePaginator
      * @throws Exception
      */
-    public function enumeratorPaginate(array $filters = [], array $eagerRelations = []): LengthAwarePaginator
+    public function servicePaginate(array $filters = [], array $eagerRelations = []): LengthAwarePaginator
     {
-        return $this->enumeratorRepository->paginateWith($filters, $eagerRelations, true);
+        return $this->serviceRepository->paginateWith($filters, $eagerRelations, true);
     }
 
     /**
@@ -77,9 +69,9 @@ class ServiceService extends Service
      * @return mixed
      * @throws Exception
      */
-    public function getEnumeratorById($id, bool $purge = false)
+    public function getServiceById($id, bool $purge = false)
     {
-        return $this->enumeratorRepository->show($id, $purge);
+        return $this->serviceRepository->show($id, $purge);
     }
 
     /**
@@ -90,18 +82,18 @@ class ServiceService extends Service
      * @throws Exception
      * @throws Throwable
      */
-    public function storeEnumerator(array $inputs): array
+    public function storeService(array $inputs): array
     {
-        $newEnumeratorInfo = $this->formatEnumeratorInfo($inputs);
+        $newServiceInfo = $this->formatServiceInfo($inputs);
         DB::beginTransaction();
         try {
-            $newEnumerator = $this->enumeratorRepository->create($newEnumeratorInfo);
-            if ($newEnumerator instanceof Post) {
+            $newService = $this->serviceRepository->create($newServiceInfo);
+            if ($newService instanceof ServiceModel) {
                 //handling Comment List
-                $newEnumerator->surveys()->attach($inputs['survey_id']);
-                $newEnumerator->previousPostings()->attach($inputs['prev_post_state_id']);
-                $newEnumerator->futurePostings()->attach($inputs['future_post_state_id']);
-                $newEnumerator->save();
+                $newService->surveys()->attach($inputs['survey_id']);
+                $newService->previousPostings()->attach($inputs['prev_post_state_id']);
+                $newService->futurePostings()->attach($inputs['future_post_state_id']);
+                $newService->save();
 
                 DB::commit();
                 return ['status' => true, 'message' => __('New Post Created'),
@@ -112,7 +104,7 @@ class ServiceService extends Service
                     'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!'];
             }
         } catch (Exception $exception) {
-            $this->enumeratorRepository->handleException($exception);
+            $this->serviceRepository->handleException($exception);
             DB::rollBack();
             return ['status' => false, 'message' => $exception->getMessage(),
                 'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Error!'];
@@ -125,93 +117,40 @@ class ServiceService extends Service
      * @param array $inputs
      * @return array
      */
-    private function formatEnumeratorInfo(array $inputs)
+    private function formatServiceInfo(array $inputs)
     {
-        $enumeratorInfo = [];
-        $enumeratorInfo["survey_id"] = null;
-        $enumeratorInfo["gender_id"] = $inputs['gender_id'] ?? null;
-        $enumeratorInfo["dob"] = $inputs['dob'] ?? null;
-        $enumeratorInfo["name"] = $inputs["name"] ?? null;
-        $enumeratorInfo["name_bd"] = $inputs["name_bd"] ?? null;
-        $enumeratorInfo["father"] = $inputs["father"] ?? null;
-        $enumeratorInfo["father_bd"] = $inputs["father_bd"] ?? null;
-        $enumeratorInfo["mother"] = $inputs["mother"] ?? null;
-        $enumeratorInfo["mother_bd"] = $inputs["mother_bd"] ?? null;
-        $enumeratorInfo["nid"] = $inputs["nid"] ?? null;
-        $enumeratorInfo["mobile_1"] = $inputs["mobile_1"] ?? null;
-        $enumeratorInfo["mobile_2"] = $inputs["mobile_2"] ?? null;
-        $enumeratorInfo["email"] = $inputs["email"] ?? null;
-        $enumeratorInfo["present_address"] = $inputs["present_address"] ?? null;
-        $enumeratorInfo["present_address_bd"] = $inputs["present_address_bd"] ?? null;
-        $enumeratorInfo["permanent_address"] = $inputs["permanent_address"] ?? null;
-        $enumeratorInfo["permanent_address_bd"] = $inputs["permanent_address_bd"] ?? null;
-        $enumeratorInfo["exam_level"] = $inputs["exam_level"] ?? null;
-        $enumeratorInfo["whatsapp"] = $inputs["whatsapp"] ?? null;
-        $enumeratorInfo["facebook"] = $inputs["facebook"] ?? null;
+        $serviceInfo = [];
+        $serviceInfo["survey_id"] = null;
+        $serviceInfo["gender_id"] = $inputs['gender_id'] ?? null;
+        $serviceInfo["dob"] = $inputs['dob'] ?? null;
+        $serviceInfo["name"] = $inputs["name"] ?? null;
+        $serviceInfo["name_bd"] = $inputs["name_bd"] ?? null;
+        $serviceInfo["father"] = $inputs["father"] ?? null;
+        $serviceInfo["father_bd"] = $inputs["father_bd"] ?? null;
+        $serviceInfo["mother"] = $inputs["mother"] ?? null;
+        $serviceInfo["mother_bd"] = $inputs["mother_bd"] ?? null;
+        $serviceInfo["nid"] = $inputs["nid"] ?? null;
+        $serviceInfo["mobile_1"] = $inputs["mobile_1"] ?? null;
+        $serviceInfo["mobile_2"] = $inputs["mobile_2"] ?? null;
+        $serviceInfo["email"] = $inputs["email"] ?? null;
+        $serviceInfo["present_address"] = $inputs["present_address"] ?? null;
+        $serviceInfo["present_address_bd"] = $inputs["present_address_bd"] ?? null;
+        $serviceInfo["permanent_address"] = $inputs["permanent_address"] ?? null;
+        $serviceInfo["permanent_address_bd"] = $inputs["permanent_address_bd"] ?? null;
+        $serviceInfo["exam_level"] = $inputs["exam_level"] ?? null;
+        $serviceInfo["whatsapp"] = $inputs["whatsapp"] ?? null;
+        $serviceInfo["facebook"] = $inputs["facebook"] ?? null;
 
-        $enumeratorInfo["is_employee"] = $inputs["is_employee"] ?? 'no';
-        $enumeratorInfo["designation"] = null;
-        $enumeratorInfo["company"] = null;
+        $serviceInfo["is_employee"] = $inputs["is_employee"] ?? 'no';
+        $serviceInfo["designation"] = null;
+        $serviceInfo["company"] = null;
 
-        if ($enumeratorInfo["is_employee"] == 'yes') {
-            $enumeratorInfo["designation"] = $inputs['designation'] ?? null;
-            $enumeratorInfo["company"] = $inputs['company'] ?? null;
+        if ($serviceInfo["is_employee"] == 'yes') {
+            $serviceInfo["designation"] = $inputs['designation'] ?? null;
+            $serviceInfo["company"] = $inputs['company'] ?? null;
         }
 
-        return $enumeratorInfo;
-    }
-
-    /**
-     * Return formatted education qualification model collection
-     *
-     * @param array $inputs
-     * @return array
-     * @throws Exception
-     */
-    private function formatEducationQualification(array $inputs): array
-    {
-        $examLevels = $this->examLevelRepository->getWith(['id' => $inputs['exam_level']]);
-
-        $qualifications = [];
-
-        foreach ($examLevels as $examLevel):
-            $prefix = $examLevel->code;
-            $qualifications[$examLevel->id]["exam_level_id"] = $inputs["{$prefix}_exam_level_id"] ?? null;
-            $qualifications[$examLevel->id]["exam_title_id"] = $inputs["{$prefix}_exam_title_id"] ?? null;
-            $qualifications[$examLevel->id]["exam_board_id"] = $inputs["{$prefix}_exam_board_id"] ?? null;
-            $qualifications[$examLevel->id]["exam_group_id"] = $inputs["{$prefix}_exam_group_id"] ?? null;
-            $qualifications[$examLevel->id]["institute_id"] = $inputs["{$prefix}_institute_id"] ?? null;
-            $qualifications[$examLevel->id]["pass_year"] = $inputs["{$prefix}_pass_year"] ?? null;
-            $qualifications[$examLevel->id]["roll_number"] = $inputs["{$prefix}_roll_number"] ?? null;
-            $qualifications[$examLevel->id]["grade_type"] = $inputs["{$prefix}_grade_type"] ?? null;
-            $qualifications[$examLevel->id]["grade_point"] = $inputs["{$prefix}_grade_point"] ?? null;
-            $qualifications[$examLevel->id]["enabled"] = "yes";
-        endforeach;
-
-        return $qualifications;
-    }
-
-    /**
-     * Return formatted work experience model collection
-     *
-     * @param array $inputs
-     * @return array
-     * @throws Exception
-     */
-    private function formatWorkQualification(array $inputs): array
-    {
-        $qualifications = [];
-
-        foreach ($inputs['job'] as $index => $input):
-            $qualifications[$index]["company"] = $input["company"] ?? null;
-            $qualifications[$index]["designation"] = $input["designation"] ?? null;
-            $qualifications[$index]["start_date"] = $input["start_date"] ?? null;
-            $qualifications[$index]["end_date"] = $input["end_date"] ?? null;
-            $qualifications[$index]["responsibility"] = $input["responsibility"] ?? null;
-            $qualifications[$index]["enabled"] = "yes";
-        endforeach;
-
-        return $qualifications;
+        return $serviceInfo;
     }
 
     /**
@@ -222,19 +161,19 @@ class ServiceService extends Service
      * @return array
      * @throws Throwable
      */
-    public function updateEnumerator(array $inputs, $id): array
+    public function updateService(array $inputs, $id): array
     {
-        $newEnumeratorInfo = $this->formatEnumeratorInfo($inputs);
+        $newServiceInfo = $this->formatServiceInfo($inputs);
         DB::beginTransaction();
         try {
-            $enumerator = $this->enumeratorRepository->show($id);
-            if ($enumerator instanceof Post) {
-                if ($this->enumeratorRepository->update($newEnumeratorInfo, $id)) {
+            $service = $this->serviceRepository->show($id);
+            if ($service instanceof ServiceModel) {
+                if ($this->serviceRepository->update($newServiceInfo, $id)) {
                     //handling Comment List
-                    $enumerator->surveys()->sync($inputs['survey_id']);
-                    $enumerator->previousPostings()->sync($inputs['prev_post_state_id']);
-                    $enumerator->futurePostings()->sync($inputs['future_post_state_id']);
-                    $enumerator->save();
+                    $service->surveys()->sync($inputs['survey_id']);
+                    $service->previousPostings()->sync($inputs['prev_post_state_id']);
+                    $service->futurePostings()->sync($inputs['future_post_state_id']);
+                    $service->save();
                     DB::commit();
                     return ['status' => true, 'message' => __('Post Info Updated'),
                         'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
@@ -248,7 +187,7 @@ class ServiceService extends Service
                     'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Alert!'];
             }
         } catch (Exception $exception) {
-            $this->enumeratorRepository->handleException($exception);
+            $this->serviceRepository->handleException($exception);
             DB::rollBack();
             return ['status' => false, 'message' => $exception->getMessage(),
                 'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Error!'];
@@ -262,11 +201,11 @@ class ServiceService extends Service
      * @return array
      * @throws Throwable
      */
-    public function destroyEnumerator($id): array
+    public function destroyService($id): array
     {
         DB::beginTransaction();
         try {
-            if ($this->enumeratorRepository->delete($id)) {
+            if ($this->serviceRepository->delete($id)) {
                 DB::commit();
                 return ['status' => true, 'message' => __('Post is Trashed'),
                     'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
@@ -277,7 +216,7 @@ class ServiceService extends Service
                     'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!'];
             }
         } catch (Exception $exception) {
-            $this->enumeratorRepository->handleException($exception);
+            $this->serviceRepository->handleException($exception);
             DB::rollBack();
             return ['status' => false, 'message' => $exception->getMessage(),
                 'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Error!'];
@@ -291,11 +230,11 @@ class ServiceService extends Service
      * @return array
      * @throws Throwable
      */
-    public function restoreEnumerator($id): array
+    public function restoreService($id): array
     {
         DB::beginTransaction();
         try {
-            if ($this->enumeratorRepository->restore($id)) {
+            if ($this->serviceRepository->restore($id)) {
                 DB::commit();
                 return ['status' => true, 'message' => __('Post is Restored'),
                     'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
@@ -306,7 +245,7 @@ class ServiceService extends Service
                     'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!'];
             }
         } catch (Exception $exception) {
-            $this->enumeratorRepository->handleException($exception);
+            $this->serviceRepository->handleException($exception);
             DB::rollBack();
             return ['status' => false, 'message' => $exception->getMessage(),
                 'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Error!'];
@@ -317,11 +256,11 @@ class ServiceService extends Service
      * Export Object for Export Download
      *
      * @param array $filters
-     * @return EnumeratorExport
+     * @return ServiceExport
      * @throws Exception
      */
-    public function exportEnumerator(array $filters = []): EnumeratorExport
+    public function exportService(array $filters = []): ServiceExport
     {
-        return (new EnumeratorExport($this->enumeratorRepository->getWith($filters)));
+        return (new ServiceExport($this->serviceRepository->getWith($filters)));
     }
 }

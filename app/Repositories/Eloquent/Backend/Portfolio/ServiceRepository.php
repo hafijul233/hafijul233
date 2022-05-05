@@ -3,7 +3,7 @@
 namespace App\Repositories\Eloquent\Backend\Portfolio;
 
 use App\Abstracts\Repository\EloquentRepository;
-use App\Models\Backend\Portfolio\Post;
+use App\Models\Backend\Portfolio\Service;
 use App\Services\Auth\AuthenticatedSessionService;
 use Exception;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
@@ -24,7 +24,7 @@ class ServiceRepository extends EloquentRepository
         /**
          * Set the model that will be used for repo
          */
-        parent::__construct(new Post);
+        parent::__construct(new Service);
     }
 
     /**

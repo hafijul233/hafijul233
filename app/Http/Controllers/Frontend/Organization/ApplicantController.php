@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Frontend\Organization;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Frontend\Organization\ApplicantRequest;
-use App\Services\Backend\Portfolio\PostService;
 use App\Services\Backend\Portfolio\CommentService;
+use App\Services\Backend\Portfolio\PostService;
 use App\Services\Backend\Setting\CatalogService;
 use App\Services\Backend\Setting\ExamLevelService;
 use App\Services\Backend\Setting\StateService;

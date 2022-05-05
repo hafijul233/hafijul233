@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Repositories\Eloquent\Backend\Portfolio;
+namespace App\Repositories\Eloquent\Backend\Resume;
 
 use App\Abstracts\Repository\EloquentRepository;
-use App\Models\Backend\Portfolio\Comment;
+use App\Models\Backend\Resume\Comment;
 use App\Services\Auth\AuthenticatedSessionService;
 use Exception;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Collection;
 
 /**
  * @class CommentRepository
- * @package App\Repositories\Eloquent\Backend\Portfolio
+ * @package App\Repositories\Eloquent\Backend\Resume
  */
 class LanguageRepository extends EloquentRepository
 {

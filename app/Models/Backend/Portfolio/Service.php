@@ -20,7 +20,7 @@ class Service extends Model implements Auditable
     /**
      * @var string $table
      */
-    protected $table = 'surveys';
+    protected $table = 'services';
 
     /**
      * @var string $primaryKey
