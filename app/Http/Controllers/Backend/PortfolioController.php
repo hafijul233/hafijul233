@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Backend;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 
-class OrganizationController extends Controller
+class PortfolioController extends Controller
 {
 
     public function __construct()

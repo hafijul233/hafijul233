@@ -12,7 +12,7 @@ use App\Http\Controllers\Backend\Model\ModelEnabledController;
 use App\Http\Controllers\Backend\Model\ModelRestoreController;
 use App\Http\Controllers\Backend\Model\ModelSoftDeleteController;
 use App\Http\Controllers\Backend\Portfolio\CommentController;
-use App\Http\Controllers\Backend\OrganizationController;
+use App\Http\Controllers\Backend\PortfolioController;
 use App\Http\Controllers\Backend\Setting\CatalogController;
 use App\Http\Controllers\Backend\Setting\ExamGroupController;
 use App\Http\Controllers\Backend\Setting\PermissionController;
@@ -140,7 +140,7 @@ Route::prefix('backend')->group(function () {
         });
 
         //Portfolio
-        Route::get('portfolio', OrganizationController::class)->name('portfolio');
+        Route::get('portfolio', PortfolioController::class)->name('portfolio');
         Route::prefix('portfolio')->name('portfolio.')->group(function () {
             //Service
             Route::prefix('services')->name('services.')->group(function () {
@@ -172,7 +172,7 @@ Route::prefix('backend')->group(function () {
         });
 
         //Resume
-        Route::get('resume', OrganizationController::class)->name('resume');
+        Route::get('resume', PortfolioController::class)->name('resume');
         Route::prefix('resume')->name('resume.')->group(function () {
             //experience
             Route::prefix('experiences')->name('experiences.')->group(function () {
@@ -211,7 +211,7 @@ Route::prefix('backend')->group(function () {
         });
 
         //Blog
-        Route::get('blog', OrganizationController::class)->name('blog');
+        Route::get('blog', PortfolioController::class)->name('blog');
         Route::prefix('blog')->name('blog.')->group(function () {
             //Post
             Route::prefix('posts')->name('posts.')->group(function () {
