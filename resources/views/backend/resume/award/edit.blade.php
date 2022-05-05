@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Add Catalog')
+@section('title', __('service.Edit Comment'))
 
 @push('meta')
 
@@ -23,19 +23,19 @@
 @endpush
 
 
-@section('breadcrumbs', \Breadcrumbs::render(Route::getCurrentRoute()->getName()))
+@section('breadcrumbs', \Breadcrumbs::render(Route::getCurrentRoute()->getName(), $survey))
 
 @section('actions')
-    {!! \Html::backButton('backend.settings.catalogs.index') !!}
+    {!! \Html::backButton('backend.portfolio.surveys.index') !!}
 @endsection
 
 @section('content')
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-12">
-                <div class="card card-default">
-                    {!! \Form::open(['route' => 'backend.settings.catalogs.store', 'id' => 'catalog-form']) !!}
-                    @include('backend.setting.catalog.form')
+                <div class="card">
+                    {!! \Form::open(['route' => ['backend.portfolio.surveys.update', $survey->id], 'method' => 'put', 'id' => 'service-form']) !!}
+                    @include('backend.portfolio.service.form')
                     {!! \Form::close() !!}
                 </div>
             </div>

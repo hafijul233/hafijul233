@@ -1,19 +1,11 @@
 <div class="card-body">
     <div class="row">
-        <div class="col-md-4">
-            {!! \Form::nSelect('type', 'Type', \App\Supports\Constant::CATALOG_LABEL, old('type', ($catalog->type ?? null)), true) !!}
+        <div class="col-md-6">
+            {!! \Form::nText('name', __('common.Name'), old('name', $survey->name ?? null), true) !!}
         </div>
-        <div class="col-md-4">
-            {!! \Form::nText('name', __('common.Name'), old('name', $catalog->name ?? null), true) !!}
-        </div>
-        <div class="col-md-4">
+        <div class="col-md-6">
             {!! \Form::nSelect('enabled', __('common.Enabled'), \App\Supports\Constant::ENABLED_OPTIONS,
-                old('enabled', ($catalog->enabled ?? \App\Supports\Constant::ENABLED_OPTION)), true) !!}
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-12">
-            {!! \Form::nTextarea('remarks', __('common.Remarks'), old('remarks', $catalog->remarks ?? null), false) !!}
+                old('enabled', ($survey->enabled ?? \App\Supports\Constant::ENABLED_OPTION)), true) !!}
         </div>
     </div>
     <div class="row mt-3">
@@ -28,7 +20,7 @@
 @push('page-script')
     <script>
         $(function () {
-            $("#catalog-form").validate({
+            $("#service-form").validate({
                 rules: {
                     name: {
                         required: true,
@@ -38,7 +30,8 @@
                     enabled: {
                         required: true
                     },
-                    remarks: {},
+                    remarks: {
+                    },
                 }
             });
         });

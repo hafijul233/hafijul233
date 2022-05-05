@@ -58,7 +58,7 @@ class CertificateController extends Controller
         $filters = $request->except('page');
         $certificates = $this->certificateService->certificatePaginate($filters);
 
-        return view('backend.portfolio.service.index', [
+        return view('backend.portfolio.certificate.index', [
             'certificates' => $certificates
         ]);
     }
@@ -70,7 +70,7 @@ class CertificateController extends Controller
      */
     public function create()
     {
-        return view('backend.portfolio.service.create');
+        return view('backend.portfolio.certificate.create');
     }
 
     /**
@@ -102,7 +102,7 @@ class CertificateController extends Controller
     public function show($id)
     {
         if ($certificate = $this->certificateService->getSurveyById($id)) {
-            return view('backend.portfolio.service.show', [
+            return view('backend.portfolio.certificate.show', [
                 'service' => $certificate,
                 'timeline' => Utility::modelAudits($certificate)
             ]);
@@ -121,7 +121,7 @@ class CertificateController extends Controller
     public function edit($id)
     {
         if ($certificate = $this->certificateService->getSurveyById($id)) {
-            return view('backend.portfolio.service.edit', [
+            return view('backend.portfolio.certificate.edit', [
                 'service' => $certificate
             ]);
         }
