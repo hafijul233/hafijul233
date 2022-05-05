@@ -1,9 +1,9 @@
 <?php
 
+use App\Supports\Constant;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use App\Supports\Constant;
 
 
 class CreateCertificatesTable extends Migration
@@ -21,12 +21,17 @@ class CreateCertificatesTable extends Migration
         //Table Structure
         Schema::create('certificates', function (Blueprint $table) {
             $table->id();
-
+            $table->string('name');
+            $table->string('image');
+            $table->string('icon')->nullable();
+            $table->string('organization');
+            $table->date('issue_date')->nullable();
+            $table->date('expire_date')->nullable();
+            $table->string('credential')->nullable();
+            $table->string('verify_url')->nullable();
+            $table->text('description')->nullable();
             $table->enum('enabled', array_keys(Constant::ENABLED_OPTIONS))
-                  ->default(Constant::ENABLED_OPTION)->nullable();
-            $table->foreignId('created_by')->index()->nullable();
-            $table->foreignId('updated_by')->index()->nullable();
-            $table->foreignId('deleted_by')->index()->nullable();
+                ->default(Constant::ENABLED_OPTION)->nullable();
             $table->dateTime('created_at')->nullable();
             $table->dateTime('updated_at')->nullable();
             $table->dateTime('deleted_at')->nullable();
