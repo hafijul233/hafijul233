@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Frontend\Organization;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Frontend\Organization\ApplicantRequest;
-use App\Services\Backend\Organization\EnumeratorService;
-use App\Services\Backend\Organization\SurveyService;
+use App\Services\Backend\Portfolio\PostService;
+use App\Services\Backend\Portfolio\CommentService;
 use App\Services\Backend\Setting\CatalogService;
 use App\Services\Backend\Setting\ExamLevelService;
 use App\Services\Backend\Setting\StateService;
@@ -26,11 +26,11 @@ use Throwable;
 class ApplicantController extends Controller
 {
     /**
-     * @var EnumeratorService
+     * @var PostService
      */
     private $enumeratorService;
     /**
-     * @var SurveyService
+     * @var CommentService
      */
     private $surveyService;
     /**
@@ -49,14 +49,14 @@ class ApplicantController extends Controller
     /**
      * ApplicantController Constructor
      *
-     * @param EnumeratorService $enumeratorService
-     * @param SurveyService $surveyService
+     * @param PostService $enumeratorService
+     * @param CommentService $surveyService
      * @param CatalogService $catalogService
      * @param ExamLevelService $examLevelService
      * @param StateService $stateService
      */
-    public function __construct(EnumeratorService $enumeratorService,
-                                SurveyService $surveyService,
+    public function __construct(PostService $enumeratorService,
+                                CommentService $surveyService,
                                 CatalogService $catalogService,
                                 ExamLevelService $examLevelService,
                                 StateService $stateService)

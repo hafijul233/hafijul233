@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Backend\Resume;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Backend\Organization\SurveyRequest;
 use App\Services\Auth\AuthenticatedSessionService;
-use App\Services\Backend\Organization\SurveyService;
+use App\Services\Backend\Portfolio\CommentService;
 use App\Supports\Utility;
 use Exception;
 use Illuminate\Contracts\Foundation\Application;
@@ -28,7 +28,7 @@ class SkillController extends Controller
     private $authenticatedSessionService;
 
     /**
-     * @var SurveyService
+     * @var CommentService
      */
     private $surveyService;
 
@@ -36,10 +36,10 @@ class SkillController extends Controller
      * CommentController Constructor
      *
      * @param AuthenticatedSessionService $authenticatedSessionService
-     * @param SurveyService $surveyService
+     * @param CommentService $surveyService
      */
     public function __construct(AuthenticatedSessionService $authenticatedSessionService,
-                                SurveyService $surveyService)
+                                CommentService $surveyService)
     {
 
         $this->authenticatedSessionService = $authenticatedSessionService;

@@ -6,8 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Backend\Organization\CreateEnumeratorRequest;
 use App\Http\Requests\Backend\Organization\UpdateEnumeratorRequest;
 use App\Services\Auth\AuthenticatedSessionService;
-use App\Services\Backend\Organization\EnumeratorService;
-use App\Services\Backend\Organization\SurveyService;
+use App\Services\Backend\Portfolio\PostService;
+use App\Services\Backend\Portfolio\CommentService;
 use App\Services\Backend\Setting\CatalogService;
 use App\Services\Backend\Setting\ExamLevelService;
 use App\Services\Backend\Setting\InstituteService;
@@ -42,11 +42,11 @@ class PostController extends Controller
     private $authenticatedSessionService;
 
     /**
-     * @var EnumeratorService
+     * @var PostService
      */
     private $enumeratorService;
     /**
-     * @var SurveyService
+     * @var CommentService
      */
     private $surveyService;
     /**
@@ -70,15 +70,15 @@ class PostController extends Controller
      * PostController Constructor
      *
      * @param AuthenticatedSessionService $authenticatedSessionService
-     * @param EnumeratorService $enumeratorService
-     * @param SurveyService $surveyService
+     * @param PostService $enumeratorService
+     * @param CommentService $surveyService
      * @param CatalogService $catalogService
      * @param ExamLevelService $examLevelService
      * @param StateService $stateService
      */
     public function __construct(AuthenticatedSessionService $authenticatedSessionService,
-                                EnumeratorService $enumeratorService,
-                                SurveyService $surveyService,
+                                PostService $enumeratorService,
+                                CommentService $surveyService,
                                 CatalogService $catalogService,
                                 ExamLevelService $examLevelService,
                                 StateService $stateService)

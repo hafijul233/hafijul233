@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\Backend\Organization;
+namespace App\Services\Backend\Portfolio;
 
 use App\Abstracts\Service\Service;
 use App\Exports\Backend\Organization\EnumeratorExport;
@@ -16,10 +16,10 @@ use Illuminate\Support\Facades\DB;
 use Throwable;
 
 /**
- * @class EnumeratorService
+ * @class PostService
  * @package App\Services\Backend\Portfolio
  */
-class EnumeratorService extends Service
+class ServiceService extends Service
 {
     /**
      * @var EnumeratorRepository
@@ -31,7 +31,7 @@ class EnumeratorService extends Service
     private $examLevelRepository;
 
     /**
-     * EnumeratorService constructor.
+     * PostService constructor.
      * @param EnumeratorRepository $enumeratorRepository
      * @param ExamLevelRepository $examLevelRepository
      */
