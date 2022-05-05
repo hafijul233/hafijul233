@@ -1,21 +1,13 @@
 <?php
 
-use App\Models\Backend\Portfolio\Post;
-use App\Models\Backend\Portfolio\Comment;
+use App\Models\Backend\Portfolio\Service;
 use App\Models\Backend\Setting\Catalog;
 use App\Models\Backend\Setting\City;
 use App\Models\Backend\Setting\Country;
 use App\Models\Backend\Setting\Permission;
 use App\Models\Backend\Setting\Role;
-use App\Models\Backend\Setting\SmsTemplate;
 use App\Models\Backend\Setting\State;
 use App\Models\Backend\Setting\User;
-use App\Models\Backend\Shipment\Invoice;
-use App\Models\Backend\Shipment\Item;
-use App\Models\Backend\Shipment\Transaction;
-use App\Models\Backend\Transport\CheckPoint;
-use App\Models\Backend\Transport\TruckLoad;
-use App\Models\Backend\Transport\Vehicle;
 use Diglactic\Breadcrumbs\Breadcrumbs;
 use Diglactic\Breadcrumbs\Generator as BreadcrumbTrail;
 
@@ -320,66 +312,131 @@ Breadcrumbs::for('backend.portfolio', function (BreadcrumbTrail $trail) {
     $trail->push(__('menu-sidebar.Portfolio'), route('backend.portfolio'));
 });
 
-/****************************************** Comment ******************************************/
+/****************************************** Services ******************************************/
 
-Breadcrumbs::for('backend.portfolio.surveys.index', function (BreadcrumbTrail $trail) {
-
-    $trail->parent('backend.portfolio');
-
-    $trail->push(__('menu-sidebar.Surveys'), route('backend.portfolio.surveys.index'));
-});
-
-Breadcrumbs::for('backend.portfolio.surveys.create', function (BreadcrumbTrail $trail) {
-
-    $trail->parent('backend.portfolio.surveys.index');
-
-    $trail->push(__('common.Add'), route('backend.portfolio.surveys.create'));
-});
-
-Breadcrumbs::for('backend.portfolio.surveys.show', function (BreadcrumbTrail $trail, $survey) {
-
-    $trail->parent('backend.portfolio.surveys.index');
-
-    $survey = ($survey instanceof Comment) ? $survey : $survey[0];
-
-    $trail->push($survey->name, route('backend.portfolio.surveys.show', $survey->id));
-});
-
-Breadcrumbs::for('backend.portfolio.surveys.edit', function (BreadcrumbTrail $trail, Comment $survey) {
-
-    $trail->parent('backend.portfolio.surveys.show', [$survey]);
-
-    $trail->push(__('common.Edit'), route('backend.portfolio.surveys.edit', $survey->id));
-});
-
-/****************************************** Post ******************************************/
-
-Breadcrumbs::for('backend.portfolio.enumerators.index', function (BreadcrumbTrail $trail) {
+Breadcrumbs::for('backend.portfolio.services.index', function (BreadcrumbTrail $trail) {
 
     $trail->parent('backend.portfolio');
 
-    $trail->push(__('menu-sidebar.Enumerators'), route('backend.portfolio.enumerators.index'));
+    $trail->push(__('menu-sidebar.Services'), route('backend.portfolio.services.index'));
 });
 
-Breadcrumbs::for('backend.portfolio.enumerators.create', function (BreadcrumbTrail $trail) {
+Breadcrumbs::for('backend.portfolio.services.create', function (BreadcrumbTrail $trail) {
 
-    $trail->parent('backend.portfolio.enumerators.index');
+    $trail->parent('backend.portfolio.services.index');
 
-    $trail->push(__('common.Add'), route('backend.portfolio.enumerators.create'));
+    $trail->push(__('common.Add'), route('backend.portfolio.services.create'));
 });
 
-Breadcrumbs::for('backend.portfolio.enumerators.show', function (BreadcrumbTrail $trail, $enumerator) {
+Breadcrumbs::for('backend.portfolio.services.show', function (BreadcrumbTrail $trail, $service) {
 
-    $trail->parent('backend.portfolio.enumerators.index');
+    $trail->parent('backend.portfolio.services.index');
 
-    $enumerator = ($enumerator instanceof Post) ? $enumerator : $enumerator[0];
+    $service = ($service instanceof Service) ? $service : $service[0];
 
-    $trail->push($enumerator->name, route('backend.portfolio.enumerators.show', $enumerator->id));
+    $trail->push($service->name, route('backend.portfolio.services.show', $service->id));
 });
 
-Breadcrumbs::for('backend.portfolio.enumerators.edit', function (BreadcrumbTrail $trail, Post $enumerator) {
+Breadcrumbs::for('backend.portfolio.services.edit', function (BreadcrumbTrail $trail, Comment $service) {
 
-    $trail->parent('backend.portfolio.enumerators.show', [$enumerator]);
+    $trail->parent('backend.portfolio.services.show', [$service]);
 
-    $trail->push(__('common.Edit'), route('backend.portfolio.enumerators.edit', $enumerator->id));
+    $trail->push(__('common.Edit'), route('backend.portfolio.services.edit', $service->id));
 });
+
+/****************************************** Certificate ******************************************/
+
+Breadcrumbs::for('backend.portfolio.certificates.index', function (BreadcrumbTrail $trail) {
+
+    $trail->parent('backend.portfolio');
+
+    $trail->push(__('menu-sidebar.Certificates'), route('backend.portfolio.certificates.index'));
+});
+
+Breadcrumbs::for('backend.portfolio.certificates.create', function (BreadcrumbTrail $trail) {
+
+    $trail->parent('backend.portfolio.certificates.index');
+
+    $trail->push(__('common.Add'), route('backend.portfolio.certificates.create'));
+});
+
+Breadcrumbs::for('backend.portfolio.certificates.show', function (BreadcrumbTrail $trail, $certificate) {
+
+    $trail->parent('backend.portfolio.certificates.index');
+
+    $certificate = ($certificate instanceof Post) ? $certificate : $certificate[0];
+
+    $trail->push($certificate->name, route('backend.portfolio.certificates.show', $certificate->id));
+});
+
+Breadcrumbs::for('backend.portfolio.certificates.edit', function (BreadcrumbTrail $trail, Post $certificate) {
+
+    $trail->parent('backend.portfolio.certificates.show', [$certificate]);
+
+    $trail->push(__('common.Edit'), route('backend.portfolio.certificates.edit', $certificate->id));
+});
+
+/****************************************** Project ******************************************/
+
+Breadcrumbs::for('backend.portfolio.projects.index', function (BreadcrumbTrail $trail) {
+
+    $trail->parent('backend.portfolio');
+
+    $trail->push(__('menu-sidebar.Projects'), route('backend.portfolio.projects.index'));
+});
+
+Breadcrumbs::for('backend.portfolio.projects.create', function (BreadcrumbTrail $trail) {
+
+    $trail->parent('backend.portfolio.projects.index');
+
+    $trail->push(__('common.Add'), route('backend.portfolio.projects.create'));
+});
+
+Breadcrumbs::for('backend.portfolio.projects.show', function (BreadcrumbTrail $trail, $project) {
+
+    $trail->parent('backend.portfolio.projects.index');
+
+    $project = ($project instanceof Post) ? $project : $project[0];
+
+    $trail->push($project->name, route('backend.portfolio.projects.show', $project->id));
+});
+
+Breadcrumbs::for('backend.portfolio.projects.edit', function (BreadcrumbTrail $trail, Post $project) {
+
+    $trail->parent('backend.portfolio.projects.show', [$project]);
+
+    $trail->push(__('common.Edit'), route('backend.portfolio.projects.edit', $project->id));
+});
+
+/****************************************** Testimonial ******************************************/
+
+Breadcrumbs::for('backend.portfolio.testimonials.index', function (BreadcrumbTrail $trail) {
+
+    $trail->parent('backend.portfolio');
+
+    $trail->push(__('menu-sidebar.Testimonials'), route('backend.portfolio.testimonials.index'));
+});
+
+Breadcrumbs::for('backend.portfolio.testimonials.create', function (BreadcrumbTrail $trail) {
+
+    $trail->parent('backend.portfolio.testimonials.index');
+
+    $trail->push(__('common.Add'), route('backend.portfolio.testimonials.create'));
+});
+
+Breadcrumbs::for('backend.portfolio.testimonials.show', function (BreadcrumbTrail $trail, $testimonial) {
+
+    $trail->parent('backend.portfolio.testimonials.index');
+
+    $testimonial = ($testimonial instanceof Post) ? $testimonial : $testimonial[0];
+
+    $trail->push($testimonial->name, route('backend.portfolio.testimonials.show', $testimonial->id));
+});
+
+Breadcrumbs::for('backend.portfolio.testimonials.edit', function (BreadcrumbTrail $trail, Post $testimonial) {
+
+    $trail->parent('backend.portfolio.testimonials.show', [$testimonial]);
+
+    $trail->push(__('common.Edit'), route('backend.portfolio.testimonials.edit', $testimonial->id));
+});
+

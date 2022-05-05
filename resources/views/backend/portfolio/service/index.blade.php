@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', __('menu-sidebar.Surveys'))
+@section('title', __('menu-sidebar.Services'))
 
 @push('meta')
 
@@ -27,8 +27,8 @@
 @section('breadcrumbs', \Breadcrumbs::render())
 
 @section('actions')
-    {!! \Html::linkButton(__('service.Add Comment'), 'backend.portfolio.surveys.create', [], 'fas fa-plus', 'success') !!}
-    {{--{!! \Html::bulkDropdown('backend.portfolio.surveys', 0, ['color' => 'warning']) !!}--}}
+    {!! \Html::linkButton(__('Add Service'), 'backend.portfolio.services.create', [], 'fas fa-plus', 'success') !!}
+    {{--{!! \Html::bulkDropdown('backend.portfolio.services', 0, ['color' => 'warning']) !!}--}}
 @endsection
 
 @section('content')
@@ -36,9 +36,9 @@
         <div class="row">
             <div class="col-12">
                 <div class="card card-default">
-                    @if(!empty($surveys))
+                    @if(!empty($services))
                         <div class="card-body p-0">
-                            {!! \Html::cardSearch('search', 'backend.portfolio.surveys.index',
+                            {!! \Html::cardSearch('search', 'backend.portfolio.services.index',
                             ['placeholder' => 'Search Comment Name etc.',
                             'class' => 'form-control', 'id' => 'search', 'data-target-table' => 'service-table']) !!}
                             <div class="table-responsive">
@@ -53,26 +53,26 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @forelse($surveys as $index => $survey)
-                                        <tr @if($survey->deleted_at != null) class="table-danger" @endif>
+                                    @forelse($services as $index => $service)
+                                        <tr @if($service->deleted_at != null) class="table-danger" @endif>
                                             <td class="exclude-search align-middle">
-                                                {{ $survey->id }}
+                                                {{ $service->id }}
                                             </td>
                                             <td class="text-left">
-                                                @can('backend.portfolio.surveys.show')
-                                                    <a href="{{ route('backend.portfolio.surveys.show', $survey->id) }}">
-                                                        {{ $survey->name }}
+                                                @can('backend.portfolio.services.show')
+                                                    <a href="{{ route('backend.portfolio.services.show', $service->id) }}">
+                                                        {{ $service->name }}
                                                     </a>
                                                 @else
-                                                    {{ $survey->name }}
+                                                    {{ $service->name }}
                                                 @endcan
                                             </td>
                                             <td class="text-center exclude-search">
-                                                {!! \Html::enableToggle($survey) !!}
+                                                {!! \Html::enableToggle($service) !!}
                                             </td>
-                                            <td class="text-center">{{ $survey->created_at->format(config('backend.datetime')) ?? '' }}</td>
+                                            <td class="text-center">{{ $service->created_at->format(config('backend.datetime')) ?? '' }}</td>
                                             <td class="exclude-search pr-3 text-center align-middle">
-                                                {!! \Html::actionDropdown('backend.portfolio.surveys', $survey->id, array_merge(['show', 'edit'], ($survey->deleted_at == null) ? ['delete'] : ['restore'])) !!}
+                                                {!! \Html::actionDropdown('backend.portfolio.services', $service->id, array_merge(['show', 'edit'], ($service->deleted_at == null) ? ['delete'] : ['restore'])) !!}
                                             </td>
                                         </tr>
                                     @empty
@@ -85,7 +85,7 @@
                             </div>
                         </div>
                         <div class="card-footer bg-transparent pb-0">
-                            {!! \App\Supports\CHTML::pagination($surveys) !!}
+                            {!! \App\Supports\CHTML::pagination($services) !!}
                         </div>
                     @else
                         <div class="card-body min-vh-100">

@@ -65,7 +65,7 @@ class ServiceController extends Controller
         $filters = $request->except('page');
         $services = $this->serviceService->servicePaginate($filters);
 
-        return view('backend.portfolio.certificate.index', [
+        return view('backend.portfolio.service.index', [
             'services' => $services
         ]);
     }
@@ -85,7 +85,7 @@ class ServiceController extends Controller
             $enables[$field] = __('common.' . $label);
         endforeach;
 
-        return view('backend.portfolio.certificate.create', [
+        return view('backend.portfolio.service.create', [
             'enables' => $enables,
             'states' => $this->stateService->getStateDropdown(['enabled' => Constant::ENABLED_OPTION, 'type' => 'district', 'sort' => ((session()->get('locale') == 'bd') ? 'native' : 'name'), 'direction' => 'asc'], (session()->get('locale') == 'bd')),
             'surveys' => $this->surveyService->getSurveyDropDown(['enabled' => Constant::ENABLED_OPTION]),
@@ -126,7 +126,7 @@ class ServiceController extends Controller
     public function show($id)
     {
         if ($service = $this->serviceService->getEnumeratorById($id)) {
-            return view('backend.portfolio.certificate.show', [
+            return view('backend.portfolio.service.show', [
                 'certificate' => $service,
                 'timeline' => Utility::modelAudits($service)
             ]);
@@ -153,7 +153,7 @@ class ServiceController extends Controller
                 $enables[$field] = __('common.' . $label);
             endforeach;
 
-            return view('backend.portfolio.certificate.edit', [
+            return view('backend.portfolio.service.edit', [
                 'certificate' => $service,
                 'enables' => $enables,
                 'states' => $this->stateService->getStateDropdown(['enabled' => Constant::ENABLED_OPTION, 'type' => 'district', 'sort' => ((session()->get('locale') == 'bd') ? 'native' : 'name'), 'direction' => 'asc'], (session()->get('locale') == 'bd')),
