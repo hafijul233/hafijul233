@@ -6,7 +6,7 @@ use Illuminate\Foundation\Http\FormRequest;
 
 /**
  * @class EnumeratorRequest
- * @package App\Http\Requests\Backend\Organization
+ * @package App\Http\Requests\Backend\Portfolio
  */
 class SurveyRequest extends FormRequest
 {

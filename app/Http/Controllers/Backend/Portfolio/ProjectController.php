@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Backend\Organization;
+namespace App\Http\Controllers\Backend\Portfolio;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Backend\Organization\SurveyRequest;
@@ -14,31 +14,32 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\StreamedResponse;
+use Throwable;
 
 /**
- * @class SurveyController
- * @package App\Http\Controllers\Backend\Organization
+ * @class ProjectController
+ * @package App\Http\Controllers\Backend\Portfolio
  */
-class SurveyController extends Controller
+class ProjectController extends Controller
 {
     /**
      * @var AuthenticatedSessionService
      */
     private $authenticatedSessionService;
-    
+
     /**
      * @var SurveyService
      */
     private $surveyService;
 
     /**
-     * SurveyController Constructor
+     * CommentController Constructor
      *
      * @param AuthenticatedSessionService $authenticatedSessionService
      * @param SurveyService $surveyService
      */
     public function __construct(AuthenticatedSessionService $authenticatedSessionService,
-                                SurveyService              $surveyService)
+                                SurveyService $surveyService)
     {
 
         $this->authenticatedSessionService = $authenticatedSessionService;
@@ -77,7 +78,7 @@ class SurveyController extends Controller
      *
      * @param  $request
      * @return RedirectResponse
-     * @throws Exception|\Throwable
+     * @throws Exception|Throwable
      */
     public function store(SurveyRequest $request): RedirectResponse
     {
@@ -134,7 +135,7 @@ class SurveyController extends Controller
      * @param SurveyRequest $request
      * @param  $id
      * @return RedirectResponse
-     * @throws \Throwable
+     * @throws Throwable
      */
     public function update(SurveyRequest $request, $id): RedirectResponse
     {
@@ -155,7 +156,7 @@ class SurveyController extends Controller
      * @param $id
      * @param Request $request
      * @return RedirectResponse
-     * @throws \Throwable
+     * @throws Throwable
      */
     public function destroy($id, Request $request)
     {
@@ -179,7 +180,7 @@ class SurveyController extends Controller
      * @param $id
      * @param Request $request
      * @return RedirectResponse|void
-     * @throws \Throwable
+     * @throws Throwable
      */
     public function restore($id, Request $request)
     {

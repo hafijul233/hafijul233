@@ -11,7 +11,7 @@ use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\Model\ModelEnabledController;
 use App\Http\Controllers\Backend\Model\ModelRestoreController;
 use App\Http\Controllers\Backend\Model\ModelSoftDeleteController;
-use App\Http\Controllers\Backend\Organization\SurveyController;
+use App\Http\Controllers\Backend\Portfolio\CommentController;
 use App\Http\Controllers\Backend\OrganizationController;
 use App\Http\Controllers\Backend\Setting\CatalogController;
 use App\Http\Controllers\Backend\Setting\ExamGroupController;
@@ -144,31 +144,31 @@ Route::prefix('backend')->group(function () {
         Route::prefix('portfolio')->name('portfolio.')->group(function () {
             //Service
             Route::prefix('services')->name('services.')->group(function () {
-                Route::patch('{service}/restore', [SurveyController::class, 'restore'])->name('restore');
-                Route::get('export', [SurveyController::class, 'export'])->name('export');
+                Route::patch('{service}/restore', [CommentController::class, 'restore'])->name('restore');
+                Route::get('export', [CommentController::class, 'export'])->name('export');
             });
-            Route::resource('services', SurveyController::class)->where(['service' => '([0-9]+)']);
+            Route::resource('services', CommentController::class)->where(['service' => '([0-9]+)']);
 
             //Certificate
             Route::prefix('certificates')->name('certificates.')->group(function () {
-                Route::patch('{certificate}/restore', [SurveyController::class, 'restore'])->name('restore');
-                Route::get('export', [SurveyController::class, 'export'])->name('export');
+                Route::patch('{certificate}/restore', [CommentController::class, 'restore'])->name('restore');
+                Route::get('export', [CommentController::class, 'export'])->name('export');
             });
-            Route::resource('certificates', SurveyController::class)->where(['certificate' => '([0-9]+)']);
+            Route::resource('certificates', CommentController::class)->where(['certificate' => '([0-9]+)']);
 
             //Project
             Route::prefix('projects')->name('projects.')->group(function () {
-                Route::patch('{project}/restore', [SurveyController::class, 'restore'])->name('restore');
-                Route::get('export', [SurveyController::class, 'export'])->name('export');
+                Route::patch('{project}/restore', [CommentController::class, 'restore'])->name('restore');
+                Route::get('export', [CommentController::class, 'export'])->name('export');
             });
-            Route::resource('projects', SurveyController::class)->where(['project' => '([0-9]+)']);
+            Route::resource('projects', CommentController::class)->where(['project' => '([0-9]+)']);
 
             //Testimonial
             Route::prefix('testimonials')->name('testimonials.')->group(function () {
-                Route::patch('{testimonial}/restore', [SurveyController::class, 'restore'])->name('restore');
-                Route::get('export', [SurveyController::class, 'export'])->name('export');
+                Route::patch('{testimonial}/restore', [CommentController::class, 'restore'])->name('restore');
+                Route::get('export', [CommentController::class, 'export'])->name('export');
             });
-            Route::resource('testimonials', SurveyController::class)->where(['testimonial' => '([0-9]+)']);
+            Route::resource('testimonials', CommentController::class)->where(['testimonial' => '([0-9]+)']);
         });
 
         //Resume
@@ -176,38 +176,38 @@ Route::prefix('backend')->group(function () {
         Route::prefix('resume')->name('resume.')->group(function () {
             //experience
             Route::prefix('experiences')->name('experiences.')->group(function () {
-                Route::patch('{experience}/restore', [SurveyController::class, 'restore'])->name('restore');
-                Route::get('export', [SurveyController::class, 'export'])->name('export');
+                Route::patch('{experience}/restore', [CommentController::class, 'restore'])->name('restore');
+                Route::get('export', [CommentController::class, 'export'])->name('export');
             });
-            Route::resource('experiences', SurveyController::class)->where(['experience' => '([0-9]+)']);
+            Route::resource('experiences', CommentController::class)->where(['experience' => '([0-9]+)']);
 
             //education
             Route::prefix('educations')->name('educations.')->group(function () {
-                Route::patch('{education}/restore', [SurveyController::class, 'restore'])->name('restore');
-                Route::get('export', [SurveyController::class, 'export'])->name('export');
+                Route::patch('{education}/restore', [CommentController::class, 'restore'])->name('restore');
+                Route::get('export', [CommentController::class, 'export'])->name('export');
             });
-            Route::resource('educations', SurveyController::class)->where(['education' => '([0-9]+)']);
+            Route::resource('educations', CommentController::class)->where(['education' => '([0-9]+)']);
 
             //award
             Route::prefix('awards')->name('awards.')->group(function () {
-                Route::patch('{award}/restore', [SurveyController::class, 'restore'])->name('restore');
-                Route::get('export', [SurveyController::class, 'export'])->name('export');
+                Route::patch('{award}/restore', [CommentController::class, 'restore'])->name('restore');
+                Route::get('export', [CommentController::class, 'export'])->name('export');
             });
-            Route::resource('awards', SurveyController::class)->where(['award' => '([0-9]+)']);
+            Route::resource('awards', CommentController::class)->where(['award' => '([0-9]+)']);
 
             //skill
             Route::prefix('skills')->name('skills.')->group(function () {
-                Route::patch('{skill}/restore', [SurveyController::class, 'restore'])->name('restore');
-                Route::get('export', [SurveyController::class, 'export'])->name('export');
+                Route::patch('{skill}/restore', [CommentController::class, 'restore'])->name('restore');
+                Route::get('export', [CommentController::class, 'export'])->name('export');
             });
-            Route::resource('skills', SurveyController::class)->where(['skill' => '([0-9]+)']);
+            Route::resource('skills', CommentController::class)->where(['skill' => '([0-9]+)']);
 
             //language
             Route::prefix('languages')->name('languages.')->group(function () {
-                Route::patch('{language}/restore', [SurveyController::class, 'restore'])->name('restore');
-                Route::get('export', [SurveyController::class, 'export'])->name('export');
+                Route::patch('{language}/restore', [CommentController::class, 'restore'])->name('restore');
+                Route::get('export', [CommentController::class, 'export'])->name('export');
             });
-            Route::resource('languages', SurveyController::class)->where(['language' => '([0-9]+)']);
+            Route::resource('languages', CommentController::class)->where(['language' => '([0-9]+)']);
         });
 
         //Blog
@@ -215,24 +215,24 @@ Route::prefix('backend')->group(function () {
         Route::prefix('blog')->name('blog.')->group(function () {
             //Post
             Route::prefix('posts')->name('posts.')->group(function () {
-                Route::patch('{post}/restore', [SurveyController::class, 'restore'])->name('restore');
-                Route::get('export', [SurveyController::class, 'export'])->name('export');
+                Route::patch('{post}/restore', [CommentController::class, 'restore'])->name('restore');
+                Route::get('export', [CommentController::class, 'export'])->name('export');
             });
-            Route::resource('posts', SurveyController::class)->where(['post' => '([0-9]+)']);
+            Route::resource('posts', CommentController::class)->where(['post' => '([0-9]+)']);
 
             //Comment
             Route::prefix('comments')->name('comments.')->group(function () {
-                Route::patch('{comment}/restore', [SurveyController::class, 'restore'])->name('restore');
-                Route::get('export', [SurveyController::class, 'export'])->name('export');
+                Route::patch('{comment}/restore', [CommentController::class, 'restore'])->name('restore');
+                Route::get('export', [CommentController::class, 'export'])->name('export');
             });
-            Route::resource('comments', SurveyController::class)->where(['comment' => '([0-9]+)']);
+            Route::resource('comments', CommentController::class)->where(['comment' => '([0-9]+)']);
 
             //Newsletter
             Route::prefix('newsletters')->name('newsletters.')->group(function () {
-                Route::patch('{newsletter}/restore', [SurveyController::class, 'restore'])->name('restore');
-                Route::get('export', [SurveyController::class, 'export'])->name('export');
+                Route::patch('{newsletter}/restore', [CommentController::class, 'restore'])->name('restore');
+                Route::get('export', [CommentController::class, 'export'])->name('export');
             });
-            Route::resource('newsletters', SurveyController::class)->where(['newsletter' => '([0-9]+)']);
+            Route::resource('newsletters', CommentController::class)->where(['newsletter' => '([0-9]+)']);
         });
 
         //Setting

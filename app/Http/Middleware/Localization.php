@@ -12,7 +12,7 @@ class Localization
      * Handle an incoming request.
      *
      * @param Request $request
-     * @param \Closure $next
+     * @param Closure $next
      * @return mixed
      */
     public function handle(Request $request, Closure $next)
@@ -22,7 +22,7 @@ class Localization
         $locale = Session::get('locale');
 
         if (is_null($locale)) {
-            Session::put('locale',config('app.locale'));
+            Session::put('locale', config('app.locale'));
         }
 
         if (in_array($locale, $availableLocales)) {

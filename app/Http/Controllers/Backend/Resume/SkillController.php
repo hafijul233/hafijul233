@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Backend\Common;
+namespace App\Http\Controllers\Backend\Resume;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Backend\Common\AddressBookRequest;
+use App\Http\Requests\Backend\Organization\SurveyRequest;
 use App\Services\Auth\AuthenticatedSessionService;
-use App\Services\Backend\Common\AddressBookService;
+use App\Services\Backend\Organization\SurveyService;
 use App\Supports\Utility;
 use Exception;
 use Illuminate\Contracts\Foundation\Application;
@@ -14,50 +14,52 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\StreamedResponse;
+use Throwable;
 
 /**
- * @class AddressBookController
- * @package App\Http\Controllers\Backend\Common
+ * @class SkillController
+ * @package App\Http\Controllers\Backend\Resume
  */
-class AddressBookController extends Controller
+class SkillController extends Controller
 {
     /**
      * @var AuthenticatedSessionService
      */
     private $authenticatedSessionService;
-    
-    /**
-     * @var AddressBookService
-     */
-    private $addressBookService;
 
     /**
-     * AddressBookController Constructor
+     * @var SurveyService
+     */
+    private $surveyService;
+
+    /**
+     * CommentController Constructor
      *
      * @param AuthenticatedSessionService $authenticatedSessionService
-     * @param AddressBookService $addressBookService
+     * @param SurveyService $surveyService
      */
     public function __construct(AuthenticatedSessionService $authenticatedSessionService,
-                                AddressBookService              $addressBookService)
+                                SurveyService $surveyService)
     {
 
         $this->authenticatedSessionService = $authenticatedSessionService;
-        $this->addressBookService = $addressBookService;
+        $this->surveyService = $surveyService;
     }
-    
+
     /**
      * Display a listing of the resource.
      *
+     * @param Request $request
      * @return Application|Factory|View
      * @throws Exception
      */
     public function index(Request $request)
     {
         $filters = $request->except('page');
-        $addressBooks = $this->addressBookService->addressBookPaginate($filters);
+        $surveys = $this->surveyService->surveyPaginate($filters);
 
-        return view('backend.common.address-book.index', [
-            'addressBooks' => $addressBooks
+        return view('backend.organization.survey.index', [
+            'surveys' => $surveys
         ]);
     }
 
@@ -68,22 +70,22 @@ class AddressBookController extends Controller
      */
     public function create()
     {
-        return view('backend.common.address-book.create');
+        return view('backend.organization.survey.create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param AddressBookRequest $request
+     * @param  $request
      * @return RedirectResponse
-     * @throws Exception|\Throwable
+     * @throws Exception|Throwable
      */
-    public function store(AddressBookRequest $request): RedirectResponse
+    public function store(SurveyRequest $request): RedirectResponse
     {
-        $confirm = $this->addressBookService->storeAddressBook($request->except('_token'));
+        $confirm = $this->surveyService->storeSurvey($request->except('_token'));
         if ($confirm['status'] == true) {
             notify($confirm['message'], $confirm['level'], $confirm['title']);
-            return redirect()->route('backend.common.address-books.index');
+            return redirect()->route('backend.organization.surveys.index');
         }
 
         notify($confirm['message'], $confirm['level'], $confirm['title']);
@@ -99,10 +101,10 @@ class AddressBookController extends Controller
      */
     public function show($id)
     {
-        if ($addressBook = $this->addressBookService->getAddressBookById($id)) {
-            return view('backend.common.address-book.show', [
-                'addressBook' => $addressBook,
-                'timeline' => Utility::modelAudits($addressBook)
+        if ($survey = $this->surveyService->getSurveyById($id)) {
+            return view('backend.organization.survey.show', [
+                'survey' => $survey,
+                'timeline' => Utility::modelAudits($survey)
             ]);
         }
 
@@ -118,9 +120,9 @@ class AddressBookController extends Controller
      */
     public function edit($id)
     {
-        if ($addressBook = $this->addressBookService->getAddressBookById($id)) {
-            return view('backend.common.address-book.edit', [
-                'addressBook' => $addressBook
+        if ($survey = $this->surveyService->getSurveyById($id)) {
+            return view('backend.organization.survey.edit', [
+                'survey' => $survey
             ]);
         }
 
@@ -130,18 +132,18 @@ class AddressBookController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param AddressBookRequest $request
+     * @param SurveyRequest $request
      * @param  $id
      * @return RedirectResponse
-     * @throws \Throwable
+     * @throws Throwable
      */
-    public function update(AddressBookRequest $request, $id): RedirectResponse
+    public function update(SurveyRequest $request, $id): RedirectResponse
     {
-        $confirm = $this->addressBookService->updateAddressBook($request->except('_token', 'submit', '_method'), $id);
+        $confirm = $this->surveyService->updateSurvey($request->except('_token', 'submit', '_method'), $id);
 
         if ($confirm['status'] == true) {
             notify($confirm['message'], $confirm['level'], $confirm['title']);
-            return redirect()->route('backend.common.address-books.index');
+            return redirect()->route('backend.organization.surveys.index');
         }
 
         notify($confirm['message'], $confirm['level'], $confirm['title']);
@@ -154,20 +156,20 @@ class AddressBookController extends Controller
      * @param $id
      * @param Request $request
      * @return RedirectResponse
-     * @throws \Throwable
+     * @throws Throwable
      */
     public function destroy($id, Request $request)
     {
         if ($this->authenticatedSessionService->validate($request)) {
 
-            $confirm = $this->addressBookService->destroyAddressBook($id);
+            $confirm = $this->surveyService->destroySurvey($id);
 
             if ($confirm['status'] == true) {
                 notify($confirm['message'], $confirm['level'], $confirm['title']);
             } else {
                 notify($confirm['message'], $confirm['level'], $confirm['title']);
             }
-            return redirect()->route('backend.common.address-books.index');
+            return redirect()->route('backend.organization.surveys.index');
         }
         abort(403, 'Wrong user credentials');
     }
@@ -178,20 +180,20 @@ class AddressBookController extends Controller
      * @param $id
      * @param Request $request
      * @return RedirectResponse|void
-     * @throws \Throwable
+     * @throws Throwable
      */
     public function restore($id, Request $request)
     {
         if ($this->authenticatedSessionService->validate($request)) {
 
-            $confirm = $this->addressBookService->restoreAddressBook($id);
+            $confirm = $this->surveyService->restoreSurvey($id);
 
             if ($confirm['status'] == true) {
                 notify($confirm['message'], $confirm['level'], $confirm['title']);
             } else {
                 notify($confirm['message'], $confirm['level'], $confirm['title']);
             }
-            return redirect()->route('backend.common.address-books.index');
+            return redirect()->route('backend.organization.surveys.index');
         }
         abort(403, 'Wrong user credentials');
     }
@@ -206,12 +208,12 @@ class AddressBookController extends Controller
     {
         $filters = $request->except('page');
 
-        $addressBookExport = $this->addressBookService->exportAddressBook($filters);
+        $surveyExport = $this->surveyService->exportSurvey($filters);
 
-        $filename = 'Address-' . date('Ymd-His') . '.' . ($filters['format'] ?? 'xlsx');
+        $filename = 'Survey-' . date('Ymd-His') . '.' . ($filters['format'] ?? 'xlsx');
 
-        return $addressBookExport->download($filename, function ($addressBook) use ($addressBookExport) {
-            return $addressBookExport->map($addressBook);
+        return $surveyExport->download($filename, function ($survey) use ($surveyExport) {
+            return $surveyExport->map($survey);
         });
 
     }
@@ -223,7 +225,7 @@ class AddressBookController extends Controller
      */
     public function import()
     {
-        return view('backend.common.address-book.import');
+        return view('backend.organization.surveyimport');
     }
 
     /**
@@ -235,10 +237,10 @@ class AddressBookController extends Controller
     public function importBulk(Request $request)
     {
         $filters = $request->except('page');
-        $addressBooks = $this->addressBookService->getAllAddressBooks($filters);
+        $surveys = $this->surveyService->getAllSurveys($filters);
 
-        return view('backend.common.address-book.index', [
-            'addressBooks' => $addressBooks
+        return view('backend.organization.surveyindex', [
+            'surveys' => $surveys
         ]);
     }
 
@@ -252,12 +254,12 @@ class AddressBookController extends Controller
     {
         $filters = $request->except('page');
 
-        $addressBookExport = $this->addressBookService->exportAddressBook($filters);
+        $surveyExport = $this->surveyService->exportSurvey($filters);
 
-        $filename = 'Address-' . date('Ymd-His') . '.' . ($filters['format'] ?? 'xlsx');
+        $filename = 'Survey-' . date('Ymd-His') . '.' . ($filters['format'] ?? 'xlsx');
 
-        return $addressBookExport->download($filename, function ($addressBook) use ($addressBookExport) {
-            return $addressBookExport->map($addressBook);
+        return $surveyExport->download($filename, function ($survey) use ($surveyExport) {
+            return $surveyExport->map($survey);
         });
 
     }

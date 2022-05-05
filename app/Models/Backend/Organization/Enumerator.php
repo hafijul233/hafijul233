@@ -16,7 +16,7 @@ use OwenIt\Auditing\Contracts\Auditable;
 
 /**
  * @class Enumerator
- * @package App\Models\Backend\Organization
+ * @package App\Models\Backend\Portfolio
  */
 class Enumerator extends Model implements Auditable
 {

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend\Common;
 use App\Http\Controllers\Controller;
 use App\Models\Setting\User;
 use App\Services\Backend\Common\NotificationService;
+use Exception;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -42,7 +43,7 @@ class NotificationController extends Controller
      * Display a listing of the resource.
      *
      * @return Application|Factory|View
-     * @throws \Exception
+     * @throws Exception
      */
     public function index(Request $request)
     {
@@ -59,7 +60,7 @@ class NotificationController extends Controller
      *
      * @param string $id
      * @return RedirectResponse
-     * @throws \Exception
+     * @throws Exception
      */
     public function show(string $id)
     {
@@ -76,7 +77,7 @@ class NotificationController extends Controller
      *
      * @param string $id
      * @return Response
-     * @throws \Exception
+     * @throws Exception
      */
     public function mark(string $id): Response
     {

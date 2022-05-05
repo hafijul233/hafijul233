@@ -14,11 +14,12 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\StreamedResponse;
+use Throwable;
 
 /**
  * @class CatalogController
  * @package $NAMESPACE$
- * 
+ *
  */
 class CatalogController extends Controller
 {
@@ -26,7 +27,7 @@ class CatalogController extends Controller
      * @var AuthenticatedSessionService
      */
     private $authenticatedSessionService;
-    
+
     /**
      * @var CatalogService
      */
@@ -39,7 +40,7 @@ class CatalogController extends Controller
      * @param CatalogService $catalogService
      */
     public function __construct(AuthenticatedSessionService $authenticatedSessionService,
-                                CatalogService              $catalogService)
+                                CatalogService $catalogService)
     {
 
         $this->authenticatedSessionService = $authenticatedSessionService;
@@ -78,7 +79,7 @@ class CatalogController extends Controller
      *
      * @param CatalogRequest $request
      * @return RedirectResponse
-     * @throws Exception|\Throwable
+     * @throws Exception|Throwable
      */
     public function store(CatalogRequest $request): RedirectResponse
     {
@@ -138,7 +139,7 @@ class CatalogController extends Controller
      * @param CatalogRequest $request
      * @param  $id
      * @return RedirectResponse
-     * @throws \Throwable
+     * @throws Throwable
      */
     public function update(CatalogRequest $request, $id): RedirectResponse
     {
@@ -159,7 +160,7 @@ class CatalogController extends Controller
      * @param $id
      * @param Request $request
      * @return RedirectResponse
-     * @throws \Throwable
+     * @throws Throwable
      */
     public function destroy($id, Request $request)
     {
@@ -183,7 +184,7 @@ class CatalogController extends Controller
      * @param $id
      * @param Request $request
      * @return RedirectResponse|void
-     * @throws \Throwable
+     * @throws Throwable
      */
     public function restore($id, Request $request)
     {

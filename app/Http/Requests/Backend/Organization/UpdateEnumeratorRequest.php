@@ -10,7 +10,7 @@ use Illuminate\Validation\Rule;
 
 /**
  * @class EnumeratorRequest
- * @package App\Http\Requests\Backend\Organization
+ * @package App\Http\Requests\Backend\Portfolio
  */
 class UpdateEnumeratorRequest extends FormRequest
 {

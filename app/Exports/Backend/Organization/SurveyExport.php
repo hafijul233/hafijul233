@@ -8,7 +8,7 @@ use Box\Spout\Common\Exception\InvalidArgumentException;
 
 /**
  * @class SurveyExport
- * @package App\Exports\Backend\Organization
+ * @package App\Exports\Backend\Portfolio
  */
 class SurveyExport extends FastExcelExport
 {

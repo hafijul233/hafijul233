@@ -15,6 +15,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\StreamedResponse;
+use Throwable;
 
 class CityController extends Controller
 {
@@ -32,7 +33,7 @@ class CityController extends Controller
      * @param CityService $cityService
      */
     public function __construct(AuthenticatedSessionService $authenticatedSessionService,
-                                CityService              $cityService)
+                                CityService $cityService)
     {
 
         $this->authenticatedSessionService = $authenticatedSessionService;
@@ -70,7 +71,7 @@ class CityController extends Controller
      *
      * @param CityRequest $request
      * @return RedirectResponse
-     * @throws Exception|\Throwable
+     * @throws Exception|Throwable
      */
     public function store(CityRequest $request): RedirectResponse
     {
@@ -127,7 +128,7 @@ class CityController extends Controller
      * @param CityRequest $request
      * @param  $id
      * @return RedirectResponse
-     * @throws \Throwable
+     * @throws Throwable
      */
     public function update(CityRequest $request, $id): RedirectResponse
     {
@@ -148,7 +149,7 @@ class CityController extends Controller
      * @param $id
      * @param Request $request
      * @return RedirectResponse
-     * @throws \Throwable
+     * @throws Throwable
      */
     public function destroy($id, Request $request)
     {
@@ -172,7 +173,7 @@ class CityController extends Controller
      * @param $id
      * @param Request $request
      * @return RedirectResponse|void
-     * @throws \Throwable
+     * @throws Throwable
      */
     public function restore($id, Request $request)
     {
@@ -270,7 +271,7 @@ class CityController extends Controller
 
         $cities = $this->cityService->getAllCities($filters)->toArray();
 
-        if(count($cities) > 0):
+        if (count($cities) > 0):
             $jsonReturn = ['status' => true, 'data' => $cities];
         else :
             $jsonReturn = ['status' => false, 'data' => []];

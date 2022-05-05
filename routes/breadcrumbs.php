@@ -311,13 +311,13 @@ Breadcrumbs::for('backend.settings.cities.edit', function (BreadcrumbTrail $trai
     $trail->push(__('common.Edit'), route('backend.settings.cities.edit', $city->id));
 });
 
-/****************************************** Organization ******************************************/
+/****************************************** Portfolio ******************************************/
 
 Breadcrumbs::for('backend.organization', function (BreadcrumbTrail $trail) {
 
     $trail->parent('backend');
 
-    $trail->push(__('menu-sidebar.Organization'), route('backend.organization'));
+    $trail->push(__('menu-sidebar.Portfolio'), route('backend.organization'));
 });
 
 /****************************************** Survey ******************************************/

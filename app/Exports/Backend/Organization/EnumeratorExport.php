@@ -9,7 +9,7 @@ use Carbon\Carbon;
 
 /**
  * @class EnumeratorExport
- * @package App\Exports\Backend\Organization
+ * @package App\Exports\Backend\Portfolio
  */
 class EnumeratorExport extends FastExcelExport
 {

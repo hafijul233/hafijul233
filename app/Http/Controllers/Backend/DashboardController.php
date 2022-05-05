@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers\Backend;
 
-use App\Services\Backend\Organization\EnumeratorService;
-use App\Services\Backend\Organization\SurveyService;
 use App\Services\Backend\Setting\UserService;
+use Exception;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -31,7 +30,7 @@ class DashboardController extends Controller
     /**
      * @param Request $request
      * @return array|Application|Factory|View|mixed
-     * @throws \Exception
+     * @throws Exception
      */
     public function __invoke(Request $request)
     {

@@ -16,6 +16,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\StreamedResponse;
+use Throwable;
 
 class UserController extends Controller
 {
@@ -57,7 +58,7 @@ class UserController extends Controller
      * Display a listing of the resource.
      *
      * @return Application|Factory|View
-     * @throws \Exception
+     * @throws Exception
      */
     public function index(Request $request): View
     {
@@ -95,7 +96,7 @@ class UserController extends Controller
      *
      * @param UserRequest $request
      * @return RedirectResponse
-     * @throws \Throwable
+     * @throws Throwable
      */
     public function store(UserRequest $request): RedirectResponse
     {
@@ -118,7 +119,7 @@ class UserController extends Controller
      *
      * @param int $id
      * @return Application|Factory|View|void
-     * @throws \Exception
+     * @throws Exception
      */
     public function show(int $id)
     {
@@ -137,7 +138,7 @@ class UserController extends Controller
      *
      * @param int $id
      * @return Application|Factory|View
-     * @throws \Exception
+     * @throws Exception
      */
     public function edit(int $id)
     {
@@ -162,7 +163,7 @@ class UserController extends Controller
      * @param UserRequest $request
      * @param  $id
      * @return RedirectResponse
-     * @throws \Throwable
+     * @throws Throwable
      */
     public function update(UserRequest $request, $id): RedirectResponse
     {
@@ -187,7 +188,7 @@ class UserController extends Controller
      * @param $id
      * @param Request $request
      * @return RedirectResponse|void
-     * @throws \Throwable
+     * @throws Throwable
      */
     public function destroy($id, Request $request)
     {
@@ -210,7 +211,7 @@ class UserController extends Controller
      * @param $id
      * @param Request $request
      * @return RedirectResponse|void
-     * @throws \Throwable
+     * @throws Throwable
      */
     public function restore($id, Request $request)
     {

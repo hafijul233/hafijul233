@@ -8,7 +8,7 @@ use App\Services\Auth\AuthenticatedSessionService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Session;
+use Log;
 
 /**
  * @class AuthenticatedSessionController
@@ -49,7 +49,7 @@ class AuthenticatedSessionController extends Controller
     {
         $confirm = $this->authenticatedSessionService->attemptLogin($request);
 
-        \Log::info("Login Info Tapping", $confirm);
+        Log::info("Login Info Tapping", $confirm);
         if ($confirm['status'] === true) {
             //Session::put('locale', 'en');
             notify($confirm['message'], $confirm['level'], $confirm['title']);

@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Collection;
 
 /**
  * @class EnumeratorRepository
- * @package App\Repositories\Eloquent\Backend\Organization
+ * @package App\Repositories\Eloquent\Backend\Portfolio
  */
 class EnumeratorRepository extends EloquentRepository
 {

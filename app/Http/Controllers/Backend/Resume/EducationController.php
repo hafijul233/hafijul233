@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Backend\Setting;
+namespace App\Http\Controllers\Backend\Resume;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Backend\Setting\PermissionRequest;
+use App\Http\Requests\Backend\Organization\SurveyRequest;
 use App\Services\Auth\AuthenticatedSessionService;
-use App\Services\Backend\Setting\PermissionService;
+use App\Services\Backend\Organization\SurveyService;
 use App\Supports\Utility;
 use Exception;
 use Illuminate\Contracts\Foundation\Application;
@@ -16,27 +16,34 @@ use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 use Throwable;
 
-class PermissionController extends Controller
+/**
+ * @class CommentController
+ * @package App\Http\Controllers\Backend\Resume
+ */
+class EducationController extends Controller
 {
     /**
      * @var AuthenticatedSessionService
      */
     private $authenticatedSessionService;
-    /**
-     * @var PermissionService
-     */
-    private $permissionService;
 
     /**
+     * @var SurveyService
+     */
+    private $surveyService;
+
+    /**
+     * CommentController Constructor
+     *
      * @param AuthenticatedSessionService $authenticatedSessionService
-     * @param PermissionService $permissionService
+     * @param SurveyService $surveyService
      */
     public function __construct(AuthenticatedSessionService $authenticatedSessionService,
-                                PermissionService $permissionService)
+                                SurveyService $surveyService)
     {
 
         $this->authenticatedSessionService = $authenticatedSessionService;
-        $this->permissionService = $permissionService;
+        $this->surveyService = $surveyService;
     }
 
     /**
@@ -49,10 +56,10 @@ class PermissionController extends Controller
     public function index(Request $request)
     {
         $filters = $request->except('page');
-        $permissions = $this->permissionService->permissionPaginate($filters);
+        $surveys = $this->surveyService->surveyPaginate($filters);
 
-        return view('backend.setting.permission.index', [
-            'permissions' => $permissions
+        return view('backend.organization.survey.index', [
+            'surveys' => $surveys
         ]);
     }
 
@@ -63,22 +70,22 @@ class PermissionController extends Controller
      */
     public function create()
     {
-        return view('backend.setting.permission.create');
+        return view('backend.organization.survey.create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param PermissionRequest $request
+     * @param  $request
      * @return RedirectResponse
      * @throws Exception|Throwable
      */
-    public function store(PermissionRequest $request): RedirectResponse
+    public function store(SurveyRequest $request): RedirectResponse
     {
-        $confirm = $this->permissionService->storePermission($request->except('_token'));
+        $confirm = $this->surveyService->storeSurvey($request->except('_token'));
         if ($confirm['status'] == true) {
             notify($confirm['message'], $confirm['level'], $confirm['title']);
-            return redirect()->route('backend.settings.permissions.index');
+            return redirect()->route('backend.organization.surveys.index');
         }
 
         notify($confirm['message'], $confirm['level'], $confirm['title']);
@@ -94,10 +101,10 @@ class PermissionController extends Controller
      */
     public function show($id)
     {
-        if ($permission = $this->permissionService->getPermissionById($id)) {
-            return view('backend.setting.permission.show', [
-                'permission' => $permission,
-                'timeline' => Utility::modelAudits($permission)
+        if ($survey = $this->surveyService->getSurveyById($id)) {
+            return view('backend.organization.survey.show', [
+                'survey' => $survey,
+                'timeline' => Utility::modelAudits($survey)
             ]);
         }
 
@@ -113,9 +120,9 @@ class PermissionController extends Controller
      */
     public function edit($id)
     {
-        if ($permission = $this->permissionService->getPermissionById($id)) {
-            return view('backend.setting.permission.edit', [
-                'permission' => $permission
+        if ($survey = $this->surveyService->getSurveyById($id)) {
+            return view('backend.organization.survey.edit', [
+                'survey' => $survey
             ]);
         }
 
@@ -125,18 +132,18 @@ class PermissionController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param PermissionRequest $request
+     * @param SurveyRequest $request
      * @param  $id
      * @return RedirectResponse
      * @throws Throwable
      */
-    public function update(PermissionRequest $request, $id): RedirectResponse
+    public function update(SurveyRequest $request, $id): RedirectResponse
     {
-        $confirm = $this->permissionService->updatePermission($request->except('_token', 'submit', '_method'), $id);
+        $confirm = $this->surveyService->updateSurvey($request->except('_token', 'submit', '_method'), $id);
 
         if ($confirm['status'] == true) {
             notify($confirm['message'], $confirm['level'], $confirm['title']);
-            return redirect()->route('backend.settings.permissions.index');
+            return redirect()->route('backend.organization.surveys.index');
         }
 
         notify($confirm['message'], $confirm['level'], $confirm['title']);
@@ -155,14 +162,14 @@ class PermissionController extends Controller
     {
         if ($this->authenticatedSessionService->validate($request)) {
 
-            $confirm = $this->permissionService->destroyPermission($id);
+            $confirm = $this->surveyService->destroySurvey($id);
 
             if ($confirm['status'] == true) {
                 notify($confirm['message'], $confirm['level'], $confirm['title']);
             } else {
                 notify($confirm['message'], $confirm['level'], $confirm['title']);
             }
-            return redirect()->route('backend.settings.permissions.index');
+            return redirect()->route('backend.organization.surveys.index');
         }
         abort(403, 'Wrong user credentials');
     }
@@ -179,14 +186,14 @@ class PermissionController extends Controller
     {
         if ($this->authenticatedSessionService->validate($request)) {
 
-            $confirm = $this->permissionService->restorePermission($id);
+            $confirm = $this->surveyService->restoreSurvey($id);
 
             if ($confirm['status'] == true) {
                 notify($confirm['message'], $confirm['level'], $confirm['title']);
             } else {
                 notify($confirm['message'], $confirm['level'], $confirm['title']);
             }
-            return redirect()->route('backend.settings.permissions.index');
+            return redirect()->route('backend.organization.surveys.index');
         }
         abort(403, 'Wrong user credentials');
     }
@@ -201,12 +208,12 @@ class PermissionController extends Controller
     {
         $filters = $request->except('page');
 
-        $permissionExport = $this->permissionService->exportPermission($filters);
+        $surveyExport = $this->surveyService->exportSurvey($filters);
 
-        $filename = 'Permission-' . date('Ymd-His') . '.' . ($filters['format'] ?? 'xlsx');
+        $filename = 'Survey-' . date('Ymd-His') . '.' . ($filters['format'] ?? 'xlsx');
 
-        return $permissionExport->download($filename, function ($permission) use ($permissionExport) {
-            return $permissionExport->map($permission);
+        return $surveyExport->download($filename, function ($survey) use ($surveyExport) {
+            return $surveyExport->map($survey);
         });
 
     }
@@ -218,7 +225,7 @@ class PermissionController extends Controller
      */
     public function import()
     {
-        return view('backend.setting.permission.import');
+        return view('backend.organization.surveyimport');
     }
 
     /**
@@ -230,10 +237,10 @@ class PermissionController extends Controller
     public function importBulk(Request $request)
     {
         $filters = $request->except('page');
-        $permissions = $this->permissionService->getAllPermissions($filters);
+        $surveys = $this->surveyService->getAllSurveys($filters);
 
-        return view('backend.setting.permission.index', [
-            'permissions' => $permissions
+        return view('backend.organization.surveyindex', [
+            'surveys' => $surveys
         ]);
     }
 
@@ -247,12 +254,12 @@ class PermissionController extends Controller
     {
         $filters = $request->except('page');
 
-        $permissionExport = $this->permissionService->exportPermission($filters);
+        $surveyExport = $this->surveyService->exportSurvey($filters);
 
-        $filename = 'Permission-' . date('Ymd-His') . '.' . ($filters['format'] ?? 'xlsx');
+        $filename = 'Survey-' . date('Ymd-His') . '.' . ($filters['format'] ?? 'xlsx');
 
-        return $permissionExport->download($filename, function ($permission) use ($permissionExport) {
-            return $permissionExport->map($permission);
+        return $surveyExport->download($filename, function ($survey) use ($surveyExport) {
+            return $surveyExport->map($survey);
         });
 
     }

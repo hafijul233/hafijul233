@@ -18,7 +18,7 @@ class TranslateController extends Controller
     {
         $locale = $request->language;
 
-        if (!in_array($locale, config('app.available_locales'))){
+        if (!in_array($locale, config('app.available_locales'))) {
             $locale = 'en';
         }
 

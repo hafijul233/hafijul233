@@ -14,6 +14,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\StreamedResponse;
+use Throwable;
 
 class CountryController extends Controller
 {
@@ -32,7 +33,7 @@ class CountryController extends Controller
      * @param CountryService $countryService
      */
     public function __construct(AuthenticatedSessionService $authenticatedSessionService,
-                                CountryService              $countryService)
+                                CountryService $countryService)
     {
 
         $this->authenticatedSessionService = $authenticatedSessionService;
@@ -70,7 +71,7 @@ class CountryController extends Controller
      *
      * @param CountryRequest $request
      * @return RedirectResponse
-     * @throws Exception|\Throwable
+     * @throws Exception|Throwable
      */
     public function store(CountryRequest $request): RedirectResponse
     {
@@ -127,7 +128,7 @@ class CountryController extends Controller
      * @param CountryRequest $request
      * @param  $id
      * @return RedirectResponse
-     * @throws \Throwable
+     * @throws Throwable
      */
     public function update(CountryRequest $request, $id): RedirectResponse
     {
@@ -148,7 +149,7 @@ class CountryController extends Controller
      * @param $id
      * @param Request $request
      * @return RedirectResponse
-     * @throws \Throwable
+     * @throws Throwable
      */
     public function destroy($id, Request $request)
     {
@@ -172,7 +173,7 @@ class CountryController extends Controller
      * @param $id
      * @param Request $request
      * @return RedirectResponse|void
-     * @throws \Throwable
+     * @throws Throwable
      */
     public function restore($id, Request $request)
     {

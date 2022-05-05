@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Backend\Organization;
+namespace App\Http\Controllers\Backend\Blog;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Backend\Organization\CreateEnumeratorRequest;
@@ -28,12 +28,13 @@ use Illuminate\Http\Request;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\NotFoundExceptionInterface;
 use Symfony\Component\HttpFoundation\StreamedResponse;
+use Throwable;
 
 /**
- * @class EnumeratorController
- * @package App\Http\Controllers\Backend\Organization
+ * @class PostController
+ * @package App\Http\Controllers\Backend\Blog
  */
-class EnumeratorController extends Controller
+class PostController extends Controller
 {
     /**
      * @var AuthenticatedSessionService
@@ -66,7 +67,7 @@ class EnumeratorController extends Controller
     private $stateService;
 
     /**
-     * EnumeratorController Constructor
+     * PostController Constructor
      *
      * @param AuthenticatedSessionService $authenticatedSessionService
      * @param EnumeratorService $enumeratorService
@@ -137,7 +138,7 @@ class EnumeratorController extends Controller
      *
      * @param CreateEnumeratorRequest $request
      * @return RedirectResponse
-     * @throws Exception|\Throwable
+     * @throws Exception|Throwable
      */
     public function store(CreateEnumeratorRequest $request): RedirectResponse
     {
@@ -210,7 +211,7 @@ class EnumeratorController extends Controller
      * @param CreateEnumeratorRequest $request
      * @param  $id
      * @return RedirectResponse
-     * @throws \Throwable
+     * @throws Throwable
      */
     public function update(UpdateEnumeratorRequest $request, $id): RedirectResponse
     {
@@ -232,7 +233,7 @@ class EnumeratorController extends Controller
      * @param $id
      * @param Request $request
      * @return RedirectResponse
-     * @throws \Throwable
+     * @throws Throwable
      */
     public function destroy($id, Request $request)
     {
@@ -256,7 +257,7 @@ class EnumeratorController extends Controller
      * @param $id
      * @param Request $request
      * @return RedirectResponse|void
-     * @throws \Throwable
+     * @throws Throwable
      */
     public function restore($id, Request $request)
     {

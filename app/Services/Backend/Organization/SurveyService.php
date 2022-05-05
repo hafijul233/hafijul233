@@ -16,7 +16,7 @@ use Throwable;
 
 /**
  * @class SurveyService
- * @package App\Services\Backend\Organization
+ * @package App\Services\Backend\Portfolio
  */
 class SurveyService extends Service
 {

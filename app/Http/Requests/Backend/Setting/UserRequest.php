@@ -43,25 +43,25 @@ class UserRequest extends FormRequest
         if (config('auth.credential_field') == Constant::LOGIN_EMAIL
             || (config('auth.credential_field') == Constant::LOGIN_OTP
                 && config('auth.credential_otp_field') == Constant::OTP_EMAIL)):
-            array_push($rules['email'],'required');
+            array_push($rules['email'], 'required');
         else :
-            array_push($rules['email'],'nullable');
+            array_push($rules['email'], 'nullable');
         endif;
 
         if (config('auth.credential_field') == Constant::LOGIN_MOBILE
             || (config('auth.credential_field') == Constant::LOGIN_OTP
                 && config('auth.credential_otp_field') == Constant::OTP_MOBILE)) :
-            array_push($rules['mobile'],'required');
+            array_push($rules['mobile'], 'required');
         else :
-            array_push($rules['mobile'],'nullable');
+            array_push($rules['mobile'], 'nullable');
         endif;
 
         if (config('auth.credential_field') == Constant::LOGIN_USERNAME) :
-            array_push($rules['username'],'required');
+            array_push($rules['username'], 'required');
         else :
-            array_push($rules['username'],'nullable');
+            array_push($rules['username'], 'nullable');
         endif;
 
-        return  $rules;
+        return $rules;
     }
 }

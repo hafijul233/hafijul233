@@ -17,7 +17,7 @@ use Throwable;
 
 /**
  * @class EnumeratorService
- * @package App\Services\Backend\Organization
+ * @package App\Services\Backend\Portfolio
  */
 class EnumeratorService extends Service
 {

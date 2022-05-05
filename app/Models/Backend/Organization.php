@@ -12,7 +12,7 @@ use OwenIt\Auditing\Auditable as AuditableTrait;
 use OwenIt\Auditing\Contracts\Auditable;
 
 /**
- * @class Organization
+ * @class Portfolio
  * @package App\Models\Backend
  */
 class Organization extends Model implements Auditable

@@ -14,7 +14,9 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Log;
 use Symfony\Component\HttpFoundation\StreamedResponse;
+use Throwable;
 
 class ExamGroupController extends Controller
 {
@@ -32,7 +34,7 @@ class ExamGroupController extends Controller
      * @param ExamGroupService $examGroupService
      */
     public function __construct(AuthenticatedSessionService $authenticatedSessionService,
-                                ExamGroupService              $examGroupService)
+                                ExamGroupService $examGroupService)
     {
 
         $this->authenticatedSessionService = $authenticatedSessionService;
@@ -70,7 +72,7 @@ class ExamGroupController extends Controller
      *
      * @param ExamGroupRequest $request
      * @return RedirectResponse
-     * @throws Exception|\Throwable
+     * @throws Exception|Throwable
      */
     public function store(ExamGroupRequest $request): RedirectResponse
     {
@@ -127,7 +129,7 @@ class ExamGroupController extends Controller
      * @param ExamGroupRequest $request
      * @param  $id
      * @return RedirectResponse
-     * @throws \Throwable
+     * @throws Throwable
      */
     public function update(ExamGroupRequest $request, $id): RedirectResponse
     {
@@ -148,7 +150,7 @@ class ExamGroupController extends Controller
      * @param $id
      * @param Request $request
      * @return RedirectResponse
-     * @throws \Throwable
+     * @throws Throwable
      */
     public function destroy($id, Request $request)
     {
@@ -172,7 +174,7 @@ class ExamGroupController extends Controller
      * @param $id
      * @param Request $request
      * @return RedirectResponse|void
-     * @throws \Throwable
+     * @throws Throwable
      */
     public function restore($id, Request $request)
     {
@@ -266,10 +268,10 @@ class ExamGroupController extends Controller
     {
         $filters = $request->except('page');
 
-        \Log::info("Ajax Request:", $request->all());
+        Log::info("Ajax Request:", $request->all());
         $examGroups = $this->examGroupService->getAllExamGroups($filters)->toArray();
 
-        if(count($examGroups) > 0):
+        if (count($examGroups) > 0):
             $jsonReturn = ['status' => true, 'data' => $examGroups];
         else :
             $jsonReturn = ['status' => false, 'data' => []];

@@ -17,10 +17,11 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\NotFoundExceptionInterface;
+use Throwable;
 
 /**
  * @class ApplicantController
- * @package App\Http\Controllers\Backend\Organization
+ * @package App\Http\Controllers\Backend\Portfolio
  */
 class ApplicantController extends Controller
 {
@@ -97,7 +98,7 @@ class ApplicantController extends Controller
      *
      * @param ApplicantRequest $request
      * @return RedirectResponse
-     * @throws \Throwable
+     * @throws Throwable
      */
     public function store(ApplicantRequest $request): RedirectResponse
     {

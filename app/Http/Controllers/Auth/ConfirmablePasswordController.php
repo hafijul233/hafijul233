@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Auth;;
+namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
@@ -29,7 +29,7 @@ class ConfirmablePasswordController extends Controller
      */
     public function store(Request $request)
     {
-        if (! guard('web')->validate([
+        if (!guard('web')->validate([
             'email' => $request->user()->email,
             'password' => $request->password,
         ])) {

@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Collection;
 
 /**
  * @class SurveyRepository
- * @package App\Repositories\Eloquent\Backend\Organization
+ * @package App\Repositories\Eloquent\Backend\Portfolio
  */
 class SurveyRepository extends EloquentRepository
 {

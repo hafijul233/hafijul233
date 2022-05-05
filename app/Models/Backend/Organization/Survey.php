@@ -11,7 +11,7 @@ use OwenIt\Auditing\Contracts\Auditable;
 
 /**
  * @class Enumerator
- * @package App\Models\Backend\Organization
+ * @package App\Models\Backend\Portfolio
  */
 class Survey extends Model implements Auditable
 {
