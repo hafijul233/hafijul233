@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Backend\Portfolio;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Backend\Organization\SurveyRequest;
+use App\Http\Requests\Backend\Portfolio\SurveyRequest;
 use App\Services\Auth\AuthenticatedSessionService;
 use App\Services\Backend\Portfolio\ProjectService;
 use App\Supports\Utility;

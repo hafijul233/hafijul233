@@ -3,14 +3,15 @@
 namespace App\Services\Backend\Portfolio;
 
 use App\Abstracts\Service\Service;
-use App\Models\Backend\Portfolio\Service as ServiceModel;
 use App\Exports\Backend\Organization\ServiceExport;
+use App\Models\Backend\Portfolio\Service as ServiceModel;
 use App\Repositories\Eloquent\Backend\Portfolio\ServiceRepository;
 use App\Supports\Constant;
 use Exception;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\DB;
 use Throwable;
 
@@ -24,7 +25,7 @@ class ServiceService extends Service
      * @var ServiceRepository
      */
     private $serviceRepository;
-    
+
     /**
      * PostService constructor.
      * @param ServiceRepository $serviceRepository
@@ -90,17 +91,17 @@ class ServiceService extends Service
             $newService = $this->serviceRepository->create($newServiceInfo);
             if ($newService instanceof ServiceModel) {
                 //handling Comment List
-                $newService->surveys()->attach($inputs['survey_id']);
-                $newService->previousPostings()->attach($inputs['prev_post_state_id']);
-                $newService->futurePostings()->attach($inputs['future_post_state_id']);
+                if ($inputs['image'] instanceof UploadedFile) {
+                    $newService->addMedia($inputs['image'])->toMediaCollection('services');
+                }
                 $newService->save();
 
                 DB::commit();
-                return ['status' => true, 'message' => __('New Post Created'),
+                return ['status' => true, 'message' => __('New Service Created'),
                     'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
             } else {
                 DB::rollBack();
-                return ['status' => false, 'message' => __('New Post Creation Failed'),
+                return ['status' => false, 'message' => __('New Service Creation Failed'),
                     'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!'];
             }
         } catch (Exception $exception) {
@@ -120,35 +121,9 @@ class ServiceService extends Service
     private function formatServiceInfo(array $inputs)
     {
         $serviceInfo = [];
-        $serviceInfo["survey_id"] = null;
-        $serviceInfo["gender_id"] = $inputs['gender_id'] ?? null;
-        $serviceInfo["dob"] = $inputs['dob'] ?? null;
-        $serviceInfo["name"] = $inputs["name"] ?? null;
-        $serviceInfo["name_bd"] = $inputs["name_bd"] ?? null;
-        $serviceInfo["father"] = $inputs["father"] ?? null;
-        $serviceInfo["father_bd"] = $inputs["father_bd"] ?? null;
-        $serviceInfo["mother"] = $inputs["mother"] ?? null;
-        $serviceInfo["mother_bd"] = $inputs["mother_bd"] ?? null;
-        $serviceInfo["nid"] = $inputs["nid"] ?? null;
-        $serviceInfo["mobile_1"] = $inputs["mobile_1"] ?? null;
-        $serviceInfo["mobile_2"] = $inputs["mobile_2"] ?? null;
-        $serviceInfo["email"] = $inputs["email"] ?? null;
-        $serviceInfo["present_address"] = $inputs["present_address"] ?? null;
-        $serviceInfo["present_address_bd"] = $inputs["present_address_bd"] ?? null;
-        $serviceInfo["permanent_address"] = $inputs["permanent_address"] ?? null;
-        $serviceInfo["permanent_address_bd"] = $inputs["permanent_address_bd"] ?? null;
-        $serviceInfo["exam_level"] = $inputs["exam_level"] ?? null;
-        $serviceInfo["whatsapp"] = $inputs["whatsapp"] ?? null;
-        $serviceInfo["facebook"] = $inputs["facebook"] ?? null;
-
-        $serviceInfo["is_employee"] = $inputs["is_employee"] ?? 'no';
-        $serviceInfo["designation"] = null;
-        $serviceInfo["company"] = null;
-
-        if ($serviceInfo["is_employee"] == 'yes') {
-            $serviceInfo["designation"] = $inputs['designation'] ?? null;
-            $serviceInfo["company"] = $inputs['company'] ?? null;
-        }
+        $serviceInfo["name"] = $inputs['name'] ?? null;
+        $serviceInfo["summary"] = $inputs['summary'] ?? null;
+        $serviceInfo["description"] = $inputs["description"] ?? null;
 
         return $serviceInfo;
     }

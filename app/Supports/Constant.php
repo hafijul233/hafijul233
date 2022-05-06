@@ -108,6 +108,10 @@ class Constant
      * Default profile display image is user image is missing
      */
     const USER_PROFILE_IMAGE = 'assets/img/logo.png';
+    /**
+     * Default service display image is user image is missing
+     */
+    const SERVICE_IMAGE = 'assets/img/logo.png';
 
     /**
      * Default Logged User Redirect Route

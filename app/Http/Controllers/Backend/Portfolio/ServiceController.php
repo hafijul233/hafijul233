@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Backend\Portfolio;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Backend\Organization\CreateEnumeratorRequest;
-use App\Http\Requests\Backend\Organization\UpdateEnumeratorRequest;
+use App\Http\Requests\Backend\Portfolio\ServiceRequest;
+use App\Http\Requests\Backend\Portfolio\UpdateServiceRequest;
 use App\Services\Auth\AuthenticatedSessionService;
 use App\Services\Backend\Portfolio\ServiceService;
 use App\Supports\Constant;
@@ -38,7 +38,7 @@ class ServiceController extends Controller
     /**
      * @var ServiceService
      */
-    private ServiceService $serviceService;
+    private $serviceService;
 
     /**
      * PostController Constructor
@@ -74,38 +74,25 @@ class ServiceController extends Controller
      * Show the form for creating a new resource.
      *
      * @return Application|Factory|View
-     * @throws ContainerExceptionInterface
-     * @throws NotFoundExceptionInterface
      * @throws Exception
      */
     public function create()
     {
-        $enables = [];
-        foreach (Constant::ENABLED_OPTIONS as $field => $label):
-            $enables[$field] = __('common.' . $label);
-        endforeach;
-
-        return view('backend.portfolio.service.create', [
-            'enables' => $enables,
-            'states' => $this->stateService->getStateDropdown(['enabled' => Constant::ENABLED_OPTION, 'type' => 'district', 'sort' => ((session()->get('locale') == 'bd') ? 'native' : 'name'), 'direction' => 'asc'], (session()->get('locale') == 'bd')),
-            'surveys' => $this->surveyService->getSurveyDropDown(['enabled' => Constant::ENABLED_OPTION]),
-            'genders' => $this->catalogService->getCatalogDropdown(['type' => Constant::CATALOG_TYPE['GENDER']], 'bn'),
-            'exam_dropdown' => $this->examLevelService->getExamLevelDropdown(['id' => [1, 2, 3, 4]]),
-        ]);
+        return view('backend.portfolio.service.create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param CreateEnumeratorRequest $request
+     * @param ServiceRequest $request
      * @return RedirectResponse
      * @throws Exception|Throwable
      */
-    public function store(CreateEnumeratorRequest $request): RedirectResponse
+    public function store(ServiceRequest $request): RedirectResponse
     {
         $inputs = $request->except('_token');
 
-        $confirm = $this->serviceService->storeEnumerator($inputs);
+        $confirm = $this->serviceService->storeService($inputs);
 
         if ($confirm['status'] == true) {
             notify($confirm['message'], $confirm['level'], $confirm['title']);
@@ -125,7 +112,7 @@ class ServiceController extends Controller
      */
     public function show($id)
     {
-        if ($service = $this->serviceService->getEnumeratorById($id)) {
+        if ($service = $this->serviceService->getServiceById($id)) {
             return view('backend.portfolio.service.show', [
                 'certificate' => $service,
                 'timeline' => Utility::modelAudits($service)
@@ -146,7 +133,7 @@ class ServiceController extends Controller
      */
     public function edit($id)
     {
-        if ($service = $this->serviceService->getEnumeratorById($id)) {
+        if ($service = $this->serviceService->getServiceById($id)) {
 
             $enables = [];
             foreach (Constant::ENABLED_OPTIONS as $field => $label):
@@ -169,15 +156,15 @@ class ServiceController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param CreateEnumeratorRequest $request
+     * @param ServiceRequest $request
      * @param  $id
      * @return RedirectResponse
      * @throws Throwable
      */
-    public function update(UpdateEnumeratorRequest $request, $id): RedirectResponse
+    public function update(UpdateServiceRequest $request, $id): RedirectResponse
     {
         $inputs = $request->except('_token', 'submit', '_method');
-        $confirm = $this->serviceService->updateEnumerator($inputs, $id);
+        $confirm = $this->serviceService->updateService($inputs, $id);
 
         if ($confirm['status'] == true) {
             notify($confirm['message'], $confirm['level'], $confirm['title']);
@@ -200,7 +187,7 @@ class ServiceController extends Controller
     {
         if ($this->authenticatedSessionService->validate($request)) {
 
-            $confirm = $this->serviceService->destroyEnumerator($id);
+            $confirm = $this->serviceService->destroyService($id);
 
             if ($confirm['status'] == true) {
                 notify($confirm['message'], $confirm['level'], $confirm['title']);
@@ -224,7 +211,7 @@ class ServiceController extends Controller
     {
         if ($this->authenticatedSessionService->validate($request)) {
 
-            $confirm = $this->serviceService->restoreEnumerator($id);
+            $confirm = $this->serviceService->restoreService($id);
 
             if ($confirm['status'] == true) {
                 notify($confirm['message'], $confirm['level'], $confirm['title']);
@@ -250,7 +237,7 @@ class ServiceController extends Controller
     public function export(Request $request)
     {
         $filters = $request->except('page');
-        $serviceExport = $this->serviceService->exportEnumerator($filters);
+        $serviceExport = $this->serviceService->exportService($filters);
         $filename = 'Post-' . date('Ymd-His') . '.' . ($filters['format'] ?? 'xlsx');
         return $serviceExport->download($filename, function ($service) use ($serviceExport) {
             return $serviceExport->map($service);
@@ -268,7 +255,7 @@ class ServiceController extends Controller
     {
         $filters = $request->except('page');
 
-        $services = $this->serviceService->getAllEnumerators($filters);
+        $services = $this->serviceService->getAllServices($filters);
 
         if (count($services) > 0):
             foreach ($services as $index => $service) :

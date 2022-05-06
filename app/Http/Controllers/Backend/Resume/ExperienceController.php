@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Backend\Resume;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Backend\Organization\CreateEnumeratorRequest;
-use App\Http\Requests\Backend\Organization\UpdateEnumeratorRequest;
+use App\Http\Requests\Backend\Portfolio\ServiceRequest;
+use App\Http\Requests\Backend\Portfolio\UpdateEnumeratorRequest;
 use App\Services\Auth\AuthenticatedSessionService;
 use App\Services\Backend\Resume\ExperienceService;
 use App\Services\Backend\Setting\CatalogService;
@@ -100,11 +100,11 @@ class ExperienceController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param CreateEnumeratorRequest $request
+     * @param ServiceRequest $request
      * @return RedirectResponse
      * @throws Exception|Throwable
      */
-    public function store(CreateEnumeratorRequest $request): RedirectResponse
+    public function store(ServiceRequest $request): RedirectResponse
     {
         $inputs = $request->except('_token');
 
@@ -172,7 +172,7 @@ class ExperienceController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param CreateEnumeratorRequest $request
+     * @param ServiceRequest $request
      * @param  $id
      * @return RedirectResponse
      * @throws Throwable

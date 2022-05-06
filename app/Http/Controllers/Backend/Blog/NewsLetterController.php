@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Backend\Blog;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Backend\Organization\CreateNewsLetterRequest;
-use App\Http\Requests\Backend\Organization\UpdateNewsLetterRequest;
+use App\Http\Requests\Backend\Portfolio\CreateNewsLetterRequest;
+use App\Http\Requests\Backend\Portfolio\UpdateNewsLetterRequest;
 use App\Services\Auth\AuthenticatedSessionService;
 use App\Services\Backend\Blog\NewsLetterService;
 use App\Services\Backend\Setting\CatalogService;

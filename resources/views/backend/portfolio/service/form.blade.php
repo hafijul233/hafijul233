@@ -1,11 +1,24 @@
+@push('page-style')
+    <link rel="stylesheet" href="{{ asset('plugins/summernote/summernote-bs4.min.css') }}" type="text/css">
+@endpush
+
 <div class="card-body">
     <div class="row">
-        <div class="col-md-6">
-            {!! \Form::nText('name', __('common.Name'), old('name', $survey->name ?? null), true) !!}
+        <div class="col-md-12">
+            {!! \Form::nText('name', __('common.Name'), old('name', $service->name ?? null), true) !!}
         </div>
-        <div class="col-md-6">
-            {!! \Form::nSelect('enabled', __('common.Enabled'), \App\Supports\Constant::ENABLED_OPTIONS,
-                old('enabled', ($survey->enabled ?? \App\Supports\Constant::ENABLED_OPTION)), true) !!}
+        <div class="col-md-12">
+            {!! \Form::nTextarea('summary', __('common.Summary'), old('summary', $service->summary ?? null), true, ['rows' => 3]) !!}
+        </div>
+        <div class="col-md-12">
+            {!! \Form::nTextarea('description', __('common.Description'), old('description', $service->description ?? null), false, ['rows' => 10]) !!}
+        </div>
+        <div class="col-md-12">
+            {!! \Form::nImage('image', 'Image', false,
+                ['preview' => true, 'height' => '240',
+                 'default' => (isset($service))
+                 ? $service->getFirstMediaUrl('services')
+                 : asset(\App\Supports\Constant::SERVICE_IMAGE)]) !!}
         </div>
     </div>
     <div class="row mt-3">
@@ -18,8 +31,16 @@
 
 
 @push('page-script')
+    <script src="{{ asset('plugins/summernote/summernote-bs4.min.js') }}"></script>
     <script>
         $(function () {
+            $("#summary").summernote( {
+                height: 100
+            });
+            $("#description").summernote( {
+                height: 400
+            });
+
             $("#service-form").validate({
                 rules: {
                     name: {
@@ -30,8 +51,7 @@
                     enabled: {
                         required: true
                     },
-                    remarks: {
-                    },
+                    remarks: {},
                 }
             });
         });

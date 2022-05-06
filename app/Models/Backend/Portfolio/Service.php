@@ -2,20 +2,23 @@
 
 namespace App\Models\Backend\Portfolio;
 
+use App\Supports\Constant;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Kyslik\ColumnSortable\Sortable;
 use OwenIt\Auditing\Auditable as AuditableTrait;
 use OwenIt\Auditing\Contracts\Auditable;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 
 /**
  * @class Post
  * @package App\Models\Backend\Portfolio
  */
-class Service extends Model implements Auditable
+class Service extends Model implements HasMedia, Auditable
 {
-    use AuditableTrait, HasFactory, SoftDeletes, Sortable;
+    use AuditableTrait, HasFactory, SoftDeletes, Sortable, InteractsWithMedia;
 
     /**
      * @var string $table
@@ -34,7 +37,7 @@ class Service extends Model implements Auditable
      *
      * @var array
      */
-    protected $fillable = ['survey_id', 'name', 'name_bd', 'father', 'father_bd', 'mother', 'mother_bd', 'nid', 'mobile_1', 'mobile_2', 'email', 'present_address', 'present_address_bd', 'permanent_address', 'permanent_address_bd', 'gender', 'enabled'];
+    protected $fillable = ['name', 'summary', 'description', 'enabled'];
 
     /**
      * The attributes that should be hidden for arrays.
@@ -59,10 +62,16 @@ class Service extends Model implements Auditable
         'enabled' => 'yes'
     ];
 
-    /************************ Audit Relations ************************/
-
-    public function enumerators()
+    /**
+     * Register Cover Image Media Collection
+     * @return void
+     */
+    public function registerMediaCollections(): void
     {
-        return $this->hasMany(Post::class);
+        $this->addMediaCollection('services')
+            ->useDisk('service')
+            ->useFallbackUrl(Constant::SERVICE_IMAGE)
+            ->acceptsMimeTypes(['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/svg'])
+            ->singleFile();
     }
 }

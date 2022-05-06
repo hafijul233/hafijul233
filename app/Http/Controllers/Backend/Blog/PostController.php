@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Backend\Blog;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Backend\Organization\CreatePostRequest;
-use App\Http\Requests\Backend\Organization\UpdatePostRequest;
+use App\Http\Requests\Backend\Portfolio\CreatePostRequest;
+use App\Http\Requests\Backend\Portfolio\UpdatePostRequest;
 use App\Services\Auth\AuthenticatedSessionService;
 use App\Services\Backend\Blog\PostService;
 use App\Supports\Constant;

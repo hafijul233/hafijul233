@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Backend\Resume;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Backend\Organization\SkillRequest;
+use App\Http\Requests\Backend\Portfolio\SkillRequest;
 use App\Services\Auth\AuthenticatedSessionService;
 use App\Services\Backend\Resume\SkillService;
 use App\Supports\Utility;

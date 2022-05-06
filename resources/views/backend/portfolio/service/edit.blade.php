@@ -26,7 +26,7 @@
 @section('breadcrumbs', \Breadcrumbs::render(Route::getCurrentRoute()->getName(), $survey))
 
 @section('actions')
-    {!! \Html::backButton('backend.portfolio.surveys.index') !!}
+    {!! \Html::backButton('backend.portfolio.services.index') !!}
 @endsection
 
 @section('content')
@@ -34,7 +34,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="card">
-                    {!! \Form::open(['route' => ['backend.portfolio.surveys.update', $survey->id], 'method' => 'put', 'id' => 'service-form']) !!}
+                    {!! \Form::open(['route' => ['backend.portfolio.services.update', $survey->id], 'method' => 'put', 'id' => 'service-form']) !!}
                     @include('backend.portfolio.service.form')
                     {!! \Form::close() !!}
                 </div>
