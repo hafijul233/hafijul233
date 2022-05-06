@@ -5,7 +5,8 @@ namespace App\Services\Backend\Resume;
 use App\Abstracts\Service\Service;
 use App\Exports\Backend\Organization\EnumeratorExport;
 use App\Models\Backend\Portfolio\Post;
-use App\Repositories\Eloquent\Backend\Portfolio\ServiceRepository;
+use App\Models\Backend\Resume\Experience;
+use App\Repositories\Eloquent\Backend\Resume\ExperienceRepository;
 use App\Repositories\Eloquent\Backend\Setting\ExamLevelRepository;
 use App\Supports\Constant;
 use Exception;
@@ -22,25 +23,18 @@ use Throwable;
 class ExperienceService extends Service
 {
     /**
-     * @var ServiceRepository
+     * @var ExperienceRepository
      */
-    private $enumeratorRepository;
-    /**
-     * @var ExamLevelRepository
-     */
-    private $examLevelRepository;
+    private $experienceRepository;
 
     /**
      * PostService constructor.
-     * @param ServiceRepository $enumeratorRepository
-     * @param ExamLevelRepository $examLevelRepository
+     * @param ExperienceRepository $experienceRepository
      */
-    public function __construct(ServiceRepository $enumeratorRepository,
-                                ExamLevelRepository $examLevelRepository)
+    public function __construct(ExperienceRepository $experienceRepository)
     {
-        $this->enumeratorRepository = $enumeratorRepository;
-        $this->enumeratorRepository->itemsPerPage = 10;
-        $this->examLevelRepository = $examLevelRepository;
+        $this->experienceRepository = $experienceRepository;
+        $this->experienceRepository->itemsPerPage = 10;
     }
 
     /**
@@ -53,7 +47,7 @@ class ExperienceService extends Service
      */
     public function getAllEnumerators(array $filters = [], array $eagerRelations = [])
     {
-        return $this->enumeratorRepository->getWith($filters, $eagerRelations, true);
+        return $this->experienceRepository->getWith($filters, $eagerRelations, true);
     }
 
     /**
@@ -64,9 +58,9 @@ class ExperienceService extends Service
      * @return LengthAwarePaginator
      * @throws Exception
      */
-    public function enumeratorPaginate(array $filters = [], array $eagerRelations = []): LengthAwarePaginator
+    public function experiencePaginate(array $filters = [], array $eagerRelations = []): LengthAwarePaginator
     {
-        return $this->enumeratorRepository->paginateWith($filters, $eagerRelations, true);
+        return $this->experienceRepository->paginateWith($filters, $eagerRelations, true);
     }
 
     /**
@@ -79,7 +73,7 @@ class ExperienceService extends Service
      */
     public function getEnumeratorById($id, bool $purge = false)
     {
-        return $this->enumeratorRepository->show($id, $purge);
+        return $this->experienceRepository->show($id, $purge);
     }
 
     /**
@@ -95,8 +89,8 @@ class ExperienceService extends Service
         $newEnumeratorInfo = $this->formatEnumeratorInfo($inputs);
         DB::beginTransaction();
         try {
-            $newEnumerator = $this->enumeratorRepository->create($newEnumeratorInfo);
-            if ($newEnumerator instanceof Post) {
+            $newEnumerator = $this->experienceRepository->create($newEnumeratorInfo);
+            if ($newEnumerator instanceof Experience) {
                 //handling Comment List
                 $newEnumerator->surveys()->attach($inputs['survey_id']);
                 $newEnumerator->previousPostings()->attach($inputs['prev_post_state_id']);
@@ -112,7 +106,7 @@ class ExperienceService extends Service
                     'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!'];
             }
         } catch (Exception $exception) {
-            $this->enumeratorRepository->handleException($exception);
+            $this->experienceRepository->handleException($exception);
             DB::rollBack();
             return ['status' => false, 'message' => $exception->getMessage(),
                 'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Error!'];
@@ -127,38 +121,38 @@ class ExperienceService extends Service
      */
     private function formatEnumeratorInfo(array $inputs)
     {
-        $enumeratorInfo = [];
-        $enumeratorInfo["survey_id"] = null;
-        $enumeratorInfo["gender_id"] = $inputs['gender_id'] ?? null;
-        $enumeratorInfo["dob"] = $inputs['dob'] ?? null;
-        $enumeratorInfo["name"] = $inputs["name"] ?? null;
-        $enumeratorInfo["name_bd"] = $inputs["name_bd"] ?? null;
-        $enumeratorInfo["father"] = $inputs["father"] ?? null;
-        $enumeratorInfo["father_bd"] = $inputs["father_bd"] ?? null;
-        $enumeratorInfo["mother"] = $inputs["mother"] ?? null;
-        $enumeratorInfo["mother_bd"] = $inputs["mother_bd"] ?? null;
-        $enumeratorInfo["nid"] = $inputs["nid"] ?? null;
-        $enumeratorInfo["mobile_1"] = $inputs["mobile_1"] ?? null;
-        $enumeratorInfo["mobile_2"] = $inputs["mobile_2"] ?? null;
-        $enumeratorInfo["email"] = $inputs["email"] ?? null;
-        $enumeratorInfo["present_address"] = $inputs["present_address"] ?? null;
-        $enumeratorInfo["present_address_bd"] = $inputs["present_address_bd"] ?? null;
-        $enumeratorInfo["permanent_address"] = $inputs["permanent_address"] ?? null;
-        $enumeratorInfo["permanent_address_bd"] = $inputs["permanent_address_bd"] ?? null;
-        $enumeratorInfo["exam_level"] = $inputs["exam_level"] ?? null;
-        $enumeratorInfo["whatsapp"] = $inputs["whatsapp"] ?? null;
-        $enumeratorInfo["facebook"] = $inputs["facebook"] ?? null;
+        $experienceInfo = [];
+        $experienceInfo["survey_id"] = null;
+        $experienceInfo["gender_id"] = $inputs['gender_id'] ?? null;
+        $experienceInfo["dob"] = $inputs['dob'] ?? null;
+        $experienceInfo["name"] = $inputs["name"] ?? null;
+        $experienceInfo["name_bd"] = $inputs["name_bd"] ?? null;
+        $experienceInfo["father"] = $inputs["father"] ?? null;
+        $experienceInfo["father_bd"] = $inputs["father_bd"] ?? null;
+        $experienceInfo["mother"] = $inputs["mother"] ?? null;
+        $experienceInfo["mother_bd"] = $inputs["mother_bd"] ?? null;
+        $experienceInfo["nid"] = $inputs["nid"] ?? null;
+        $experienceInfo["mobile_1"] = $inputs["mobile_1"] ?? null;
+        $experienceInfo["mobile_2"] = $inputs["mobile_2"] ?? null;
+        $experienceInfo["email"] = $inputs["email"] ?? null;
+        $experienceInfo["present_address"] = $inputs["present_address"] ?? null;
+        $experienceInfo["present_address_bd"] = $inputs["present_address_bd"] ?? null;
+        $experienceInfo["permanent_address"] = $inputs["permanent_address"] ?? null;
+        $experienceInfo["permanent_address_bd"] = $inputs["permanent_address_bd"] ?? null;
+        $experienceInfo["exam_level"] = $inputs["exam_level"] ?? null;
+        $experienceInfo["whatsapp"] = $inputs["whatsapp"] ?? null;
+        $experienceInfo["facebook"] = $inputs["facebook"] ?? null;
 
-        $enumeratorInfo["is_employee"] = $inputs["is_employee"] ?? 'no';
-        $enumeratorInfo["designation"] = null;
-        $enumeratorInfo["company"] = null;
+        $experienceInfo["is_employee"] = $inputs["is_employee"] ?? 'no';
+        $experienceInfo["designation"] = null;
+        $experienceInfo["company"] = null;
 
-        if ($enumeratorInfo["is_employee"] == 'yes') {
-            $enumeratorInfo["designation"] = $inputs['designation'] ?? null;
-            $enumeratorInfo["company"] = $inputs['company'] ?? null;
+        if ($experienceInfo["is_employee"] == 'yes') {
+            $experienceInfo["designation"] = $inputs['designation'] ?? null;
+            $experienceInfo["company"] = $inputs['company'] ?? null;
         }
 
-        return $enumeratorInfo;
+        return $experienceInfo;
     }
 
     /**
@@ -227,14 +221,14 @@ class ExperienceService extends Service
         $newEnumeratorInfo = $this->formatEnumeratorInfo($inputs);
         DB::beginTransaction();
         try {
-            $enumerator = $this->enumeratorRepository->show($id);
-            if ($enumerator instanceof Post) {
-                if ($this->enumeratorRepository->update($newEnumeratorInfo, $id)) {
+            $experience = $this->experienceRepository->show($id);
+            if ($experience instanceof Experience) {
+                if ($this->experienceRepository->update($newEnumeratorInfo, $id)) {
                     //handling Comment List
-                    $enumerator->surveys()->sync($inputs['survey_id']);
-                    $enumerator->previousPostings()->sync($inputs['prev_post_state_id']);
-                    $enumerator->futurePostings()->sync($inputs['future_post_state_id']);
-                    $enumerator->save();
+                    $experience->surveys()->sync($inputs['survey_id']);
+                    $experience->previousPostings()->sync($inputs['prev_post_state_id']);
+                    $experience->futurePostings()->sync($inputs['future_post_state_id']);
+                    $experience->save();
                     DB::commit();
                     return ['status' => true, 'message' => __('Post Info Updated'),
                         'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
@@ -248,7 +242,7 @@ class ExperienceService extends Service
                     'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Alert!'];
             }
         } catch (Exception $exception) {
-            $this->enumeratorRepository->handleException($exception);
+            $this->experienceRepository->handleException($exception);
             DB::rollBack();
             return ['status' => false, 'message' => $exception->getMessage(),
                 'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Error!'];
@@ -266,7 +260,7 @@ class ExperienceService extends Service
     {
         DB::beginTransaction();
         try {
-            if ($this->enumeratorRepository->delete($id)) {
+            if ($this->experienceRepository->delete($id)) {
                 DB::commit();
                 return ['status' => true, 'message' => __('Post is Trashed'),
                     'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
@@ -277,7 +271,7 @@ class ExperienceService extends Service
                     'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!'];
             }
         } catch (Exception $exception) {
-            $this->enumeratorRepository->handleException($exception);
+            $this->experienceRepository->handleException($exception);
             DB::rollBack();
             return ['status' => false, 'message' => $exception->getMessage(),
                 'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Error!'];
@@ -295,7 +289,7 @@ class ExperienceService extends Service
     {
         DB::beginTransaction();
         try {
-            if ($this->enumeratorRepository->restore($id)) {
+            if ($this->experienceRepository->restore($id)) {
                 DB::commit();
                 return ['status' => true, 'message' => __('Post is Restored'),
                     'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
@@ -306,7 +300,7 @@ class ExperienceService extends Service
                     'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!'];
             }
         } catch (Exception $exception) {
-            $this->enumeratorRepository->handleException($exception);
+            $this->experienceRepository->handleException($exception);
             DB::rollBack();
             return ['status' => false, 'message' => $exception->getMessage(),
                 'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Error!'];
@@ -322,6 +316,6 @@ class ExperienceService extends Service
      */
     public function exportEnumerator(array $filters = []): EnumeratorExport
     {
-        return (new EnumeratorExport($this->enumeratorRepository->getWith($filters)));
+        return (new EnumeratorExport($this->experienceRepository->getWith($filters)));
     }
 }

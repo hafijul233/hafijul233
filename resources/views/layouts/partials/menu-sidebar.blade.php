@@ -11,16 +11,6 @@
 
     <!-- Sidebar -->
     <div class="sidebar">
-        <!-- Sidebar user panel (optional) -->
-        <div class="user-panel mt-3 d-flex border-bottom-0">
-            <div class="image">
-                <img src="{{ \Auth::user()->getFirstMediaUrl('avatars') }}" class="img-circle elevation-2"
-                     alt="{{ \Auth::user()->name }}">
-            </div>
-            <div class="info">
-                <a href="#" class="d-block">{{ \Auth::user()->name }}</a>
-            </div>
-        </div>
         <!-- Sidebar Menu -->
         <nav class="mt-3">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">

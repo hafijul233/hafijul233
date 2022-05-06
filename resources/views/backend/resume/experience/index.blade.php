@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Catalogs')
+@section('title', __('menu-sidebar.Experiences'))
 
 @push('meta')
 
@@ -27,8 +27,8 @@
 @section('breadcrumbs', \Breadcrumbs::render())
 
 @section('actions')
-    {!! \Html::linkButton('Add Catalog', 'backend.settings.catalogs.create', [], 'fas fa-plus', 'success') !!}
-   {{-- {!! \Html::bulkDropdown('backend.settings.catalogs', 0, ['color' => 'warning']) !!}--}}
+    {!! \Html::linkButton('Add Experience', 'backend.resume.experiences.create', [], 'fas fa-plus', 'success') !!}
+   {{-- {!! \Html::bulkDropdown('backend.resume.experiences', 0, ['color' => 'warning']) !!}--}}
 @endsection
 
 @section('content')
@@ -36,13 +36,13 @@
         <div class="row">
             <div class="col-12">
                 <div class="card card-default">
-                    @if(!empty($catalogs))
+                    @if(!empty($experiences))
                         <div class="card-body p-0">
-                            {!! \Html::cardSearch('search', 'backend.settings.catalogs.index',
+                            {!! \Html::cardSearch('search', 'backend.resume.experiences.index',
                             ['placeholder' => 'Search Catalog Name etc.',
-                            'class' => 'form-control', 'id' => 'search', 'data-target-table' => 'catalog-table']) !!}
+                            'class' => 'form-control', 'id' => 'search', 'data-target-table' => 'experience-table']) !!}
                             <div class="table-responsive">
-                                <table class="table table-hover mb-0" id="catalog-table">
+                                <table class="table table-hover mb-0" id="experience-table">
                                     <thead class="thead-light">
                                     <tr>
                                         <th class="align-middle">@sortablelink('id', '#')</th>
@@ -54,29 +54,29 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @forelse($catalogs as $index => $catalog)
-                                        <tr @if($catalog->deleted_at != null) class="table-danger" @endif>
+                                    @forelse($experiences as $index => $experience)
+                                        <tr @if($experience->deleted_at != null) class="table-danger" @endif>
                                             <td class="exclude-search align-middle">
-                                                {{ $catalog->id }}
+                                                {{ $experience->id }}
                                             </td>
                                             <td class="text-left">
-                                                @can('backend.settings.catalogs.show')
-                                                    <a href="{{ route('backend.settings.catalogs.show', $catalog->id) }}">
-                                                        {{ $catalog->name }}
+                                                @can('backend.resume.experiences.show')
+                                                    <a href="{{ route('backend.resume.experiences.show', $experience->id) }}">
+                                                        {{ $experience->name }}
                                                     </a>
                                                 @else
-                                                    {{ $catalog->name }}
+                                                    {{ $experience->name }}
                                                 @endcan
                                             </td>
                                             <td class="text-center">
-                                                {{ \App\Supports\Constant::CATALOG_LABEL[$catalog->type] }}
+                                                {{ \App\Supports\Constant::CATALOG_LABEL[$experience->type] }}
                                             </td>
                                             <td class="text-center exclude-search">
-                                                {!! \Html::enableToggle($catalog) !!}
+                                                {!! \Html::enableToggle($experience) !!}
                                             </td>
-                                            <td class="text-center">{{ $catalog->created_at->format(config('backend.datetime')) ?? '' }}</td>
+                                            <td class="text-center">{{ $experience->created_at->format(config('backend.datetime')) ?? '' }}</td>
                                             <td class="exclude-search pr-3 text-center align-middle">
-                                                {!! \Html::actionDropdown('backend.settings.catalogs', $catalog->id, array_merge(['show', 'edit'], ($catalog->deleted_at == null) ? ['delete'] : ['restore'])) !!}
+                                                {!! \Html::actionDropdown('backend.resume.experiences', $experience->id, array_merge(['show', 'edit'], ($experience->deleted_at == null) ? ['delete'] : ['restore'])) !!}
                                             </td>
                                         </tr>
                                     @empty
@@ -89,7 +89,7 @@
                             </div>
                         </div>
                         <div class="card-footer bg-transparent pb-0">
-                            {!! \App\Supports\CHTML::pagination($catalogs) !!}
+                            {!! \App\Supports\CHTML::pagination($experiences) !!}
                         </div>
                     @else
                         <div class="card-body min-vh-100">

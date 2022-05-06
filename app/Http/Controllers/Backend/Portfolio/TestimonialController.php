@@ -58,7 +58,7 @@ class TestimonialController extends Controller
         $filters = $request->except('page');
         $testimonials = $this->testimonialService->testimonialPaginate($filters);
 
-        return view('backend.portfolio.service.index', [
+        return view('backend.portfolio.testimonial.index', [
             'testimonials' => $testimonials
         ]);
     }
@@ -70,7 +70,7 @@ class TestimonialController extends Controller
      */
     public function create()
     {
-        return view('backend.portfolio.service.create');
+        return view('backend.portfolio.testimonial.create');
     }
 
     /**
@@ -102,7 +102,7 @@ class TestimonialController extends Controller
     public function show($id)
     {
         if ($testimonial = $this->testimonialService->getSurveyById($id)) {
-            return view('backend.portfolio.service.show', [
+            return view('backend.portfolio.testimonial.show', [
                 'service' => $testimonial,
                 'timeline' => Utility::modelAudits($testimonial)
             ]);
@@ -121,7 +121,7 @@ class TestimonialController extends Controller
     public function edit($id)
     {
         if ($testimonial = $this->testimonialService->getSurveyById($id)) {
-            return view('backend.portfolio.service.edit', [
+            return view('backend.portfolio.testimonial.edit', [
                 'service' => $testimonial
             ]);
         }

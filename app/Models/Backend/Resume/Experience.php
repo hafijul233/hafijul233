@@ -2,8 +2,6 @@
 
 namespace App\Models\Backend\Resume;
 
-use App\Models\Backend\Resume\Enumerator\EducationQualification;
-use App\Models\Backend\Resume\Enumerator\WorkQualification;
 use App\Models\Backend\Setting\Catalog;
 use App\Models\Backend\Setting\ExamLevel;
 use App\Models\Backend\Setting\State;
@@ -25,7 +23,7 @@ class Experience extends Model implements Auditable
     /**
      * @var string $table
      */
-    protected $table = 'enumerators';
+    protected $table = 'experiences';
 
     /**
      * @var string $primaryKey

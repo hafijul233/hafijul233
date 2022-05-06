@@ -17,14 +17,8 @@ Breadcrumbs::for('home', function (BreadcrumbTrail $trail) {
 
 /****************************************** Http Error ******************************************/
 
-Breadcrumbs::for('frontend.portfolio.applicants.create', function ($trail) {
-   $trail->parent('home');
-    $trail->push(__('certificate.Applicant Registration'), route('frontend.portfolio.applicants.create'));
-});
-
 Breadcrumbs::for('backend', function (BreadcrumbTrail $trail) {
-    $trail->parent('home');
-    $trail->push(__('menu-sidebar.Backend'), route('backend'));
+    $trail->push(config('backend.sidebar'), route('backend'));
 });
 
 Breadcrumbs::for('backend.dashboard', function (BreadcrumbTrail $trail) {
@@ -438,5 +432,46 @@ Breadcrumbs::for('backend.portfolio.testimonials.edit', function (BreadcrumbTrai
     $trail->parent('backend.portfolio.testimonials.show', [$testimonial]);
 
     $trail->push(__('common.Edit'), route('backend.portfolio.testimonials.edit', $testimonial->id));
+});
+
+/****************************************** Resume ******************************************/
+
+Breadcrumbs::for('backend.resume', function (BreadcrumbTrail $trail) {
+
+    $trail->parent('backend');
+
+    $trail->push(__('menu-sidebar.Resume'), route('backend.resume'));
+});
+
+/****************************************** Experience ******************************************/
+
+Breadcrumbs::for('backend.resume.experiences.index', function (BreadcrumbTrail $trail) {
+
+    $trail->parent('backend.resume');
+
+    $trail->push(__('menu-sidebar.Experiences'), route('backend.resume.experiences.index'));
+});
+
+Breadcrumbs::for('backend.resume.experiences.create', function (BreadcrumbTrail $trail) {
+
+    $trail->parent('backend.resume.experiences.index');
+
+    $trail->push(__('common.Add'), route('backend.resume.experiences.create'));
+});
+
+Breadcrumbs::for('backend.resume.experiences.show', function (BreadcrumbTrail $trail, $experience) {
+
+    $trail->parent('backend.resume.experiences.index');
+
+    $experience = ($experience instanceof Service) ? $experience : $experience[0];
+
+    $trail->push($experience->name, route('backend.resume.experiences.show', $experience->id));
+});
+
+Breadcrumbs::for('backend.resume.experiences.edit', function (BreadcrumbTrail $trail, Comment $experience) {
+
+    $trail->parent('backend.resume.experiences.show', [$experience]);
+
+    $trail->push(__('common.Edit'), route('backend.resume.experiences.edit', $experience->id));
 });
 

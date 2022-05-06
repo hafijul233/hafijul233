@@ -3,7 +3,7 @@
 namespace App\Repositories\Eloquent\Backend\Resume;
 
 use App\Abstracts\Repository\EloquentRepository;
-use App\Models\Backend\Resume\Post;
+use App\Models\Backend\Resume\Experience;
 use App\Services\Auth\AuthenticatedSessionService;
 use Exception;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
@@ -11,20 +11,20 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 
 /**
- * @class PostRepository
+ * @class ExperienceRepository
  * @package App\Repositories\Eloquent\Backend\Resume
  */
 class ExperienceRepository extends EloquentRepository
 {
     /**
-     * PostRepository constructor.
+     * ExperienceRepository constructor.
      */
     public function __construct()
     {
         /**
          * Set the model that will be used for repo
          */
-        parent::__construct(new Post);
+        parent::__construct(new Experience);
     }
 
     /**

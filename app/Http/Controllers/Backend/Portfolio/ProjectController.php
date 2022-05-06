@@ -58,7 +58,7 @@ class ProjectController extends Controller
         $filters = $request->except('page');
         $projects = $this->projectService->projectPaginate($filters);
 
-        return view('backend.portfolio.service.index', [
+        return view('backend.portfolio.project.index', [
             'projects' => $projects
         ]);
     }
@@ -70,7 +70,7 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        return view('backend.portfolio.service.create');
+        return view('backend.portfolio.project.create');
     }
 
     /**
@@ -102,7 +102,7 @@ class ProjectController extends Controller
     public function show($id)
     {
         if ($project = $this->projectService->getSurveyById($id)) {
-            return view('backend.portfolio.service.show', [
+            return view('backend.portfolio.project.show', [
                 'service' => $project,
                 'timeline' => Utility::modelAudits($project)
             ]);
@@ -121,7 +121,7 @@ class ProjectController extends Controller
     public function edit($id)
     {
         if ($project = $this->projectService->getSurveyById($id)) {
-            return view('backend.portfolio.service.edit', [
+            return view('backend.portfolio.project.edit', [
                 'service' => $project
             ]);
         }

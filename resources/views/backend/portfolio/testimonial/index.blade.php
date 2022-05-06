@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', __('menu-sidebar.Services'))
+@section('title', __('menu-sidebar.Testimonials'))
 
 @push('meta')
 
@@ -27,8 +27,8 @@
 @section('breadcrumbs', \Breadcrumbs::render())
 
 @section('actions')
-    {!! \Html::linkButton(__('Add Service'), 'backend.portfolio.services.create', [], 'fas fa-plus', 'success') !!}
-    {{--{!! \Html::bulkDropdown('backend.portfolio.services', 0, ['color' => 'warning']) !!}--}}
+    {!! \Html::linkButton(__('Add Testimonial'), 'backend.portfolio.testimonials.create', [], 'fas fa-plus', 'success') !!}
+    {{--{!! \Html::bulkDropdown('backend.portfolio.testimonials', 0, ['color' => 'warning']) !!}--}}
 @endsection
 
 @section('content')
@@ -36,11 +36,11 @@
         <div class="row">
             <div class="col-12">
                 <div class="card card-default">
-                    @if(!empty($services))
+                    @if(!empty($testimonials))
                         <div class="card-body p-0">
-                            {!! \Html::cardSearch('search', 'backend.portfolio.services.index',
+                            {!! \Html::cardSearch('search', 'backend.portfolio.testimonials.index',
                             ['placeholder' => 'Search Comment Name etc.',
-                            'class' => 'form-control', 'id' => 'search', 'data-target-table' => 'service-table']) !!}
+                            'class' => 'form-control', 'id' => 'search', 'data-target-table' => 'testimonial-table']) !!}
                             <div class="table-responsive">
                                 <table class="table table-hover mb-0" id="branch-table">
                                     <thead class="thead-light">
@@ -53,26 +53,26 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @forelse($services as $index => $service)
-                                        <tr @if($service->deleted_at != null) class="table-danger" @endif>
+                                    @forelse($testimonials as $index => $testimonial)
+                                        <tr @if($testimonial->deleted_at != null) class="table-danger" @endif>
                                             <td class="exclude-search align-middle">
-                                                {{ $service->id }}
+                                                {{ $testimonial->id }}
                                             </td>
                                             <td class="text-left">
-                                                @can('backend.portfolio.services.show')
-                                                    <a href="{{ route('backend.portfolio.services.show', $service->id) }}">
-                                                        {{ $service->name }}
+                                                @can('backend.portfolio.testimonials.show')
+                                                    <a href="{{ route('backend.portfolio.testimonials.show', $testimonial->id) }}">
+                                                        {{ $testimonial->name }}
                                                     </a>
                                                 @else
-                                                    {{ $service->name }}
+                                                    {{ $testimonial->name }}
                                                 @endcan
                                             </td>
                                             <td class="text-center exclude-search">
-                                                {!! \Html::enableToggle($service) !!}
+                                                {!! \Html::enableToggle($testimonial) !!}
                                             </td>
-                                            <td class="text-center">{{ $service->created_at->format(config('backend.datetime')) ?? '' }}</td>
+                                            <td class="text-center">{{ $testimonial->created_at->format(config('backend.datetime')) ?? '' }}</td>
                                             <td class="exclude-search pr-3 text-center align-middle">
-                                                {!! \Html::actionDropdown('backend.portfolio.services', $service->id, array_merge(['show', 'edit'], ($service->deleted_at == null) ? ['delete'] : ['restore'])) !!}
+                                                {!! \Html::actionDropdown('backend.portfolio.testimonials', $testimonial->id, array_merge(['show', 'edit'], ($testimonial->deleted_at == null) ? ['delete'] : ['restore'])) !!}
                                             </td>
                                         </tr>
                                     @empty
@@ -85,7 +85,7 @@
                             </div>
                         </div>
                         <div class="card-footer bg-transparent pb-0">
-                            {!! \App\Supports\CHTML::pagination($services) !!}
+                            {!! \App\Supports\CHTML::pagination($testimonials) !!}
                         </div>
                     @else
                         <div class="card-body min-vh-100">
