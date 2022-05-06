@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Backend\Resume;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Backend\Organization\SurveyRequest;
 use App\Services\Auth\AuthenticatedSessionService;
-use App\Services\Backend\Portfolio\CommentService;
+use App\Services\Backend\Resume\AwardService;
 use App\Supports\Utility;
 use Exception;
 use Illuminate\Contracts\Foundation\Application;
@@ -28,22 +28,22 @@ class AwardController extends Controller
     private $authenticatedSessionService;
 
     /**
-     * @var CommentService
+     * @var AwardService
      */
-    private $surveyService;
+    private $awardService;
 
     /**
      * CommentController Constructor
      *
      * @param AuthenticatedSessionService $authenticatedSessionService
-     * @param CommentService $surveyService
+     * @param AwardService $awardService
      */
     public function __construct(AuthenticatedSessionService $authenticatedSessionService,
-                                CommentService $surveyService)
+                                AwardService $awardService)
     {
 
         $this->authenticatedSessionService = $authenticatedSessionService;
-        $this->surveyService = $surveyService;
+        $this->awardService = $awardService;
     }
 
     /**
@@ -56,10 +56,10 @@ class AwardController extends Controller
     public function index(Request $request)
     {
         $filters = $request->except('page');
-        $surveys = $this->surveyService->surveyPaginate($filters);
+        $awards = $this->awardService->awardPaginate($filters);
 
-        return view('backend.portfolio.service.index', [
-            'surveys' => $surveys
+        return view('backend.resume.award.index', [
+            'awards' => $awards
         ]);
     }
 
@@ -70,7 +70,7 @@ class AwardController extends Controller
      */
     public function create()
     {
-        return view('backend.portfolio.service.create');
+        return view('backend.resume.award.create');
     }
 
     /**
@@ -82,10 +82,10 @@ class AwardController extends Controller
      */
     public function store(SurveyRequest $request): RedirectResponse
     {
-        $confirm = $this->surveyService->storeSurvey($request->except('_token'));
+        $confirm = $this->awardService->storeSurvey($request->except('_token'));
         if ($confirm['status'] == true) {
             notify($confirm['message'], $confirm['level'], $confirm['title']);
-            return redirect()->route('backend.portfolio.surveys.index');
+            return redirect()->route('backend.portfolio.awards.index');
         }
 
         notify($confirm['message'], $confirm['level'], $confirm['title']);
@@ -101,10 +101,10 @@ class AwardController extends Controller
      */
     public function show($id)
     {
-        if ($survey = $this->surveyService->getSurveyById($id)) {
-            return view('backend.portfolio.service.show', [
-                'service' => $survey,
-                'timeline' => Utility::modelAudits($survey)
+        if ($award = $this->awardService->getSurveyById($id)) {
+            return view('backend.resume.award.show', [
+                'service' => $award,
+                'timeline' => Utility::modelAudits($award)
             ]);
         }
 
@@ -120,9 +120,9 @@ class AwardController extends Controller
      */
     public function edit($id)
     {
-        if ($survey = $this->surveyService->getSurveyById($id)) {
-            return view('backend.portfolio.service.edit', [
-                'service' => $survey
+        if ($award = $this->awardService->getSurveyById($id)) {
+            return view('backend.resume.award.edit', [
+                'service' => $award
             ]);
         }
 
@@ -139,11 +139,11 @@ class AwardController extends Controller
      */
     public function update(SurveyRequest $request, $id): RedirectResponse
     {
-        $confirm = $this->surveyService->updateSurvey($request->except('_token', 'submit', '_method'), $id);
+        $confirm = $this->awardService->updateSurvey($request->except('_token', 'submit', '_method'), $id);
 
         if ($confirm['status'] == true) {
             notify($confirm['message'], $confirm['level'], $confirm['title']);
-            return redirect()->route('backend.portfolio.surveys.index');
+            return redirect()->route('backend.portfolio.awards.index');
         }
 
         notify($confirm['message'], $confirm['level'], $confirm['title']);
@@ -162,14 +162,14 @@ class AwardController extends Controller
     {
         if ($this->authenticatedSessionService->validate($request)) {
 
-            $confirm = $this->surveyService->destroySurvey($id);
+            $confirm = $this->awardService->destroySurvey($id);
 
             if ($confirm['status'] == true) {
                 notify($confirm['message'], $confirm['level'], $confirm['title']);
             } else {
                 notify($confirm['message'], $confirm['level'], $confirm['title']);
             }
-            return redirect()->route('backend.portfolio.surveys.index');
+            return redirect()->route('backend.portfolio.awards.index');
         }
         abort(403, 'Wrong user credentials');
     }
@@ -186,14 +186,14 @@ class AwardController extends Controller
     {
         if ($this->authenticatedSessionService->validate($request)) {
 
-            $confirm = $this->surveyService->restoreSurvey($id);
+            $confirm = $this->awardService->restoreSurvey($id);
 
             if ($confirm['status'] == true) {
                 notify($confirm['message'], $confirm['level'], $confirm['title']);
             } else {
                 notify($confirm['message'], $confirm['level'], $confirm['title']);
             }
-            return redirect()->route('backend.portfolio.surveys.index');
+            return redirect()->route('backend.portfolio.awards.index');
         }
         abort(403, 'Wrong user credentials');
     }
@@ -208,12 +208,12 @@ class AwardController extends Controller
     {
         $filters = $request->except('page');
 
-        $surveyExport = $this->surveyService->exportSurvey($filters);
+        $awardExport = $this->awardService->exportSurvey($filters);
 
         $filename = 'Comment-' . date('Ymd-His') . '.' . ($filters['format'] ?? 'xlsx');
 
-        return $surveyExport->download($filename, function ($survey) use ($surveyExport) {
-            return $surveyExport->map($survey);
+        return $awardExport->download($filename, function ($award) use ($awardExport) {
+            return $awardExport->map($award);
         });
 
     }
@@ -225,7 +225,7 @@ class AwardController extends Controller
      */
     public function import()
     {
-        return view('backend.portfolio.surveyimport');
+        return view('backend.portfolio.awardimport');
     }
 
     /**
@@ -237,10 +237,10 @@ class AwardController extends Controller
     public function importBulk(Request $request)
     {
         $filters = $request->except('page');
-        $surveys = $this->surveyService->getAllSurveys($filters);
+        $awards = $this->awardService->getAllSurveys($filters);
 
-        return view('backend.portfolio.surveyindex', [
-            'surveys' => $surveys
+        return view('backend.portfolio.awardindex', [
+            'awards' => $awards
         ]);
     }
 
@@ -254,12 +254,12 @@ class AwardController extends Controller
     {
         $filters = $request->except('page');
 
-        $surveyExport = $this->surveyService->exportSurvey($filters);
+        $awardExport = $this->awardService->exportSurvey($filters);
 
         $filename = 'Comment-' . date('Ymd-His') . '.' . ($filters['format'] ?? 'xlsx');
 
-        return $surveyExport->download($filename, function ($survey) use ($surveyExport) {
-            return $surveyExport->map($survey);
+        return $awardExport->download($filename, function ($award) use ($awardExport) {
+            return $awardExport->map($award);
         });
 
     }

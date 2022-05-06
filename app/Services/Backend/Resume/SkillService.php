@@ -3,7 +3,7 @@
 namespace App\Services\Backend\Resume;
 
 use App\Abstracts\Service\Service;
-use App\Exports\Backend\Organization\EnumeratorExport;
+use App\Exports\Backend\Organization\SkillExport;
 use App\Models\Backend\Portfolio\Post;
 use App\Repositories\Eloquent\Backend\Portfolio\ServiceRepository;
 use App\Repositories\Eloquent\Backend\Setting\ExamLevelRepository;
@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\DB;
 use Throwable;
 
 /**
- * @class PostService
+ * @class SkillService
  * @package App\Services\Backend\Portfolio
  */
 class SkillService extends Service
@@ -24,23 +24,15 @@ class SkillService extends Service
     /**
      * @var ServiceRepository
      */
-    private $enumeratorRepository;
-    /**
-     * @var ExamLevelRepository
-     */
-    private $examLevelRepository;
-
+    private $skillRepository;
     /**
      * PostService constructor.
-     * @param ServiceRepository $enumeratorRepository
-     * @param ExamLevelRepository $examLevelRepository
+     * @param ServiceRepository $skillRepository
      */
-    public function __construct(ServiceRepository $enumeratorRepository,
-                                ExamLevelRepository $examLevelRepository)
+    public function __construct(ServiceRepository $skillRepository)
     {
-        $this->enumeratorRepository = $enumeratorRepository;
-        $this->enumeratorRepository->itemsPerPage = 10;
-        $this->examLevelRepository = $examLevelRepository;
+        $this->skillRepository = $skillRepository;
+        $this->skillRepository->itemsPerPage = 10;
     }
 
     /**
@@ -51,9 +43,9 @@ class SkillService extends Service
      * @return Builder[]|Collection
      * @throws Exception
      */
-    public function getAllEnumerators(array $filters = [], array $eagerRelations = [])
+    public function getAllSkills(array $filters = [], array $eagerRelations = [])
     {
-        return $this->enumeratorRepository->getWith($filters, $eagerRelations, true);
+        return $this->skillRepository->getWith($filters, $eagerRelations, true);
     }
 
     /**
@@ -64,9 +56,9 @@ class SkillService extends Service
      * @return LengthAwarePaginator
      * @throws Exception
      */
-    public function enumeratorPaginate(array $filters = [], array $eagerRelations = []): LengthAwarePaginator
+    public function skillPaginate(array $filters = [], array $eagerRelations = []): LengthAwarePaginator
     {
-        return $this->enumeratorRepository->paginateWith($filters, $eagerRelations, true);
+        return $this->skillRepository->paginateWith($filters, $eagerRelations, true);
     }
 
     /**
@@ -77,9 +69,9 @@ class SkillService extends Service
      * @return mixed
      * @throws Exception
      */
-    public function getEnumeratorById($id, bool $purge = false)
+    public function getSkillById($id, bool $purge = false)
     {
-        return $this->enumeratorRepository->show($id, $purge);
+        return $this->skillRepository->show($id, $purge);
     }
 
     /**
@@ -90,18 +82,18 @@ class SkillService extends Service
      * @throws Exception
      * @throws Throwable
      */
-    public function storeEnumerator(array $inputs): array
+    public function storeSkill(array $inputs): array
     {
-        $newEnumeratorInfo = $this->formatEnumeratorInfo($inputs);
+        $newSkillInfo = $this->formatSkillInfo($inputs);
         DB::beginTransaction();
         try {
-            $newEnumerator = $this->enumeratorRepository->create($newEnumeratorInfo);
-            if ($newEnumerator instanceof Post) {
+            $newSkill = $this->skillRepository->create($newSkillInfo);
+            if ($newSkill instanceof Post) {
                 //handling Comment List
-                $newEnumerator->surveys()->attach($inputs['survey_id']);
-                $newEnumerator->previousPostings()->attach($inputs['prev_post_state_id']);
-                $newEnumerator->futurePostings()->attach($inputs['future_post_state_id']);
-                $newEnumerator->save();
+                $newSkill->surveys()->attach($inputs['survey_id']);
+                $newSkill->previousPostings()->attach($inputs['prev_post_state_id']);
+                $newSkill->futurePostings()->attach($inputs['future_post_state_id']);
+                $newSkill->save();
 
                 DB::commit();
                 return ['status' => true, 'message' => __('New Post Created'),
@@ -112,7 +104,7 @@ class SkillService extends Service
                     'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!'];
             }
         } catch (Exception $exception) {
-            $this->enumeratorRepository->handleException($exception);
+            $this->skillRepository->handleException($exception);
             DB::rollBack();
             return ['status' => false, 'message' => $exception->getMessage(),
                 'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Error!'];
@@ -125,40 +117,40 @@ class SkillService extends Service
      * @param array $inputs
      * @return array
      */
-    private function formatEnumeratorInfo(array $inputs)
+    private function formatSkillInfo(array $inputs)
     {
-        $enumeratorInfo = [];
-        $enumeratorInfo["survey_id"] = null;
-        $enumeratorInfo["gender_id"] = $inputs['gender_id'] ?? null;
-        $enumeratorInfo["dob"] = $inputs['dob'] ?? null;
-        $enumeratorInfo["name"] = $inputs["name"] ?? null;
-        $enumeratorInfo["name_bd"] = $inputs["name_bd"] ?? null;
-        $enumeratorInfo["father"] = $inputs["father"] ?? null;
-        $enumeratorInfo["father_bd"] = $inputs["father_bd"] ?? null;
-        $enumeratorInfo["mother"] = $inputs["mother"] ?? null;
-        $enumeratorInfo["mother_bd"] = $inputs["mother_bd"] ?? null;
-        $enumeratorInfo["nid"] = $inputs["nid"] ?? null;
-        $enumeratorInfo["mobile_1"] = $inputs["mobile_1"] ?? null;
-        $enumeratorInfo["mobile_2"] = $inputs["mobile_2"] ?? null;
-        $enumeratorInfo["email"] = $inputs["email"] ?? null;
-        $enumeratorInfo["present_address"] = $inputs["present_address"] ?? null;
-        $enumeratorInfo["present_address_bd"] = $inputs["present_address_bd"] ?? null;
-        $enumeratorInfo["permanent_address"] = $inputs["permanent_address"] ?? null;
-        $enumeratorInfo["permanent_address_bd"] = $inputs["permanent_address_bd"] ?? null;
-        $enumeratorInfo["exam_level"] = $inputs["exam_level"] ?? null;
-        $enumeratorInfo["whatsapp"] = $inputs["whatsapp"] ?? null;
-        $enumeratorInfo["facebook"] = $inputs["facebook"] ?? null;
+        $skillInfo = [];
+        $skillInfo["survey_id"] = null;
+        $skillInfo["gender_id"] = $inputs['gender_id'] ?? null;
+        $skillInfo["dob"] = $inputs['dob'] ?? null;
+        $skillInfo["name"] = $inputs["name"] ?? null;
+        $skillInfo["name_bd"] = $inputs["name_bd"] ?? null;
+        $skillInfo["father"] = $inputs["father"] ?? null;
+        $skillInfo["father_bd"] = $inputs["father_bd"] ?? null;
+        $skillInfo["mother"] = $inputs["mother"] ?? null;
+        $skillInfo["mother_bd"] = $inputs["mother_bd"] ?? null;
+        $skillInfo["nid"] = $inputs["nid"] ?? null;
+        $skillInfo["mobile_1"] = $inputs["mobile_1"] ?? null;
+        $skillInfo["mobile_2"] = $inputs["mobile_2"] ?? null;
+        $skillInfo["email"] = $inputs["email"] ?? null;
+        $skillInfo["present_address"] = $inputs["present_address"] ?? null;
+        $skillInfo["present_address_bd"] = $inputs["present_address_bd"] ?? null;
+        $skillInfo["permanent_address"] = $inputs["permanent_address"] ?? null;
+        $skillInfo["permanent_address_bd"] = $inputs["permanent_address_bd"] ?? null;
+        $skillInfo["exam_level"] = $inputs["exam_level"] ?? null;
+        $skillInfo["whatsapp"] = $inputs["whatsapp"] ?? null;
+        $skillInfo["facebook"] = $inputs["facebook"] ?? null;
 
-        $enumeratorInfo["is_employee"] = $inputs["is_employee"] ?? 'no';
-        $enumeratorInfo["designation"] = null;
-        $enumeratorInfo["company"] = null;
+        $skillInfo["is_employee"] = $inputs["is_employee"] ?? 'no';
+        $skillInfo["designation"] = null;
+        $skillInfo["company"] = null;
 
-        if ($enumeratorInfo["is_employee"] == 'yes') {
-            $enumeratorInfo["designation"] = $inputs['designation'] ?? null;
-            $enumeratorInfo["company"] = $inputs['company'] ?? null;
+        if ($skillInfo["is_employee"] == 'yes') {
+            $skillInfo["designation"] = $inputs['designation'] ?? null;
+            $skillInfo["company"] = $inputs['company'] ?? null;
         }
 
-        return $enumeratorInfo;
+        return $skillInfo;
     }
 
     /**
@@ -222,19 +214,19 @@ class SkillService extends Service
      * @return array
      * @throws Throwable
      */
-    public function updateEnumerator(array $inputs, $id): array
+    public function updateSkill(array $inputs, $id): array
     {
-        $newEnumeratorInfo = $this->formatEnumeratorInfo($inputs);
+        $newSkillInfo = $this->formatSkillInfo($inputs);
         DB::beginTransaction();
         try {
-            $enumerator = $this->enumeratorRepository->show($id);
-            if ($enumerator instanceof Post) {
-                if ($this->enumeratorRepository->update($newEnumeratorInfo, $id)) {
+            $skill = $this->skillRepository->show($id);
+            if ($skill instanceof Post) {
+                if ($this->skillRepository->update($newSkillInfo, $id)) {
                     //handling Comment List
-                    $enumerator->surveys()->sync($inputs['survey_id']);
-                    $enumerator->previousPostings()->sync($inputs['prev_post_state_id']);
-                    $enumerator->futurePostings()->sync($inputs['future_post_state_id']);
-                    $enumerator->save();
+                    $skill->surveys()->sync($inputs['survey_id']);
+                    $skill->previousPostings()->sync($inputs['prev_post_state_id']);
+                    $skill->futurePostings()->sync($inputs['future_post_state_id']);
+                    $skill->save();
                     DB::commit();
                     return ['status' => true, 'message' => __('Post Info Updated'),
                         'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
@@ -248,7 +240,7 @@ class SkillService extends Service
                     'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Alert!'];
             }
         } catch (Exception $exception) {
-            $this->enumeratorRepository->handleException($exception);
+            $this->skillRepository->handleException($exception);
             DB::rollBack();
             return ['status' => false, 'message' => $exception->getMessage(),
                 'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Error!'];
@@ -262,11 +254,11 @@ class SkillService extends Service
      * @return array
      * @throws Throwable
      */
-    public function destroyEnumerator($id): array
+    public function destroySkill($id): array
     {
         DB::beginTransaction();
         try {
-            if ($this->enumeratorRepository->delete($id)) {
+            if ($this->skillRepository->delete($id)) {
                 DB::commit();
                 return ['status' => true, 'message' => __('Post is Trashed'),
                     'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
@@ -277,7 +269,7 @@ class SkillService extends Service
                     'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!'];
             }
         } catch (Exception $exception) {
-            $this->enumeratorRepository->handleException($exception);
+            $this->skillRepository->handleException($exception);
             DB::rollBack();
             return ['status' => false, 'message' => $exception->getMessage(),
                 'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Error!'];
@@ -291,11 +283,11 @@ class SkillService extends Service
      * @return array
      * @throws Throwable
      */
-    public function restoreEnumerator($id): array
+    public function restoreSkill($id): array
     {
         DB::beginTransaction();
         try {
-            if ($this->enumeratorRepository->restore($id)) {
+            if ($this->skillRepository->restore($id)) {
                 DB::commit();
                 return ['status' => true, 'message' => __('Post is Restored'),
                     'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
@@ -306,7 +298,7 @@ class SkillService extends Service
                     'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!'];
             }
         } catch (Exception $exception) {
-            $this->enumeratorRepository->handleException($exception);
+            $this->skillRepository->handleException($exception);
             DB::rollBack();
             return ['status' => false, 'message' => $exception->getMessage(),
                 'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Error!'];
@@ -317,11 +309,11 @@ class SkillService extends Service
      * Export Object for Export Download
      *
      * @param array $filters
-     * @return EnumeratorExport
+     * @return SkillExport
      * @throws Exception
      */
-    public function exportEnumerator(array $filters = []): EnumeratorExport
+    public function exportSkill(array $filters = []): SkillExport
     {
-        return (new EnumeratorExport($this->enumeratorRepository->getWith($filters)));
+        return (new SkillExport($this->skillRepository->getWith($filters)));
     }
 }

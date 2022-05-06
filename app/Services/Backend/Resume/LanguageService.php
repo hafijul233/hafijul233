@@ -3,9 +3,10 @@
 namespace App\Services\Backend\Resume;
 
 use App\Abstracts\Service\Service;
-use App\Exports\Backend\Organization\EnumeratorExport;
+use App\Exports\Backend\Organization\LanguageExport;
 use App\Models\Backend\Portfolio\Post;
 use App\Repositories\Eloquent\Backend\Portfolio\ServiceRepository;
+use App\Repositories\Eloquent\Backend\Resume\LanguageRepository;
 use App\Repositories\Eloquent\Backend\Setting\ExamLevelRepository;
 use App\Supports\Constant;
 use Exception;
@@ -22,25 +23,18 @@ use Throwable;
 class LanguageService extends Service
 {
     /**
-     * @var ServiceRepository
+     * @var LanguageRepository
      */
-    private $enumeratorRepository;
-    /**
-     * @var ExamLevelRepository
-     */
-    private $examLevelRepository;
+    private $languageRepository;
 
     /**
      * PostService constructor.
-     * @param ServiceRepository $enumeratorRepository
-     * @param ExamLevelRepository $examLevelRepository
+     * @param LanguageRepository $languageRepository
      */
-    public function __construct(ServiceRepository $enumeratorRepository,
-                                ExamLevelRepository $examLevelRepository)
+    public function __construct(LanguageRepository $languageRepository)
     {
-        $this->enumeratorRepository = $enumeratorRepository;
-        $this->enumeratorRepository->itemsPerPage = 10;
-        $this->examLevelRepository = $examLevelRepository;
+        $this->languageRepository = $languageRepository;
+        $this->languageRepository->itemsPerPage = 10;
     }
 
     /**
@@ -51,9 +45,9 @@ class LanguageService extends Service
      * @return Builder[]|Collection
      * @throws Exception
      */
-    public function getAllEnumerators(array $filters = [], array $eagerRelations = [])
+    public function getAllLanguages(array $filters = [], array $eagerRelations = [])
     {
-        return $this->enumeratorRepository->getWith($filters, $eagerRelations, true);
+        return $this->languageRepository->getWith($filters, $eagerRelations, true);
     }
 
     /**
@@ -64,9 +58,9 @@ class LanguageService extends Service
      * @return LengthAwarePaginator
      * @throws Exception
      */
-    public function enumeratorPaginate(array $filters = [], array $eagerRelations = []): LengthAwarePaginator
+    public function languagePaginate(array $filters = [], array $eagerRelations = []): LengthAwarePaginator
     {
-        return $this->enumeratorRepository->paginateWith($filters, $eagerRelations, true);
+        return $this->languageRepository->paginateWith($filters, $eagerRelations, true);
     }
 
     /**
@@ -77,9 +71,9 @@ class LanguageService extends Service
      * @return mixed
      * @throws Exception
      */
-    public function getEnumeratorById($id, bool $purge = false)
+    public function getLanguageById($id, bool $purge = false)
     {
-        return $this->enumeratorRepository->show($id, $purge);
+        return $this->languageRepository->show($id, $purge);
     }
 
     /**
@@ -90,18 +84,18 @@ class LanguageService extends Service
      * @throws Exception
      * @throws Throwable
      */
-    public function storeEnumerator(array $inputs): array
+    public function storeLanguage(array $inputs): array
     {
-        $newEnumeratorInfo = $this->formatEnumeratorInfo($inputs);
+        $newLanguageInfo = $this->formatLanguageInfo($inputs);
         DB::beginTransaction();
         try {
-            $newEnumerator = $this->enumeratorRepository->create($newEnumeratorInfo);
-            if ($newEnumerator instanceof Post) {
+            $newLanguage = $this->languageRepository->create($newLanguageInfo);
+            if ($newLanguage instanceof Post) {
                 //handling Comment List
-                $newEnumerator->surveys()->attach($inputs['survey_id']);
-                $newEnumerator->previousPostings()->attach($inputs['prev_post_state_id']);
-                $newEnumerator->futurePostings()->attach($inputs['future_post_state_id']);
-                $newEnumerator->save();
+                $newLanguage->surveys()->attach($inputs['survey_id']);
+                $newLanguage->previousPostings()->attach($inputs['prev_post_state_id']);
+                $newLanguage->futurePostings()->attach($inputs['future_post_state_id']);
+                $newLanguage->save();
 
                 DB::commit();
                 return ['status' => true, 'message' => __('New Post Created'),
@@ -112,7 +106,7 @@ class LanguageService extends Service
                     'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!'];
             }
         } catch (Exception $exception) {
-            $this->enumeratorRepository->handleException($exception);
+            $this->languageRepository->handleException($exception);
             DB::rollBack();
             return ['status' => false, 'message' => $exception->getMessage(),
                 'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Error!'];
@@ -125,40 +119,40 @@ class LanguageService extends Service
      * @param array $inputs
      * @return array
      */
-    private function formatEnumeratorInfo(array $inputs)
+    private function formatLanguageInfo(array $inputs)
     {
-        $enumeratorInfo = [];
-        $enumeratorInfo["survey_id"] = null;
-        $enumeratorInfo["gender_id"] = $inputs['gender_id'] ?? null;
-        $enumeratorInfo["dob"] = $inputs['dob'] ?? null;
-        $enumeratorInfo["name"] = $inputs["name"] ?? null;
-        $enumeratorInfo["name_bd"] = $inputs["name_bd"] ?? null;
-        $enumeratorInfo["father"] = $inputs["father"] ?? null;
-        $enumeratorInfo["father_bd"] = $inputs["father_bd"] ?? null;
-        $enumeratorInfo["mother"] = $inputs["mother"] ?? null;
-        $enumeratorInfo["mother_bd"] = $inputs["mother_bd"] ?? null;
-        $enumeratorInfo["nid"] = $inputs["nid"] ?? null;
-        $enumeratorInfo["mobile_1"] = $inputs["mobile_1"] ?? null;
-        $enumeratorInfo["mobile_2"] = $inputs["mobile_2"] ?? null;
-        $enumeratorInfo["email"] = $inputs["email"] ?? null;
-        $enumeratorInfo["present_address"] = $inputs["present_address"] ?? null;
-        $enumeratorInfo["present_address_bd"] = $inputs["present_address_bd"] ?? null;
-        $enumeratorInfo["permanent_address"] = $inputs["permanent_address"] ?? null;
-        $enumeratorInfo["permanent_address_bd"] = $inputs["permanent_address_bd"] ?? null;
-        $enumeratorInfo["exam_level"] = $inputs["exam_level"] ?? null;
-        $enumeratorInfo["whatsapp"] = $inputs["whatsapp"] ?? null;
-        $enumeratorInfo["facebook"] = $inputs["facebook"] ?? null;
+        $languageInfo = [];
+        $languageInfo["survey_id"] = null;
+        $languageInfo["gender_id"] = $inputs['gender_id'] ?? null;
+        $languageInfo["dob"] = $inputs['dob'] ?? null;
+        $languageInfo["name"] = $inputs["name"] ?? null;
+        $languageInfo["name_bd"] = $inputs["name_bd"] ?? null;
+        $languageInfo["father"] = $inputs["father"] ?? null;
+        $languageInfo["father_bd"] = $inputs["father_bd"] ?? null;
+        $languageInfo["mother"] = $inputs["mother"] ?? null;
+        $languageInfo["mother_bd"] = $inputs["mother_bd"] ?? null;
+        $languageInfo["nid"] = $inputs["nid"] ?? null;
+        $languageInfo["mobile_1"] = $inputs["mobile_1"] ?? null;
+        $languageInfo["mobile_2"] = $inputs["mobile_2"] ?? null;
+        $languageInfo["email"] = $inputs["email"] ?? null;
+        $languageInfo["present_address"] = $inputs["present_address"] ?? null;
+        $languageInfo["present_address_bd"] = $inputs["present_address_bd"] ?? null;
+        $languageInfo["permanent_address"] = $inputs["permanent_address"] ?? null;
+        $languageInfo["permanent_address_bd"] = $inputs["permanent_address_bd"] ?? null;
+        $languageInfo["exam_level"] = $inputs["exam_level"] ?? null;
+        $languageInfo["whatsapp"] = $inputs["whatsapp"] ?? null;
+        $languageInfo["facebook"] = $inputs["facebook"] ?? null;
 
-        $enumeratorInfo["is_employee"] = $inputs["is_employee"] ?? 'no';
-        $enumeratorInfo["designation"] = null;
-        $enumeratorInfo["company"] = null;
+        $languageInfo["is_employee"] = $inputs["is_employee"] ?? 'no';
+        $languageInfo["designation"] = null;
+        $languageInfo["company"] = null;
 
-        if ($enumeratorInfo["is_employee"] == 'yes') {
-            $enumeratorInfo["designation"] = $inputs['designation'] ?? null;
-            $enumeratorInfo["company"] = $inputs['company'] ?? null;
+        if ($languageInfo["is_employee"] == 'yes') {
+            $languageInfo["designation"] = $inputs['designation'] ?? null;
+            $languageInfo["company"] = $inputs['company'] ?? null;
         }
 
-        return $enumeratorInfo;
+        return $languageInfo;
     }
 
     /**
@@ -222,19 +216,19 @@ class LanguageService extends Service
      * @return array
      * @throws Throwable
      */
-    public function updateEnumerator(array $inputs, $id): array
+    public function updateLanguage(array $inputs, $id): array
     {
-        $newEnumeratorInfo = $this->formatEnumeratorInfo($inputs);
+        $newLanguageInfo = $this->formatLanguageInfo($inputs);
         DB::beginTransaction();
         try {
-            $enumerator = $this->enumeratorRepository->show($id);
-            if ($enumerator instanceof Post) {
-                if ($this->enumeratorRepository->update($newEnumeratorInfo, $id)) {
+            $language = $this->languageRepository->show($id);
+            if ($language instanceof Post) {
+                if ($this->languageRepository->update($newLanguageInfo, $id)) {
                     //handling Comment List
-                    $enumerator->surveys()->sync($inputs['survey_id']);
-                    $enumerator->previousPostings()->sync($inputs['prev_post_state_id']);
-                    $enumerator->futurePostings()->sync($inputs['future_post_state_id']);
-                    $enumerator->save();
+                    $language->surveys()->sync($inputs['survey_id']);
+                    $language->previousPostings()->sync($inputs['prev_post_state_id']);
+                    $language->futurePostings()->sync($inputs['future_post_state_id']);
+                    $language->save();
                     DB::commit();
                     return ['status' => true, 'message' => __('Post Info Updated'),
                         'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
@@ -248,7 +242,7 @@ class LanguageService extends Service
                     'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Alert!'];
             }
         } catch (Exception $exception) {
-            $this->enumeratorRepository->handleException($exception);
+            $this->languageRepository->handleException($exception);
             DB::rollBack();
             return ['status' => false, 'message' => $exception->getMessage(),
                 'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Error!'];
@@ -262,11 +256,11 @@ class LanguageService extends Service
      * @return array
      * @throws Throwable
      */
-    public function destroyEnumerator($id): array
+    public function destroyLanguage($id): array
     {
         DB::beginTransaction();
         try {
-            if ($this->enumeratorRepository->delete($id)) {
+            if ($this->languageRepository->delete($id)) {
                 DB::commit();
                 return ['status' => true, 'message' => __('Post is Trashed'),
                     'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
@@ -277,7 +271,7 @@ class LanguageService extends Service
                     'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!'];
             }
         } catch (Exception $exception) {
-            $this->enumeratorRepository->handleException($exception);
+            $this->languageRepository->handleException($exception);
             DB::rollBack();
             return ['status' => false, 'message' => $exception->getMessage(),
                 'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Error!'];
@@ -291,11 +285,11 @@ class LanguageService extends Service
      * @return array
      * @throws Throwable
      */
-    public function restoreEnumerator($id): array
+    public function restoreLanguage($id): array
     {
         DB::beginTransaction();
         try {
-            if ($this->enumeratorRepository->restore($id)) {
+            if ($this->languageRepository->restore($id)) {
                 DB::commit();
                 return ['status' => true, 'message' => __('Post is Restored'),
                     'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
@@ -306,7 +300,7 @@ class LanguageService extends Service
                     'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!'];
             }
         } catch (Exception $exception) {
-            $this->enumeratorRepository->handleException($exception);
+            $this->languageRepository->handleException($exception);
             DB::rollBack();
             return ['status' => false, 'message' => $exception->getMessage(),
                 'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Error!'];
@@ -317,11 +311,11 @@ class LanguageService extends Service
      * Export Object for Export Download
      *
      * @param array $filters
-     * @return EnumeratorExport
+     * @return LanguageExport
      * @throws Exception
      */
-    public function exportEnumerator(array $filters = []): EnumeratorExport
+    public function exportLanguage(array $filters = []): LanguageExport
     {
-        return (new EnumeratorExport($this->enumeratorRepository->getWith($filters)));
+        return (new LanguageExport($this->languageRepository->getWith($filters)));
     }
 }

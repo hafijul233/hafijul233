@@ -20,7 +20,7 @@ class Award extends Model implements Auditable
     /**
      * @var string $table
      */
-    protected $table = 'surveys';
+    protected $table = 'awards';
 
     /**
      * @var string $primaryKey

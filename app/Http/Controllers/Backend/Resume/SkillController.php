@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Backend\Resume;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Backend\Organization\SurveyRequest;
+use App\Http\Requests\Backend\Organization\SkillRequest;
 use App\Services\Auth\AuthenticatedSessionService;
-use App\Services\Backend\Portfolio\CommentService;
+use App\Services\Backend\Resume\SkillService;
 use App\Supports\Utility;
 use Exception;
 use Illuminate\Contracts\Foundation\Application;
@@ -28,22 +28,22 @@ class SkillController extends Controller
     private $authenticatedSessionService;
 
     /**
-     * @var CommentService
+     * @var SkillService
      */
-    private $surveyService;
+    private $skillService;
 
     /**
      * CommentController Constructor
      *
      * @param AuthenticatedSessionService $authenticatedSessionService
-     * @param CommentService $surveyService
+     * @param SkillService $skillService
      */
     public function __construct(AuthenticatedSessionService $authenticatedSessionService,
-                                CommentService $surveyService)
+                                SkillService $skillService)
     {
 
         $this->authenticatedSessionService = $authenticatedSessionService;
-        $this->surveyService = $surveyService;
+        $this->skillService = $skillService;
     }
 
     /**
@@ -56,10 +56,10 @@ class SkillController extends Controller
     public function index(Request $request)
     {
         $filters = $request->except('page');
-        $surveys = $this->surveyService->surveyPaginate($filters);
+        $skills = $this->skillService->skillPaginate($filters);
 
-        return view('backend.portfolio.service.index', [
-            'surveys' => $surveys
+        return view('backend.resume.skill.index', [
+            'skills' => $skills
         ]);
     }
 
@@ -70,7 +70,7 @@ class SkillController extends Controller
      */
     public function create()
     {
-        return view('backend.portfolio.service.create');
+        return view('backend.resume.skill.create');
     }
 
     /**
@@ -80,12 +80,12 @@ class SkillController extends Controller
      * @return RedirectResponse
      * @throws Exception|Throwable
      */
-    public function store(SurveyRequest $request): RedirectResponse
+    public function store(SkillRequest $request): RedirectResponse
     {
-        $confirm = $this->surveyService->storeSurvey($request->except('_token'));
+        $confirm = $this->skillService->storeSkill($request->except('_token'));
         if ($confirm['status'] == true) {
             notify($confirm['message'], $confirm['level'], $confirm['title']);
-            return redirect()->route('backend.portfolio.surveys.index');
+            return redirect()->route('backend.portfolio.skills.index');
         }
 
         notify($confirm['message'], $confirm['level'], $confirm['title']);
@@ -101,10 +101,10 @@ class SkillController extends Controller
      */
     public function show($id)
     {
-        if ($survey = $this->surveyService->getSurveyById($id)) {
-            return view('backend.portfolio.service.show', [
-                'service' => $survey,
-                'timeline' => Utility::modelAudits($survey)
+        if ($skill = $this->skillService->getSkillById($id)) {
+            return view('backend.resume.skill.show', [
+                'service' => $skill,
+                'timeline' => Utility::modelAudits($skill)
             ]);
         }
 
@@ -120,9 +120,9 @@ class SkillController extends Controller
      */
     public function edit($id)
     {
-        if ($survey = $this->surveyService->getSurveyById($id)) {
-            return view('backend.portfolio.service.edit', [
-                'service' => $survey
+        if ($skill = $this->skillService->getSkillById($id)) {
+            return view('backend.resume.skill.edit', [
+                'service' => $skill
             ]);
         }
 
@@ -132,18 +132,18 @@ class SkillController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param SurveyRequest $request
+     * @param SkillRequest $request
      * @param  $id
      * @return RedirectResponse
      * @throws Throwable
      */
-    public function update(SurveyRequest $request, $id): RedirectResponse
+    public function update(SkillRequest $request, $id): RedirectResponse
     {
-        $confirm = $this->surveyService->updateSurvey($request->except('_token', 'submit', '_method'), $id);
+        $confirm = $this->skillService->updateSkill($request->except('_token', 'submit', '_method'), $id);
 
         if ($confirm['status'] == true) {
             notify($confirm['message'], $confirm['level'], $confirm['title']);
-            return redirect()->route('backend.portfolio.surveys.index');
+            return redirect()->route('backend.portfolio.skills.index');
         }
 
         notify($confirm['message'], $confirm['level'], $confirm['title']);
@@ -162,14 +162,14 @@ class SkillController extends Controller
     {
         if ($this->authenticatedSessionService->validate($request)) {
 
-            $confirm = $this->surveyService->destroySurvey($id);
+            $confirm = $this->skillService->destroySkill($id);
 
             if ($confirm['status'] == true) {
                 notify($confirm['message'], $confirm['level'], $confirm['title']);
             } else {
                 notify($confirm['message'], $confirm['level'], $confirm['title']);
             }
-            return redirect()->route('backend.portfolio.surveys.index');
+            return redirect()->route('backend.portfolio.skills.index');
         }
         abort(403, 'Wrong user credentials');
     }
@@ -186,14 +186,14 @@ class SkillController extends Controller
     {
         if ($this->authenticatedSessionService->validate($request)) {
 
-            $confirm = $this->surveyService->restoreSurvey($id);
+            $confirm = $this->skillService->restoreSkill($id);
 
             if ($confirm['status'] == true) {
                 notify($confirm['message'], $confirm['level'], $confirm['title']);
             } else {
                 notify($confirm['message'], $confirm['level'], $confirm['title']);
             }
-            return redirect()->route('backend.portfolio.surveys.index');
+            return redirect()->route('backend.portfolio.skills.index');
         }
         abort(403, 'Wrong user credentials');
     }
@@ -208,12 +208,12 @@ class SkillController extends Controller
     {
         $filters = $request->except('page');
 
-        $surveyExport = $this->surveyService->exportSurvey($filters);
+        $skillExport = $this->skillService->exportSkill($filters);
 
         $filename = 'Comment-' . date('Ymd-His') . '.' . ($filters['format'] ?? 'xlsx');
 
-        return $surveyExport->download($filename, function ($survey) use ($surveyExport) {
-            return $surveyExport->map($survey);
+        return $skillExport->download($filename, function ($skill) use ($skillExport) {
+            return $skillExport->map($skill);
         });
 
     }
@@ -225,7 +225,7 @@ class SkillController extends Controller
      */
     public function import()
     {
-        return view('backend.portfolio.surveyimport');
+        return view('backend.portfolio.skillimport');
     }
 
     /**
@@ -237,10 +237,10 @@ class SkillController extends Controller
     public function importBulk(Request $request)
     {
         $filters = $request->except('page');
-        $surveys = $this->surveyService->getAllSurveys($filters);
+        $skills = $this->skillService->getAllSkills($filters);
 
-        return view('backend.portfolio.surveyindex', [
-            'surveys' => $surveys
+        return view('backend.portfolio.skillindex', [
+            'skills' => $skills
         ]);
     }
 
@@ -254,12 +254,12 @@ class SkillController extends Controller
     {
         $filters = $request->except('page');
 
-        $surveyExport = $this->surveyService->exportSurvey($filters);
+        $skillExport = $this->skillService->exportSkill($filters);
 
         $filename = 'Comment-' . date('Ymd-His') . '.' . ($filters['format'] ?? 'xlsx');
 
-        return $surveyExport->download($filename, function ($survey) use ($surveyExport) {
-            return $surveyExport->map($survey);
+        return $skillExport->download($filename, function ($skill) use ($skillExport) {
+            return $skillExport->map($skill);
         });
 
     }

@@ -549,7 +549,7 @@ Breadcrumbs::for('backend.resume.skills.index', function (BreadcrumbTrail $trail
 
     $trail->parent('backend.resume');
 
-    $trail->push(__('menu-sidebar.Awards'), route('backend.resume.skills.index'));
+    $trail->push(__('menu-sidebar.Skills'), route('backend.resume.skills.index'));
 });
 
 Breadcrumbs::for('backend.resume.skills.create', function (BreadcrumbTrail $trail) {

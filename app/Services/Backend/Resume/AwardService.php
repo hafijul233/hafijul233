@@ -3,8 +3,7 @@
 namespace App\Services\Backend\Resume;
 
 use App\Abstracts\Service\Service;
-use App\Exports\Backend\Organization\EnumeratorExport;
-use App\Models\Backend\Portfolio\Post;
+use App\Exports\Backend\Organization\AwardExport;
 use App\Repositories\Eloquent\Backend\Portfolio\ServiceRepository;
 use App\Repositories\Eloquent\Backend\Setting\ExamLevelRepository;
 use App\Supports\Constant;
@@ -24,23 +23,16 @@ class AwardService extends Service
     /**
      * @var ServiceRepository
      */
-    private $enumeratorRepository;
-    /**
-     * @var ExamLevelRepository
-     */
-    private $examLevelRepository;
+    private $awardRepository;
 
     /**
      * PostService constructor.
-     * @param ServiceRepository $enumeratorRepository
-     * @param ExamLevelRepository $examLevelRepository
+     * @param ServiceRepository $awardRepository
      */
-    public function __construct(ServiceRepository $enumeratorRepository,
-                                ExamLevelRepository $examLevelRepository)
+    public function __construct(ServiceRepository $awardRepository)
     {
-        $this->enumeratorRepository = $enumeratorRepository;
-        $this->enumeratorRepository->itemsPerPage = 10;
-        $this->examLevelRepository = $examLevelRepository;
+        $this->awardRepository = $awardRepository;
+        $this->awardRepository->itemsPerPage = 10;
     }
 
     /**
@@ -51,9 +43,9 @@ class AwardService extends Service
      * @return Builder[]|Collection
      * @throws Exception
      */
-    public function getAllEnumerators(array $filters = [], array $eagerRelations = [])
+    public function getAllAwards(array $filters = [], array $eagerRelations = [])
     {
-        return $this->enumeratorRepository->getWith($filters, $eagerRelations, true);
+        return $this->awardRepository->getWith($filters, $eagerRelations, true);
     }
 
     /**
@@ -64,9 +56,9 @@ class AwardService extends Service
      * @return LengthAwarePaginator
      * @throws Exception
      */
-    public function enumeratorPaginate(array $filters = [], array $eagerRelations = []): LengthAwarePaginator
+    public function awardPaginate(array $filters = [], array $eagerRelations = []): LengthAwarePaginator
     {
-        return $this->enumeratorRepository->paginateWith($filters, $eagerRelations, true);
+        return $this->awardRepository->paginateWith($filters, $eagerRelations, true);
     }
 
     /**
@@ -77,9 +69,9 @@ class AwardService extends Service
      * @return mixed
      * @throws Exception
      */
-    public function getEnumeratorById($id, bool $purge = false)
+    public function getAwardById($id, bool $purge = false)
     {
-        return $this->enumeratorRepository->show($id, $purge);
+        return $this->awardRepository->show($id, $purge);
     }
 
     /**
@@ -90,18 +82,18 @@ class AwardService extends Service
      * @throws Exception
      * @throws Throwable
      */
-    public function storeEnumerator(array $inputs): array
+    public function storeAward(array $inputs): array
     {
-        $newEnumeratorInfo = $this->formatEnumeratorInfo($inputs);
+        $newAwardInfo = $this->formatAwardInfo($inputs);
         DB::beginTransaction();
         try {
-            $newEnumerator = $this->enumeratorRepository->create($newEnumeratorInfo);
-            if ($newEnumerator instanceof Post) {
+            $newAward = $this->awardRepository->create($newAwardInfo);
+            if ($newAward instanceof Post) {
                 //handling Comment List
-                $newEnumerator->surveys()->attach($inputs['survey_id']);
-                $newEnumerator->previousPostings()->attach($inputs['prev_post_state_id']);
-                $newEnumerator->futurePostings()->attach($inputs['future_post_state_id']);
-                $newEnumerator->save();
+                $newAward->surveys()->attach($inputs['survey_id']);
+                $newAward->previousPostings()->attach($inputs['prev_post_state_id']);
+                $newAward->futurePostings()->attach($inputs['future_post_state_id']);
+                $newAward->save();
 
                 DB::commit();
                 return ['status' => true, 'message' => __('New Post Created'),
@@ -112,7 +104,7 @@ class AwardService extends Service
                     'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!'];
             }
         } catch (Exception $exception) {
-            $this->enumeratorRepository->handleException($exception);
+            $this->awardRepository->handleException($exception);
             DB::rollBack();
             return ['status' => false, 'message' => $exception->getMessage(),
                 'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Error!'];
@@ -125,40 +117,40 @@ class AwardService extends Service
      * @param array $inputs
      * @return array
      */
-    private function formatEnumeratorInfo(array $inputs)
+    private function formatAwardInfo(array $inputs)
     {
-        $enumeratorInfo = [];
-        $enumeratorInfo["survey_id"] = null;
-        $enumeratorInfo["gender_id"] = $inputs['gender_id'] ?? null;
-        $enumeratorInfo["dob"] = $inputs['dob'] ?? null;
-        $enumeratorInfo["name"] = $inputs["name"] ?? null;
-        $enumeratorInfo["name_bd"] = $inputs["name_bd"] ?? null;
-        $enumeratorInfo["father"] = $inputs["father"] ?? null;
-        $enumeratorInfo["father_bd"] = $inputs["father_bd"] ?? null;
-        $enumeratorInfo["mother"] = $inputs["mother"] ?? null;
-        $enumeratorInfo["mother_bd"] = $inputs["mother_bd"] ?? null;
-        $enumeratorInfo["nid"] = $inputs["nid"] ?? null;
-        $enumeratorInfo["mobile_1"] = $inputs["mobile_1"] ?? null;
-        $enumeratorInfo["mobile_2"] = $inputs["mobile_2"] ?? null;
-        $enumeratorInfo["email"] = $inputs["email"] ?? null;
-        $enumeratorInfo["present_address"] = $inputs["present_address"] ?? null;
-        $enumeratorInfo["present_address_bd"] = $inputs["present_address_bd"] ?? null;
-        $enumeratorInfo["permanent_address"] = $inputs["permanent_address"] ?? null;
-        $enumeratorInfo["permanent_address_bd"] = $inputs["permanent_address_bd"] ?? null;
-        $enumeratorInfo["exam_level"] = $inputs["exam_level"] ?? null;
-        $enumeratorInfo["whatsapp"] = $inputs["whatsapp"] ?? null;
-        $enumeratorInfo["facebook"] = $inputs["facebook"] ?? null;
+        $awardInfo = [];
+        $awardInfo["survey_id"] = null;
+        $awardInfo["gender_id"] = $inputs['gender_id'] ?? null;
+        $awardInfo["dob"] = $inputs['dob'] ?? null;
+        $awardInfo["name"] = $inputs["name"] ?? null;
+        $awardInfo["name_bd"] = $inputs["name_bd"] ?? null;
+        $awardInfo["father"] = $inputs["father"] ?? null;
+        $awardInfo["father_bd"] = $inputs["father_bd"] ?? null;
+        $awardInfo["mother"] = $inputs["mother"] ?? null;
+        $awardInfo["mother_bd"] = $inputs["mother_bd"] ?? null;
+        $awardInfo["nid"] = $inputs["nid"] ?? null;
+        $awardInfo["mobile_1"] = $inputs["mobile_1"] ?? null;
+        $awardInfo["mobile_2"] = $inputs["mobile_2"] ?? null;
+        $awardInfo["email"] = $inputs["email"] ?? null;
+        $awardInfo["present_address"] = $inputs["present_address"] ?? null;
+        $awardInfo["present_address_bd"] = $inputs["present_address_bd"] ?? null;
+        $awardInfo["permanent_address"] = $inputs["permanent_address"] ?? null;
+        $awardInfo["permanent_address_bd"] = $inputs["permanent_address_bd"] ?? null;
+        $awardInfo["exam_level"] = $inputs["exam_level"] ?? null;
+        $awardInfo["whatsapp"] = $inputs["whatsapp"] ?? null;
+        $awardInfo["facebook"] = $inputs["facebook"] ?? null;
 
-        $enumeratorInfo["is_employee"] = $inputs["is_employee"] ?? 'no';
-        $enumeratorInfo["designation"] = null;
-        $enumeratorInfo["company"] = null;
+        $awardInfo["is_employee"] = $inputs["is_employee"] ?? 'no';
+        $awardInfo["designation"] = null;
+        $awardInfo["company"] = null;
 
-        if ($enumeratorInfo["is_employee"] == 'yes') {
-            $enumeratorInfo["designation"] = $inputs['designation'] ?? null;
-            $enumeratorInfo["company"] = $inputs['company'] ?? null;
+        if ($awardInfo["is_employee"] == 'yes') {
+            $awardInfo["designation"] = $inputs['designation'] ?? null;
+            $awardInfo["company"] = $inputs['company'] ?? null;
         }
 
-        return $enumeratorInfo;
+        return $awardInfo;
     }
 
     /**
@@ -222,19 +214,19 @@ class AwardService extends Service
      * @return array
      * @throws Throwable
      */
-    public function updateEnumerator(array $inputs, $id): array
+    public function updateAward(array $inputs, $id): array
     {
-        $newEnumeratorInfo = $this->formatEnumeratorInfo($inputs);
+        $newAwardInfo = $this->formatAwardInfo($inputs);
         DB::beginTransaction();
         try {
-            $enumerator = $this->enumeratorRepository->show($id);
-            if ($enumerator instanceof Post) {
-                if ($this->enumeratorRepository->update($newEnumeratorInfo, $id)) {
+            $award = $this->awardRepository->show($id);
+            if ($award instanceof Post) {
+                if ($this->awardRepository->update($newAwardInfo, $id)) {
                     //handling Comment List
-                    $enumerator->surveys()->sync($inputs['survey_id']);
-                    $enumerator->previousPostings()->sync($inputs['prev_post_state_id']);
-                    $enumerator->futurePostings()->sync($inputs['future_post_state_id']);
-                    $enumerator->save();
+                    $award->surveys()->sync($inputs['survey_id']);
+                    $award->previousPostings()->sync($inputs['prev_post_state_id']);
+                    $award->futurePostings()->sync($inputs['future_post_state_id']);
+                    $award->save();
                     DB::commit();
                     return ['status' => true, 'message' => __('Post Info Updated'),
                         'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
@@ -248,7 +240,7 @@ class AwardService extends Service
                     'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Alert!'];
             }
         } catch (Exception $exception) {
-            $this->enumeratorRepository->handleException($exception);
+            $this->awardRepository->handleException($exception);
             DB::rollBack();
             return ['status' => false, 'message' => $exception->getMessage(),
                 'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Error!'];
@@ -262,11 +254,11 @@ class AwardService extends Service
      * @return array
      * @throws Throwable
      */
-    public function destroyEnumerator($id): array
+    public function destroyAward($id): array
     {
         DB::beginTransaction();
         try {
-            if ($this->enumeratorRepository->delete($id)) {
+            if ($this->awardRepository->delete($id)) {
                 DB::commit();
                 return ['status' => true, 'message' => __('Post is Trashed'),
                     'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
@@ -277,7 +269,7 @@ class AwardService extends Service
                     'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!'];
             }
         } catch (Exception $exception) {
-            $this->enumeratorRepository->handleException($exception);
+            $this->awardRepository->handleException($exception);
             DB::rollBack();
             return ['status' => false, 'message' => $exception->getMessage(),
                 'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Error!'];
@@ -291,11 +283,11 @@ class AwardService extends Service
      * @return array
      * @throws Throwable
      */
-    public function restoreEnumerator($id): array
+    public function restoreAward($id): array
     {
         DB::beginTransaction();
         try {
-            if ($this->enumeratorRepository->restore($id)) {
+            if ($this->awardRepository->restore($id)) {
                 DB::commit();
                 return ['status' => true, 'message' => __('Post is Restored'),
                     'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
@@ -306,7 +298,7 @@ class AwardService extends Service
                     'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!'];
             }
         } catch (Exception $exception) {
-            $this->enumeratorRepository->handleException($exception);
+            $this->awardRepository->handleException($exception);
             DB::rollBack();
             return ['status' => false, 'message' => $exception->getMessage(),
                 'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Error!'];
@@ -317,11 +309,11 @@ class AwardService extends Service
      * Export Object for Export Download
      *
      * @param array $filters
-     * @return EnumeratorExport
+     * @return AwardExport
      * @throws Exception
      */
-    public function exportEnumerator(array $filters = []): EnumeratorExport
+    public function exportAward(array $filters = []): AwardExport
     {
-        return (new EnumeratorExport($this->enumeratorRepository->getWith($filters)));
+        return (new AwardExport($this->awardRepository->getWith($filters)));
     }
 }
