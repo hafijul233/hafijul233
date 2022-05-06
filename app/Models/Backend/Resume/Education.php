@@ -20,7 +20,7 @@ class Education extends Model implements Auditable
     /**
      * @var string $table
      */
-    protected $table = 'surveys';
+    protected $table = 'educations';
 
     /**
      * @var string $primaryKey

@@ -3,6 +3,7 @@
 namespace App\Repositories\Eloquent\Backend\Resume;
 
 use App\Abstracts\Repository\EloquentRepository;
+use App\Models\Backend\Resume\Education;
 use App\Models\Backend\Resume\Post;
 use App\Services\Auth\AuthenticatedSessionService;
 use Exception;
@@ -24,7 +25,7 @@ class EducationRepository extends EloquentRepository
         /**
          * Set the model that will be used for repo
          */
-        parent::__construct(new Post);
+        parent::__construct(new Education);
     }
 
     /**

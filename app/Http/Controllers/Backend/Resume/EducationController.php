@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Backend\Resume;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Backend\Organization\SurveyRequest;
 use App\Services\Auth\AuthenticatedSessionService;
-use App\Services\Backend\Portfolio\CommentService;
+use App\Services\Backend\Resume\EducationService;
 use App\Supports\Utility;
 use Exception;
 use Illuminate\Contracts\Foundation\Application;
@@ -28,22 +28,22 @@ class EducationController extends Controller
     private $authenticatedSessionService;
 
     /**
-     * @var CommentService
+     * @var EducationService
      */
-    private $surveyService;
+    private $educationService;
 
     /**
      * CommentController Constructor
      *
      * @param AuthenticatedSessionService $authenticatedSessionService
-     * @param CommentService $surveyService
+     * @param EducationService $educationService
      */
     public function __construct(AuthenticatedSessionService $authenticatedSessionService,
-                                CommentService $surveyService)
+                                EducationService $educationService)
     {
 
         $this->authenticatedSessionService = $authenticatedSessionService;
-        $this->surveyService = $surveyService;
+        $this->educationService = $educationService;
     }
 
     /**
@@ -56,10 +56,10 @@ class EducationController extends Controller
     public function index(Request $request)
     {
         $filters = $request->except('page');
-        $surveys = $this->surveyService->surveyPaginate($filters);
+        $educations = $this->educationService->educationPaginate($filters);
 
-        return view('backend.portfolio.service.index', [
-            'surveys' => $surveys
+        return view('backend.resume.education.index', [
+            'educations' => $educations
         ]);
     }
 
@@ -70,7 +70,7 @@ class EducationController extends Controller
      */
     public function create()
     {
-        return view('backend.portfolio.service.create');
+        return view('backend.resume.education.create');
     }
 
     /**
@@ -82,10 +82,10 @@ class EducationController extends Controller
      */
     public function store(SurveyRequest $request): RedirectResponse
     {
-        $confirm = $this->surveyService->storeSurvey($request->except('_token'));
+        $confirm = $this->educationService->storeSurvey($request->except('_token'));
         if ($confirm['status'] == true) {
             notify($confirm['message'], $confirm['level'], $confirm['title']);
-            return redirect()->route('backend.portfolio.surveys.index');
+            return redirect()->route('backend.portfolio.educations.index');
         }
 
         notify($confirm['message'], $confirm['level'], $confirm['title']);
@@ -101,10 +101,10 @@ class EducationController extends Controller
      */
     public function show($id)
     {
-        if ($survey = $this->surveyService->getSurveyById($id)) {
-            return view('backend.portfolio.service.show', [
-                'service' => $survey,
-                'timeline' => Utility::modelAudits($survey)
+        if ($education = $this->educationService->getSurveyById($id)) {
+            return view('backend.resume.education.show', [
+                'service' => $education,
+                'timeline' => Utility::modelAudits($education)
             ]);
         }
 
@@ -120,9 +120,9 @@ class EducationController extends Controller
      */
     public function edit($id)
     {
-        if ($survey = $this->surveyService->getSurveyById($id)) {
-            return view('backend.portfolio.service.edit', [
-                'service' => $survey
+        if ($education = $this->educationService->getSurveyById($id)) {
+            return view('backend.resume.education.edit', [
+                'service' => $education
             ]);
         }
 
@@ -139,11 +139,11 @@ class EducationController extends Controller
      */
     public function update(SurveyRequest $request, $id): RedirectResponse
     {
-        $confirm = $this->surveyService->updateSurvey($request->except('_token', 'submit', '_method'), $id);
+        $confirm = $this->educationService->updateSurvey($request->except('_token', 'submit', '_method'), $id);
 
         if ($confirm['status'] == true) {
             notify($confirm['message'], $confirm['level'], $confirm['title']);
-            return redirect()->route('backend.portfolio.surveys.index');
+            return redirect()->route('backend.portfolio.educations.index');
         }
 
         notify($confirm['message'], $confirm['level'], $confirm['title']);
@@ -162,14 +162,14 @@ class EducationController extends Controller
     {
         if ($this->authenticatedSessionService->validate($request)) {
 
-            $confirm = $this->surveyService->destroySurvey($id);
+            $confirm = $this->educationService->destroySurvey($id);
 
             if ($confirm['status'] == true) {
                 notify($confirm['message'], $confirm['level'], $confirm['title']);
             } else {
                 notify($confirm['message'], $confirm['level'], $confirm['title']);
             }
-            return redirect()->route('backend.portfolio.surveys.index');
+            return redirect()->route('backend.portfolio.educations.index');
         }
         abort(403, 'Wrong user credentials');
     }
@@ -186,14 +186,14 @@ class EducationController extends Controller
     {
         if ($this->authenticatedSessionService->validate($request)) {
 
-            $confirm = $this->surveyService->restoreSurvey($id);
+            $confirm = $this->educationService->restoreSurvey($id);
 
             if ($confirm['status'] == true) {
                 notify($confirm['message'], $confirm['level'], $confirm['title']);
             } else {
                 notify($confirm['message'], $confirm['level'], $confirm['title']);
             }
-            return redirect()->route('backend.portfolio.surveys.index');
+            return redirect()->route('backend.portfolio.educations.index');
         }
         abort(403, 'Wrong user credentials');
     }
@@ -208,12 +208,12 @@ class EducationController extends Controller
     {
         $filters = $request->except('page');
 
-        $surveyExport = $this->surveyService->exportSurvey($filters);
+        $educationExport = $this->educationService->exportSurvey($filters);
 
         $filename = 'Comment-' . date('Ymd-His') . '.' . ($filters['format'] ?? 'xlsx');
 
-        return $surveyExport->download($filename, function ($survey) use ($surveyExport) {
-            return $surveyExport->map($survey);
+        return $educationExport->download($filename, function ($education) use ($educationExport) {
+            return $educationExport->map($education);
         });
 
     }
@@ -225,7 +225,7 @@ class EducationController extends Controller
      */
     public function import()
     {
-        return view('backend.portfolio.surveyimport');
+        return view('backend.portfolio.educationimport');
     }
 
     /**
@@ -237,10 +237,10 @@ class EducationController extends Controller
     public function importBulk(Request $request)
     {
         $filters = $request->except('page');
-        $surveys = $this->surveyService->getAllSurveys($filters);
+        $educations = $this->educationService->getAllSurveys($filters);
 
-        return view('backend.portfolio.surveyindex', [
-            'surveys' => $surveys
+        return view('backend.portfolio.educationindex', [
+            'educations' => $educations
         ]);
     }
 
@@ -254,12 +254,12 @@ class EducationController extends Controller
     {
         $filters = $request->except('page');
 
-        $surveyExport = $this->surveyService->exportSurvey($filters);
+        $educationExport = $this->educationService->exportSurvey($filters);
 
         $filename = 'Comment-' . date('Ymd-His') . '.' . ($filters['format'] ?? 'xlsx');
 
-        return $surveyExport->download($filename, function ($survey) use ($surveyExport) {
-            return $surveyExport->map($survey);
+        return $educationExport->download($filename, function ($education) use ($educationExport) {
+            return $educationExport->map($education);
         });
 
     }

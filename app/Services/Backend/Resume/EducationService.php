@@ -3,9 +3,9 @@
 namespace App\Services\Backend\Resume;
 
 use App\Abstracts\Service\Service;
-use App\Exports\Backend\Organization\SurveyExport;
-use App\Models\Backend\Portfolio\Comment;
-use App\Repositories\Eloquent\Backend\Portfolio\CertificateRepository;
+use App\Exports\Backend\Organization\EducationExport;
+use App\Models\Backend\Resume\Education;
+use App\Repositories\Eloquent\Backend\Resume\EducationRepository;
 use App\Supports\Constant;
 use Exception;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
@@ -15,24 +15,24 @@ use Illuminate\Support\Facades\DB;
 use Throwable;
 
 /**
- * @class CommentService
+ * @class EducationService
  * @package App\Services\Backend\Portfolio
  */
 class EducationService extends Service
 {
     /**
-     * @var CertificateRepository
+     * @var EducationRepository
      */
-    private $surveyRepository;
+    private $educationRepository;
 
     /**
      * CommentService constructor.
-     * @param CertificateRepository $surveyRepository
+     * @param EducationRepository $educationRepository
      */
-    public function __construct(CertificateRepository $surveyRepository)
+    public function __construct(EducationRepository $educationRepository)
     {
-        $this->surveyRepository = $surveyRepository;
-        $this->surveyRepository->itemsPerPage = 10;
+        $this->educationRepository = $educationRepository;
+        $this->educationRepository->itemsPerPage = 10;
     }
 
     /**
@@ -43,9 +43,9 @@ class EducationService extends Service
      * @return Builder[]|Collection
      * @throws Exception
      */
-    public function getAllSurveys(array $filters = [], array $eagerRelations = [])
+    public function getAllEducations(array $filters = [], array $eagerRelations = [])
     {
-        return $this->surveyRepository->getWith($filters, $eagerRelations, true);
+        return $this->educationRepository->getWith($filters, $eagerRelations, true);
     }
 
     /**
@@ -56,9 +56,9 @@ class EducationService extends Service
      * @return LengthAwarePaginator
      * @throws Exception
      */
-    public function surveyPaginate(array $filters = [], array $eagerRelations = []): LengthAwarePaginator
+    public function educationPaginate(array $filters = [], array $eagerRelations = []): LengthAwarePaginator
     {
-        return $this->surveyRepository->paginateWith($filters, $eagerRelations, true);
+        return $this->educationRepository->paginateWith($filters, $eagerRelations, true);
     }
 
     /**
@@ -69,9 +69,9 @@ class EducationService extends Service
      * @return mixed
      * @throws Exception
      */
-    public function getSurveyById($id, bool $purge = false)
+    public function getEducationById($id, bool $purge = false)
     {
-        return $this->surveyRepository->show($id, $purge);
+        return $this->educationRepository->show($id, $purge);
     }
 
     /**
@@ -82,12 +82,12 @@ class EducationService extends Service
      * @throws Exception
      * @throws Throwable
      */
-    public function storeSurvey(array $inputs): array
+    public function storeEducation(array $inputs): array
     {
         DB::beginTransaction();
         try {
-            $newSurvey = $this->surveyRepository->create($inputs);
-            if ($newSurvey instanceof Comment) {
+            $newEducation = $this->educationRepository->create($inputs);
+            if ($newEducation instanceof Education) {
                 DB::commit();
                 return ['status' => true, 'message' => __('New Comment Created'),
                     'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
@@ -97,7 +97,7 @@ class EducationService extends Service
                     'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!'];
             }
         } catch (Exception $exception) {
-            $this->surveyRepository->handleException($exception);
+            $this->educationRepository->handleException($exception);
             DB::rollBack();
             return ['status' => false, 'message' => $exception->getMessage(),
                 'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Error!'];
@@ -112,13 +112,13 @@ class EducationService extends Service
      * @return array
      * @throws Throwable
      */
-    public function updateSurvey(array $inputs, $id): array
+    public function updateEducation(array $inputs, $id): array
     {
         DB::beginTransaction();
         try {
-            $survey = $this->surveyRepository->show($id);
-            if ($survey instanceof Comment) {
-                if ($this->surveyRepository->update($inputs, $id)) {
+            $education = $this->educationRepository->show($id);
+            if ($education instanceof Education) {
+                if ($this->educationRepository->update($inputs, $id)) {
                     DB::commit();
                     return ['status' => true, 'message' => __('Comment Info Updated'),
                         'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
@@ -132,7 +132,7 @@ class EducationService extends Service
                     'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Alert!'];
             }
         } catch (Exception $exception) {
-            $this->surveyRepository->handleException($exception);
+            $this->educationRepository->handleException($exception);
             DB::rollBack();
             return ['status' => false, 'message' => $exception->getMessage(),
                 'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Error!'];
@@ -146,11 +146,11 @@ class EducationService extends Service
      * @return array
      * @throws Throwable
      */
-    public function destroySurvey($id): array
+    public function destroyEducation($id): array
     {
         DB::beginTransaction();
         try {
-            if ($this->surveyRepository->delete($id)) {
+            if ($this->educationRepository->delete($id)) {
                 DB::commit();
                 return ['status' => true, 'message' => __('Comment is Trashed'),
                     'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
@@ -161,7 +161,7 @@ class EducationService extends Service
                     'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!'];
             }
         } catch (Exception $exception) {
-            $this->surveyRepository->handleException($exception);
+            $this->educationRepository->handleException($exception);
             DB::rollBack();
             return ['status' => false, 'message' => $exception->getMessage(),
                 'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Error!'];
@@ -175,11 +175,11 @@ class EducationService extends Service
      * @return array
      * @throws Throwable
      */
-    public function restoreSurvey($id): array
+    public function restoreEducation($id): array
     {
         DB::beginTransaction();
         try {
-            if ($this->surveyRepository->restore($id)) {
+            if ($this->educationRepository->restore($id)) {
                 DB::commit();
                 return ['status' => true, 'message' => __('Comment is Restored'),
                     'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
@@ -190,7 +190,7 @@ class EducationService extends Service
                     'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!'];
             }
         } catch (Exception $exception) {
-            $this->surveyRepository->handleException($exception);
+            $this->educationRepository->handleException($exception);
             DB::rollBack();
             return ['status' => false, 'message' => $exception->getMessage(),
                 'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Error!'];
@@ -201,12 +201,12 @@ class EducationService extends Service
      * Export Object for Export Download
      *
      * @param array $filters
-     * @return SurveyExport
+     * @return EducationExport
      * @throws Exception
      */
-    public function exportSurvey(array $filters = []): SurveyExport
+    public function exportEducation(array $filters = []): EducationExport
     {
-        return (new SurveyExport($this->surveyRepository->getWith($filters)));
+        return (new EducationExport($this->educationRepository->getWith($filters)));
     }
 
     /**
@@ -216,13 +216,13 @@ class EducationService extends Service
      * @return array
      * @throws Exception
      */
-    public function getSurveyDropDown(array $filters = [])
+    public function getEducationDropDown(array $filters = [])
     {
-        $surveys = $this->getAllSurveys($filters);
-        $surveyArray = [];
-        foreach ($surveys as $survey)
-            $surveyArray[$survey->id] = $survey->name;
+        $educations = $this->getAllEducations($filters);
+        $educationArray = [];
+        foreach ($educations as $education)
+            $educationArray[$education->id] = $education->name;
 
-        return $surveyArray;
+        return $educationArray;
     }
 }

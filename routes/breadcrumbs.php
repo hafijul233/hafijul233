@@ -1,6 +1,10 @@
 <?php
 
 use App\Models\Backend\Portfolio\Service;
+use App\Models\Backend\Resume\Award;
+use App\Models\Backend\Resume\Education;
+use App\Models\Backend\Resume\Language;
+use App\Models\Backend\Resume\Skill;
 use App\Models\Backend\Setting\Catalog;
 use App\Models\Backend\Setting\City;
 use App\Models\Backend\Setting\Country;
@@ -473,5 +477,133 @@ Breadcrumbs::for('backend.resume.experiences.edit', function (BreadcrumbTrail $t
     $trail->parent('backend.resume.experiences.show', [$experience]);
 
     $trail->push(__('common.Edit'), route('backend.resume.experiences.edit', $experience->id));
+});
+
+/****************************************** Education ******************************************/
+
+Breadcrumbs::for('backend.resume.educations.index', function (BreadcrumbTrail $trail) {
+
+    $trail->parent('backend.resume');
+
+    $trail->push(__('menu-sidebar.Educations'), route('backend.resume.educations.index'));
+});
+
+Breadcrumbs::for('backend.resume.educations.create', function (BreadcrumbTrail $trail) {
+
+    $trail->parent('backend.resume.educations.index');
+
+    $trail->push(__('common.Add'), route('backend.resume.educations.create'));
+});
+
+Breadcrumbs::for('backend.resume.educations.show', function (BreadcrumbTrail $trail, $education) {
+
+    $trail->parent('backend.resume.educations.index');
+
+    $education = ($education instanceof Education) ? $education : $education[0];
+
+    $trail->push($education->name, route('backend.resume.educations.show', $education->id));
+});
+
+Breadcrumbs::for('backend.resume.educations.edit', function (BreadcrumbTrail $trail, Comment $education) {
+
+    $trail->parent('backend.resume.educations.show', [$education]);
+
+    $trail->push(__('common.Edit'), route('backend.resume.educations.edit', $education->id));
+});
+
+/****************************************** Award ******************************************/
+
+Breadcrumbs::for('backend.resume.awards.index', function (BreadcrumbTrail $trail) {
+
+    $trail->parent('backend.resume');
+
+    $trail->push(__('menu-sidebar.Awards'), route('backend.resume.awards.index'));
+});
+
+Breadcrumbs::for('backend.resume.awards.create', function (BreadcrumbTrail $trail) {
+
+    $trail->parent('backend.resume.awards.index');
+
+    $trail->push(__('common.Add'), route('backend.resume.awards.create'));
+});
+
+Breadcrumbs::for('backend.resume.awards.show', function (BreadcrumbTrail $trail, $award) {
+
+    $trail->parent('backend.resume.awards.index');
+
+    $award = ($award instanceof Award) ? $award : $award[0];
+
+    $trail->push($award->name, route('backend.resume.awards.show', $award->id));
+});
+
+Breadcrumbs::for('backend.resume.awards.edit', function (BreadcrumbTrail $trail, Comment $award) {
+
+    $trail->parent('backend.resume.awards.show', [$award]);
+
+    $trail->push(__('common.Edit'), route('backend.resume.awards.edit', $award->id));
+});
+
+/****************************************** Skill ******************************************/
+
+Breadcrumbs::for('backend.resume.skills.index', function (BreadcrumbTrail $trail) {
+
+    $trail->parent('backend.resume');
+
+    $trail->push(__('menu-sidebar.Awards'), route('backend.resume.skills.index'));
+});
+
+Breadcrumbs::for('backend.resume.skills.create', function (BreadcrumbTrail $trail) {
+
+    $trail->parent('backend.resume.skills.index');
+
+    $trail->push(__('common.Add'), route('backend.resume.skills.create'));
+});
+
+Breadcrumbs::for('backend.resume.skills.show', function (BreadcrumbTrail $trail, $skill) {
+
+    $trail->parent('backend.resume.skills.index');
+
+    $skill = ($skill instanceof Skill) ? $skill : $skill[0];
+
+    $trail->push($skill->name, route('backend.resume.skills.show', $skill->id));
+});
+
+Breadcrumbs::for('backend.resume.skills.edit', function (BreadcrumbTrail $trail, Comment $skill) {
+
+    $trail->parent('backend.resume.skills.show', [$skill]);
+
+    $trail->push(__('common.Edit'), route('backend.resume.skills.edit', $skill->id));
+});
+
+/****************************************** Language ******************************************/
+
+Breadcrumbs::for('backend.resume.languages.index', function (BreadcrumbTrail $trail) {
+
+    $trail->parent('backend.resume');
+
+    $trail->push(__('menu-sidebar.Languages'), route('backend.resume.languages.index'));
+});
+
+Breadcrumbs::for('backend.resume.languages.create', function (BreadcrumbTrail $trail) {
+
+    $trail->parent('backend.resume.languages.index');
+
+    $trail->push(__('common.Add'), route('backend.resume.languages.create'));
+});
+
+Breadcrumbs::for('backend.resume.languages.show', function (BreadcrumbTrail $trail, $language) {
+
+    $trail->parent('backend.resume.languages.index');
+
+    $language = ($language instanceof Language) ? $language : $language[0];
+
+    $trail->push($language->name, route('backend.resume.languages.show', $language->id));
+});
+
+Breadcrumbs::for('backend.resume.languages.edit', function (BreadcrumbTrail $trail, Comment $language) {
+
+    $trail->parent('backend.resume.languages.show', [$language]);
+
+    $trail->push(__('common.Edit'), route('backend.resume.languages.edit', $language->id));
 });
 
