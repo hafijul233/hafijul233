@@ -3,15 +3,10 @@
 namespace App\Http\Controllers\Backend\Blog;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Backend\Organization\CreateEnumeratorRequest;
-use App\Http\Requests\Backend\Organization\UpdateEnumeratorRequest;
+use App\Http\Requests\Backend\Organization\CreatePostRequest;
+use App\Http\Requests\Backend\Organization\UpdatePostRequest;
 use App\Services\Auth\AuthenticatedSessionService;
-use App\Services\Backend\Portfolio\CommentService;
-use App\Services\Backend\Portfolio\PostService;
-use App\Services\Backend\Setting\CatalogService;
-use App\Services\Backend\Setting\ExamLevelService;
-use App\Services\Backend\Setting\InstituteService;
-use App\Services\Backend\Setting\StateService;
+use App\Services\Backend\Blog\PostService;
 use App\Supports\Constant;
 use App\Supports\Utility;
 use Box\Spout\Common\Exception\InvalidArgumentException;
@@ -44,52 +39,20 @@ class PostController extends Controller
     /**
      * @var PostService
      */
-    private $enumeratorService;
-    /**
-     * @var CommentService
-     */
-    private $surveyService;
-    /**
-     * @var CatalogService
-     */
-    private $catalogService;
-    /**
-     * @var InstituteService
-     */
-    private $instituteService;
-    /**
-     * @var ExamLevelService
-     */
-    private $examLevelService;
-    /**
-     * @var StateService
-     */
-    private $stateService;
+    private $postService;
 
     /**
      * PostController Constructor
      *
      * @param AuthenticatedSessionService $authenticatedSessionService
-     * @param PostService $enumeratorService
-     * @param CommentService $surveyService
-     * @param CatalogService $catalogService
-     * @param ExamLevelService $examLevelService
-     * @param StateService $stateService
+     * @param PostService $postService
      */
     public function __construct(AuthenticatedSessionService $authenticatedSessionService,
-                                PostService $enumeratorService,
-                                CommentService $surveyService,
-                                CatalogService $catalogService,
-                                ExamLevelService $examLevelService,
-                                StateService $stateService)
+                                PostService $postService)
     {
 
         $this->authenticatedSessionService = $authenticatedSessionService;
-        $this->enumeratorService = $enumeratorService;
-        $this->surveyService = $surveyService;
-        $this->catalogService = $catalogService;
-        $this->examLevelService = $examLevelService;
-        $this->stateService = $stateService;
+        $this->postService = $postService;
     }
 
     /**
@@ -102,10 +65,10 @@ class PostController extends Controller
     public function index(Request $request)
     {
         $filters = $request->except('page');
-        $enumerators = $this->enumeratorService->enumeratorPaginate($filters);
+        $posts = $this->postService->postPaginate($filters);
 
-        return view('backend.portfolio.certificate.index', [
-            'enumerators' => $enumerators
+        return view('backend.blog.post.index', [
+            'posts' => $posts
         ]);
     }
 
@@ -124,7 +87,7 @@ class PostController extends Controller
             $enables[$field] = __('common.' . $label);
         endforeach;
 
-        return view('backend.portfolio.certificate.create', [
+        return view('backend.blog.post.create', [
             'enables' => $enables,
             'states' => $this->stateService->getStateDropdown(['enabled' => Constant::ENABLED_OPTION, 'type' => 'district', 'sort' => ((session()->get('locale') == 'bd') ? 'native' : 'name'), 'direction' => 'asc'], (session()->get('locale') == 'bd')),
             'surveys' => $this->surveyService->getSurveyDropDown(['enabled' => Constant::ENABLED_OPTION]),
@@ -136,19 +99,19 @@ class PostController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param CreateEnumeratorRequest $request
+     * @param CreatePostRequest $request
      * @return RedirectResponse
      * @throws Exception|Throwable
      */
-    public function store(CreateEnumeratorRequest $request): RedirectResponse
+    public function store(CreatePostRequest $request): RedirectResponse
     {
         $inputs = $request->except('_token');
 
-        $confirm = $this->enumeratorService->storeEnumerator($inputs);
+        $confirm = $this->postService->storePost($inputs);
 
         if ($confirm['status'] == true) {
             notify($confirm['message'], $confirm['level'], $confirm['title']);
-            return redirect()->route('backend.portfolio.enumerators.index');
+            return redirect()->route('backend.portfolio.posts.index');
         }
 
         notify($confirm['message'], $confirm['level'], $confirm['title']);
@@ -164,10 +127,10 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        if ($enumerator = $this->enumeratorService->getEnumeratorById($id)) {
-            return view('backend.portfolio.certificate.show', [
-                'certificate' => $enumerator,
-                'timeline' => Utility::modelAudits($enumerator)
+        if ($post = $this->postService->getPostById($id)) {
+            return view('backend.blog.post.show', [
+                'certificate' => $post,
+                'timeline' => Utility::modelAudits($post)
             ]);
         }
 
@@ -185,15 +148,15 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        if ($enumerator = $this->enumeratorService->getEnumeratorById($id)) {
+        if ($post = $this->postService->getPostById($id)) {
 
             $enables = [];
             foreach (Constant::ENABLED_OPTIONS as $field => $label):
                 $enables[$field] = __('common.' . $label);
             endforeach;
 
-            return view('backend.portfolio.certificate.edit', [
-                'certificate' => $enumerator,
+            return view('backend.blog.post.edit', [
+                'certificate' => $post,
                 'enables' => $enables,
                 'states' => $this->stateService->getStateDropdown(['enabled' => Constant::ENABLED_OPTION, 'type' => 'district', 'sort' => ((session()->get('locale') == 'bd') ? 'native' : 'name'), 'direction' => 'asc'], (session()->get('locale') == 'bd')),
                 'surveys' => $this->surveyService->getSurveyDropDown(),
@@ -208,19 +171,19 @@ class PostController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param CreateEnumeratorRequest $request
+     * @param CreatePostRequest $request
      * @param  $id
      * @return RedirectResponse
      * @throws Throwable
      */
-    public function update(UpdateEnumeratorRequest $request, $id): RedirectResponse
+    public function update(UpdatePostRequest $request, $id): RedirectResponse
     {
         $inputs = $request->except('_token', 'submit', '_method');
-        $confirm = $this->enumeratorService->updateEnumerator($inputs, $id);
+        $confirm = $this->postService->updatePost($inputs, $id);
 
         if ($confirm['status'] == true) {
             notify($confirm['message'], $confirm['level'], $confirm['title']);
-            return redirect()->route('backend.portfolio.enumerators.index');
+            return redirect()->route('backend.portfolio.posts.index');
         }
 
         notify($confirm['message'], $confirm['level'], $confirm['title']);
@@ -239,14 +202,14 @@ class PostController extends Controller
     {
         if ($this->authenticatedSessionService->validate($request)) {
 
-            $confirm = $this->enumeratorService->destroyEnumerator($id);
+            $confirm = $this->postService->destroyPost($id);
 
             if ($confirm['status'] == true) {
                 notify($confirm['message'], $confirm['level'], $confirm['title']);
             } else {
                 notify($confirm['message'], $confirm['level'], $confirm['title']);
             }
-            return redirect()->route('backend.portfolio.enumerators.index');
+            return redirect()->route('backend.portfolio.posts.index');
         }
         abort(403, 'Wrong user credentials');
     }
@@ -263,14 +226,14 @@ class PostController extends Controller
     {
         if ($this->authenticatedSessionService->validate($request)) {
 
-            $confirm = $this->enumeratorService->restoreEnumerator($id);
+            $confirm = $this->postService->restorePost($id);
 
             if ($confirm['status'] == true) {
                 notify($confirm['message'], $confirm['level'], $confirm['title']);
             } else {
                 notify($confirm['message'], $confirm['level'], $confirm['title']);
             }
-            return redirect()->route('backend.portfolio.enumerators.index');
+            return redirect()->route('backend.portfolio.posts.index');
         }
         abort(403, 'Wrong user credentials');
     }
@@ -289,10 +252,10 @@ class PostController extends Controller
     public function export(Request $request)
     {
         $filters = $request->except('page');
-        $enumeratorExport = $this->enumeratorService->exportEnumerator($filters);
+        $postExport = $this->postService->exportPost($filters);
         $filename = 'Post-' . date('Ymd-His') . '.' . ($filters['format'] ?? 'xlsx');
-        return $enumeratorExport->download($filename, function ($enumerator) use ($enumeratorExport) {
-            return $enumeratorExport->map($enumerator);
+        return $postExport->download($filename, function ($post) use ($postExport) {
+            return $postExport->map($post);
         });
     }
 
@@ -307,18 +270,18 @@ class PostController extends Controller
     {
         $filters = $request->except('page');
 
-        $enumerators = $this->enumeratorService->getAllEnumerators($filters);
+        $posts = $this->postService->getAllPosts($filters);
 
-        if (count($enumerators) > 0):
-            foreach ($enumerators as $index => $enumerator) :
-                $enumerators[$index]->update_route = route('backend.portfolio.enumerators.update', $enumerator->id);
-                $enumerators[$index]->survey_id = $enumerator->surveys->pluck('id')->toArray();
-                $enumerators[$index]->prev_post_state_id = $enumerator->previousPostings->pluck('id')->toArray();
-                $enumerators[$index]->future_post_state_id = $enumerator->futurePostings->pluck('id')->toArray();
-                unset($enumerators[$index]->surveys, $enumerators[$index]->previousPostings, $enumerators[$index]->futurePostings);
+        if (count($posts) > 0):
+            foreach ($posts as $index => $post) :
+                $posts[$index]->update_route = route('backend.portfolio.posts.update', $post->id);
+                $posts[$index]->survey_id = $post->surveys->pluck('id')->toArray();
+                $posts[$index]->prev_post_state_id = $post->previousPostings->pluck('id')->toArray();
+                $posts[$index]->future_post_state_id = $post->futurePostings->pluck('id')->toArray();
+                unset($posts[$index]->surveys, $posts[$index]->previousPostings, $posts[$index]->futurePostings);
             endforeach;
 
-            $jsonReturn = ['status' => true, 'data' => $enumerators];
+            $jsonReturn = ['status' => true, 'data' => $posts];
         else :
             $jsonReturn = ['status' => false, 'data' => []];
         endif;

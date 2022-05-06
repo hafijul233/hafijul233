@@ -1,7 +1,9 @@
 <?php
 
+use App\Models\Backend\Blog\NewsLetter;
 use App\Models\Backend\Portfolio\Service;
 use App\Models\Backend\Resume\Award;
+use App\Models\Backend\Blog\Post;
 use App\Models\Backend\Resume\Education;
 use App\Models\Backend\Resume\Language;
 use App\Models\Backend\Resume\Skill;
@@ -607,3 +609,107 @@ Breadcrumbs::for('backend.resume.languages.edit', function (BreadcrumbTrail $tra
     $trail->push(__('common.Edit'), route('backend.resume.languages.edit', $language->id));
 });
 
+/****************************************** Blog ******************************************/
+
+Breadcrumbs::for('backend.blog', function (BreadcrumbTrail $trail) {
+
+    $trail->parent('backend');
+
+    $trail->push(__('menu-sidebar.Blog'), route('backend.blog'));
+});
+
+/****************************************** Post ******************************************/
+
+Breadcrumbs::for('backend.blog.posts.index', function (BreadcrumbTrail $trail) {
+
+    $trail->parent('backend.blog');
+
+    $trail->push(__('menu-sidebar.Posts'), route('backend.blog.posts.index'));
+});
+
+Breadcrumbs::for('backend.blog.posts.create', function (BreadcrumbTrail $trail) {
+
+    $trail->parent('backend.blog.posts.index');
+
+    $trail->push(__('common.Add'), route('backend.blog.posts.create'));
+});
+
+Breadcrumbs::for('backend.blog.posts.show', function (BreadcrumbTrail $trail, $post) {
+
+    $trail->parent('backend.blog.posts.index');
+
+    $post = ($post instanceof Post) ? $post : $post[0];
+
+    $trail->push($post->name, route('backend.blog.posts.show', $post->id));
+});
+
+Breadcrumbs::for('backend.blog.posts.edit', function (BreadcrumbTrail $trail, Comment $post) {
+
+    $trail->parent('backend.blog.posts.show', [$post]);
+
+    $trail->push(__('common.Edit'), route('backend.blog.posts.edit', $post->id));
+});
+
+/****************************************** Comment ******************************************/
+
+Breadcrumbs::for('backend.blog.comments.index', function (BreadcrumbTrail $trail) {
+
+    $trail->parent('backend.blog');
+
+    $trail->push(__('menu-sidebar.Posts'), route('backend.blog.comments.index'));
+});
+
+Breadcrumbs::for('backend.blog.comments.create', function (BreadcrumbTrail $trail) {
+
+    $trail->parent('backend.blog.comments.index');
+
+    $trail->push(__('common.Add'), route('backend.blog.comments.create'));
+});
+
+Breadcrumbs::for('backend.blog.comments.show', function (BreadcrumbTrail $trail, $comment) {
+
+    $trail->parent('backend.blog.comments.index');
+
+    $comment = ($comment instanceof Comment) ? $comment : $comment[0];
+
+    $trail->push($comment->name, route('backend.blog.comments.show', $comment->id));
+});
+
+Breadcrumbs::for('backend.blog.comments.edit', function (BreadcrumbTrail $trail, Comment $comment) {
+
+    $trail->parent('backend.blog.comments.show', [$comment]);
+
+    $trail->push(__('common.Edit'), route('backend.blog.comments.edit', $comment->id));
+});
+
+/****************************************** News Letter ******************************************/
+
+Breadcrumbs::for('backend.blog.newsletters.index', function (BreadcrumbTrail $trail) {
+
+    $trail->parent('backend.blog');
+
+    $trail->push(__('menu-sidebar.Newsletters'), route('backend.blog.newsletters.index'));
+});
+
+Breadcrumbs::for('backend.blog.newsletters.create', function (BreadcrumbTrail $trail) {
+
+    $trail->parent('backend.blog.newsletters.index');
+
+    $trail->push(__('common.Add'), route('backend.blog.newsletters.create'));
+});
+
+Breadcrumbs::for('backend.blog.newsletters.show', function (BreadcrumbTrail $trail, $newsletter) {
+
+    $trail->parent('backend.blog.newsletters.index');
+
+    $newsletter = ($newsletter instanceof NewsLetter) ? $newsletter : $newsletter[0];
+
+    $trail->push($newsletter->name, route('backend.blog.newsletters.show', $newsletter->id));
+});
+
+Breadcrumbs::for('backend.blog.newsletters.edit', function (BreadcrumbTrail $trail, NewsLetter $newsletter) {
+
+    $trail->parent('backend.blog.newsletters.show', [$newsletter]);
+
+    $trail->push(__('common.Edit'), route('backend.blog.newsletters.edit', $newsletter->id));
+});

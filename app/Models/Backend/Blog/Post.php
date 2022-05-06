@@ -2,8 +2,6 @@
 
 namespace App\Models\Backend\Blog;
 
-use App\Models\Backend\Blog\Enumerator\EducationQualification;
-use App\Models\Backend\Blog\Enumerator\WorkQualification;
 use App\Models\Backend\Setting\Catalog;
 use App\Models\Backend\Setting\ExamLevel;
 use App\Models\Backend\Setting\State;
@@ -25,7 +23,7 @@ class Post extends Model implements Auditable
     /**
      * @var string $table
      */
-    protected $table = 'enumerators';
+    protected $table = 'posts';
 
     /**
      * @var string $primaryKey
