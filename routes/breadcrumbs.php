@@ -656,7 +656,7 @@ Breadcrumbs::for('backend.blog.comments.index', function (BreadcrumbTrail $trail
 
     $trail->parent('backend.blog');
 
-    $trail->push(__('menu-sidebar.Posts'), route('backend.blog.comments.index'));
+    $trail->push(__('menu-sidebar.Comments'), route('backend.blog.comments.index'));
 });
 
 Breadcrumbs::for('backend.blog.comments.create', function (BreadcrumbTrail $trail) {

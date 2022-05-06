@@ -3,9 +3,9 @@
 namespace App\Services\Backend\Blog;
 
 use App\Abstracts\Service\Service;
-use App\Exports\Backend\Organization\SurveyExport;
-use App\Models\Backend\Portfolio\Comment;
-use App\Repositories\Eloquent\Backend\Portfolio\CertificateRepository;
+use App\Exports\Backend\Organization\CommentExport;
+use App\Models\Backend\Blog\Comment;
+use App\Repositories\Eloquent\Backend\Blog\CommentRepository;
 use App\Supports\Constant;
 use Exception;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
@@ -21,18 +21,18 @@ use Throwable;
 class CommentService extends Service
 {
     /**
-     * @var CertificateRepository
+     * @var CommentRepository
      */
-    private $surveyRepository;
+    private $commentRepository;
 
     /**
      * CommentService constructor.
-     * @param CertificateRepository $surveyRepository
+     * @param CommentRepository $commentRepository
      */
-    public function __construct(CertificateRepository $surveyRepository)
+    public function __construct(CommentRepository $commentRepository)
     {
-        $this->surveyRepository = $surveyRepository;
-        $this->surveyRepository->itemsPerPage = 10;
+        $this->commentRepository = $commentRepository;
+        $this->commentRepository->itemsPerPage = 10;
     }
 
     /**
@@ -43,9 +43,9 @@ class CommentService extends Service
      * @return Builder[]|Collection
      * @throws Exception
      */
-    public function getAllSurveys(array $filters = [], array $eagerRelations = [])
+    public function getAllComments(array $filters = [], array $eagerRelations = [])
     {
-        return $this->surveyRepository->getWith($filters, $eagerRelations, true);
+        return $this->commentRepository->getWith($filters, $eagerRelations, true);
     }
 
     /**
@@ -56,9 +56,9 @@ class CommentService extends Service
      * @return LengthAwarePaginator
      * @throws Exception
      */
-    public function surveyPaginate(array $filters = [], array $eagerRelations = []): LengthAwarePaginator
+    public function commentPaginate(array $filters = [], array $eagerRelations = []): LengthAwarePaginator
     {
-        return $this->surveyRepository->paginateWith($filters, $eagerRelations, true);
+        return $this->commentRepository->paginateWith($filters, $eagerRelations, true);
     }
 
     /**
@@ -69,9 +69,9 @@ class CommentService extends Service
      * @return mixed
      * @throws Exception
      */
-    public function getSurveyById($id, bool $purge = false)
+    public function getCommentById($id, bool $purge = false)
     {
-        return $this->surveyRepository->show($id, $purge);
+        return $this->commentRepository->show($id, $purge);
     }
 
     /**
@@ -82,12 +82,12 @@ class CommentService extends Service
      * @throws Exception
      * @throws Throwable
      */
-    public function storeSurvey(array $inputs): array
+    public function storeComment(array $inputs): array
     {
         DB::beginTransaction();
         try {
-            $newSurvey = $this->surveyRepository->create($inputs);
-            if ($newSurvey instanceof Comment) {
+            $newComment = $this->commentRepository->create($inputs);
+            if ($newComment instanceof Comment) {
                 DB::commit();
                 return ['status' => true, 'message' => __('New Comment Created'),
                     'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
@@ -97,7 +97,7 @@ class CommentService extends Service
                     'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!'];
             }
         } catch (Exception $exception) {
-            $this->surveyRepository->handleException($exception);
+            $this->commentRepository->handleException($exception);
             DB::rollBack();
             return ['status' => false, 'message' => $exception->getMessage(),
                 'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Error!'];
@@ -112,13 +112,13 @@ class CommentService extends Service
      * @return array
      * @throws Throwable
      */
-    public function updateSurvey(array $inputs, $id): array
+    public function updateComment(array $inputs, $id): array
     {
         DB::beginTransaction();
         try {
-            $survey = $this->surveyRepository->show($id);
-            if ($survey instanceof Comment) {
-                if ($this->surveyRepository->update($inputs, $id)) {
+            $comment = $this->commentRepository->show($id);
+            if ($comment instanceof Comment) {
+                if ($this->commentRepository->update($inputs, $id)) {
                     DB::commit();
                     return ['status' => true, 'message' => __('Comment Info Updated'),
                         'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
@@ -132,7 +132,7 @@ class CommentService extends Service
                     'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Alert!'];
             }
         } catch (Exception $exception) {
-            $this->surveyRepository->handleException($exception);
+            $this->commentRepository->handleException($exception);
             DB::rollBack();
             return ['status' => false, 'message' => $exception->getMessage(),
                 'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Error!'];
@@ -146,11 +146,11 @@ class CommentService extends Service
      * @return array
      * @throws Throwable
      */
-    public function destroySurvey($id): array
+    public function destroyComment($id): array
     {
         DB::beginTransaction();
         try {
-            if ($this->surveyRepository->delete($id)) {
+            if ($this->commentRepository->delete($id)) {
                 DB::commit();
                 return ['status' => true, 'message' => __('Comment is Trashed'),
                     'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
@@ -161,7 +161,7 @@ class CommentService extends Service
                     'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!'];
             }
         } catch (Exception $exception) {
-            $this->surveyRepository->handleException($exception);
+            $this->commentRepository->handleException($exception);
             DB::rollBack();
             return ['status' => false, 'message' => $exception->getMessage(),
                 'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Error!'];
@@ -175,11 +175,11 @@ class CommentService extends Service
      * @return array
      * @throws Throwable
      */
-    public function restoreSurvey($id): array
+    public function restoreComment($id): array
     {
         DB::beginTransaction();
         try {
-            if ($this->surveyRepository->restore($id)) {
+            if ($this->commentRepository->restore($id)) {
                 DB::commit();
                 return ['status' => true, 'message' => __('Comment is Restored'),
                     'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
@@ -190,7 +190,7 @@ class CommentService extends Service
                     'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!'];
             }
         } catch (Exception $exception) {
-            $this->surveyRepository->handleException($exception);
+            $this->commentRepository->handleException($exception);
             DB::rollBack();
             return ['status' => false, 'message' => $exception->getMessage(),
                 'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Error!'];
@@ -201,12 +201,12 @@ class CommentService extends Service
      * Export Object for Export Download
      *
      * @param array $filters
-     * @return SurveyExport
+     * @return CommentExport
      * @throws Exception
      */
-    public function exportSurvey(array $filters = []): SurveyExport
+    public function exportComment(array $filters = []): CommentExport
     {
-        return (new SurveyExport($this->surveyRepository->getWith($filters)));
+        return (new CommentExport($this->commentRepository->getWith($filters)));
     }
 
     /**
@@ -216,13 +216,13 @@ class CommentService extends Service
      * @return array
      * @throws Exception
      */
-    public function getSurveyDropDown(array $filters = [])
+    public function getCommentDropDown(array $filters = [])
     {
-        $surveys = $this->getAllSurveys($filters);
-        $surveyArray = [];
-        foreach ($surveys as $survey)
-            $surveyArray[$survey->id] = $survey->name;
+        $comments = $this->getAllComments($filters);
+        $commentArray = [];
+        foreach ($comments as $comment)
+            $commentArray[$comment->id] = $comment->name;
 
-        return $surveyArray;
+        return $commentArray;
     }
 }

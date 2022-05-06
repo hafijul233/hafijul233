@@ -3,7 +3,7 @@
 namespace App\Repositories\Eloquent\Backend\Blog;
 
 use App\Abstracts\Repository\EloquentRepository;
-use App\Models\Backend\Portfolio\Comment;
+use App\Models\Backend\Blog\Comment;
 use App\Services\Auth\AuthenticatedSessionService;
 use Exception;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;

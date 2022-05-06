@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Backend\Blog;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Backend\Organization\SurveyRequest;
+use App\Http\Requests\Backend\Organization\CommentRequest;
 use App\Services\Auth\AuthenticatedSessionService;
-use App\Services\Backend\Portfolio\CommentService;
+use App\Services\Backend\Blog\CommentService;
 use App\Supports\Utility;
 use Exception;
 use Illuminate\Contracts\Foundation\Application;
@@ -30,20 +30,20 @@ class CommentController extends Controller
     /**
      * @var CommentService
      */
-    private $surveyService;
+    private $commentService;
 
     /**
      * CommentController Constructor
      *
      * @param AuthenticatedSessionService $authenticatedSessionService
-     * @param CommentService $surveyService
+     * @param CommentService $commentService
      */
     public function __construct(AuthenticatedSessionService $authenticatedSessionService,
-                                CommentService $surveyService)
+                                CommentService $commentService)
     {
 
         $this->authenticatedSessionService = $authenticatedSessionService;
-        $this->surveyService = $surveyService;
+        $this->commentService = $commentService;
     }
 
     /**
@@ -56,10 +56,10 @@ class CommentController extends Controller
     public function index(Request $request)
     {
         $filters = $request->except('page');
-        $surveys = $this->surveyService->surveyPaginate($filters);
+        $comments = $this->commentService->commentPaginate($filters);
 
-        return view('backend.portfolio.service.index', [
-            'surveys' => $surveys
+        return view('backend.blog.comment.index', [
+            'comments' => $comments
         ]);
     }
 
@@ -70,7 +70,7 @@ class CommentController extends Controller
      */
     public function create()
     {
-        return view('backend.portfolio.service.create');
+        return view('backend.blog.comment.create');
     }
 
     /**
@@ -80,12 +80,12 @@ class CommentController extends Controller
      * @return RedirectResponse
      * @throws Exception|Throwable
      */
-    public function store(SurveyRequest $request): RedirectResponse
+    public function store(CommentRequest $request): RedirectResponse
     {
-        $confirm = $this->surveyService->storeSurvey($request->except('_token'));
+        $confirm = $this->commentService->storeComment($request->except('_token'));
         if ($confirm['status'] == true) {
             notify($confirm['message'], $confirm['level'], $confirm['title']);
-            return redirect()->route('backend.portfolio.surveys.index');
+            return redirect()->route('backend.portfolio.comments.index');
         }
 
         notify($confirm['message'], $confirm['level'], $confirm['title']);
@@ -101,10 +101,10 @@ class CommentController extends Controller
      */
     public function show($id)
     {
-        if ($survey = $this->surveyService->getSurveyById($id)) {
-            return view('backend.portfolio.service.show', [
-                'service' => $survey,
-                'timeline' => Utility::modelAudits($survey)
+        if ($comment = $this->commentService->getCommentById($id)) {
+            return view('backend.blog.comment.show', [
+                'service' => $comment,
+                'timeline' => Utility::modelAudits($comment)
             ]);
         }
 
@@ -120,9 +120,9 @@ class CommentController extends Controller
      */
     public function edit($id)
     {
-        if ($survey = $this->surveyService->getSurveyById($id)) {
-            return view('backend.portfolio.service.edit', [
-                'service' => $survey
+        if ($comment = $this->commentService->getCommentById($id)) {
+            return view('backend.blog.comment.edit', [
+                'service' => $comment
             ]);
         }
 
@@ -132,18 +132,18 @@ class CommentController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param SurveyRequest $request
+     * @param CommentRequest $request
      * @param  $id
      * @return RedirectResponse
      * @throws Throwable
      */
-    public function update(SurveyRequest $request, $id): RedirectResponse
+    public function update(CommentRequest $request, $id): RedirectResponse
     {
-        $confirm = $this->surveyService->updateSurvey($request->except('_token', 'submit', '_method'), $id);
+        $confirm = $this->commentService->updateComment($request->except('_token', 'submit', '_method'), $id);
 
         if ($confirm['status'] == true) {
             notify($confirm['message'], $confirm['level'], $confirm['title']);
-            return redirect()->route('backend.portfolio.surveys.index');
+            return redirect()->route('backend.portfolio.comments.index');
         }
 
         notify($confirm['message'], $confirm['level'], $confirm['title']);
@@ -162,14 +162,14 @@ class CommentController extends Controller
     {
         if ($this->authenticatedSessionService->validate($request)) {
 
-            $confirm = $this->surveyService->destroySurvey($id);
+            $confirm = $this->commentService->destroyComment($id);
 
             if ($confirm['status'] == true) {
                 notify($confirm['message'], $confirm['level'], $confirm['title']);
             } else {
                 notify($confirm['message'], $confirm['level'], $confirm['title']);
             }
-            return redirect()->route('backend.portfolio.surveys.index');
+            return redirect()->route('backend.portfolio.comments.index');
         }
         abort(403, 'Wrong user credentials');
     }
@@ -186,14 +186,14 @@ class CommentController extends Controller
     {
         if ($this->authenticatedSessionService->validate($request)) {
 
-            $confirm = $this->surveyService->restoreSurvey($id);
+            $confirm = $this->commentService->restoreComment($id);
 
             if ($confirm['status'] == true) {
                 notify($confirm['message'], $confirm['level'], $confirm['title']);
             } else {
                 notify($confirm['message'], $confirm['level'], $confirm['title']);
             }
-            return redirect()->route('backend.portfolio.surveys.index');
+            return redirect()->route('backend.portfolio.comments.index');
         }
         abort(403, 'Wrong user credentials');
     }
@@ -208,12 +208,12 @@ class CommentController extends Controller
     {
         $filters = $request->except('page');
 
-        $surveyExport = $this->surveyService->exportSurvey($filters);
+        $commentExport = $this->commentService->exportComment($filters);
 
         $filename = 'Comment-' . date('Ymd-His') . '.' . ($filters['format'] ?? 'xlsx');
 
-        return $surveyExport->download($filename, function ($survey) use ($surveyExport) {
-            return $surveyExport->map($survey);
+        return $commentExport->download($filename, function ($comment) use ($commentExport) {
+            return $commentExport->map($comment);
         });
 
     }
@@ -225,7 +225,7 @@ class CommentController extends Controller
      */
     public function import()
     {
-        return view('backend.portfolio.surveyimport');
+        return view('backend.portfolio.commentimport');
     }
 
     /**
@@ -237,10 +237,10 @@ class CommentController extends Controller
     public function importBulk(Request $request)
     {
         $filters = $request->except('page');
-        $surveys = $this->surveyService->getAllSurveys($filters);
+        $comments = $this->commentService->getAllComments($filters);
 
-        return view('backend.portfolio.surveyindex', [
-            'surveys' => $surveys
+        return view('backend.portfolio.commentindex', [
+            'comments' => $comments
         ]);
     }
 
@@ -254,12 +254,12 @@ class CommentController extends Controller
     {
         $filters = $request->except('page');
 
-        $surveyExport = $this->surveyService->exportSurvey($filters);
+        $commentExport = $this->commentService->exportComment($filters);
 
         $filename = 'Comment-' . date('Ymd-His') . '.' . ($filters['format'] ?? 'xlsx');
 
-        return $surveyExport->download($filename, function ($survey) use ($surveyExport) {
-            return $surveyExport->map($survey);
+        return $commentExport->download($filename, function ($comment) use ($commentExport) {
+            return $commentExport->map($comment);
         });
 
     }
