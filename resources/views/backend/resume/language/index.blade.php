@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', __('menu-sidebar.Services'))
+@section('title', __('menu-sidebar.Languages'))
 
 @push('meta')
 
@@ -27,8 +27,8 @@
 @section('breadcrumbs', \Breadcrumbs::render())
 
 @section('actions')
-    {!! \Html::linkButton(__('Add Service'), 'backend.portfolio.services.create', [], 'fas fa-plus', 'success') !!}
-    {{--{!! \Html::bulkDropdown('backend.portfolio.services', 0, ['color' => 'warning']) !!}--}}
+    {!! \Html::linkButton(__('Add Language'), 'backend.resume.languages.create', [], 'fas fa-plus', 'success') !!}
+    {{--{!! \Html::bulkDropdown('backend.resume.languages', 0, ['color' => 'warning']) !!}--}}
 @endsection
 
 @section('content')
@@ -38,7 +38,7 @@
                 <div class="card card-default">
                     @if(!empty($services))
                         <div class="card-body p-0">
-                            {!! \Html::cardSearch('search', 'backend.portfolio.services.index',
+                            {!! \Html::cardSearch('search', 'backend.resume.languages.index',
                             ['placeholder' => 'Search Comment Name etc.',
                             'class' => 'form-control', 'id' => 'search', 'data-target-table' => 'service-table']) !!}
                             <div class="table-responsive">
@@ -59,8 +59,8 @@
                                                 {{ $service->id }}
                                             </td>
                                             <td class="text-left">
-                                                @can('backend.portfolio.services.show')
-                                                    <a href="{{ route('backend.portfolio.services.show', $service->id) }}">
+                                                @can('backend.resume.languages.show')
+                                                    <a href="{{ route('backend.resume.languages.show', $service->id) }}">
                                                         {{ $service->name }}
                                                     </a>
                                                 @else
@@ -72,7 +72,7 @@
                                             </td>
                                             <td class="text-center">{{ $service->created_at->format(config('backend.datetime')) ?? '' }}</td>
                                             <td class="exclude-search pr-3 text-center align-middle">
-                                                {!! \Html::actionDropdown('backend.portfolio.services', $service->id, array_merge(['show', 'edit'], ($service->deleted_at == null) ? ['delete'] : ['restore'])) !!}
+                                                {!! \Html::actionDropdown('backend.resume.languages', $service->id, array_merge(['show', 'edit'], ($service->deleted_at == null) ? ['delete'] : ['restore'])) !!}
                                             </td>
                                         </tr>
                                     @empty

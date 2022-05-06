@@ -58,7 +58,7 @@ class LanguageController extends Controller
         $filters = $request->except('page');
         $languages = $this->languageService->languagePaginate($filters);
 
-        return view('backend.portfolio.service.index', [
+        return view('backend.resume.language.index', [
             'languages' => $languages
         ]);
     }
@@ -70,7 +70,7 @@ class LanguageController extends Controller
      */
     public function create()
     {
-        return view('backend.portfolio.service.create');
+        return view('backend.resume.language.create');
     }
 
     /**
@@ -102,7 +102,7 @@ class LanguageController extends Controller
     public function show($id)
     {
         if ($language = $this->languageService->getSurveyById($id)) {
-            return view('backend.portfolio.service.show', [
+            return view('backend.resume.language.show', [
                 'service' => $language,
                 'timeline' => Utility::modelAudits($language)
             ]);
@@ -121,7 +121,7 @@ class LanguageController extends Controller
     public function edit($id)
     {
         if ($language = $this->languageService->getSurveyById($id)) {
-            return view('backend.portfolio.service.edit', [
+            return view('backend.resume.language.edit', [
                 'service' => $language
             ]);
         }
