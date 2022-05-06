@@ -21,12 +21,16 @@ class CreateEducationsTable extends Migration
         //Table Structure
         Schema::create('educations', function (Blueprint $table) {
             $table->id();
-
+            $table->string('institute');
+            $table->string('degree');
+            $table->string('field')->nullable();
+            $table->date('start_date');
+            $table->date('end_date')->nullable();
+            $table->string('grade')->nullable();
+            $table->string('activity')->nullable();
+            $table->text('description')->nullable();
             $table->enum('enabled', array_keys(Constant::ENABLED_OPTIONS))
                   ->default(Constant::ENABLED_OPTION)->nullable();
-            $table->foreignId('created_by')->index()->nullable();
-            $table->foreignId('updated_by')->index()->nullable();
-            $table->foreignId('deleted_by')->index()->nullable();
             $table->dateTime('created_at')->nullable();
             $table->dateTime('updated_at')->nullable();
             $table->dateTime('deleted_at')->nullable();

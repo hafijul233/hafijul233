@@ -1,9 +1,9 @@
 <?php
 
+use App\Supports\Constant;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use App\Supports\Constant;
 
 
 class CreateAwardsTable extends Migration
@@ -21,12 +21,13 @@ class CreateAwardsTable extends Migration
         //Table Structure
         Schema::create('awards', function (Blueprint $table) {
             $table->id();
-
+            $table->string('title');
+            $table->string('associate')->nullable();
+            $table->string('issuer');
+            $table->date('issue_date');
+            $table->text('description')->nullable();
             $table->enum('enabled', array_keys(Constant::ENABLED_OPTIONS))
-                  ->default(Constant::ENABLED_OPTION)->nullable();
-            $table->foreignId('created_by')->index()->nullable();
-            $table->foreignId('updated_by')->index()->nullable();
-            $table->foreignId('deleted_by')->index()->nullable();
+                ->default(Constant::ENABLED_OPTION)->nullable();
             $table->dateTime('created_at')->nullable();
             $table->dateTime('updated_at')->nullable();
             $table->dateTime('deleted_at')->nullable();

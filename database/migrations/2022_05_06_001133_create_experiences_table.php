@@ -21,7 +21,14 @@ class CreateExperiencesTable extends Migration
         //Table Structure
         Schema::create('experiences', function (Blueprint $table) {
             $table->id();
-
+            $table->string('title');
+            $table->string('type')->nullable();
+            $table->string('company')->nullable();
+            $table->string('address')->nullable();
+            $table->date('start_date');
+            $table->date('end_date')->nullable();
+            $table->text('description')->nullable();
+            $table->string('url')->nullable();
             $table->enum('enabled', array_keys(Constant::ENABLED_OPTIONS))
                   ->default(Constant::ENABLED_OPTION)->nullable();
             $table->foreignId('created_by')->index()->nullable();

@@ -21,7 +21,8 @@ class CreateTestimonialsTable extends Migration
         //Table Structure
         Schema::create('testimonials', function (Blueprint $table) {
             $table->id();
-
+            $table->string('client');
+            $table->string('feedback');
             $table->enum('enabled', array_keys(Constant::ENABLED_OPTIONS))
                   ->default(Constant::ENABLED_OPTION)->nullable();
             $table->dateTime('created_at')->nullable();
