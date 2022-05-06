@@ -42,6 +42,60 @@ class PasswordResetService
     }
 
     /**
+     * @param array $credential
+     * @return array
+     */
+    private function otpBasedPasswordReset(array $credential): array
+    {
+        $confirmation = ['status' => false, 'message' => __('auth.login.failed'), 'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!'];
+
+        if (Auth::attempt($credential)) {
+            $confirmation = ['status' => true, 'message' => __('auth.login.success'), 'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification'];
+        }
+
+        return $confirmation;
+    }
+
+    /**
+     * @param array $credentials
+     * @return array
+     */
+    private function credentialBasedPasswordReset(array $credentials): array
+    {
+        $resetToken = null;
+
+        $status = Password::sendResetLink($credentials, function (User $user, string $token) use (&$resetToken) {
+            $resetToken = $token;
+        });
+
+        switch ($status) {
+            case Password::RESET_LINK_SENT:
+                $confirmation = ['status' => true,
+                    'message' => __('auth.token', ['minutes' => config('auth.passwords.users.expire')]),
+                    'level' => Constant::MSG_TOASTR_SUCCESS,
+                    'title' => 'Notification!',
+                    'token' => $resetToken];
+                break;
+
+            case Password::RESET_THROTTLED :
+                $confirmation = ['status' => false,
+                    'message' => __('auth.throttle', ['seconds' => config('auth.passwords.users.throttle')]),
+                    'level' => Constant::MSG_TOASTR_ERROR,
+                    'title' => 'Alert!'];
+                break;
+
+            default:
+                $confirmation = ['status' => false,
+                    'message' => __('auth.login.failed'),
+                    'level' => Constant::MSG_TOASTR_ERROR,
+                    'title' => 'Alert!'];
+                break;
+        }
+
+        return $confirmation;
+    }
+
+    /**
      * @param array $credentials
      * @return array
      */
@@ -91,59 +145,5 @@ class PasswordResetService
 
         return $confirmation;
 
-    }
-
-    /**
-     * @param array $credentials
-     * @return array
-     */
-    private function credentialBasedPasswordReset(array $credentials): array
-    {
-        $resetToken = null;
-
-        $status = Password::sendResetLink($credentials, function (User $user, string $token) use (&$resetToken) {
-            $resetToken = $token;
-        });
-
-        switch ($status) {
-            case Password::RESET_LINK_SENT:
-                $confirmation = ['status' => true,
-                    'message' => __('auth.token', ['minutes' => config('auth.passwords.users.expire')]),
-                    'level' => Constant::MSG_TOASTR_SUCCESS,
-                    'title' => 'Notification!',
-                    'token' => $resetToken];
-                break;
-
-            case Password::RESET_THROTTLED :
-                $confirmation = ['status' => false,
-                    'message' => __('auth.throttle', ['seconds' => config('auth.passwords.users.throttle')]),
-                    'level' => Constant::MSG_TOASTR_ERROR,
-                    'title' => 'Alert!'];
-                break;
-
-            default:
-                $confirmation = ['status' => false,
-                    'message' => __('auth.login.failed'),
-                    'level' => Constant::MSG_TOASTR_ERROR,
-                    'title' => 'Alert!'];
-                break;
-        }
-
-        return $confirmation;
-    }
-
-    /**
-     * @param array $credential
-     * @return array
-     */
-    private function otpBasedPasswordReset(array $credential): array
-    {
-        $confirmation = ['status' => false, 'message' => __('auth.login.failed'), 'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!'];
-
-        if (Auth::attempt($credential)) {
-            $confirmation = ['status' => true, 'message' => __('auth.login.success'), 'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification'];
-        }
-
-        return $confirmation;
     }
 }

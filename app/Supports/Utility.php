@@ -8,6 +8,7 @@ use App\Models\Backend\Setting\ExamLevel;
 use App\Models\Backend\Setting\ExamTitle;
 use App\Repositories\Eloquent\Backend\Setting\UserRepository;
 use Carbon\Carbon;
+use Exception;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
@@ -38,7 +39,7 @@ class Utility
      * @param string $name
      * @param UserRepository|null $userRepository
      * @return string
-     * @throws \Exception
+     * @throws Exception
      */
     public static function generateUsername(string $name, UserRepository $userRepository = null): string
     {
@@ -96,18 +97,6 @@ class Utility
         return preg_replace('/laravel\-([\d]{4})-([\d]{2})-([\d]{2})\.log/', '$3/$2/$1', $filename);
     }
 
-
-    /**
-     * Convert Route Name Human Readable Style
-     *
-     * @param string $permission
-     * @return string
-     */
-    public static function permissionDisplay(string $permission): string
-    {
-        return ucwords(str_replace(['.', '-', '_'], [' ', ' ', ' '], $permission));
-    }
-
     /**
      * @param Model $model
      * @param string $group
@@ -150,6 +139,17 @@ class Utility
     }
 
     /**
+     * Convert Route Name Human Readable Style
+     *
+     * @param string $permission
+     * @return string
+     */
+    public static function permissionDisplay(string $permission): string
+    {
+        return ucwords(str_replace(['.', '-', '_'], [' ', ' ', ' '], $permission));
+    }
+
+    /**
      * @param Address $addressBook
      * @return string
      */
@@ -174,7 +174,8 @@ class Utility
         endif;
 
         if (!empty($addressBook->country_id)):
-            $address .= ($addressBook->country->name . /*', ' . $addressBook->country->iso3 .*/ '.');
+            $address .= ($addressBook->country->name . /*', ' . $addressBook->country->iso3 .*/
+                '.');
         endif;
 
         return $address;
@@ -196,11 +197,11 @@ class Utility
             $currencyConfig = config('money.USD');
         }
 
-        if(is_numeric($amount)) {
+        if (is_numeric($amount)) {
             $formattedAmount = number_format($amount, $currencyConfig['precision'],
                 $currencyConfig['decimal_mark'], $currencyConfig['thousands_separator']);
 
-            $amount =  ($onlyCurrency == true)
+            $amount = ($onlyCurrency == true)
                 ? $currency . ' ' . $formattedAmount
                 : (($currencyConfig['symbol_first'] == true)
                     ? $currencyConfig['symbol'] . ' ' . $formattedAmount

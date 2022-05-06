@@ -11,6 +11,7 @@ use Exception;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
+use Log;
 
 class RoleRepository extends EloquentRepository
 {
@@ -39,8 +40,8 @@ class RoleRepository extends EloquentRepository
             $role = $this->show($id);
             $role->permissions()->attach($permissions);
             return true;
-        } catch (\Exception $exception) {
-            \Log::error($exception->getMessage());
+        } catch (Exception $exception) {
+            Log::error($exception->getMessage());
             return false;
         }
     }
@@ -59,8 +60,8 @@ class RoleRepository extends EloquentRepository
             $role = $this->show($id);
             $role->permissions()->sync($permissions);
             return true;
-        } catch (\Exception $exception) {
-            \Log::error($exception->getMessage());
+        } catch (Exception $exception) {
+            Log::error($exception->getMessage());
             return false;
         }
     }
@@ -88,9 +89,29 @@ class RoleRepository extends EloquentRepository
                 $role->permissions()->detach($permissions);
 
             return true;
-        } catch (\Exception $exception) {
-            \Log::error($exception->getMessage());
+        } catch (Exception $exception) {
+            Log::error($exception->getMessage());
             return false;
+        }
+    }
+
+    /**
+     * Pagination Generator
+     * @param array $filters
+     * @param array $eagerRelations
+     * @param bool $is_sortable
+     * @return LengthAwarePaginator
+     * @throws Exception
+     */
+    public function paginateWith(array $filters = [], array $eagerRelations = [], bool $is_sortable = false): LengthAwarePaginator
+    {
+        $query = $this->getQueryBuilder();
+        try {
+            $query = $this->filterData($filters, $is_sortable);
+        } catch (Exception $exception) {
+            $this->handleException($exception);
+        } finally {
+            return $query->with($eagerRelations)->paginate($this->itemsPerPage);
         }
     }
 
@@ -137,26 +158,6 @@ class RoleRepository extends EloquentRepository
         endif;
 
         return $query;
-    }
-
-    /**
-     * Pagination Generator
-     * @param array $filters
-     * @param array $eagerRelations
-     * @param bool $is_sortable
-     * @return LengthAwarePaginator
-     * @throws Exception
-     */
-    public function paginateWith(array $filters = [], array $eagerRelations = [], bool $is_sortable = false): LengthAwarePaginator
-    {
-        $query = $this->getQueryBuilder();
-        try {
-            $query = $this->filterData($filters, $is_sortable);
-        } catch (Exception $exception) {
-            $this->handleException($exception);
-        } finally {
-            return $query->with($eagerRelations)->paginate($this->itemsPerPage);
-        }
     }
 
     /**

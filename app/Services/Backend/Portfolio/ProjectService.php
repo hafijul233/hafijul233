@@ -6,7 +6,6 @@ use App\Abstracts\Service\Service;
 use App\Exports\Backend\Organization\ProjectExport;
 use App\Models\Backend\Portfolio\Project;
 use App\Repositories\Eloquent\Backend\Portfolio\ProjectRepository;
-use App\Repositories\Eloquent\Backend\Setting\ExamLevelRepository;
 use App\Supports\Constant;
 use Exception;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
@@ -25,7 +24,7 @@ class ProjectService extends Service
      * @var ProjectRepository
      */
     private $projectRepository;
-    
+
     /**
      * PostProject constructor.
      * @param ProjectRepository $projectRepository

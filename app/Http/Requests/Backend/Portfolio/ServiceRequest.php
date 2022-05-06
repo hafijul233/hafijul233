@@ -2,11 +2,7 @@
 
 namespace App\Http\Requests\Backend\Portfolio;
 
-use App\Rules\MaxLength;
-use App\Rules\MinLength;
-use App\Rules\PhoneNumber;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
 /**
  * @class ServiceRequest

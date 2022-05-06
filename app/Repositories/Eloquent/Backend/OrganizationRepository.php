@@ -27,6 +27,25 @@ class OrganizationRepository extends EloquentRepository
     }
 
     /**
+     * Pagination Generator
+     * @param array $filters
+     * @param array $eagerRelations
+     * @param bool $is_sortable
+     * @return LengthAwarePaginator
+     * @throws Exception
+     */
+    public function paginateWith(array $filters = [], array $eagerRelations = [], bool $is_sortable = false): LengthAwarePaginator
+    {
+        try {
+            $query = $this->filterData($filters, $is_sortable);
+        } catch (Exception $exception) {
+            $this->handleException($exception);
+        } finally {
+            return $query->with($eagerRelations)->paginate($this->itemsPerPage);
+        }
+    }
+
+    /**
      * Search Function
      *
      * @param array $filters
@@ -58,25 +77,6 @@ class OrganizationRepository extends EloquentRepository
         endif;
 
         return $query;
-    }
-
-    /**
-     * Pagination Generator
-     * @param array $filters
-     * @param array $eagerRelations
-     * @param bool $is_sortable
-     * @return LengthAwarePaginator
-     * @throws Exception
-     */
-    public function paginateWith(array $filters = [], array $eagerRelations = [], bool $is_sortable = false): LengthAwarePaginator
-    {
-        try {
-            $query = $this->filterData($filters, $is_sortable);
-        } catch (Exception $exception) {
-            $this->handleException($exception);
-        } finally {
-            return $query->with($eagerRelations)->paginate($this->itemsPerPage);
-        }
     }
 
     /**

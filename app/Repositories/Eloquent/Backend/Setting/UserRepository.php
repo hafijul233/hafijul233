@@ -30,20 +30,6 @@ class UserRepository extends EloquentRepository
     }
 
     /**
-     * @param User|null $user
-     * @return Collection
-     */
-    public function getAssignedRoles(User $user = null): ?Collection
-    {
-        if (is_null($user)) {
-            return $this->model->roles;
-        }
-
-        return $user->roles;
-    }
-
-
-    /**
      * @param array $roles
      * @param bool $detachOldRoles
      * @return bool
@@ -65,6 +51,19 @@ class UserRepository extends EloquentRepository
     }
 
     /**
+     * @param User|null $user
+     * @return Collection
+     */
+    public function getAssignedRoles(User $user = null): ?Collection
+    {
+        if (is_null($user)) {
+            return $this->model->roles;
+        }
+
+        return $user->roles;
+    }
+
+    /**
      * @param string $roleName
      * @return mixed
      */
@@ -76,11 +75,31 @@ class UserRepository extends EloquentRepository
     /**
      * @param string $testUserName
      * @return bool
-     * @throws \Exception
+     * @throws Exception
      */
     public function verifyUniqueUsername(string $testUserName): bool
     {
         return ($this->findFirstWhere('username', '=', $testUserName) == null);
+    }
+
+    /**
+     * Pagination Generator
+     * @param array $filters
+     * @param array $eagerRelations
+     * @param bool $is_sortable
+     * @return LengthAwarePaginator
+     * @throws Exception
+     */
+    public function paginateWith(array $filters = [], array $eagerRelations = [], bool $is_sortable = false): LengthAwarePaginator
+    {
+        $query = $this->getQueryBuilder();
+        try {
+            $query = $this->filterData($filters, $is_sortable);
+        } catch (Exception $exception) {
+            $this->handleException($exception);
+        } finally {
+            return $query->with($eagerRelations)->paginate($this->itemsPerPage);
+        }
     }
 
     /**
@@ -144,26 +163,6 @@ class UserRepository extends EloquentRepository
 
 
         return $query;
-    }
-
-    /**
-     * Pagination Generator
-     * @param array $filters
-     * @param array $eagerRelations
-     * @param bool $is_sortable
-     * @return LengthAwarePaginator
-     * @throws Exception
-     */
-    public function paginateWith(array $filters = [], array $eagerRelations = [], bool $is_sortable = false): LengthAwarePaginator
-    {
-        $query = $this->getQueryBuilder();
-        try {
-            $query = $this->filterData($filters, $is_sortable);
-        } catch (Exception $exception) {
-            $this->handleException($exception);
-        } finally {
-            return $query->with($eagerRelations)->paginate($this->itemsPerPage);
-        }
     }
 
     /**

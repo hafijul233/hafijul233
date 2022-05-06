@@ -36,19 +36,6 @@ class CityService extends Service
     }
 
     /**
-     * Get All City models as collection
-     *
-     * @param array $filters
-     * @param array $eagerRelations
-     * @return Builder[]|Collection
-     * @throws Exception
-     */
-    public function getAllCities(array $filters = [], array $eagerRelations = [])
-    {
-        return $this->cityRepository->getWith($filters, $eagerRelations, true);
-    }
-
-    /**
      * Create City Model Pagination
      *
      * @param array $filters
@@ -228,5 +215,18 @@ class CityService extends Service
         }
 
         return $cityArray;
+    }
+
+    /**
+     * Get All City models as collection
+     *
+     * @param array $filters
+     * @param array $eagerRelations
+     * @return Builder[]|Collection
+     * @throws Exception
+     */
+    public function getAllCities(array $filters = [], array $eagerRelations = [])
+    {
+        return $this->cityRepository->getWith($filters, $eagerRelations, true);
     }
 }

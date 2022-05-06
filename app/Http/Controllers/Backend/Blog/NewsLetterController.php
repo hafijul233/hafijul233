@@ -7,8 +7,6 @@ use App\Http\Requests\Backend\Portfolio\CreateNewsLetterRequest;
 use App\Http\Requests\Backend\Portfolio\UpdateNewsLetterRequest;
 use App\Services\Auth\AuthenticatedSessionService;
 use App\Services\Backend\Blog\NewsLetterService;
-use App\Services\Backend\Setting\CatalogService;
-use App\Services\Backend\Setting\StateService;
 use App\Supports\Constant;
 use App\Supports\Utility;
 use Box\Spout\Common\Exception\InvalidArgumentException;

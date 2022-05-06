@@ -28,6 +28,25 @@ class ExperienceRepository extends EloquentRepository
     }
 
     /**
+     * Pagination Generator
+     * @param array $filters
+     * @param array $eagerRelations
+     * @param bool $is_sortable
+     * @return LengthAwarePaginator
+     * @throws Exception
+     */
+    public function paginateWith(array $filters = [], array $eagerRelations = [], bool $is_sortable = false): LengthAwarePaginator
+    {
+        try {
+            $query = $this->filterData($filters, $is_sortable);
+        } catch (Exception $exception) {
+            $this->handleException($exception);
+        } finally {
+            return $query->with($eagerRelations)->paginate($this->itemsPerPage);
+        }
+    }
+
+    /**
      * Search Function
      *
      * @param array $filters
@@ -45,8 +64,7 @@ class ExperienceRepository extends EloquentRepository
                 ->orWhere('mobile_2', 'like', "%{$filters['search']}%")
                 ->orWhere('email', 'like', "%{$filters['search']}%")
                 ->orWhere('present_address', 'like', "%{$filters['search']}%")
-                ->orWhere('permanent_address', 'like', "%{$filters['search']}%")
-            ;
+                ->orWhere('permanent_address', 'like', "%{$filters['search']}%");
         endif;
 
         if (!empty($filters['enabled'])) :
@@ -69,25 +87,6 @@ class ExperienceRepository extends EloquentRepository
         endif;
 
         return $query;
-    }
-
-    /**
-     * Pagination Generator
-     * @param array $filters
-     * @param array $eagerRelations
-     * @param bool $is_sortable
-     * @return LengthAwarePaginator
-     * @throws Exception
-     */
-    public function paginateWith(array $filters = [], array $eagerRelations = [], bool $is_sortable = false): LengthAwarePaginator
-    {
-        try {
-            $query = $this->filterData($filters, $is_sortable);
-        } catch (Exception $exception) {
-            $this->handleException($exception);
-        } finally {
-            return $query->with($eagerRelations)->paginate($this->itemsPerPage);
-        }
     }
 
     /**

@@ -34,7 +34,7 @@ class ExamGroup extends Model implements Auditable
      *
      * @var array
      */
-    protected $fillable = [ 'name', 'remarks', 'enabled', 'exam_level_id', 'exam_title_id'];
+    protected $fillable = ['name', 'remarks', 'enabled', 'exam_level_id', 'exam_title_id'];
 
     /**
      * The attributes that should be hidden for arrays.

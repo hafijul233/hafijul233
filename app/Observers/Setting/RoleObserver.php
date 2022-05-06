@@ -3,11 +3,10 @@
 namespace App\Observers\Setting;
 
 
-
-
 use App\Models\Setting\Role;
 use App\Notifications\Setting\Role\RoleCreatedNotification;
 use App\Services\Backend\Setting\UserService;
+use Exception;
 
 class RoleObserver
 {
@@ -29,7 +28,7 @@ class RoleObserver
      *
      * @param Role $role
      * @return void
-     * @throws \Exception
+     * @throws Exception
      */
     public function created(Role $role)
     {
@@ -56,7 +55,7 @@ class RoleObserver
      *
      * @param Role $role
      * @return void
-     * @throws \Exception
+     * @throws Exception
      */
     public function deleted(Role $role)
     {

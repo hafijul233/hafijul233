@@ -36,21 +36,8 @@ class EducationService extends Service
     }
 
     /**
-     * Get All Comment models as collection
-     * 
-     * @param array $filters
-     * @param array $eagerRelations
-     * @return Builder[]|Collection
-     * @throws Exception
-     */
-    public function getAllEducations(array $filters = [], array $eagerRelations = [])
-    {
-        return $this->educationRepository->getWith($filters, $eagerRelations, true);
-    }
-
-    /**
      * Create Comment Model Pagination
-     * 
+     *
      * @param array $filters
      * @param array $eagerRelations
      * @return LengthAwarePaginator
@@ -63,7 +50,7 @@ class EducationService extends Service
 
     /**
      * Show Comment Model
-     * 
+     *
      * @param int $id
      * @param bool $purge
      * @return mixed
@@ -76,7 +63,7 @@ class EducationService extends Service
 
     /**
      * Save Comment Model
-     * 
+     *
      * @param array $inputs
      * @return array
      * @throws Exception
@@ -106,7 +93,7 @@ class EducationService extends Service
 
     /**
      * Update Comment Model
-     * 
+     *
      * @param array $inputs
      * @param $id
      * @return array
@@ -141,7 +128,7 @@ class EducationService extends Service
 
     /**
      * Destroy Comment Model
-     * 
+     *
      * @param $id
      * @return array
      * @throws Throwable
@@ -170,7 +157,7 @@ class EducationService extends Service
 
     /**
      * Restore Comment Model
-     * 
+     *
      * @param $id
      * @return array
      * @throws Throwable
@@ -224,5 +211,18 @@ class EducationService extends Service
             $educationArray[$education->id] = $education->name;
 
         return $educationArray;
+    }
+
+    /**
+     * Get All Comment models as collection
+     *
+     * @param array $filters
+     * @param array $eagerRelations
+     * @return Builder[]|Collection
+     * @throws Exception
+     */
+    public function getAllEducations(array $filters = [], array $eagerRelations = [])
+    {
+        return $this->educationRepository->getWith($filters, $eagerRelations, true);
     }
 }

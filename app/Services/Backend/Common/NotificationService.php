@@ -50,7 +50,7 @@ class NotificationService extends Service
         if (isset($filters['type'])) {
             if ($filters['type'] == 'all') {
                 $notifications = $notifiableUser->notifications();
-            } elseif($filters['type'] == 'unread') {
+            } elseif ($filters['type'] == 'unread') {
                 $notifications = $notifiableUser->unreadNotifications();
             }
         } else {
@@ -63,14 +63,14 @@ class NotificationService extends Service
         if (isset($filters['sort'])) {
             if ($filters['sort'] == 'asc') {
                 $notifications = $notifications->oldest();
-            } elseif($filters['type'] == 'desc') {
+            } elseif ($filters['type'] == 'desc') {
                 $notifications = $notifications->latest();
             }
         } else {
             $notifications = $notifications->latest();
         }
 
-        return  $notifications->paginate();
+        return $notifications->paginate();
     }
 
     /**

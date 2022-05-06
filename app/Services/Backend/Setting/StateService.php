@@ -20,7 +20,7 @@ use Throwable;
  */
 class StateService extends Service
 {
-/**
+    /**
      * @var StateRepository
      */
     private $stateRepository;
@@ -36,21 +36,8 @@ class StateService extends Service
     }
 
     /**
-     * Get All State models as collection
-     * 
-     * @param array $filters
-     * @param array $eagerRelations
-     * @return Builder[]|Collection
-     * @throws Exception
-     */
-    public function getAllStates(array $filters = [], array $eagerRelations = [])
-    {
-        return $this->stateRepository->getWith($filters, $eagerRelations, true);
-    }
-
-    /**
      * Create State Model Pagination
-     * 
+     *
      * @param array $filters
      * @param array $eagerRelations
      * @return LengthAwarePaginator
@@ -63,7 +50,7 @@ class StateService extends Service
 
     /**
      * Show State Model
-     * 
+     *
      * @param int $id
      * @param bool $purge
      * @return mixed
@@ -76,7 +63,7 @@ class StateService extends Service
 
     /**
      * Save State Model
-     * 
+     *
      * @param array $inputs
      * @return array
      * @throws Exception
@@ -106,7 +93,7 @@ class StateService extends Service
 
     /**
      * Update State Model
-     * 
+     *
      * @param array $inputs
      * @param $id
      * @return array
@@ -141,7 +128,7 @@ class StateService extends Service
 
     /**
      * Destroy State Model
-     * 
+     *
      * @param $id
      * @return array
      * @throws Throwable
@@ -170,7 +157,7 @@ class StateService extends Service
 
     /**
      * Restore State Model
-     * 
+     *
      * @param $id
      * @return array
      * @throws Throwable
@@ -227,5 +214,18 @@ class StateService extends Service
             $stateArray[$state->id] = ($showNative == false) ? $state->name : $state->native;
 
         return $stateArray;
+    }
+
+    /**
+     * Get All State models as collection
+     *
+     * @param array $filters
+     * @param array $eagerRelations
+     * @return Builder[]|Collection
+     * @throws Exception
+     */
+    public function getAllStates(array $filters = [], array $eagerRelations = [])
+    {
+        return $this->stateRepository->getWith($filters, $eagerRelations, true);
     }
 }

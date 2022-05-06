@@ -6,7 +6,6 @@ use App\Abstracts\Service\Service;
 use App\Exports\Backend\Organization\SkillExport;
 use App\Models\Backend\Portfolio\Post;
 use App\Repositories\Eloquent\Backend\Portfolio\ServiceRepository;
-use App\Repositories\Eloquent\Backend\Setting\ExamLevelRepository;
 use App\Supports\Constant;
 use Exception;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
@@ -25,6 +24,7 @@ class SkillService extends Service
      * @var ServiceRepository
      */
     private $skillRepository;
+
     /**
      * PostService constructor.
      * @param ServiceRepository $skillRepository
@@ -154,59 +154,6 @@ class SkillService extends Service
     }
 
     /**
-     * Return formatted education qualification model collection
-     *
-     * @param array $inputs
-     * @return array
-     * @throws Exception
-     */
-    private function formatEducationQualification(array $inputs): array
-    {
-        $examLevels = $this->examLevelRepository->getWith(['id' => $inputs['exam_level']]);
-
-        $qualifications = [];
-
-        foreach ($examLevels as $examLevel):
-            $prefix = $examLevel->code;
-            $qualifications[$examLevel->id]["exam_level_id"] = $inputs["{$prefix}_exam_level_id"] ?? null;
-            $qualifications[$examLevel->id]["exam_title_id"] = $inputs["{$prefix}_exam_title_id"] ?? null;
-            $qualifications[$examLevel->id]["exam_board_id"] = $inputs["{$prefix}_exam_board_id"] ?? null;
-            $qualifications[$examLevel->id]["exam_group_id"] = $inputs["{$prefix}_exam_group_id"] ?? null;
-            $qualifications[$examLevel->id]["institute_id"] = $inputs["{$prefix}_institute_id"] ?? null;
-            $qualifications[$examLevel->id]["pass_year"] = $inputs["{$prefix}_pass_year"] ?? null;
-            $qualifications[$examLevel->id]["roll_number"] = $inputs["{$prefix}_roll_number"] ?? null;
-            $qualifications[$examLevel->id]["grade_type"] = $inputs["{$prefix}_grade_type"] ?? null;
-            $qualifications[$examLevel->id]["grade_point"] = $inputs["{$prefix}_grade_point"] ?? null;
-            $qualifications[$examLevel->id]["enabled"] = "yes";
-        endforeach;
-
-        return $qualifications;
-    }
-
-    /**
-     * Return formatted work experience model collection
-     *
-     * @param array $inputs
-     * @return array
-     * @throws Exception
-     */
-    private function formatWorkQualification(array $inputs): array
-    {
-        $qualifications = [];
-
-        foreach ($inputs['job'] as $index => $input):
-            $qualifications[$index]["company"] = $input["company"] ?? null;
-            $qualifications[$index]["designation"] = $input["designation"] ?? null;
-            $qualifications[$index]["start_date"] = $input["start_date"] ?? null;
-            $qualifications[$index]["end_date"] = $input["end_date"] ?? null;
-            $qualifications[$index]["responsibility"] = $input["responsibility"] ?? null;
-            $qualifications[$index]["enabled"] = "yes";
-        endforeach;
-
-        return $qualifications;
-    }
-
-    /**
      * Update Post Model
      *
      * @param array $inputs
@@ -315,5 +262,58 @@ class SkillService extends Service
     public function exportSkill(array $filters = []): SkillExport
     {
         return (new SkillExport($this->skillRepository->getWith($filters)));
+    }
+
+    /**
+     * Return formatted education qualification model collection
+     *
+     * @param array $inputs
+     * @return array
+     * @throws Exception
+     */
+    private function formatEducationQualification(array $inputs): array
+    {
+        $examLevels = $this->examLevelRepository->getWith(['id' => $inputs['exam_level']]);
+
+        $qualifications = [];
+
+        foreach ($examLevels as $examLevel):
+            $prefix = $examLevel->code;
+            $qualifications[$examLevel->id]["exam_level_id"] = $inputs["{$prefix}_exam_level_id"] ?? null;
+            $qualifications[$examLevel->id]["exam_title_id"] = $inputs["{$prefix}_exam_title_id"] ?? null;
+            $qualifications[$examLevel->id]["exam_board_id"] = $inputs["{$prefix}_exam_board_id"] ?? null;
+            $qualifications[$examLevel->id]["exam_group_id"] = $inputs["{$prefix}_exam_group_id"] ?? null;
+            $qualifications[$examLevel->id]["institute_id"] = $inputs["{$prefix}_institute_id"] ?? null;
+            $qualifications[$examLevel->id]["pass_year"] = $inputs["{$prefix}_pass_year"] ?? null;
+            $qualifications[$examLevel->id]["roll_number"] = $inputs["{$prefix}_roll_number"] ?? null;
+            $qualifications[$examLevel->id]["grade_type"] = $inputs["{$prefix}_grade_type"] ?? null;
+            $qualifications[$examLevel->id]["grade_point"] = $inputs["{$prefix}_grade_point"] ?? null;
+            $qualifications[$examLevel->id]["enabled"] = "yes";
+        endforeach;
+
+        return $qualifications;
+    }
+
+    /**
+     * Return formatted work experience model collection
+     *
+     * @param array $inputs
+     * @return array
+     * @throws Exception
+     */
+    private function formatWorkQualification(array $inputs): array
+    {
+        $qualifications = [];
+
+        foreach ($inputs['job'] as $index => $input):
+            $qualifications[$index]["company"] = $input["company"] ?? null;
+            $qualifications[$index]["designation"] = $input["designation"] ?? null;
+            $qualifications[$index]["start_date"] = $input["start_date"] ?? null;
+            $qualifications[$index]["end_date"] = $input["end_date"] ?? null;
+            $qualifications[$index]["responsibility"] = $input["responsibility"] ?? null;
+            $qualifications[$index]["enabled"] = "yes";
+        endforeach;
+
+        return $qualifications;
     }
 }

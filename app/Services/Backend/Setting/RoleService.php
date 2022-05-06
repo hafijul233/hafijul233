@@ -11,6 +11,7 @@ use App\Repositories\Eloquent\Backend\Setting\RoleRepository;
 use App\Services\Auth\AuthenticatedSessionService;
 use App\Supports\Constant;
 use Box\Spout\Common\Exception\InvalidArgumentException;
+use DB;
 use Exception;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
@@ -41,7 +42,7 @@ class RoleService extends Service
      * @param array $filters
      * @param array $eagerRelations
      * @return Builder[]|Collection
-     * @throws \Exception
+     * @throws Exception
      */
     public function getAllRoles(array $filters = [], array $eagerRelations = [])
     {
@@ -52,7 +53,7 @@ class RoleService extends Service
      * @param array $filters
      * @param array $eagerRelations
      * @return mixed
-     * @throws \Exception
+     * @throws Exception
      */
     public function rolePaginate(array $filters = [], array $eagerRelations = [])
     {
@@ -63,11 +64,11 @@ class RoleService extends Service
      * @param int $id
      * @param bool $purge
      * @return mixed
-     * @throws \Exception
+     * @throws Exception
      */
     public function getRoleById(int $id, bool $purge = false)
     {
-        if($purge == false) {
+        if ($purge == false) {
             $purge = AuthenticatedSessionService::isSuperAdmin();
         }
 
@@ -77,26 +78,26 @@ class RoleService extends Service
     /**
      * @param array $inputs
      * @return array
-     * @throws \Exception|\Throwable
+     * @throws Exception|Throwable
      */
     public function storeRole(array $inputs): array
     {
-        \DB::beginTransaction();
+        DB::beginTransaction();
 
         try {
             $newRole = $this->roleRepository->create($inputs);
             if ($newRole instanceof Role) {
-                \DB::commit();
+                DB::commit();
                 return ['status' => true, 'message' => __('New Role Created'),
                     'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
             } else {
-                \DB::rollBack();
+                DB::rollBack();
                 return ['status' => false, 'message' => __('New Role Creation Failed'),
                     'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!'];
             }
-        } catch (\Exception $exception) {
+        } catch (Exception $exception) {
             $this->roleRepository->handleException($exception);
-            \DB::rollBack();
+            DB::rollBack();
             return ['status' => false, 'message' => $exception->getMessage(),
                 'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Error!'];
         }
@@ -106,24 +107,24 @@ class RoleService extends Service
      * @param array $inputs
      * @param $id
      * @return array
-     * @throws \Throwable
+     * @throws Throwable
      */
     public function updateRole(array $inputs, $id): array
     {
-        \DB::beginTransaction();
+        DB::beginTransaction();
         try {
             if ($this->roleRepository->update($inputs, $id)) {
-                \DB::commit();
+                DB::commit();
                 return ['status' => true, 'message' => __('Role Info Updated'),
                     'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
             } else {
-                \DB::rollBack();
+                DB::rollBack();
                 return ['status' => false, 'message' => __('Role Info Update Failed'),
                     'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!'];
             }
-        } catch (\Exception $exception) {
+        } catch (Exception $exception) {
             $this->roleRepository->handleException($exception);
-            \DB::rollBack();
+            DB::rollBack();
             return ['status' => false, 'message' => $exception->getMessage(),
                 'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Error!'];
         }
@@ -149,25 +150,25 @@ class RoleService extends Service
     /**
      * @param $id
      * @return array
-     * @throws \Throwable
+     * @throws Throwable
      */
     public function destroyRole($id): array
     {
-        \DB::beginTransaction();
+        DB::beginTransaction();
         try {
             if ($this->roleRepository->detachPermissions([], $id)
                 && $this->roleRepository->delete($id)) {
-                \DB::commit();
+                DB::commit();
                 return ['status' => true, 'message' => __('Role is Trashed'),
                     'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
             } else {
-                \DB::rollBack();
+                DB::rollBack();
                 return ['status' => false, 'message' => __('Role is Delete Failed'),
                     'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!'];
             }
-        } catch (\Exception $exception) {
+        } catch (Exception $exception) {
             $this->roleRepository->handleException($exception);
-            \DB::rollBack();
+            DB::rollBack();
             return ['status' => false, 'message' => $exception->getMessage(),
                 'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Error!'];
         }
@@ -175,10 +176,10 @@ class RoleService extends Service
 
     public function syncPermission($id, array $permissions = []): array
     {
-        \DB::beginTransaction();
+        DB::beginTransaction();
         try {
             if ($this->roleRepository->syncPermissions($permissions, $id)) {
-                \DB::commit();
+                DB::commit();
 
                 //Update Permission Cache for Roles
                 $this->clearPermissionCache();
@@ -186,13 +187,13 @@ class RoleService extends Service
                 return ['status' => true, 'message' => __('Role Permissions Updated'),
                     'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
             } else {
-                \DB::rollBack();
+                DB::rollBack();
                 return ['status' => false, 'message' => __('Role Permissions Update Failed'),
                     'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!'];
             }
-        } catch (\Exception $exception) {
+        } catch (Exception $exception) {
             $this->roleRepository->handleException($exception);
-            \DB::rollBack();
+            DB::rollBack();
             return ['status' => false, 'message' => $exception->getMessage(),
                 'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Error!'];
         }
@@ -213,21 +214,21 @@ class RoleService extends Service
      */
     public function restoreRole($id): array
     {
-        \DB::beginTransaction();
+        DB::beginTransaction();
         try {
             if ($this->roleRepository->restore($id)) {
-                \DB::commit();
+                DB::commit();
                 return ['status' => true, 'message' => __('Role is Restored'),
                     'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
 
             } else {
-                \DB::rollBack();
+                DB::rollBack();
                 return ['status' => false, 'message' => __('Role is Restoration Failed'),
                     'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!'];
             }
-        } catch (\Exception $exception) {
+        } catch (Exception $exception) {
             $this->roleRepository->handleException($exception);
-            \DB::rollBack();
+            DB::rollBack();
             return ['status' => false, 'message' => $exception->getMessage(),
                 'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Error!'];
         }

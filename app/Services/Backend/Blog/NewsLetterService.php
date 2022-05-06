@@ -4,9 +4,7 @@ namespace App\Services\Backend\Blog;
 
 use App\Abstracts\Service\Service;
 use App\Exports\Backend\Organization\NewsLetterExport;
-use App\Models\Backend\Blog\NewsLetter;
 use App\Repositories\Eloquent\Backend\Blog\NewsLetterRepository;
-use App\Repositories\Eloquent\Backend\Portfolio\CertificateRepository;
 use App\Supports\Constant;
 use Exception;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
@@ -37,21 +35,8 @@ class NewsLetterService extends Service
     }
 
     /**
-     * Get All Comment models as collection
-     * 
-     * @param array $filters
-     * @param array $eagerRelations
-     * @return Builder[]|Collection
-     * @throws Exception
-     */
-    public function getAllNewsLetters(array $filters = [], array $eagerRelations = [])
-    {
-        return $this->newsLetterRepository->getWith($filters, $eagerRelations, true);
-    }
-
-    /**
      * Create Comment Model Pagination
-     * 
+     *
      * @param array $filters
      * @param array $eagerRelations
      * @return LengthAwarePaginator
@@ -64,7 +49,7 @@ class NewsLetterService extends Service
 
     /**
      * Show Comment Model
-     * 
+     *
      * @param int $id
      * @param bool $purge
      * @return mixed
@@ -77,7 +62,7 @@ class NewsLetterService extends Service
 
     /**
      * Save Comment Model
-     * 
+     *
      * @param array $inputs
      * @return array
      * @throws Exception
@@ -107,7 +92,7 @@ class NewsLetterService extends Service
 
     /**
      * Update Comment Model
-     * 
+     *
      * @param array $inputs
      * @param $id
      * @return array
@@ -142,7 +127,7 @@ class NewsLetterService extends Service
 
     /**
      * Destroy Comment Model
-     * 
+     *
      * @param $id
      * @return array
      * @throws Throwable
@@ -171,7 +156,7 @@ class NewsLetterService extends Service
 
     /**
      * Restore Comment Model
-     * 
+     *
      * @param $id
      * @return array
      * @throws Throwable
@@ -225,5 +210,18 @@ class NewsLetterService extends Service
             $newsLetterArray[$newsLetter->id] = $newsLetter->name;
 
         return $newsLetterArray;
+    }
+
+    /**
+     * Get All Comment models as collection
+     *
+     * @param array $filters
+     * @param array $eagerRelations
+     * @return Builder[]|Collection
+     * @throws Exception
+     */
+    public function getAllNewsLetters(array $filters = [], array $eagerRelations = [])
+    {
+        return $this->newsLetterRepository->getWith($filters, $eagerRelations, true);
     }
 }

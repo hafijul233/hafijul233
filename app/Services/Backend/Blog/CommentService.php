@@ -36,21 +36,8 @@ class CommentService extends Service
     }
 
     /**
-     * Get All Comment models as collection
-     * 
-     * @param array $filters
-     * @param array $eagerRelations
-     * @return Builder[]|Collection
-     * @throws Exception
-     */
-    public function getAllComments(array $filters = [], array $eagerRelations = [])
-    {
-        return $this->commentRepository->getWith($filters, $eagerRelations, true);
-    }
-
-    /**
      * Create Comment Model Pagination
-     * 
+     *
      * @param array $filters
      * @param array $eagerRelations
      * @return LengthAwarePaginator
@@ -63,7 +50,7 @@ class CommentService extends Service
 
     /**
      * Show Comment Model
-     * 
+     *
      * @param int $id
      * @param bool $purge
      * @return mixed
@@ -76,7 +63,7 @@ class CommentService extends Service
 
     /**
      * Save Comment Model
-     * 
+     *
      * @param array $inputs
      * @return array
      * @throws Exception
@@ -106,7 +93,7 @@ class CommentService extends Service
 
     /**
      * Update Comment Model
-     * 
+     *
      * @param array $inputs
      * @param $id
      * @return array
@@ -141,7 +128,7 @@ class CommentService extends Service
 
     /**
      * Destroy Comment Model
-     * 
+     *
      * @param $id
      * @return array
      * @throws Throwable
@@ -170,7 +157,7 @@ class CommentService extends Service
 
     /**
      * Restore Comment Model
-     * 
+     *
      * @param $id
      * @return array
      * @throws Throwable
@@ -224,5 +211,18 @@ class CommentService extends Service
             $commentArray[$comment->id] = $comment->name;
 
         return $commentArray;
+    }
+
+    /**
+     * Get All Comment models as collection
+     *
+     * @param array $filters
+     * @param array $eagerRelations
+     * @return Builder[]|Collection
+     * @throws Exception
+     */
+    public function getAllComments(array $filters = [], array $eagerRelations = [])
+    {
+        return $this->commentRepository->getWith($filters, $eagerRelations, true);
     }
 }

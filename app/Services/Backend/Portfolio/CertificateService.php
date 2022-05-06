@@ -35,21 +35,8 @@ class CertificateService extends Service
     }
 
     /**
-     * Get All Comment models as collection
-     * 
-     * @param array $filters
-     * @param array $eagerRelations
-     * @return Builder[]|Collection
-     * @throws Exception
-     */
-    public function getAllSurveys(array $filters = [], array $eagerRelations = [])
-    {
-        return $this->certificateRepository->getWith($filters, $eagerRelations, true);
-    }
-
-    /**
      * Create Comment Model Pagination
-     * 
+     *
      * @param array $filters
      * @param array $eagerRelations
      * @return LengthAwarePaginator
@@ -62,7 +49,7 @@ class CertificateService extends Service
 
     /**
      * Show Comment Model
-     * 
+     *
      * @param int $id
      * @param bool $purge
      * @return mixed
@@ -75,7 +62,7 @@ class CertificateService extends Service
 
     /**
      * Save Comment Model
-     * 
+     *
      * @param array $inputs
      * @return array
      * @throws Exception
@@ -105,7 +92,7 @@ class CertificateService extends Service
 
     /**
      * Update Comment Model
-     * 
+     *
      * @param array $inputs
      * @param $id
      * @return array
@@ -140,7 +127,7 @@ class CertificateService extends Service
 
     /**
      * Destroy Comment Model
-     * 
+     *
      * @param $id
      * @return array
      * @throws Throwable
@@ -169,7 +156,7 @@ class CertificateService extends Service
 
     /**
      * Restore Comment Model
-     * 
+     *
      * @param $id
      * @return array
      * @throws Throwable
@@ -223,5 +210,18 @@ class CertificateService extends Service
             $certificateArray[$certificate->id] = $certificate->name;
 
         return $certificateArray;
+    }
+
+    /**
+     * Get All Comment models as collection
+     *
+     * @param array $filters
+     * @param array $eagerRelations
+     * @return Builder[]|Collection
+     * @throws Exception
+     */
+    public function getAllSurveys(array $filters = [], array $eagerRelations = [])
+    {
+        return $this->certificateRepository->getWith($filters, $eagerRelations, true);
     }
 }

@@ -4,6 +4,7 @@ namespace App\Services\Auth;
 
 
 use App\Providers\RouteServiceProvider;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use function back;
 use function redirect;
@@ -13,8 +14,8 @@ class EmailVerificationNotificationService
     /**
      * Send a new email verification notification.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @param Request $request
+     * @return RedirectResponse
      */
     public function store(Request $request)
     {

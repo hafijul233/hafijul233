@@ -36,19 +36,6 @@ class CatalogService extends Service
     }
 
     /**
-     * Get All Catalog models as collection
-     *
-     * @param array $filters
-     * @param array $eagerRelations
-     * @return Builder[]|Collection
-     * @throws Exception
-     */
-    public function getAllCatalogs(array $filters = [], array $eagerRelations = [])
-    {
-        return $this->catalogRepository->getWith($filters, $eagerRelations, true);
-    }
-
-    /**
      * Create Catalog Model Pagination
      *
      * @param array $filters
@@ -236,14 +223,27 @@ class CatalogService extends Service
     {
         $catalogs = $this->getAllCatalogs($filters);
         $catalogArray = [];
-        if(is_null($translation)) {
+        if (is_null($translation)) {
             foreach ($catalogs as $catalog)
                 $catalogArray[$catalog->id] = $catalog->name;
         } else {
             foreach ($catalogs as $catalog)
-                $catalogArray[$catalog->id] = __('setting.' .$catalog->name);
+                $catalogArray[$catalog->id] = __('setting.' . $catalog->name);
         }
 
         return $catalogArray;
+    }
+
+    /**
+     * Get All Catalog models as collection
+     *
+     * @param array $filters
+     * @param array $eagerRelations
+     * @return Builder[]|Collection
+     * @throws Exception
+     */
+    public function getAllCatalogs(array $filters = [], array $eagerRelations = [])
+    {
+        return $this->catalogRepository->getWith($filters, $eagerRelations, true);
     }
 }

@@ -3,11 +3,11 @@
 namespace App\Observers\Setting;
 
 
-
 use App\Models\Setting\Permission;
 use App\Notifications\Setting\Permission\PermissionCreatedNotification;
 use App\Notifications\Setting\Permission\PermissionDeletedNotification;
 use App\Services\Backend\Setting\UserService;
+use Exception;
 
 class PermissionObserver
 {
@@ -29,12 +29,12 @@ class PermissionObserver
      *
      * @param Permission $permission
      * @return void
-     * @throws \Exception
+     * @throws Exception
      */
     public function created(Permission $permission)
     {
         //send notification to all super admin about new user
-        if($admins = $this->userService->getUsersByRoleName('Super Administrator')) {
+        if ($admins = $this->userService->getUsersByRoleName('Super Administrator')) {
             foreach ($admins as $admin)
                 $admin->notify(new PermissionCreatedNotification($permission));
         }
@@ -56,12 +56,12 @@ class PermissionObserver
      *
      * @param Permission $permission
      * @return void
-     * @throws \Exception
+     * @throws Exception
      */
     public function deleted(Permission $permission)
     {
         //send notification to all super admin about new user
-        if($admins = $this->userService->getUsersByRoleName('Super Administrator')) {
+        if ($admins = $this->userService->getUsersByRoleName('Super Administrator')) {
             foreach ($admins as $admin)
                 $admin->notify(new PermissionDeletedNotification($permission));
         }

@@ -35,7 +35,7 @@ class Catalog extends Model implements Auditable
      *
      * @var array
      */
-    protected $fillable = [ 'model_type', 'name', 'remarks', 'additional_info', 'enabled', 'created_by', 'updated_by', 'deleted_by'];
+    protected $fillable = ['model_type', 'name', 'remarks', 'additional_info', 'enabled', 'created_by', 'updated_by', 'deleted_by'];
 
     /**
      * The attributes that should be hidden for arrays.

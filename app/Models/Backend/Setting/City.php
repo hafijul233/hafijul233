@@ -2,6 +2,7 @@
 
 namespace App\Models\Backend\Setting;
 
+use App\Database\Factories\GeoInfo\CityFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -31,7 +32,8 @@ class City extends Model implements Auditable
      *
      * @var array
      */
-    protected $fillable = [ /*****/'enabled', 'created_by', 'updated_by', 'deleted_by'];
+    protected $fillable = [ /*****/
+        'enabled', 'created_by', 'updated_by', 'deleted_by'];
 
     /**
      * The attributes that should be hidden for arrays.
@@ -60,7 +62,7 @@ class City extends Model implements Auditable
 
     protected static function newFactory()
     {
-        return \App\Database\Factories\GeoInfo\CityFactory::new();
+        return CityFactory::new();
     }
 
     /************************ Audit Relations ************************/

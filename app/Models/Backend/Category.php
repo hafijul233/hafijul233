@@ -2,7 +2,9 @@
 
 namespace App\Models\Backend;
 
+use App\Database\Factories\CategoryFactory;
 use App\Models\Backend\Setting\User;
+use Exception;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -63,7 +65,7 @@ class Category extends Model implements Auditable
 
     protected static function newFactory()
     {
-        return \App\Database\Factories\CategoryFactory::new();
+        return CategoryFactory::new();
     }
 
     /************************ Audit Relations ************************/
@@ -110,7 +112,7 @@ class Category extends Model implements Auditable
     }
 
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     public function setParentAttribute($value)
     {

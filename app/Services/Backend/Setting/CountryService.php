@@ -36,19 +36,6 @@ class CountryService extends Service
     }
 
     /**
-     * Get All Country models as collection
-     *
-     * @param array $filters
-     * @param array $eagerRelations
-     * @return Builder[]|Collection
-     * @throws Exception
-     */
-    public function getAllCountries(array $filters = [], array $eagerRelations = [])
-    {
-        return $this->countryRepository->getAllCountryWith($filters, $eagerRelations, true);
-    }
-
-    /**
      * Create Country Model Pagination
      *
      * @param array $filters
@@ -227,5 +214,18 @@ class CountryService extends Service
             $countryArray[$country->id] = "{$country->emoji} {$country->name} ({$country->iso3})";
 
         return $countryArray;
+    }
+
+    /**
+     * Get All Country models as collection
+     *
+     * @param array $filters
+     * @param array $eagerRelations
+     * @return Builder[]|Collection
+     * @throws Exception
+     */
+    public function getAllCountries(array $filters = [], array $eagerRelations = [])
+    {
+        return $this->countryRepository->getAllCountryWith($filters, $eagerRelations, true);
     }
 }
