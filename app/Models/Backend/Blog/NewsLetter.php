@@ -20,7 +20,7 @@ class NewsLetter extends Model implements Auditable
     /**
      * @var string $table
      */
-    protected $table = 'surveys';
+    protected $table = 'news_letters';
 
     /**
      * @var string $primaryKey

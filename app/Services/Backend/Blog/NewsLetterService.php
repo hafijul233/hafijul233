@@ -3,8 +3,9 @@
 namespace App\Services\Backend\Blog;
 
 use App\Abstracts\Service\Service;
-use App\Exports\Backend\Organization\SurveyExport;
-use App\Models\Backend\Portfolio\Comment;
+use App\Exports\Backend\Organization\NewsLetterExport;
+use App\Models\Backend\Blog\NewsLetter;
+use App\Repositories\Eloquent\Backend\Blog\NewsLetterRepository;
 use App\Repositories\Eloquent\Backend\Portfolio\CertificateRepository;
 use App\Supports\Constant;
 use Exception;
@@ -21,18 +22,18 @@ use Throwable;
 class NewsLetterService extends Service
 {
     /**
-     * @var CertificateRepository
+     * @var NewsLetterRepository
      */
-    private $surveyRepository;
+    private $newsLetterRepository;
 
     /**
      * CommentService constructor.
-     * @param CertificateRepository $surveyRepository
+     * @param NewsLetterRepository $newsLetterRepository
      */
-    public function __construct(CertificateRepository $surveyRepository)
+    public function __construct(NewsLetterRepository $newsLetterRepository)
     {
-        $this->surveyRepository = $surveyRepository;
-        $this->surveyRepository->itemsPerPage = 10;
+        $this->newsLetterRepository = $newsLetterRepository;
+        $this->newsLetterRepository->itemsPerPage = 10;
     }
 
     /**
@@ -43,9 +44,9 @@ class NewsLetterService extends Service
      * @return Builder[]|Collection
      * @throws Exception
      */
-    public function getAllSurveys(array $filters = [], array $eagerRelations = [])
+    public function getAllNewsLetters(array $filters = [], array $eagerRelations = [])
     {
-        return $this->surveyRepository->getWith($filters, $eagerRelations, true);
+        return $this->newsLetterRepository->getWith($filters, $eagerRelations, true);
     }
 
     /**
@@ -56,9 +57,9 @@ class NewsLetterService extends Service
      * @return LengthAwarePaginator
      * @throws Exception
      */
-    public function surveyPaginate(array $filters = [], array $eagerRelations = []): LengthAwarePaginator
+    public function newsLetterPaginate(array $filters = [], array $eagerRelations = []): LengthAwarePaginator
     {
-        return $this->surveyRepository->paginateWith($filters, $eagerRelations, true);
+        return $this->newsLetterRepository->paginateWith($filters, $eagerRelations, true);
     }
 
     /**
@@ -69,9 +70,9 @@ class NewsLetterService extends Service
      * @return mixed
      * @throws Exception
      */
-    public function getSurveyById($id, bool $purge = false)
+    public function getNewsLetterById($id, bool $purge = false)
     {
-        return $this->surveyRepository->show($id, $purge);
+        return $this->newsLetterRepository->show($id, $purge);
     }
 
     /**
@@ -82,12 +83,12 @@ class NewsLetterService extends Service
      * @throws Exception
      * @throws Throwable
      */
-    public function storeSurvey(array $inputs): array
+    public function storeNewsLetter(array $inputs): array
     {
         DB::beginTransaction();
         try {
-            $newSurvey = $this->surveyRepository->create($inputs);
-            if ($newSurvey instanceof Comment) {
+            $newNewsLetter = $this->newsLetterRepository->create($inputs);
+            if ($newNewsLetter instanceof Comment) {
                 DB::commit();
                 return ['status' => true, 'message' => __('New Comment Created'),
                     'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
@@ -97,7 +98,7 @@ class NewsLetterService extends Service
                     'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!'];
             }
         } catch (Exception $exception) {
-            $this->surveyRepository->handleException($exception);
+            $this->newsLetterRepository->handleException($exception);
             DB::rollBack();
             return ['status' => false, 'message' => $exception->getMessage(),
                 'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Error!'];
@@ -112,13 +113,13 @@ class NewsLetterService extends Service
      * @return array
      * @throws Throwable
      */
-    public function updateSurvey(array $inputs, $id): array
+    public function updateNewsLetter(array $inputs, $id): array
     {
         DB::beginTransaction();
         try {
-            $survey = $this->surveyRepository->show($id);
-            if ($survey instanceof Comment) {
-                if ($this->surveyRepository->update($inputs, $id)) {
+            $newsLetter = $this->newsLetterRepository->show($id);
+            if ($newsLetter instanceof Comment) {
+                if ($this->newsLetterRepository->update($inputs, $id)) {
                     DB::commit();
                     return ['status' => true, 'message' => __('Comment Info Updated'),
                         'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
@@ -132,7 +133,7 @@ class NewsLetterService extends Service
                     'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Alert!'];
             }
         } catch (Exception $exception) {
-            $this->surveyRepository->handleException($exception);
+            $this->newsLetterRepository->handleException($exception);
             DB::rollBack();
             return ['status' => false, 'message' => $exception->getMessage(),
                 'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Error!'];
@@ -146,11 +147,11 @@ class NewsLetterService extends Service
      * @return array
      * @throws Throwable
      */
-    public function destroySurvey($id): array
+    public function destroyNewsLetter($id): array
     {
         DB::beginTransaction();
         try {
-            if ($this->surveyRepository->delete($id)) {
+            if ($this->newsLetterRepository->delete($id)) {
                 DB::commit();
                 return ['status' => true, 'message' => __('Comment is Trashed'),
                     'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
@@ -161,7 +162,7 @@ class NewsLetterService extends Service
                     'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!'];
             }
         } catch (Exception $exception) {
-            $this->surveyRepository->handleException($exception);
+            $this->newsLetterRepository->handleException($exception);
             DB::rollBack();
             return ['status' => false, 'message' => $exception->getMessage(),
                 'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Error!'];
@@ -175,11 +176,11 @@ class NewsLetterService extends Service
      * @return array
      * @throws Throwable
      */
-    public function restoreSurvey($id): array
+    public function restoreNewsLetter($id): array
     {
         DB::beginTransaction();
         try {
-            if ($this->surveyRepository->restore($id)) {
+            if ($this->newsLetterRepository->restore($id)) {
                 DB::commit();
                 return ['status' => true, 'message' => __('Comment is Restored'),
                     'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
@@ -190,7 +191,7 @@ class NewsLetterService extends Service
                     'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!'];
             }
         } catch (Exception $exception) {
-            $this->surveyRepository->handleException($exception);
+            $this->newsLetterRepository->handleException($exception);
             DB::rollBack();
             return ['status' => false, 'message' => $exception->getMessage(),
                 'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Error!'];
@@ -201,12 +202,12 @@ class NewsLetterService extends Service
      * Export Object for Export Download
      *
      * @param array $filters
-     * @return SurveyExport
+     * @return NewsLetterExport
      * @throws Exception
      */
-    public function exportSurvey(array $filters = []): SurveyExport
+    public function exportNewsLetter(array $filters = []): NewsLetterExport
     {
-        return (new SurveyExport($this->surveyRepository->getWith($filters)));
+        return (new NewsLetterExport($this->newsLetterRepository->getWith($filters)));
     }
 
     /**
@@ -216,13 +217,13 @@ class NewsLetterService extends Service
      * @return array
      * @throws Exception
      */
-    public function getSurveyDropDown(array $filters = [])
+    public function getNewsLetterDropDown(array $filters = [])
     {
-        $surveys = $this->getAllSurveys($filters);
-        $surveyArray = [];
-        foreach ($surveys as $survey)
-            $surveyArray[$survey->id] = $survey->name;
+        $newsLetters = $this->getAllNewsLetters($filters);
+        $newsLetterArray = [];
+        foreach ($newsLetters as $newsLetter)
+            $newsLetterArray[$newsLetter->id] = $newsLetter->name;
 
-        return $surveyArray;
+        return $newsLetterArray;
     }
 }

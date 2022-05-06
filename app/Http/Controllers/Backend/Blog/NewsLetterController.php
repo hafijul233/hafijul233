@@ -3,14 +3,11 @@
 namespace App\Http\Controllers\Backend\Blog;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Backend\Organization\CreateEnumeratorRequest;
-use App\Http\Requests\Backend\Organization\UpdateEnumeratorRequest;
+use App\Http\Requests\Backend\Organization\CreateNewsLetterRequest;
+use App\Http\Requests\Backend\Organization\UpdateNewsLetterRequest;
 use App\Services\Auth\AuthenticatedSessionService;
-use App\Services\Backend\Portfolio\CommentService;
-use App\Services\Backend\Portfolio\PostService;
+use App\Services\Backend\Blog\NewsLetterService;
 use App\Services\Backend\Setting\CatalogService;
-use App\Services\Backend\Setting\ExamLevelService;
-use App\Services\Backend\Setting\InstituteService;
 use App\Services\Backend\Setting\StateService;
 use App\Supports\Constant;
 use App\Supports\Utility;
@@ -42,54 +39,22 @@ class NewsLetterController extends Controller
     private $authenticatedSessionService;
 
     /**
-     * @var PostService
+     * @var NewsLetterService
      */
-    private $enumeratorService;
-    /**
-     * @var CommentService
-     */
-    private $surveyService;
-    /**
-     * @var CatalogService
-     */
-    private $catalogService;
-    /**
-     * @var InstituteService
-     */
-    private $instituteService;
-    /**
-     * @var ExamLevelService
-     */
-    private $examLevelService;
-    /**
-     * @var StateService
-     */
-    private $stateService;
+    private $newsLetterService;
 
     /**
      * PostController Constructor
      *
      * @param AuthenticatedSessionService $authenticatedSessionService
-     * @param PostService $enumeratorService
-     * @param CommentService $surveyService
-     * @param CatalogService $catalogService
-     * @param ExamLevelService $examLevelService
-     * @param StateService $stateService
+     * @param NewsLetterService $newsLetterService
      */
     public function __construct(AuthenticatedSessionService $authenticatedSessionService,
-                                PostService $enumeratorService,
-                                CommentService $surveyService,
-                                CatalogService $catalogService,
-                                ExamLevelService $examLevelService,
-                                StateService $stateService)
+                                NewsLetterService $newsLetterService)
     {
 
         $this->authenticatedSessionService = $authenticatedSessionService;
-        $this->enumeratorService = $enumeratorService;
-        $this->surveyService = $surveyService;
-        $this->catalogService = $catalogService;
-        $this->examLevelService = $examLevelService;
-        $this->stateService = $stateService;
+        $this->newsLetterService = $newsLetterService;
     }
 
     /**
@@ -102,10 +67,10 @@ class NewsLetterController extends Controller
     public function index(Request $request)
     {
         $filters = $request->except('page');
-        $enumerators = $this->enumeratorService->enumeratorPaginate($filters);
+        $newsLetters = $this->newsLetterService->newsLetterPaginate($filters);
 
-        return view('backend.portfolio.certificate.index', [
-            'enumerators' => $enumerators
+        return view('backend.blog.newsletter.index', [
+            'newsLetters' => $newsLetters
         ]);
     }
 
@@ -124,7 +89,7 @@ class NewsLetterController extends Controller
             $enables[$field] = __('common.' . $label);
         endforeach;
 
-        return view('backend.portfolio.certificate.create', [
+        return view('backend.blog.newsletter.create', [
             'enables' => $enables,
             'states' => $this->stateService->getStateDropdown(['enabled' => Constant::ENABLED_OPTION, 'type' => 'district', 'sort' => ((session()->get('locale') == 'bd') ? 'native' : 'name'), 'direction' => 'asc'], (session()->get('locale') == 'bd')),
             'surveys' => $this->surveyService->getSurveyDropDown(['enabled' => Constant::ENABLED_OPTION]),
@@ -136,19 +101,19 @@ class NewsLetterController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param CreateEnumeratorRequest $request
+     * @param CreateNewsLetterRequest $request
      * @return RedirectResponse
      * @throws Exception|Throwable
      */
-    public function store(CreateEnumeratorRequest $request): RedirectResponse
+    public function store(CreateNewsLetterRequest $request): RedirectResponse
     {
         $inputs = $request->except('_token');
 
-        $confirm = $this->enumeratorService->storeEnumerator($inputs);
+        $confirm = $this->newsLetterService->storeNewsLetter($inputs);
 
         if ($confirm['status'] == true) {
             notify($confirm['message'], $confirm['level'], $confirm['title']);
-            return redirect()->route('backend.portfolio.enumerators.index');
+            return redirect()->route('backend.portfolio.newsLetters.index');
         }
 
         notify($confirm['message'], $confirm['level'], $confirm['title']);
@@ -164,10 +129,10 @@ class NewsLetterController extends Controller
      */
     public function show($id)
     {
-        if ($enumerator = $this->enumeratorService->getEnumeratorById($id)) {
-            return view('backend.portfolio.certificate.show', [
-                'certificate' => $enumerator,
-                'timeline' => Utility::modelAudits($enumerator)
+        if ($newsLetter = $this->newsLetterService->getNewsLetterById($id)) {
+            return view('backend.blog.newsletter.show', [
+                'certificate' => $newsLetter,
+                'timeline' => Utility::modelAudits($newsLetter)
             ]);
         }
 
@@ -185,15 +150,15 @@ class NewsLetterController extends Controller
      */
     public function edit($id)
     {
-        if ($enumerator = $this->enumeratorService->getEnumeratorById($id)) {
+        if ($newsLetter = $this->newsLetterService->getNewsLetterById($id)) {
 
             $enables = [];
             foreach (Constant::ENABLED_OPTIONS as $field => $label):
                 $enables[$field] = __('common.' . $label);
             endforeach;
 
-            return view('backend.portfolio.certificate.edit', [
-                'certificate' => $enumerator,
+            return view('backend.blog.newsletter.edit', [
+                'certificate' => $newsLetter,
                 'enables' => $enables,
                 'states' => $this->stateService->getStateDropdown(['enabled' => Constant::ENABLED_OPTION, 'type' => 'district', 'sort' => ((session()->get('locale') == 'bd') ? 'native' : 'name'), 'direction' => 'asc'], (session()->get('locale') == 'bd')),
                 'surveys' => $this->surveyService->getSurveyDropDown(),
@@ -208,19 +173,19 @@ class NewsLetterController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param CreateEnumeratorRequest $request
+     * @param CreateNewsLetterRequest $request
      * @param  $id
      * @return RedirectResponse
      * @throws Throwable
      */
-    public function update(UpdateEnumeratorRequest $request, $id): RedirectResponse
+    public function update(UpdateNewsLetterRequest $request, $id): RedirectResponse
     {
         $inputs = $request->except('_token', 'submit', '_method');
-        $confirm = $this->enumeratorService->updateEnumerator($inputs, $id);
+        $confirm = $this->newsLetterService->updateNewsLetter($inputs, $id);
 
         if ($confirm['status'] == true) {
             notify($confirm['message'], $confirm['level'], $confirm['title']);
-            return redirect()->route('backend.portfolio.enumerators.index');
+            return redirect()->route('backend.portfolio.newsLetters.index');
         }
 
         notify($confirm['message'], $confirm['level'], $confirm['title']);
@@ -239,14 +204,14 @@ class NewsLetterController extends Controller
     {
         if ($this->authenticatedSessionService->validate($request)) {
 
-            $confirm = $this->enumeratorService->destroyEnumerator($id);
+            $confirm = $this->newsLetterService->destroyNewsLetter($id);
 
             if ($confirm['status'] == true) {
                 notify($confirm['message'], $confirm['level'], $confirm['title']);
             } else {
                 notify($confirm['message'], $confirm['level'], $confirm['title']);
             }
-            return redirect()->route('backend.portfolio.enumerators.index');
+            return redirect()->route('backend.portfolio.newsLetters.index');
         }
         abort(403, 'Wrong user credentials');
     }
@@ -263,14 +228,14 @@ class NewsLetterController extends Controller
     {
         if ($this->authenticatedSessionService->validate($request)) {
 
-            $confirm = $this->enumeratorService->restoreEnumerator($id);
+            $confirm = $this->newsLetterService->restoreNewsLetter($id);
 
             if ($confirm['status'] == true) {
                 notify($confirm['message'], $confirm['level'], $confirm['title']);
             } else {
                 notify($confirm['message'], $confirm['level'], $confirm['title']);
             }
-            return redirect()->route('backend.portfolio.enumerators.index');
+            return redirect()->route('backend.portfolio.newsLetters.index');
         }
         abort(403, 'Wrong user credentials');
     }
@@ -289,10 +254,10 @@ class NewsLetterController extends Controller
     public function export(Request $request)
     {
         $filters = $request->except('page');
-        $enumeratorExport = $this->enumeratorService->exportEnumerator($filters);
+        $newsLetterExport = $this->newsLetterService->exportNewsLetter($filters);
         $filename = 'Post-' . date('Ymd-His') . '.' . ($filters['format'] ?? 'xlsx');
-        return $enumeratorExport->download($filename, function ($enumerator) use ($enumeratorExport) {
-            return $enumeratorExport->map($enumerator);
+        return $newsLetterExport->download($filename, function ($newsLetter) use ($newsLetterExport) {
+            return $newsLetterExport->map($newsLetter);
         });
     }
 
@@ -307,18 +272,18 @@ class NewsLetterController extends Controller
     {
         $filters = $request->except('page');
 
-        $enumerators = $this->enumeratorService->getAllEnumerators($filters);
+        $newsLetters = $this->newsLetterService->getAllNewsLetters($filters);
 
-        if (count($enumerators) > 0):
-            foreach ($enumerators as $index => $enumerator) :
-                $enumerators[$index]->update_route = route('backend.portfolio.enumerators.update', $enumerator->id);
-                $enumerators[$index]->survey_id = $enumerator->surveys->pluck('id')->toArray();
-                $enumerators[$index]->prev_post_state_id = $enumerator->previousPostings->pluck('id')->toArray();
-                $enumerators[$index]->future_post_state_id = $enumerator->futurePostings->pluck('id')->toArray();
-                unset($enumerators[$index]->surveys, $enumerators[$index]->previousPostings, $enumerators[$index]->futurePostings);
+        if (count($newsLetters) > 0):
+            foreach ($newsLetters as $index => $newsLetter) :
+                $newsLetters[$index]->update_route = route('backend.portfolio.newsLetters.update', $newsLetter->id);
+                $newsLetters[$index]->survey_id = $newsLetter->surveys->pluck('id')->toArray();
+                $newsLetters[$index]->prev_post_state_id = $newsLetter->previousPostings->pluck('id')->toArray();
+                $newsLetters[$index]->future_post_state_id = $newsLetter->futurePostings->pluck('id')->toArray();
+                unset($newsLetters[$index]->surveys, $newsLetters[$index]->previousPostings, $newsLetters[$index]->futurePostings);
             endforeach;
 
-            $jsonReturn = ['status' => true, 'data' => $enumerators];
+            $jsonReturn = ['status' => true, 'data' => $newsLetters];
         else :
             $jsonReturn = ['status' => false, 'data' => []];
         endif;

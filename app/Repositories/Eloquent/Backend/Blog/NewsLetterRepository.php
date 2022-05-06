@@ -3,6 +3,7 @@
 namespace App\Repositories\Eloquent\Backend\Blog;
 
 use App\Abstracts\Repository\EloquentRepository;
+use App\Models\Backend\Blog\NewsLetter;
 use App\Models\Backend\Portfolio\Comment;
 use App\Services\Auth\AuthenticatedSessionService;
 use Exception;
@@ -24,7 +25,7 @@ class NewsLetterRepository extends EloquentRepository
         /**
          * Set the model that will be used for repo
          */
-        parent::__construct(new Comment);
+        parent::__construct(new NewsLetter);
     }
 
     /**
