@@ -31,7 +31,7 @@ class ServiceRequest extends FormRequest
             "name" => ["required", "string", "min:2", "max:255"],
             "summary" => ["required", "string", "min:2"],
             "description" => ["required", "string", "min:2"],
-            "image" => ["required", "image"]
+            "image" => ["nullable", "image"]
         ];
     }
 }

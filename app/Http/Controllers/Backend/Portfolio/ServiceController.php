@@ -114,7 +114,7 @@ class ServiceController extends Controller
     {
         if ($service = $this->serviceService->getServiceById($id)) {
             return view('backend.portfolio.service.show', [
-                'certificate' => $service,
+                'service' => $service,
                 'timeline' => Utility::modelAudits($service)
             ]);
         }
@@ -127,27 +127,13 @@ class ServiceController extends Controller
      *
      * @param $id
      * @return Application|Factory|View
-     * @throws ContainerExceptionInterface
-     * @throws NotFoundExceptionInterface
      * @throws Exception
      */
     public function edit($id)
     {
         if ($service = $this->serviceService->getServiceById($id)) {
-
-            $enables = [];
-            foreach (Constant::ENABLED_OPTIONS as $field => $label):
-                $enables[$field] = __('common.' . $label);
-            endforeach;
-
             return view('backend.portfolio.service.edit', [
-                'certificate' => $service,
-                'enables' => $enables,
-                'states' => $this->stateService->getStateDropdown(['enabled' => Constant::ENABLED_OPTION, 'type' => 'district', 'sort' => ((session()->get('locale') == 'bd') ? 'native' : 'name'), 'direction' => 'asc'], (session()->get('locale') == 'bd')),
-                'surveys' => $this->surveyService->getSurveyDropDown(),
-                'genders' => $this->catalogService->getCatalogDropdown(['type' => Constant::CATALOG_TYPE['GENDER']], 'bn'),
-                'exam_dropdown' => $this->examLevelService->getExamLevelDropdown(['id' => [1, 2, 3, 4]]),
-            ]);
+                'service' => $service]);
         }
 
         abort(404);
@@ -161,7 +147,7 @@ class ServiceController extends Controller
      * @return RedirectResponse
      * @throws Throwable
      */
-    public function update(UpdateServiceRequest $request, $id): RedirectResponse
+    public function update(ServiceRequest $request, $id): RedirectResponse
     {
         $inputs = $request->except('_token', 'submit', '_method');
         $confirm = $this->serviceService->updateService($inputs, $id);

@@ -312,7 +312,7 @@ Breadcrumbs::for('backend.portfolio', function (BreadcrumbTrail $trail) {
     $trail->push(__('menu-sidebar.Portfolio'), route('backend.portfolio'));
 });
 
-/****************************************** Services ******************************************/
+/****************************************** Service ******************************************/
 
 Breadcrumbs::for('backend.portfolio.services.index', function (BreadcrumbTrail $trail) {
 
@@ -337,7 +337,7 @@ Breadcrumbs::for('backend.portfolio.services.show', function (BreadcrumbTrail $t
     $trail->push($service->name, route('backend.portfolio.services.show', $service->id));
 });
 
-Breadcrumbs::for('backend.portfolio.services.edit', function (BreadcrumbTrail $trail, Comment $service) {
+Breadcrumbs::for('backend.portfolio.services.edit', function (BreadcrumbTrail $trail, Service $service) {
 
     $trail->parent('backend.portfolio.services.show', [$service]);
 

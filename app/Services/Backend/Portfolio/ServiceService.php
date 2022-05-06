@@ -90,7 +90,6 @@ class ServiceService extends Service
         try {
             $newService = $this->serviceRepository->create($newServiceInfo);
             if ($newService instanceof ServiceModel) {
-                //handling Comment List
                 if ($inputs['image'] instanceof UploadedFile) {
                     $newService->addMedia($inputs['image'])->toMediaCollection('services');
                 }
@@ -138,27 +137,26 @@ class ServiceService extends Service
      */
     public function updateService(array $inputs, $id): array
     {
-        $newServiceInfo = $this->formatServiceInfo($inputs);
+        $serviceInfo = $this->formatServiceInfo($inputs);
         DB::beginTransaction();
         try {
             $service = $this->serviceRepository->show($id);
             if ($service instanceof ServiceModel) {
-                if ($this->serviceRepository->update($newServiceInfo, $id)) {
-                    //handling Comment List
-                    $service->surveys()->sync($inputs['survey_id']);
-                    $service->previousPostings()->sync($inputs['prev_post_state_id']);
-                    $service->futurePostings()->sync($inputs['future_post_state_id']);
+                if ($this->serviceRepository->update($serviceInfo, $id)) {
+                    if (isset($inputs['image']) && $inputs['image'] instanceof UploadedFile) {
+                        $service->addMedia($inputs['image'])->toMediaCollection('services');
+                    }
                     $service->save();
                     DB::commit();
-                    return ['status' => true, 'message' => __('Post Info Updated'),
+                    return ['status' => true, 'message' => __('Service Info Updated'),
                         'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
                 } else {
                     DB::rollBack();
-                    return ['status' => false, 'message' => __('Post Info Update Failed'),
+                    return ['status' => false, 'message' => __('Service Info Update Failed'),
                         'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!'];
                 }
             } else {
-                return ['status' => false, 'message' => __('Post Model Not Found'),
+                return ['status' => false, 'message' => __('Service Model Not Found'),
                     'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Alert!'];
             }
         } catch (Exception $exception) {
