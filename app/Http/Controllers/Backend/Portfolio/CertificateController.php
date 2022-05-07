@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Backend\Portfolio;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Backend\Portfolio\SurveyRequest;
+use App\Http\Requests\Backend\Portfolio\CertificateRequest;
 use App\Services\Auth\AuthenticatedSessionService;
 use App\Services\Backend\Portfolio\CertificateService;
 use App\Supports\Utility;
@@ -80,9 +80,9 @@ class CertificateController extends Controller
      * @return RedirectResponse
      * @throws Exception|Throwable
      */
-    public function store(SurveyRequest $request): RedirectResponse
+    public function store(CertificateRequest $request): RedirectResponse
     {
-        $confirm = $this->certificateService->storeSurvey($request->except('_token'));
+        $confirm = $this->certificateService->storeCertificate($request->except('_token'));
         if ($confirm['status'] == true) {
             notify($confirm['message'], $confirm['level'], $confirm['title']);
             return redirect()->route('backend.portfolio.certificates.index');
@@ -101,7 +101,7 @@ class CertificateController extends Controller
      */
     public function show($id)
     {
-        if ($certificate = $this->certificateService->getSurveyById($id)) {
+        if ($certificate = $this->certificateService->getCertificateById($id)) {
             return view('backend.portfolio.certificate.show', [
                 'service' => $certificate,
                 'timeline' => Utility::modelAudits($certificate)
@@ -120,7 +120,7 @@ class CertificateController extends Controller
      */
     public function edit($id)
     {
-        if ($certificate = $this->certificateService->getSurveyById($id)) {
+        if ($certificate = $this->certificateService->getCertificateById($id)) {
             return view('backend.portfolio.certificate.edit', [
                 'service' => $certificate
             ]);
@@ -132,14 +132,14 @@ class CertificateController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param SurveyRequest $request
+     * @param CertificateRequest $request
      * @param  $id
      * @return RedirectResponse
      * @throws Throwable
      */
-    public function update(SurveyRequest $request, $id): RedirectResponse
+    public function update(CertificateRequest $request, $id): RedirectResponse
     {
-        $confirm = $this->certificateService->updateSurvey($request->except('_token', 'submit', '_method'), $id);
+        $confirm = $this->certificateService->updateCertificate($request->except('_token', 'submit', '_method'), $id);
 
         if ($confirm['status'] == true) {
             notify($confirm['message'], $confirm['level'], $confirm['title']);
@@ -162,7 +162,7 @@ class CertificateController extends Controller
     {
         if ($this->authenticatedSessionService->validate($request)) {
 
-            $confirm = $this->certificateService->destroySurvey($id);
+            $confirm = $this->certificateService->destroyCertificate($id);
 
             if ($confirm['status'] == true) {
                 notify($confirm['message'], $confirm['level'], $confirm['title']);
@@ -186,7 +186,7 @@ class CertificateController extends Controller
     {
         if ($this->authenticatedSessionService->validate($request)) {
 
-            $confirm = $this->certificateService->restoreSurvey($id);
+            $confirm = $this->certificateService->restoreCertificate($id);
 
             if ($confirm['status'] == true) {
                 notify($confirm['message'], $confirm['level'], $confirm['title']);
@@ -208,7 +208,7 @@ class CertificateController extends Controller
     {
         $filters = $request->except('page');
 
-        $certificateExport = $this->certificateService->exportSurvey($filters);
+        $certificateExport = $this->certificateService->exportCertificate($filters);
 
         $filename = 'Certificate-' . date('Ymd-His') . '.' . ($filters['format'] ?? 'xlsx');
 
@@ -237,7 +237,7 @@ class CertificateController extends Controller
     public function importBulk(Request $request)
     {
         $filters = $request->except('page');
-        $certificates = $this->certificateService->getAllSurveys($filters);
+        $certificates = $this->certificateService->getAllCertificates($filters);
 
         return view('backend.portfolio.certificateindex', [
             'certificates' => $certificates
@@ -254,7 +254,7 @@ class CertificateController extends Controller
     {
         $filters = $request->except('page');
 
-        $certificateExport = $this->certificateService->exportSurvey($filters);
+        $certificateExport = $this->certificateService->exportCertificate($filters);
 
         $filename = 'Certificate-' . date('Ymd-His') . '.' . ($filters['format'] ?? 'xlsx');
 

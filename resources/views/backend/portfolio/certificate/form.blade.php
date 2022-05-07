@@ -10,24 +10,29 @@
             {!! \Form::nText('name', __('common.Name'), old('name', $certificate->name ?? null), true) !!}
         </div>
         <div class="col-md-6">
-            {!! \Form::nText('organization', __('common.Organization'), old('organization', $certificate->organization ?? null), true) !!}
+            {!! \Form::nText('organization', __('portfolio.certificate.Organization'), old('organization', $certificate->organization ?? null), true) !!}
         </div>
         <div class="col-md-6">
-            {!! \Form::nDate('issue_date', __('common.Issue Date'), old('issue_date', $certificate->issue_date ?? null), true) !!}
+            {!! \Form::nDate('issue_date', __('portfolio.certificate.Issue Date'), old('issue_date', $certificate->issue_date ?? null), true) !!}
         </div>
         <div class="col-md-6">
-            {!! \Form::nDate('expire_date', __('common.Expire Date'), old('expire_date', $certificate->expire_date ?? null), false) !!}
+            {!! \Form::nDate('expire_date', __('portfolio.certificate.Expire Date'), old('expire_date', $certificate->expire_date ?? null), false) !!}
         </div>
         <div class="col-md-6">
-            {!! \Form::nText('credential', __('common.Credential ID'), old('credential', $certificate->credential ?? null), false) !!}
+            {!! \Form::nText('credential', __('portfolio.certificate.Credential ID'), old('credential', $certificate->credential ?? null), false) !!}
         </div>
         <div class="col-md-6">
-            {!! \Form::nUrl('verify_url', __('common.Verify URL'), old('verify_url', $certificate->verify_url ?? null), false) !!}
+            {!! \Form::nUrl('verify_url', __('portfolio.certificate.Verify URL'), old('verify_url', $certificate->verify_url ?? null), false) !!}
         </div>
-    </div>
-    <div class="row">
         <div class="col-12">
             {!! \Form::nTextarea('description', __('common.Description'), old('description', $certificate->description ?? null), false) !!}
+        </div>
+        <div class="col-md-12">
+            {!! \Form::nImage('image',__('common.Image'), false,
+                ['preview' => true, 'height' => '240',
+                 'default' => (isset($service))
+                 ? $service->getFirstMediaUrl('services')
+                 : asset(\App\Supports\Constant::SERVICE_IMAGE)]) !!}
         </div>
     </div>
     <div class="row mt-3">

@@ -3,13 +3,15 @@
 namespace App\Services\Backend\Portfolio;
 
 use App\Abstracts\Service\Service;
-use App\Exports\Backend\Organization\SurveyExport;
+use App\Exports\Backend\Organization\CertificateExport;
+use App\Models\Backend\Portfolio\Certificate;
 use App\Repositories\Eloquent\Backend\Portfolio\CertificateRepository;
 use App\Supports\Constant;
 use Exception;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\DB;
 use Throwable;
 
@@ -55,7 +57,7 @@ class CertificateService extends Service
      * @return mixed
      * @throws Exception
      */
-    public function getSurveyById($id, bool $purge = false)
+    public function getCertificateById($id, bool $purge = false)
     {
         return $this->certificateRepository->show($id, $purge);
     }
@@ -68,18 +70,22 @@ class CertificateService extends Service
      * @throws Exception
      * @throws Throwable
      */
-    public function storeSurvey(array $inputs): array
+    public function storeCertificate(array $inputs): array
     {
         DB::beginTransaction();
         try {
-            $newSurvey = $this->certificateRepository->create($inputs);
-            if ($newSurvey instanceof Comment) {
+            $newCertificate = $this->certificateRepository->create($inputs);
+            if ($newCertificate instanceof Certificate) {
+                if ($inputs['image'] instanceof UploadedFile) {
+                    $newCertificate->addMedia($inputs['image'])->toMediaCollection('certificates');
+                }
+                $newCertificate->save();
                 DB::commit();
-                return ['status' => true, 'message' => __('New Comment Created'),
+                return ['status' => true, 'message' => __('New Certificate Created'),
                     'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
             } else {
                 DB::rollBack();
-                return ['status' => false, 'message' => __('New Comment Creation Failed'),
+                return ['status' => false, 'message' => __('New Certificate Creation Failed'),
                     'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!'];
             }
         } catch (Exception $exception) {
@@ -98,13 +104,16 @@ class CertificateService extends Service
      * @return array
      * @throws Throwable
      */
-    public function updateSurvey(array $inputs, $id): array
+    public function updateCertificate(array $inputs, $id): array
     {
         DB::beginTransaction();
         try {
             $certificate = $this->certificateRepository->show($id);
-            if ($certificate instanceof Comment) {
+            if ($certificate instanceof Certificate) {
                 if ($this->certificateRepository->update($inputs, $id)) {
+                    if ($inputs['image'] instanceof UploadedFile) {
+                        $certificate->addMedia($inputs['image'])->toMediaCollection('certificates');
+                    }
                     DB::commit();
                     return ['status' => true, 'message' => __('Comment Info Updated'),
                         'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
@@ -132,7 +141,7 @@ class CertificateService extends Service
      * @return array
      * @throws Throwable
      */
-    public function destroySurvey($id): array
+    public function destroyCertificate($id): array
     {
         DB::beginTransaction();
         try {
@@ -161,7 +170,7 @@ class CertificateService extends Service
      * @return array
      * @throws Throwable
      */
-    public function restoreSurvey($id): array
+    public function restoreCertificate($id): array
     {
         DB::beginTransaction();
         try {
@@ -187,12 +196,12 @@ class CertificateService extends Service
      * Export Object for Export Download
      *
      * @param array $filters
-     * @return SurveyExport
+     * @return CertificateExport
      * @throws Exception
      */
-    public function exportSurvey(array $filters = []): SurveyExport
+    public function exportCertificate(array $filters = []): CertificateExport
     {
-        return (new SurveyExport($this->certificateRepository->getWith($filters)));
+        return (new CertificateExport($this->certificateRepository->getWith($filters)));
     }
 
     /**
@@ -202,9 +211,9 @@ class CertificateService extends Service
      * @return array
      * @throws Exception
      */
-    public function getSurveyDropDown(array $filters = [])
+    public function getCertificateDropDown(array $filters = [])
     {
-        $certificates = $this->getAllSurveys($filters);
+        $certificates = $this->getAllCertificates($filters);
         $certificateArray = [];
         foreach ($certificates as $certificate)
             $certificateArray[$certificate->id] = $certificate->name;
@@ -220,7 +229,7 @@ class CertificateService extends Service
      * @return Builder[]|Collection
      * @throws Exception
      */
-    public function getAllSurveys(array $filters = [], array $eagerRelations = [])
+    public function getAllCertificates(array $filters = [], array $eagerRelations = [])
     {
         return $this->certificateRepository->getWith($filters, $eagerRelations, true);
     }

@@ -2,25 +2,23 @@
 
 namespace App\Models\Backend\Portfolio;
 
-use App\Models\Backend\Portfolio\Enumerator\EducationQualification;
-use App\Models\Backend\Portfolio\Enumerator\WorkQualification;
-use App\Models\Backend\Setting\Catalog;
-use App\Models\Backend\Setting\ExamLevel;
-use App\Models\Backend\Setting\State;
+use App\Supports\Constant;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Kyslik\ColumnSortable\Sortable;
 use OwenIt\Auditing\Auditable as AuditableTrait;
 use OwenIt\Auditing\Contracts\Auditable;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 
 /**
  * @class Post
  * @package App\Models\Backend\Portfolio
  */
-class Certificate extends Model implements Auditable
+class Certificate extends Model implements Auditable, HasMedia
 {
-    use AuditableTrait, HasFactory, SoftDeletes, Sortable;
+    use AuditableTrait, HasFactory, SoftDeletes, Sortable, InteractsWithMedia;
 
     /**
      * @var string $table
@@ -64,42 +62,16 @@ class Certificate extends Model implements Auditable
         'enabled' => 'yes'
     ];
 
-    /************************ Audit Relations ************************/
-
-    public function surveys()
+    /**
+     * Register Cover Image Media Collection
+     * @return void
+     */
+    public function registerMediaCollections(): void
     {
-        return $this->belongsToMany(Comment::class);
+        $this->addMediaCollection('certificates')
+            ->useDisk('service')
+            ->useFallbackUrl(Constant::SERVICE_IMAGE)
+            ->acceptsMimeTypes(['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/svg'])
+            ->singleFile();
     }
-
-    public function educationQualifications()
-    {
-        return $this->hasMany(EducationQualification::class);
-    }
-
-    public function workQualifications()
-    {
-        return $this->hasMany(WorkQualification::class);
-    }
-
-    public function examLevel()
-    {
-        return $this->belongsTo(ExamLevel::class, 'exam_level', 'id');
-    }
-
-
-    public function gender()
-    {
-        return $this->belongsTo(Catalog::class, 'gender_id', 'id');
-    }
-
-    public function previousPostings()
-    {
-        return $this->belongsToMany(State::class, 'enumerator_previous_state');
-    }
-
-    public function futurePostings()
-    {
-        return $this->belongsToMany(State::class, 'enumerator_future_state');
-    }
-
 }

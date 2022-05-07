@@ -14,11 +14,14 @@ return [
     */
     'service' => [
         'Add Service' => 'Add Service',
-        'Add Service' => 'Add Service',
-        'Add Service' => 'Add Service',
-        'Add Service' => 'Add Service',
-        'Add Service' => 'Add Service',
-
+    ],
+    'certificate' => [
+        'Add Certificate' => 'Add Certificate',
+        'Organization' => 'Organization',
+        'Issue Date' => 'Issue Date',
+        'Expire Date' => 'Expire Date',
+        'Credential ID' => 'Credential ID',
+        'Verify URL' => 'Verify URL'
     ],
     'Add Post' => 'Add Post',
     'Edit Post' => 'Edit Post',

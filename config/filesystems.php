@@ -97,6 +97,23 @@ return [
             ],
         ],
 
+        'certificates' => [
+            'driver' => 'local',
+            'root' => public_path('media/certificates'),
+            'url' => env('APP_URL') . '/media/certificates',
+            'visibility' => 'public',
+            'permissions' => [
+                'file' => [
+                    'public' => 0644,
+                    'private' => 0644,
+                ],
+                'dir' => [
+                    'public' => 0775,
+                    'private' => 0775,
+                ],
+            ],
+        ],
+
         's3' => [
             'driver' => 's3',
             'key' => env('AWS_ACCESS_KEY_ID'),

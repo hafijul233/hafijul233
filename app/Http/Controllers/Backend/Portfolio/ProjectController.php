@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Backend\Portfolio;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Backend\Portfolio\SurveyRequest;
+use App\Http\Requests\Backend\Portfolio\CertificateRequest;
 use App\Services\Auth\AuthenticatedSessionService;
 use App\Services\Backend\Portfolio\ProjectService;
 use App\Supports\Utility;
@@ -80,7 +80,7 @@ class ProjectController extends Controller
      * @return RedirectResponse
      * @throws Exception|Throwable
      */
-    public function store(SurveyRequest $request): RedirectResponse
+    public function store(CertificateRequest $request): RedirectResponse
     {
         $confirm = $this->projectService->storeSurvey($request->except('_token'));
         if ($confirm['status'] == true) {
@@ -132,12 +132,12 @@ class ProjectController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param SurveyRequest $request
+     * @param CertificateRequest $request
      * @param  $id
      * @return RedirectResponse
      * @throws Throwable
      */
-    public function update(SurveyRequest $request, $id): RedirectResponse
+    public function update(CertificateRequest $request, $id): RedirectResponse
     {
         $confirm = $this->projectService->updateSurvey($request->except('_token', 'submit', '_method'), $id);
 
