@@ -28,7 +28,7 @@
 
 @section('actions')
     {!! \Html::linkButton(__('Add Certificate'), 'backend.portfolio.certificates.create', [], 'fas fa-plus', 'success') !!}
-    {{--{!! \Html::bulkDropdown('backend.portfolio.certificates', 0, ['color' => 'warning']) !!}--}}
+    {!! \Html::bulkDropdown('backend.portfolio.certificates', 0, ['color' => 'warning']) !!}
 @endsection
 
 @section('content')
@@ -47,6 +47,8 @@
                                     <tr>
                                         <th class="align-middle">@sortablelink('id', '#')</th>
                                         <th>@sortablelink('name', __('common.Name'))</th>
+                                        <th>@sortablelink('organization', __('portfolio.certificate.Organization'))</th>
+                                        <th>@sortablelink('issue_date', __('portfolio.certificate.Issue Date'))</th>
                                         <th class="text-center">@sortablelink('enabled', __('common.Enabled'))</th>
                                         <th class="text-center">@sortablelink('created_at', __('common.Created'))</th>
                                         <th class="text-center">{!! __('common.Actions') !!}</th>
@@ -67,6 +69,13 @@
                                                     {{ $certificate->name }}
                                                 @endcan
                                             </td>
+                                            <td>
+                                                {{ $certificate->organization ?? null }}
+                                            </td>
+                                            <td>
+                                                {{ $certificate->issue_date->format('F, Y') ?? null }}
+                                            </td>
+
                                             <td class="text-center exclude-search">
                                                 {!! \Html::enableToggle($certificate) !!}
                                             </td>

@@ -51,7 +51,11 @@ class Certificate extends Model implements Auditable, HasMedia
      *
      * @var array
      */
-    protected $casts = [];
+    protected $casts = [
+        'issue_date' => 'date',
+        'expire_date' => 'date',
+
+    ];
 
     /**
      * The model's default values for attributes when new instance created.
