@@ -1,4 +1,3 @@
-
 /**
  *
  * @param dest target object
@@ -191,7 +190,8 @@ function fileSizeValidation(fileSize, minSize, maxSize) {
  * @param maxHeight
  * @param stdRatio
  * @returns {{error: string, status: boolean}}
- */
+ */1
+
 function imageResolutionValidation(imgWidth, imgHeight, minWidth, minHeight, maxWidth, maxHeight, stdRatio) {
     var ratio = (imgWidth / imgHeight).toPrecision(3);
     /* Maximum Width */
@@ -227,7 +227,13 @@ function imageResolutionValidation(imgWidth, imgHeight, minWidth, minHeight, max
     }
 }
 
-
+/**
+ * toastr notify
+ *
+ * @param message
+ * @param level
+ * @param title
+ */
 function notify(message, level = 'success', title = '') {
     if (window.toastr != undefined) {
         switch (level) {
@@ -252,6 +258,40 @@ function notify(message, level = 'success', title = '') {
                 toastr.success(message, title, []);
                 break;
         }
+    }
+}
+
+/**
+ * Render Html Editor
+ *
+ * @param target
+ * @param options
+ */
+function htmlEditor(target, options) {
+    if (typeof $.fn.summernote === "function") {
+        var defaultOptions = {
+            placeholder: 'write here...',
+            fontSizeUnits: ['px', 'pt', 'rem', 'em'],
+            toolbar: [
+                ['style', ['style']],
+                ['font', [ 'bold', 'underline', 'fontsizeunit','clear']],
+                ['fontname', ['fontname']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph', 'height']],
+                ['table', ['table']],
+                ['insert', ['link', 'picture', 'video', 'hr']],
+                ['view', ['fullscreen', 'codeview', 'help']],
+            ]
+        };
+
+        for (const property in options) {
+            if (options.hasOwnProperty(property)) {
+                defaultOptions[property] = options[property];
+            }
+        }
+        $("body").find(target).each(function () {
+            $(this).summernote(defaultOptions);
+        });
     }
 }
 

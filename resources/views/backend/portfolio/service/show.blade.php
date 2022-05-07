@@ -36,10 +36,10 @@
             <div class="col-12">
                 <div class="card card-default">
                     <div class="card-body min-vh-100">
-                        <div class="row mb-3">
+                        <div class="row">
                             <div class="col-md-12 mb-3">
                                 <label class="d-block">Name</label>
-                                <div>{{ $service->name ?? null }}</div>
+                                <div class="border p-2">{{ $service->name ?? null }}</div>
                             </div>
                             <div class="col-md-12 mb-3">
                                 <label class="d-block">Summary</label>
@@ -53,7 +53,7 @@
                                     {!! $service->description ?? null !!}
                                 </div>
                             </div>
-                            <div class="col-md-12 mb-3">
+                            <div class="col-md-12">
                                 <label class="d-block">Image</label>
                                 <div class="d-flex justify-content-center p-2 border">
                                     <img src="{!! $service->getFirstMediaUrl('services') !!}" class="img-fluid">
