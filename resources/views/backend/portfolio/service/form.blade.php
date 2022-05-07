@@ -40,21 +40,9 @@
     <script src="{{ asset('plugins/codemirror/mode/htmlmixed/htmlmixed.js') }}"></script>
     <script>
         $(function () {
-            htmlEditor("#summary", {
-                height: 100,
-                codemirror: {
-                    lineNumbers: true,
-                    theme: 'monokai'
-                }
-            });
+            htmlEditor("#summary", {height: 100});
 
-            htmlEditor("#description", {
-                height: 400,
-                codemirror: {
-                    lineNumbers: true,
-                    theme: 'monokai'
-                }
-            });
+            htmlEditor("#description", {height: 400});
 
             $("#service-form").validate({
                 rules: {

@@ -39,10 +39,7 @@ class Certificate extends Model implements Auditable
      *
      * @var array
      */
-    protected $fillable = ['survey_id', 'gender_id', 'dob', 'name', 'name_bd', 'father', 'father_bd',
-        'mother', 'mother_bd', 'nid', 'mobile_1', 'mobile_2', 'email', 'is_employee', 'designation',
-        'present_address', 'present_address_bd', 'permanent_address', 'company',
-        'permanent_address_bd', 'gender', 'enabled', 'whatsapp', 'facebook', 'exam_level'];
+    protected $fillable = ['name', 'organization', 'issue_date', 'expire_date', 'credential', 'verify_url', 'description', 'enabled'];
 
     /**
      * The attributes that should be hidden for arrays.

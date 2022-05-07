@@ -26,7 +26,7 @@
 @section('breadcrumbs', \Breadcrumbs::render(Route::getCurrentRoute()->getName(), $catalog))
 
 @section('actions')
-    {!! \Html::backButton('backend.settings.catalogs.index') !!}
+    {!! \Html::backButton('backend.portfolio.certificates.index') !!}
 @endsection
 
 @section('content')
@@ -34,8 +34,8 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="card">
-                    {!! \Form::open(['route' => ['backend.settings.catalogs.update', $catalog->id], 'method' => 'put', 'id' => 'catalog-form']) !!}
-                    @include('backend.setting.catalog.form')
+                    {!! \Form::open(['route' => ['backend.portfolio.certificates.update', $catalog->id], 'method' => 'put', 'id' => 'catalog-form']) !!}
+                    @include('backend.portfolio.certificate.form')
                     {!! \Form::close() !!}
                 </div>
             </div>

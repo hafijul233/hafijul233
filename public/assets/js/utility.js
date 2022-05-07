@@ -270,8 +270,12 @@ function notify(message, level = 'success', title = '') {
 function htmlEditor(target, options) {
     if (typeof $.fn.summernote === "function") {
         var defaultOptions = {
-            placeholder: 'write here...',
+            placeholder: 'Write here ...',
             fontSizeUnits: ['px', 'pt', 'rem', 'em'],
+            codemirror: {
+                lineNumbers: true,
+                theme: 'monokai'
+            },
             toolbar: [
                 ['style', ['style']],
                 ['font', [ 'bold', 'underline', 'fontsizeunit','clear']],
