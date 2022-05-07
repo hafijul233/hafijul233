@@ -38,23 +38,23 @@
                     <div class="card-body min-vh-100">
                         <div class="row">
                             <div class="col-md-12 mb-3">
-                                <label class="d-block">Name</label>
+                                <label class="d-block">{{ __('common.Name') }}</label>
                                 <div class="border p-2">{{ $service->name ?? null }}</div>
                             </div>
                             <div class="col-md-12 mb-3">
-                                <label class="d-block">Summary</label>
+                                <label class="d-block">{{ __('common.Summary') }}</label>
                                 <div class="border p-2">
                                     {!! $service->summary ?? null !!}
                                 </div>
                             </div>
                             <div class="col-md-12 mb-3">
-                                <label class="d-block">Description</label>
+                                <label class="d-block">{{ __('common.Description') }}</label>
                                 <div class="border p-2">
                                     {!! $service->description ?? null !!}
                                 </div>
                             </div>
                             <div class="col-md-12">
-                                <label class="d-block">Image</label>
+                                <label class="d-block">{{ __('common.Image') }}</label>
                                 <div class="d-flex justify-content-center p-2 border">
                                     <img src="{!! $service->getFirstMediaUrl('services') !!}" class="img-fluid">
                                 </div>

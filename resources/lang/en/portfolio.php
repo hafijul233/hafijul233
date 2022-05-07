@@ -4,7 +4,7 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Post Language
+    | Portfolio Language
     |--------------------------------------------------------------------------
     |
     | The following language lines are used during authentication for various
@@ -12,6 +12,14 @@ return [
     | these language lines according to your application's requirements.
     |
     */
+    'service' => [
+        'Add Service' => 'Add Service',
+        'Add Service' => 'Add Service',
+        'Add Service' => 'Add Service',
+        'Add Service' => 'Add Service',
+        'Add Service' => 'Add Service',
+
+    ],
     'Add Post' => 'Add Post',
     'Edit Post' => 'Edit Post',
     'Comment' => 'Work Experience in BBS as Post (select multiple options if needed)',
@@ -69,6 +77,4 @@ return [
     'Select the district(s) where you want to work in future (maximum 3)' => 'Select the district(s) where you want to work in future (maximum 3)',
     'Are you revenue staff of BBS?' => 'Are you a revenue staff of BBS?',
     'Work Experience in BBS as Post' => 'Work Experience in BBS as Post',
-
-
 ];

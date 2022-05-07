@@ -35,6 +35,7 @@ return [
     'Remarks' => 'Remarks',
     'Summary' => 'Summary',
     'Description' => 'Description',
+    'Image' => 'Image',
     'Yes' => 'Yes',
     'No' => 'No',
 ];

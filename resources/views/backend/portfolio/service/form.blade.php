@@ -16,7 +16,7 @@
             {!! \Form::nTextarea('description', __('common.Description'), old('description', $service->description ?? null), false, ['rows' => 10]) !!}
         </div>
         <div class="col-md-12">
-            {!! \Form::nImage('image', 'Image', false,
+            {!! \Form::nImage('image',__('common.Image'), false,
                 ['preview' => true, 'height' => '240',
                  'default' => (isset($service))
                  ? $service->getFirstMediaUrl('services')

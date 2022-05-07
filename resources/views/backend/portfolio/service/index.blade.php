@@ -27,7 +27,7 @@
 @section('breadcrumbs', \Breadcrumbs::render())
 
 @section('actions')
-    {!! \Html::linkButton(__('Add Service'), 'backend.portfolio.services.create', [], 'fas fa-plus', 'success') !!}
+    {!! \Html::linkButton(__('portfolio.service.Add Service'), 'backend.portfolio.services.create', [], 'fas fa-plus', 'success') !!}
     {{--{!! \Html::bulkDropdown('backend.portfolio.services', 0, ['color' => 'warning']) !!}--}}
 @endsection
 
@@ -97,7 +97,7 @@
         </div>
     </div>
     <!-- /.container-fluid -->
-    {!! \App\Supports\CHTML::confirmModal('Post', ['export', 'delete', 'restore']) !!}
+    {!! \App\Supports\CHTML::confirmModal('Service', ['export', 'delete', 'restore']) !!}
 @endsection
 
 
