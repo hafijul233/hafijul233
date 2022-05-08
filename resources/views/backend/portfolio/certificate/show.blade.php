@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', $certificate->name)
+@section('title', $certificate->title)
 
 @push('meta')
 
@@ -38,8 +38,8 @@
                     <div class="card-body min-vh-100">
                         <div class="row">
                             <div class="col-md-6 mb-3">
-                                <label class="d-block">{{ __('common.Name') }}</label>
-                                <div class="border p-2">{{ $certificate->name ?? null }}</div>
+                                <label class="d-block">{{ __('portfolio.certificate.Title') }}</label>
+                                <div class="border p-2">{{ $certificate->title ?? null }}</div>
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label class="d-block">{{ __('portfolio.certificate.Organization') }}</label>
