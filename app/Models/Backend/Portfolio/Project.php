@@ -2,23 +2,23 @@
 
 namespace App\Models\Backend\Portfolio;
 
-use App\Models\Backend\Setting\Catalog;
-use App\Models\Backend\Setting\ExamLevel;
-use App\Models\Backend\Setting\State;
+use App\Supports\Constant;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Kyslik\ColumnSortable\Sortable;
 use OwenIt\Auditing\Auditable as AuditableTrait;
 use OwenIt\Auditing\Contracts\Auditable;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 
 /**
  * @class Post
  * @package App\Models\Backend\Portfolio
  */
-class Project extends Model implements Auditable
+class Project extends Model implements Auditable, HasMedia
 {
-    use AuditableTrait, HasFactory, SoftDeletes, Sortable;
+    use AuditableTrait, HasFactory, SoftDeletes, Sortable, InteractsWithMedia;
 
     /**
      * @var string $table
@@ -37,10 +37,7 @@ class Project extends Model implements Auditable
      *
      * @var array
      */
-    protected $fillable = ['survey_id', 'gender_id', 'dob', 'name', 'name_bd', 'father', 'father_bd',
-        'mother', 'mother_bd', 'nid', 'mobile_1', 'mobile_2', 'email', 'is_employee', 'designation',
-        'present_address', 'present_address_bd', 'permanent_address', 'company',
-        'permanent_address_bd', 'gender', 'enabled', 'whatsapp', 'facebook', 'exam_level'];
+    protected $fillable = ['name', 'start_date', 'end_date', 'owner', 'associate', 'url', 'description', 'enabled'];
 
     /**
      * The attributes that should be hidden for arrays.
@@ -54,7 +51,10 @@ class Project extends Model implements Auditable
      *
      * @var array
      */
-    protected $casts = [];
+    protected $casts = [
+        'start_date' => 'date',
+        'end_date' => 'date'
+    ];
 
     /**
      * The model's default values for attributes when new instance created.
@@ -65,42 +65,16 @@ class Project extends Model implements Auditable
         'enabled' => 'yes'
     ];
 
-    /************************ Audit Relations ************************/
-
-    public function surveys()
+    /**
+     * Register Cover Image Media Collection
+     * @return void
+     */
+    public function registerMediaCollections(): void
     {
-        return $this->belongsToMany(Comment::class);
+        $this->addMediaCollection('projects')
+            ->useDisk('project')
+            ->useFallbackUrl(asset(Constant::SERVICE_IMAGE))
+            ->acceptsMimeTypes(['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/svg'])
+            ->singleFile();
     }
-
-    public function educationQualifications()
-    {
-        return $this->hasMany(EducationQualification::class);
-    }
-
-    public function workQualifications()
-    {
-        return $this->hasMany(WorkQualification::class);
-    }
-
-    public function examLevel()
-    {
-        return $this->belongsTo(ExamLevel::class, 'exam_level', 'id');
-    }
-
-
-    public function gender()
-    {
-        return $this->belongsTo(Catalog::class, 'gender_id', 'id');
-    }
-
-    public function previousPostings()
-    {
-        return $this->belongsToMany(State::class, 'enumerator_previous_state');
-    }
-
-    public function futurePostings()
-    {
-        return $this->belongsToMany(State::class, 'enumerator_future_state');
-    }
-
 }

@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Backend\Resume;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Backend\Portfolio\ServiceRequest;
-use App\Http\Requests\Backend\Portfolio\UpdateEnumeratorRequest;
+use App\Http\Requests\Backend\Portfolio\ProjectRequest;
 use App\Services\Auth\AuthenticatedSessionService;
 use App\Services\Backend\Resume\ExperienceService;
 use App\Supports\Constant;
@@ -176,7 +176,7 @@ class ExperienceController extends Controller
      * @return RedirectResponse
      * @throws Throwable
      */
-    public function update(UpdateEnumeratorRequest $request, $id): RedirectResponse
+    public function update(ProjectRequest $request, $id): RedirectResponse
     {
         $inputs = $request->except('_token', 'submit', '_method');
         $confirm = $this->experienceService->updateEnumerator($inputs, $id);

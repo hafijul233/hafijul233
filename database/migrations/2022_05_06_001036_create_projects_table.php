@@ -24,7 +24,7 @@ class CreateProjectsTable extends Migration
             $table->string('name');
             $table->date('start_date');
             $table->date('end_date')->nullable();
-            $table->json('stack_holder')->nullable();
+            $table->string('owner')->nullable();
             $table->string('associate')->nullable();
             $table->string('url')->nullable();
             $table->longText('description')->nullable();

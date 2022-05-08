@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend\Portfolio;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Backend\Portfolio\CertificateRequest;
+use App\Http\Requests\Backend\Portfolio\ProjectRequest;
 use App\Services\Auth\AuthenticatedSessionService;
 use App\Services\Backend\Portfolio\ProjectService;
 use App\Supports\Utility;
@@ -80,9 +81,9 @@ class ProjectController extends Controller
      * @return RedirectResponse
      * @throws Exception|Throwable
      */
-    public function store(CertificateRequest $request): RedirectResponse
+    public function store(ProjectRequest $request): RedirectResponse
     {
-        $confirm = $this->projectService->storeSurvey($request->except('_token'));
+        $confirm = $this->projectService->storeProject($request->except('_token'));
         if ($confirm['status'] == true) {
             notify($confirm['message'], $confirm['level'], $confirm['title']);
             return redirect()->route('backend.portfolio.projects.index');
@@ -101,7 +102,7 @@ class ProjectController extends Controller
      */
     public function show($id)
     {
-        if ($project = $this->projectService->getSurveyById($id)) {
+        if ($project = $this->projectService->getProjectById($id)) {
             return view('backend.portfolio.project.show', [
                 'service' => $project,
                 'timeline' => Utility::modelAudits($project)
@@ -120,7 +121,7 @@ class ProjectController extends Controller
      */
     public function edit($id)
     {
-        if ($project = $this->projectService->getSurveyById($id)) {
+        if ($project = $this->projectService->getProjectById($id)) {
             return view('backend.portfolio.project.edit', [
                 'service' => $project
             ]);
@@ -139,7 +140,7 @@ class ProjectController extends Controller
      */
     public function update(CertificateRequest $request, $id): RedirectResponse
     {
-        $confirm = $this->projectService->updateSurvey($request->except('_token', 'submit', '_method'), $id);
+        $confirm = $this->projectService->updateProject($request->except('_token', 'submit', '_method'), $id);
 
         if ($confirm['status'] == true) {
             notify($confirm['message'], $confirm['level'], $confirm['title']);
@@ -162,7 +163,7 @@ class ProjectController extends Controller
     {
         if ($this->authenticatedSessionService->validate($request)) {
 
-            $confirm = $this->projectService->destroySurvey($id);
+            $confirm = $this->projectService->destroyProject($id);
 
             if ($confirm['status'] == true) {
                 notify($confirm['message'], $confirm['level'], $confirm['title']);
@@ -186,7 +187,7 @@ class ProjectController extends Controller
     {
         if ($this->authenticatedSessionService->validate($request)) {
 
-            $confirm = $this->projectService->restoreSurvey($id);
+            $confirm = $this->projectService->restoreProject($id);
 
             if ($confirm['status'] == true) {
                 notify($confirm['message'], $confirm['level'], $confirm['title']);
@@ -208,7 +209,7 @@ class ProjectController extends Controller
     {
         $filters = $request->except('page');
 
-        $projectExport = $this->projectService->exportSurvey($filters);
+        $projectExport = $this->projectService->exportProject($filters);
 
         $filename = 'Project-' . date('Ymd-His') . '.' . ($filters['format'] ?? 'xlsx');
 
@@ -237,7 +238,7 @@ class ProjectController extends Controller
     public function importBulk(Request $request)
     {
         $filters = $request->except('page');
-        $projects = $this->projectService->getAllSurveys($filters);
+        $projects = $this->projectService->getAllProjects($filters);
 
         return view('backend.portfolio.projectindex', [
             'projects' => $projects
@@ -254,7 +255,7 @@ class ProjectController extends Controller
     {
         $filters = $request->except('page');
 
-        $projectExport = $this->projectService->exportSurvey($filters);
+        $projectExport = $this->projectService->exportProject($filters);
 
         $filename = 'Project-' . date('Ymd-His') . '.' . ($filters['format'] ?? 'xlsx');
 

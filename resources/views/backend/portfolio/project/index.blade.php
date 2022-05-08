@@ -28,7 +28,7 @@
 
 @section('actions')
     {!! \Html::linkButton(__('Add Project'), 'backend.portfolio.projects.create', [], 'fas fa-plus', 'success') !!}
-    {{--{!! \Html::bulkDropdown('backend.portfolio.projects', 0, ['color' => 'warning']) !!}--}}
+    {!! \Html::bulkDropdown('backend.portfolio.projects', 0, ['color' => 'warning']) !!}
 @endsection
 
 @section('content')

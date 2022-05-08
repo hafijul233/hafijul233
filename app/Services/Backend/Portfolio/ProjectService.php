@@ -11,6 +11,7 @@ use Exception;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\DB;
 use Throwable;
 
@@ -84,17 +85,13 @@ class ProjectService extends Service
      */
     public function storeProject(array $inputs): array
     {
-        $newProjectInfo = $this->formatProjectInfo($inputs);
         DB::beginTransaction();
         try {
-            $newProject = $this->projectRepository->create($newProjectInfo);
+            $newProject = $this->projectRepository->create($inputs);
             if ($newProject instanceof Project) {
-                //handling Comment List
-                $newProject->surveys()->attach($inputs['survey_id']);
-                $newProject->previousPostings()->attach($inputs['prev_post_state_id']);
-                $newProject->futurePostings()->attach($inputs['future_post_state_id']);
-                $newProject->save();
-
+                if ($inputs['image'] instanceof UploadedFile) {
+                    $newProject->addMedia($inputs['image'])->toMediaCollection('projects');
+                }
                 DB::commit();
                 return ['status' => true, 'message' => __('New Post Created'),
                     'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
@@ -112,48 +109,6 @@ class ProjectService extends Service
     }
 
     /**
-     * Return formatted applicant profile format array
-     *
-     * @param array $inputs
-     * @return array
-     */
-    private function formatProjectInfo(array $inputs)
-    {
-        $projectInfo = [];
-        $projectInfo["survey_id"] = null;
-        $projectInfo["gender_id"] = $inputs['gender_id'] ?? null;
-        $projectInfo["dob"] = $inputs['dob'] ?? null;
-        $projectInfo["name"] = $inputs["name"] ?? null;
-        $projectInfo["name_bd"] = $inputs["name_bd"] ?? null;
-        $projectInfo["father"] = $inputs["father"] ?? null;
-        $projectInfo["father_bd"] = $inputs["father_bd"] ?? null;
-        $projectInfo["mother"] = $inputs["mother"] ?? null;
-        $projectInfo["mother_bd"] = $inputs["mother_bd"] ?? null;
-        $projectInfo["nid"] = $inputs["nid"] ?? null;
-        $projectInfo["mobile_1"] = $inputs["mobile_1"] ?? null;
-        $projectInfo["mobile_2"] = $inputs["mobile_2"] ?? null;
-        $projectInfo["email"] = $inputs["email"] ?? null;
-        $projectInfo["present_address"] = $inputs["present_address"] ?? null;
-        $projectInfo["present_address_bd"] = $inputs["present_address_bd"] ?? null;
-        $projectInfo["permanent_address"] = $inputs["permanent_address"] ?? null;
-        $projectInfo["permanent_address_bd"] = $inputs["permanent_address_bd"] ?? null;
-        $projectInfo["exam_level"] = $inputs["exam_level"] ?? null;
-        $projectInfo["whatsapp"] = $inputs["whatsapp"] ?? null;
-        $projectInfo["facebook"] = $inputs["facebook"] ?? null;
-
-        $projectInfo["is_employee"] = $inputs["is_employee"] ?? 'no';
-        $projectInfo["designation"] = null;
-        $projectInfo["company"] = null;
-
-        if ($projectInfo["is_employee"] == 'yes') {
-            $projectInfo["designation"] = $inputs['designation'] ?? null;
-            $projectInfo["company"] = $inputs['company'] ?? null;
-        }
-
-        return $projectInfo;
-    }
-
-    /**
      * Update Post Model
      *
      * @param array $inputs
@@ -163,17 +118,14 @@ class ProjectService extends Service
      */
     public function updateProject(array $inputs, $id): array
     {
-        $newProjectInfo = $this->formatProjectInfo($inputs);
         DB::beginTransaction();
         try {
             $project = $this->projectRepository->show($id);
             if ($project instanceof Project) {
-                if ($this->projectRepository->update($newProjectInfo, $id)) {
-                    //handling Comment List
-                    $project->surveys()->sync($inputs['survey_id']);
-                    $project->previousPostings()->sync($inputs['prev_post_state_id']);
-                    $project->futurePostings()->sync($inputs['future_post_state_id']);
-                    $project->save();
+                if ($this->projectRepository->update($inputs, $id)) {
+                    if ($inputs['image'] instanceof UploadedFile) {
+                        $project->addMedia($inputs['image'])->toMediaCollection('projects');
+                    }
                     DB::commit();
                     return ['status' => true, 'message' => __('Post Info Updated'),
                         'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];

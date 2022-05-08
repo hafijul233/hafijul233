@@ -1,11 +1,34 @@
+@include('layouts.includes.html-editor')
+
 <div class="card-body">
     <div class="row">
         <div class="col-md-6">
-            {!! \Form::nText('name', __('common.Name'), old('name', $survey->name ?? null), true) !!}
+            {!! \Form::nText('name', __('portfolio.project.Title'), old('name', $project->name ?? null), true) !!}
         </div>
         <div class="col-md-6">
-            {!! \Form::nSelect('enabled', __('common.Enabled'), \App\Supports\Constant::ENABLED_OPTIONS,
-                old('enabled', ($survey->enabled ?? \App\Supports\Constant::ENABLED_OPTION)), true) !!}
+            {!! \Form::nText('owner', __('portfolio.project.Owner'), old('owner', $project->owner ?? 'Self'), true) !!}
+        </div>
+        <div class="col-md-6">
+            {!! \Form::nDate('start_date', __('portfolio.project.Start Date'), old('start_date', $project->start_date ?? null), true) !!}
+        </div>
+        <div class="col-md-6">
+            {!! \Form::nDate('end_date', __('portfolio.project.End Date'), old('end_date', $project->end_date ?? null), false) !!}
+        </div>
+        <div class="col-md-6">
+            {!! \Form::nText('associate', __('portfolio.project.Associate'), old('associate', $project->associate ?? null), false) !!}
+        </div>
+        <div class="col-md-6">
+            {!! \Form::nUrl('url', __('portfolio.project.URL'), old('url', $project->url ?? null), false) !!}
+        </div>
+        <div class="col-12">
+            {!! \Form::nTextarea('description', __('common.Description'), old('description', $project->description ?? null), false) !!}
+        </div>
+        <div class="col-md-12">
+            {!! \Form::nImage('image',__('common.Image'), false,
+                ['preview' => true, 'height' => '240',
+                 'default' => (isset($service))
+                 ? $service->getFirstMediaUrl('services')
+                 : asset(\App\Supports\Constant::SERVICE_IMAGE)]) !!}
         </div>
     </div>
     <div class="row mt-3">
@@ -16,11 +39,12 @@
     </div>
 </div>
 
-
 @push('page-script')
     <script>
         $(function () {
-            $("#service-form").validate({
+            htmlEditor("#description", {height: 200});
+
+            $("#project-form").validate({
                 rules: {
                     name: {
                         required: true,
@@ -30,8 +54,7 @@
                     enabled: {
                         required: true
                     },
-                    remarks: {
-                    },
+                    remarks: {},
                 }
             });
         });
