@@ -24,3 +24,5 @@ some.html
 vendor.zip
 composer.phar
 error_log
+/build/*
+analyse.log
