@@ -46,7 +46,7 @@
                                     <thead class="thead-light">
                                     <tr>
                                         <th class="align-middle">@sortablelink('id', '#')</th>
-                                        <th>@sortablelink('name', __('common.Name'))</th>
+                                        <th>@sortablelink('title', __('portfolio.certificate.Title'))</th>
                                         <th>@sortablelink('organization', __('portfolio.certificate.Organization'))</th>
                                         <th>@sortablelink('issue_date', __('portfolio.certificate.Issue Date'))</th>
                                         <th class="text-center">@sortablelink('enabled', __('common.Enabled'))</th>
@@ -63,10 +63,10 @@
                                             <td class="text-left">
                                                 @can('backend.portfolio.certificates.show')
                                                     <a href="{{ route('backend.portfolio.certificates.show', $certificate->id) }}">
-                                                        {{ $certificate->name }}
+                                                        {{ $certificate->title }}
                                                     </a>
                                                 @else
-                                                    {{ $certificate->name }}
+                                                    {{ $certificate->title }}
                                                 @endcan
                                             </td>
                                             <td>
