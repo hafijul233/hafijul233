@@ -123,7 +123,7 @@ class ProjectService extends Service
             $project = $this->projectRepository->show($id);
             if ($project instanceof Project) {
                 if ($this->projectRepository->update($inputs, $id)) {
-                    if ($inputs['image'] instanceof UploadedFile) {
+                    if (isset($inputs['image']) && $inputs['image'] instanceof UploadedFile) {
                         $project->addMedia($inputs['image'])->toMediaCollection('projects');
                     }
                     DB::commit();

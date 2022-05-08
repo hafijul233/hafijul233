@@ -3,7 +3,7 @@
 <div class="card-body">
     <div class="row">
         <div class="col-md-6">
-            {!! \Form::nText('name', __('portfolio.project.Title'), old('name', $project->name ?? null), true) !!}
+            {!! \Form::nText('name', __('common.Name'), old('name', $project->name ?? null), true) !!}
         </div>
         <div class="col-md-6">
             {!! \Form::nText('owner', __('portfolio.project.Owner'), old('owner', $project->owner ?? 'Self'), true) !!}
@@ -26,8 +26,8 @@
         <div class="col-md-12">
             {!! \Form::nImage('image',__('common.Image'), false,
                 ['preview' => true, 'height' => '240',
-                 'default' => (isset($service))
-                 ? $service->getFirstMediaUrl('services')
+                 'default' => (isset($project))
+                 ? $project->getFirstMediaUrl('projects')
                  : asset(\App\Supports\Constant::SERVICE_IMAGE)]) !!}
         </div>
     </div>

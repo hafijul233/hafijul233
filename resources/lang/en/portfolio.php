@@ -25,6 +25,13 @@ return [
         'Credential ID' => 'Credential ID',
         'Verify URL' => 'Verify URL'
     ],
+    'project' => [
+        'Owner' => 'Owner',
+        'Start Date' => 'Start Date',
+        'End Date' => 'End Date',
+        'Associate' => 'Associate',
+        'URL' => 'URL',
+    ],
     'Add Post' => 'Add Post',
     'Edit Post' => 'Edit Post',
     'Comment' => 'Work Experience in BBS as Post (select multiple options if needed)',

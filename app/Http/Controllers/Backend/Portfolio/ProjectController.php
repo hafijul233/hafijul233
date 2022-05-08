@@ -104,7 +104,7 @@ class ProjectController extends Controller
     {
         if ($project = $this->projectService->getProjectById($id)) {
             return view('backend.portfolio.project.show', [
-                'service' => $project,
+                'project' => $project,
                 'timeline' => Utility::modelAudits($project)
             ]);
         }
@@ -123,7 +123,7 @@ class ProjectController extends Controller
     {
         if ($project = $this->projectService->getProjectById($id)) {
             return view('backend.portfolio.project.edit', [
-                'service' => $project
+                'project' => $project
             ]);
         }
 
@@ -138,7 +138,7 @@ class ProjectController extends Controller
      * @return RedirectResponse
      * @throws Throwable
      */
-    public function update(CertificateRequest $request, $id): RedirectResponse
+    public function update(ProjectRequest $request, $id): RedirectResponse
     {
         $confirm = $this->projectService->updateProject($request->except('_token', 'submit', '_method'), $id);
 

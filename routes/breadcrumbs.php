@@ -2,10 +2,13 @@
 
 use App\Models\Backend\Blog\NewsLetter;
 use App\Models\Backend\Portfolio\Certificate;
+use App\Models\Backend\Portfolio\Project;
 use App\Models\Backend\Portfolio\Service;
+use App\Models\Backend\Portfolio\Testimonial;
 use App\Models\Backend\Resume\Award;
 use App\Models\Backend\Blog\Post;
 use App\Models\Backend\Resume\Education;
+use App\Models\Backend\Resume\Experience;
 use App\Models\Backend\Resume\Language;
 use App\Models\Backend\Resume\Skill;
 use App\Models\Backend\Setting\Catalog;
@@ -397,12 +400,12 @@ Breadcrumbs::for('backend.portfolio.projects.show', function (BreadcrumbTrail $t
 
     $trail->parent('backend.portfolio.projects.index');
 
-    $project = ($project instanceof Post) ? $project : $project[0];
+    $project = ($project instanceof Project) ? $project : $project[0];
 
     $trail->push($project->name, route('backend.portfolio.projects.show', $project->id));
 });
 
-Breadcrumbs::for('backend.portfolio.projects.edit', function (BreadcrumbTrail $trail, Post $project) {
+Breadcrumbs::for('backend.portfolio.projects.edit', function (BreadcrumbTrail $trail, Project $project) {
 
     $trail->parent('backend.portfolio.projects.show', [$project]);
 
@@ -429,12 +432,12 @@ Breadcrumbs::for('backend.portfolio.testimonials.show', function (BreadcrumbTrai
 
     $trail->parent('backend.portfolio.testimonials.index');
 
-    $testimonial = ($testimonial instanceof Post) ? $testimonial : $testimonial[0];
+    $testimonial = ($testimonial instanceof Testimonial) ? $testimonial : $testimonial[0];
 
     $trail->push($testimonial->name, route('backend.portfolio.testimonials.show', $testimonial->id));
 });
 
-Breadcrumbs::for('backend.portfolio.testimonials.edit', function (BreadcrumbTrail $trail, Post $testimonial) {
+Breadcrumbs::for('backend.portfolio.testimonials.edit', function (BreadcrumbTrail $trail, Testimonial $testimonial) {
 
     $trail->parent('backend.portfolio.testimonials.show', [$testimonial]);
 
@@ -470,12 +473,12 @@ Breadcrumbs::for('backend.resume.experiences.show', function (BreadcrumbTrail $t
 
     $trail->parent('backend.resume.experiences.index');
 
-    $experience = ($experience instanceof Service) ? $experience : $experience[0];
+    $experience = ($experience instanceof Experience) ? $experience : $experience[0];
 
     $trail->push($experience->name, route('backend.resume.experiences.show', $experience->id));
 });
 
-Breadcrumbs::for('backend.resume.experiences.edit', function (BreadcrumbTrail $trail, Comment $experience) {
+Breadcrumbs::for('backend.resume.experiences.edit', function (BreadcrumbTrail $trail, Experience $experience) {
 
     $trail->parent('backend.resume.experiences.show', [$experience]);
 
@@ -507,7 +510,7 @@ Breadcrumbs::for('backend.resume.educations.show', function (BreadcrumbTrail $tr
     $trail->push($education->name, route('backend.resume.educations.show', $education->id));
 });
 
-Breadcrumbs::for('backend.resume.educations.edit', function (BreadcrumbTrail $trail, Comment $education) {
+Breadcrumbs::for('backend.resume.educations.edit', function (BreadcrumbTrail $trail, Education $education) {
 
     $trail->parent('backend.resume.educations.show', [$education]);
 
@@ -539,7 +542,7 @@ Breadcrumbs::for('backend.resume.awards.show', function (BreadcrumbTrail $trail,
     $trail->push($award->name, route('backend.resume.awards.show', $award->id));
 });
 
-Breadcrumbs::for('backend.resume.awards.edit', function (BreadcrumbTrail $trail, Comment $award) {
+Breadcrumbs::for('backend.resume.awards.edit', function (BreadcrumbTrail $trail, Award $award) {
 
     $trail->parent('backend.resume.awards.show', [$award]);
 
@@ -571,7 +574,7 @@ Breadcrumbs::for('backend.resume.skills.show', function (BreadcrumbTrail $trail,
     $trail->push($skill->name, route('backend.resume.skills.show', $skill->id));
 });
 
-Breadcrumbs::for('backend.resume.skills.edit', function (BreadcrumbTrail $trail, Comment $skill) {
+Breadcrumbs::for('backend.resume.skills.edit', function (BreadcrumbTrail $trail, Skill $skill) {
 
     $trail->parent('backend.resume.skills.show', [$skill]);
 
@@ -603,7 +606,7 @@ Breadcrumbs::for('backend.resume.languages.show', function (BreadcrumbTrail $tra
     $trail->push($language->name, route('backend.resume.languages.show', $language->id));
 });
 
-Breadcrumbs::for('backend.resume.languages.edit', function (BreadcrumbTrail $trail, Comment $language) {
+Breadcrumbs::for('backend.resume.languages.edit', function (BreadcrumbTrail $trail, Language $language) {
 
     $trail->parent('backend.resume.languages.show', [$language]);
 
@@ -644,7 +647,7 @@ Breadcrumbs::for('backend.blog.posts.show', function (BreadcrumbTrail $trail, $p
     $trail->push($post->name, route('backend.blog.posts.show', $post->id));
 });
 
-Breadcrumbs::for('backend.blog.posts.edit', function (BreadcrumbTrail $trail, Comment $post) {
+Breadcrumbs::for('backend.blog.posts.edit', function (BreadcrumbTrail $trail, Post $post) {
 
     $trail->parent('backend.blog.posts.show', [$post]);
 
