@@ -122,7 +122,7 @@ class CertificateController extends Controller
     {
         if ($certificate = $this->certificateService->getCertificateById($id)) {
             return view('backend.portfolio.certificate.edit', [
-                'service' => $certificate
+                'certificate' => $certificate
             ]);
         }
 

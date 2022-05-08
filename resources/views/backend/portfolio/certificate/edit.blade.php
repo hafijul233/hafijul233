@@ -1,18 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Edit Catalog')
-
-@push('meta')
-
-@endpush
-
-@push('webfont')
-
-@endpush
-
-@push('icon')
-
-@endpush
+@section('title', __('portfolio.certificate.Edit Certificate'))
 
 @push('plugin-style')
 
@@ -23,7 +11,7 @@
 @endpush
 
 
-@section('breadcrumbs', \Breadcrumbs::render(Route::getCurrentRoute()->getName(), $catalog))
+@section('breadcrumbs', \Breadcrumbs::render(Route::getCurrentRoute()->getName(), $certificate))
 
 @section('actions')
     {!! \Html::backButton('backend.portfolio.certificates.index') !!}
@@ -34,7 +22,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="card">
-                    {!! \Form::open(['route' => ['backend.portfolio.certificates.update', $catalog->id], 'method' => 'put', 'id' => 'catalog-form']) !!}
+                    {!! \Form::open(['route' => ['backend.portfolio.certificates.update', $certificate->id], 'method' => 'put', 'files'=>true, 'id' => 'certificate-form']) !!}
                     @include('backend.portfolio.certificate.form')
                     {!! \Form::close() !!}
                 </div>

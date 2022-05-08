@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Add Certificate')
+@section('title', __('portfolio.certificate.Add Certificate'))
 
 @push('meta')
 
@@ -34,7 +34,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="card card-default">
-                    {!! \Form::open(['route' => 'backend.portfolio.certificates.store', 'id' => 'catalog-form']) !!}
+                    {!! \Form::open(['route' => 'backend.portfolio.certificates.store', 'files'=>true, 'id' => 'catalog-form']) !!}
                     @include('backend.portfolio.certificate.form')
                     {!! \Form::close() !!}
                 </div>

@@ -18,7 +18,7 @@ class CertificateRequest extends FormRequest
     public function rules()
     {
         return [
-            "name" => ["required", "string", "min:2", "max:255"],
+            "title" => ["required", "string", "min:2", "max:255"],
             "organization" => ["required", "string", "min:2", "max:255"],
             "issue_date" => ["required", "date"],
             "expire_date" => ["nullable", "date"],

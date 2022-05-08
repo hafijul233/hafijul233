@@ -27,7 +27,7 @@
 @section('breadcrumbs', \Breadcrumbs::render())
 
 @section('actions')
-    {!! \Html::linkButton(__('Add Certificate'), 'backend.portfolio.certificates.create', [], 'fas fa-plus', 'success') !!}
+    {!! \Html::linkButton(__('portfolio.certificate.Add Certificate'), 'backend.portfolio.certificates.create', [], 'fas fa-plus', 'success') !!}
     {!! \Html::bulkDropdown('backend.portfolio.certificates', 0, ['color' => 'warning']) !!}
 @endsection
 

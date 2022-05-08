@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 use Database\Seeders\Backend\AdminRegisterSeeder;
+use Database\Seeders\Backend\Portfolio\CertificateSeeder;
+use Database\Seeders\Backend\Portfolio\ServiceSeeder;
 use Database\Seeders\Backend\SARegisterSeeder;
 use Database\Seeders\Backend\Setting\CitySeeder;
 use Database\Seeders\Backend\Setting\CountrySeeder;
@@ -32,6 +34,8 @@ class DatabaseSeeder extends Seeder
         $this->call(RolePermissionSeeder::class);
         $this->call(SARegisterSeeder::class);
         $this->call(AdminRegisterSeeder::class);
+        $this->call(ServiceSeeder::class);
+        $this->call(CertificateSeeder::class);
         Model::reguard();
     }
 }

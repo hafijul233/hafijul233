@@ -367,10 +367,10 @@ Breadcrumbs::for('backend.portfolio.certificates.show', function (BreadcrumbTrai
 
     $certificate = ($certificate instanceof Certificate) ? $certificate : $certificate[0];
 
-    $trail->push($certificate->name, route('backend.portfolio.certificates.show', $certificate->id));
+    $trail->push(($certificate->title ?? ''), route('backend.portfolio.certificates.show', $certificate->id));
 });
 
-Breadcrumbs::for('backend.portfolio.certificates.edit', function (BreadcrumbTrail $trail, Post $certificate) {
+Breadcrumbs::for('backend.portfolio.certificates.edit', function (BreadcrumbTrail $trail, Certificate $certificate) {
 
     $trail->parent('backend.portfolio.certificates.show', [$certificate]);
 

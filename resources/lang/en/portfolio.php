@@ -17,6 +17,8 @@ return [
     ],
     'certificate' => [
         'Add Certificate' => 'Add Certificate',
+        'Edit Certificate' => 'Edit Certificate',
+        'Title' => 'Title',
         'Organization' => 'Organization',
         'Issue Date' => 'Issue Date',
         'Expire Date' => 'Expire Date',
