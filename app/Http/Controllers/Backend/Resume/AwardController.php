@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Backend\Resume;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Backend\Portfolio\CertificateRequest;
+use App\Http\Requests\Backend\Portfolio\ExperienceRequest;
 use App\Services\Auth\AuthenticatedSessionService;
 use App\Services\Backend\Resume\AwardService;
 use App\Supports\Utility;
@@ -80,7 +80,7 @@ class AwardController extends Controller
      * @return RedirectResponse
      * @throws Exception|Throwable
      */
-    public function store(CertificateRequest $request): RedirectResponse
+    public function store(ExperienceRequest $request): RedirectResponse
     {
         $confirm = $this->awardService->storeSurvey($request->except('_token'));
         if ($confirm['status'] == true) {
@@ -132,12 +132,12 @@ class AwardController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param CertificateRequest $request
+     * @param ExperienceRequest $request
      * @param  $id
      * @return RedirectResponse
      * @throws Throwable
      */
-    public function update(CertificateRequest $request, $id): RedirectResponse
+    public function update(ExperienceRequest $request, $id): RedirectResponse
     {
         $confirm = $this->awardService->updateSurvey($request->except('_token', 'submit', '_method'), $id);
 

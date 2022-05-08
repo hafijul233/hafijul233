@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Backend\Resume;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Backend\Portfolio\ProjectRequest;
-use App\Http\Requests\Backend\Portfolio\ServiceRequest;
+use App\Http\Requests\Backend\Portfolio\EducationRequest;
+use App\Http\Requests\Backend\Portfolio\AwardRequest;
 use App\Services\Auth\AuthenticatedSessionService;
 use App\Services\Backend\Resume\ExperienceService;
 use App\Supports\Constant;
@@ -76,34 +76,21 @@ class ExperienceController extends Controller
      * Show the form for creating a new resource.
      *
      * @return Application|Factory|View
-     * @throws ContainerExceptionInterface
-     * @throws NotFoundExceptionInterface
      * @throws Exception
      */
     public function create()
     {
-        $enables = [];
-        foreach (Constant::ENABLED_OPTIONS as $field => $label):
-            $enables[$field] = __('common.' . $label);
-        endforeach;
-
-        return view('backend.resume.experience.create', [
-            'enables' => $enables,
-            'states' => $this->stateService->getStateDropdown(['enabled' => Constant::ENABLED_OPTION, 'type' => 'district', 'sort' => ((session()->get('locale') == 'bd') ? 'native' : 'name'), 'direction' => 'asc'], (session()->get('locale') == 'bd')),
-            'surveys' => $this->surveyService->getSurveyDropDown(['enabled' => Constant::ENABLED_OPTION]),
-            'genders' => $this->catalogService->getCatalogDropdown(['type' => Constant::CATALOG_TYPE['GENDER']], 'bn'),
-            'exam_dropdown' => $this->examLevelService->getExamLevelDropdown(['id' => [1, 2, 3, 4]]),
-        ]);
+        return view('backend.resume.experience.create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param ServiceRequest $request
+     * @param AwardRequest $request
      * @return RedirectResponse
      * @throws Exception|Throwable
      */
-    public function store(ServiceRequest $request): RedirectResponse
+    public function store(AwardRequest $request): RedirectResponse
     {
         $inputs = $request->except('_token');
 
@@ -171,12 +158,12 @@ class ExperienceController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param ServiceRequest $request
+     * @param AwardRequest $request
      * @param  $id
      * @return RedirectResponse
      * @throws Throwable
      */
-    public function update(ProjectRequest $request, $id): RedirectResponse
+    public function update(EducationRequest $request, $id): RedirectResponse
     {
         $inputs = $request->except('_token', 'submit', '_method');
         $confirm = $this->experienceService->updateEnumerator($inputs, $id);

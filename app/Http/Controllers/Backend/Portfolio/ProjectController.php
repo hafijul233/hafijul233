@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Backend\Portfolio;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Backend\Portfolio\CertificateRequest;
-use App\Http\Requests\Backend\Portfolio\ProjectRequest;
+use App\Http\Requests\Backend\Portfolio\ExperienceRequest;
+use App\Http\Requests\Backend\Portfolio\EducationRequest;
 use App\Services\Auth\AuthenticatedSessionService;
 use App\Services\Backend\Portfolio\ProjectService;
 use App\Supports\Utility;
@@ -81,7 +81,7 @@ class ProjectController extends Controller
      * @return RedirectResponse
      * @throws Exception|Throwable
      */
-    public function store(ProjectRequest $request): RedirectResponse
+    public function store(EducationRequest $request): RedirectResponse
     {
         $confirm = $this->projectService->storeProject($request->except('_token'));
         if ($confirm['status'] == true) {
@@ -133,12 +133,12 @@ class ProjectController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param CertificateRequest $request
+     * @param ExperienceRequest $request
      * @param  $id
      * @return RedirectResponse
      * @throws Throwable
      */
-    public function update(ProjectRequest $request, $id): RedirectResponse
+    public function update(EducationRequest $request, $id): RedirectResponse
     {
         $confirm = $this->projectService->updateProject($request->except('_token', 'submit', '_method'), $id);
 
