@@ -81,7 +81,7 @@
         }
     },
     "scripts": {
-        "analyse": "vendor/bin/phpstan analyse",
+        "analyse": "vendor/bin/phpstan analyse > analyse.log",
         "test": "vendor/bin/pest",
         "test-coverage": "vendor/bin/pest --coverage",
         "post-autoload-dump": [
