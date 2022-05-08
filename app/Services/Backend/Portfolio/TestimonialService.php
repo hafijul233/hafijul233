@@ -84,17 +84,10 @@ class TestimonialService extends Service
      */
     public function storeTestimonial(array $inputs): array
     {
-        $newTestimonialInfo = $this->formatTestimonialInfo($inputs);
         DB::beginTransaction();
         try {
-            $newTestimonial = $this->testimonialRepository->create($newTestimonialInfo);
+            $newTestimonial = $this->testimonialRepository->create($inputs);
             if ($newTestimonial instanceof Testimonial) {
-                //handling Comment List
-                $newTestimonial->surveys()->attach($inputs['survey_id']);
-                $newTestimonial->previousTestimonialings()->attach($inputs['prev_post_state_id']);
-                $newTestimonial->futureTestimonialings()->attach($inputs['future_post_state_id']);
-                $newTestimonial->save();
-
                 DB::commit();
                 return ['status' => true, 'message' => __('New Testimonial Created'),
                     'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
@@ -112,48 +105,6 @@ class TestimonialService extends Service
     }
 
     /**
-     * Return formatted applicant profile format array
-     *
-     * @param array $inputs
-     * @return array
-     */
-    private function formatTestimonialInfo(array $inputs)
-    {
-        $testimonialInfo = [];
-        $testimonialInfo["survey_id"] = null;
-        $testimonialInfo["gender_id"] = $inputs['gender_id'] ?? null;
-        $testimonialInfo["dob"] = $inputs['dob'] ?? null;
-        $testimonialInfo["name"] = $inputs["name"] ?? null;
-        $testimonialInfo["name_bd"] = $inputs["name_bd"] ?? null;
-        $testimonialInfo["father"] = $inputs["father"] ?? null;
-        $testimonialInfo["father_bd"] = $inputs["father_bd"] ?? null;
-        $testimonialInfo["mother"] = $inputs["mother"] ?? null;
-        $testimonialInfo["mother_bd"] = $inputs["mother_bd"] ?? null;
-        $testimonialInfo["nid"] = $inputs["nid"] ?? null;
-        $testimonialInfo["mobile_1"] = $inputs["mobile_1"] ?? null;
-        $testimonialInfo["mobile_2"] = $inputs["mobile_2"] ?? null;
-        $testimonialInfo["email"] = $inputs["email"] ?? null;
-        $testimonialInfo["present_address"] = $inputs["present_address"] ?? null;
-        $testimonialInfo["present_address_bd"] = $inputs["present_address_bd"] ?? null;
-        $testimonialInfo["permanent_address"] = $inputs["permanent_address"] ?? null;
-        $testimonialInfo["permanent_address_bd"] = $inputs["permanent_address_bd"] ?? null;
-        $testimonialInfo["exam_level"] = $inputs["exam_level"] ?? null;
-        $testimonialInfo["whatsapp"] = $inputs["whatsapp"] ?? null;
-        $testimonialInfo["facebook"] = $inputs["facebook"] ?? null;
-
-        $testimonialInfo["is_employee"] = $inputs["is_employee"] ?? 'no';
-        $testimonialInfo["designation"] = null;
-        $testimonialInfo["company"] = null;
-
-        if ($testimonialInfo["is_employee"] == 'yes') {
-            $testimonialInfo["designation"] = $inputs['designation'] ?? null;
-            $testimonialInfo["company"] = $inputs['company'] ?? null;
-        }
-
-        return $testimonialInfo;
-    }
-
-    /**
      * Update Testimonial Model
      *
      * @param array $inputs
@@ -163,17 +114,11 @@ class TestimonialService extends Service
      */
     public function updateTestimonial(array $inputs, $id): array
     {
-        $newTestimonialInfo = $this->formatTestimonialInfo($inputs);
         DB::beginTransaction();
         try {
             $testimonial = $this->testimonialRepository->show($id);
             if ($testimonial instanceof Testimonial) {
-                if ($this->testimonialRepository->update($newTestimonialInfo, $id)) {
-                    //handling Comment List
-                    $testimonial->surveys()->sync($inputs['survey_id']);
-                    $testimonial->previousTestimonialings()->sync($inputs['prev_post_state_id']);
-                    $testimonial->futureTestimonialings()->sync($inputs['future_post_state_id']);
-                    $testimonial->save();
+                if ($this->testimonialRepository->update($inputs, $id)) {
                     DB::commit();
                     return ['status' => true, 'message' => __('Testimonial Info Updated'),
                         'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];

@@ -5,10 +5,10 @@ namespace App\Http\Requests\Backend\Portfolio;
 use Illuminate\Foundation\Http\FormRequest;
 
 /**
- * @class ProjectRequest
+ * @class TestimonialRequest
  * @package App\Http\Requests\Backend\Portfolio
  */
-class ProjectRequest extends FormRequest
+class TestimonialRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -28,13 +28,8 @@ class ProjectRequest extends FormRequest
     public function rules()
     {
         return [
-            "start_date" => ["required", "date"],
-            "end_date" => ["nullable", "date"],
-            "name" => ["required", "string", "min:2", "max:255"],
-            "owner" => ["required", "string", "min:2", "max:255"],
-            "url" => ["nullable", "url", "min:2"],
-            "description" => ["nullable", "string"],
-            "associate" => ["nullable", "string"],
+            "client" => ["required", "string", "min:2", "max:255"],
+            "feedback" => ["required", "string", "min:2"],
             "image" => ["nullable", "image"]
         ];
     }

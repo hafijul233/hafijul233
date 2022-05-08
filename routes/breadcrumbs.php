@@ -434,7 +434,7 @@ Breadcrumbs::for('backend.portfolio.testimonials.show', function (BreadcrumbTrai
 
     $testimonial = ($testimonial instanceof Testimonial) ? $testimonial : $testimonial[0];
 
-    $trail->push($testimonial->name, route('backend.portfolio.testimonials.show', $testimonial->id));
+    $trail->push($testimonial->client, route('backend.portfolio.testimonials.show', $testimonial->id));
 });
 
 Breadcrumbs::for('backend.portfolio.testimonials.edit', function (BreadcrumbTrail $trail, Testimonial $testimonial) {

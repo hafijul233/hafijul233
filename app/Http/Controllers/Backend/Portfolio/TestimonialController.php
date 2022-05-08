@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Backend\Portfolio;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Backend\Portfolio\CertificateRequest;
+use App\Http\Requests\Backend\Portfolio\TestimonialRequest;
 use App\Services\Auth\AuthenticatedSessionService;
 use App\Services\Backend\Portfolio\TestimonialService;
 use App\Supports\Utility;
@@ -76,13 +76,13 @@ class TestimonialController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  $request
+     * @param TestimonialRequest $request
      * @return RedirectResponse
      * @throws Exception|Throwable
      */
-    public function store(CertificateRequest $request): RedirectResponse
+    public function store(TestimonialRequest $request): RedirectResponse
     {
-        $confirm = $this->testimonialService->storeSurvey($request->except('_token'));
+        $confirm = $this->testimonialService->storeTestimonial($request->except('_token'));
         if ($confirm['status'] == true) {
             notify($confirm['message'], $confirm['level'], $confirm['title']);
             return redirect()->route('backend.portfolio.testimonials.index');
@@ -101,9 +101,9 @@ class TestimonialController extends Controller
      */
     public function show($id)
     {
-        if ($testimonial = $this->testimonialService->getSurveyById($id)) {
+        if ($testimonial = $this->testimonialService->getTestimonialById($id)) {
             return view('backend.portfolio.testimonial.show', [
-                'service' => $testimonial,
+                'testimonial' => $testimonial,
                 'timeline' => Utility::modelAudits($testimonial)
             ]);
         }
@@ -120,9 +120,9 @@ class TestimonialController extends Controller
      */
     public function edit($id)
     {
-        if ($testimonial = $this->testimonialService->getSurveyById($id)) {
+        if ($testimonial = $this->testimonialService->getTestimonialById($id)) {
             return view('backend.portfolio.testimonial.edit', [
-                'service' => $testimonial
+                'testimonial' => $testimonial
             ]);
         }
 
@@ -132,14 +132,14 @@ class TestimonialController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param CertificateRequest $request
+     * @param TestimonialRequest $request
      * @param  $id
      * @return RedirectResponse
      * @throws Throwable
      */
-    public function update(CertificateRequest $request, $id): RedirectResponse
+    public function update(TestimonialRequest $request, $id): RedirectResponse
     {
-        $confirm = $this->testimonialService->updateSurvey($request->except('_token', 'submit', '_method'), $id);
+        $confirm = $this->testimonialService->updateTestimonial($request->except('_token', 'submit', '_method'), $id);
 
         if ($confirm['status'] == true) {
             notify($confirm['message'], $confirm['level'], $confirm['title']);
@@ -162,7 +162,7 @@ class TestimonialController extends Controller
     {
         if ($this->authenticatedSessionService->validate($request)) {
 
-            $confirm = $this->testimonialService->destroySurvey($id);
+            $confirm = $this->testimonialService->destroyTestimonial($id);
 
             if ($confirm['status'] == true) {
                 notify($confirm['message'], $confirm['level'], $confirm['title']);
@@ -186,7 +186,7 @@ class TestimonialController extends Controller
     {
         if ($this->authenticatedSessionService->validate($request)) {
 
-            $confirm = $this->testimonialService->restoreSurvey($id);
+            $confirm = $this->testimonialService->restoreTestimonial($id);
 
             if ($confirm['status'] == true) {
                 notify($confirm['message'], $confirm['level'], $confirm['title']);
@@ -208,7 +208,7 @@ class TestimonialController extends Controller
     {
         $filters = $request->except('page');
 
-        $testimonialExport = $this->testimonialService->exportSurvey($filters);
+        $testimonialExport = $this->testimonialService->exportTestimonial($filters);
 
         $filename = 'Comment-' . date('Ymd-His') . '.' . ($filters['format'] ?? 'xlsx');
 
@@ -237,7 +237,7 @@ class TestimonialController extends Controller
     public function importBulk(Request $request)
     {
         $filters = $request->except('page');
-        $testimonials = $this->testimonialService->getAllSurveys($filters);
+        $testimonials = $this->testimonialService->getAllTestimonials($filters);
 
         return view('backend.portfolio.testimonialindex', [
             'testimonials' => $testimonials
@@ -254,7 +254,7 @@ class TestimonialController extends Controller
     {
         $filters = $request->except('page');
 
-        $testimonialExport = $this->testimonialService->exportSurvey($filters);
+        $testimonialExport = $this->testimonialService->exportTestimonial($filters);
 
         $filename = 'Comment-' . date('Ymd-His') . '.' . ($filters['format'] ?? 'xlsx');
 

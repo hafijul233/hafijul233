@@ -28,7 +28,7 @@
 
 @section('actions')
     {!! \Html::linkButton(__('Add Testimonial'), 'backend.portfolio.testimonials.create', [], 'fas fa-plus', 'success') !!}
-    {{--{!! \Html::bulkDropdown('backend.portfolio.testimonials', 0, ['color' => 'warning']) !!}--}}
+    {!! \Html::bulkDropdown('backend.portfolio.testimonials', 0, ['color' => 'warning']) !!}
 @endsection
 
 @section('content')
@@ -46,7 +46,8 @@
                                     <thead class="thead-light">
                                     <tr>
                                         <th class="align-middle">@sortablelink('id', '#')</th>
-                                        <th>@sortablelink('name', __('common.Name'))</th>
+                                        <th>@sortablelink('client', __('common.Client'))</th>
+                                        <th>@sortablelink('feedback', __('common.Feedback'))</th>
                                         <th class="text-center">@sortablelink('enabled', __('common.Enabled'))</th>
                                         <th class="text-center">@sortablelink('created_at', __('common.Created'))</th>
                                         <th class="text-center">{!! __('common.Actions') !!}</th>
@@ -61,12 +62,16 @@
                                             <td class="text-left">
                                                 @can('backend.portfolio.testimonials.show')
                                                     <a href="{{ route('backend.portfolio.testimonials.show', $testimonial->id) }}">
-                                                        {{ $testimonial->name }}
+                                                        {{ $testimonial->client }}
                                                     </a>
                                                 @else
-                                                    {{ $testimonial->name }}
+                                                    {{ $testimonial->client }}
                                                 @endcan
                                             </td>
+                                            <td class="text-left text-truncate">
+                                                    {{ $testimonial->feedback }}
+                                            </td>
+
                                             <td class="text-center exclude-search">
                                                 {!! \Html::enableToggle($testimonial) !!}
                                             </td>
