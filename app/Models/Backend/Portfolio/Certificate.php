@@ -74,7 +74,7 @@ class Certificate extends Model implements Auditable, HasMedia
     {
         $this->addMediaCollection('certificates')
             ->useDisk('service')
-            ->useFallbackUrl(Constant::SERVICE_IMAGE)
+            ->useFallbackUrl(asset(Constant::SERVICE_IMAGE))
             ->acceptsMimeTypes(['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/svg'])
             ->singleFile();
     }

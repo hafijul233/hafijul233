@@ -103,7 +103,7 @@ class CertificateController extends Controller
     {
         if ($certificate = $this->certificateService->getCertificateById($id)) {
             return view('backend.portfolio.certificate.show', [
-                'service' => $certificate,
+                'certificate' => $certificate,
                 'timeline' => Utility::modelAudits($certificate)
             ]);
         }

@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Backend\Blog\NewsLetter;
+use App\Models\Backend\Portfolio\Certificate;
 use App\Models\Backend\Portfolio\Service;
 use App\Models\Backend\Resume\Award;
 use App\Models\Backend\Blog\Post;
@@ -364,7 +365,7 @@ Breadcrumbs::for('backend.portfolio.certificates.show', function (BreadcrumbTrai
 
     $trail->parent('backend.portfolio.certificates.index');
 
-    $certificate = ($certificate instanceof Post) ? $certificate : $certificate[0];
+    $certificate = ($certificate instanceof Certificate) ? $certificate : $certificate[0];
 
     $trail->push($certificate->name, route('backend.portfolio.certificates.show', $certificate->id));
 });

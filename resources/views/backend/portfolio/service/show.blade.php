@@ -65,7 +65,7 @@
             </div>
         </div>
     </div>
-    {!! \App\Supports\CHTML::confirmModal('Post', ['delete', 'restore']) !!}
+    {!! \App\Supports\CHTML::confirmModal('Service', ['delete', 'restore']) !!}
 @endsection
 
 

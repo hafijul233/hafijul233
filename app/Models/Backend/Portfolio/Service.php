@@ -70,7 +70,7 @@ class Service extends Model implements HasMedia, Auditable
     {
         $this->addMediaCollection('services')
             ->useDisk('service')
-            ->useFallbackUrl(Constant::SERVICE_IMAGE)
+            ->useFallbackUrl(asset(Constant::SERVICE_IMAGE))
             ->acceptsMimeTypes(['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/svg'])
             ->singleFile();
     }
