@@ -3,6 +3,7 @@
 namespace Database\Seeders\Backend\Portfolio;
 
 use App\Models\Backend\Portfolio\Service;
+use App\Models\Backend\Portfolio\Testimonial;
 use Illuminate\Database\Seeder;
 
 class TestimonialSeeder extends Seeder
@@ -14,6 +15,6 @@ class TestimonialSeeder extends Seeder
      */
     public function run()
     {
-        Service::factory()->count(20)->create();
+        Testimonial::factory()->count(20)->create();
     }
 }

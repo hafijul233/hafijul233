@@ -19,10 +19,11 @@ class CertificateFactory extends Factory
     {
         return [
             'title' => $this->faker->paragraph(1),
-            'organization' => $this->faker->company,
+            'organization' => $this->faker->company(),
             'issue_date' => $this->faker->date(),
             'expire_date' => $this->faker->date(),
-            'description' => $this->faker->paragraph(3),
+            'credential' => $this->faker->md5(),
+            'description' => $this->faker->paragraph(5),
             'enabled' => Constant::ENABLED_OPTION
         ];
     }
