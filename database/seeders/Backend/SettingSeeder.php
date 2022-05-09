@@ -2,11 +2,13 @@
 
 namespace Database\Seeders\Backend;
 
+use Database\Seeders\Backend\Setting\AdminRegisterSeeder;
 use Database\Seeders\Backend\Setting\CitySeeder;
 use Database\Seeders\Backend\Setting\CountrySeeder;
 use Database\Seeders\Backend\Setting\PermissionSeeder;
 use Database\Seeders\Backend\Setting\RolePermissionSeeder;
 use Database\Seeders\Backend\Setting\RoleSeeder;
+use Database\Seeders\Backend\Setting\SARegisterSeeder;
 use Database\Seeders\Backend\Setting\StateSeeder;
 use Exception;
 use Illuminate\Database\Seeder;

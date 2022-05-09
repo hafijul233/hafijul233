@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Seeders\Backend;
+namespace Database\Seeders\Backend\Setting;
 
 use App\Models\Backend\Setting\Role;
 use App\Models\Backend\Setting\User;
@@ -8,6 +8,7 @@ use App\Repositories\Eloquent\Backend\Common\AddressBookRepository;
 use App\Repositories\Eloquent\Backend\Setting\UserRepository;
 use App\Services\Backend\Common\FileUploadService;
 use App\Supports\Constant;
+use App\Supports\Utility;
 use Exception;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Seeder;
@@ -15,7 +16,7 @@ use Spatie\MediaLibrary\MediaCollections\Exceptions\FileDoesNotExist;
 use Spatie\MediaLibrary\MediaCollections\Exceptions\FileIsTooBig;
 use Throwable;
 
-class SARegisterSeeder extends Seeder
+class AdminRegisterSeeder extends Seeder
 {
     /**
      * @var UserRepository
@@ -63,12 +64,12 @@ class SARegisterSeeder extends Seeder
 
         try {
             $newUser = [
-                'name' => 'Mohammad Hafijul Islam',
-                'username' => 'hafijul233',
-                'email' => 'hafijul233@gmail.com',
-                'password' => '$2y$10$dR0epIEc9PSiJ7XgrhZ.5ejIEoh.OzAJUiSr96m7rfuHQDwdwI5Dq',
-                'mobile' => '01710534092',
-                'remarks' => 'Database Seeder',
+                'name' => 'Super Admin of BBS',
+                'username' => 'admin',
+                'email' => 'admin@admin.com',
+                'password' => Utility::hashPassword(Constant::PASSWORD),
+                'mobile' => '01111111111',
+                'remarks' => 'System User',
                 'enabled' => Constant::ENABLED_OPTION,
                 'force_pass_reset' => false
             ];
@@ -122,7 +123,7 @@ class SARegisterSeeder extends Seeder
     protected function attachUserRoles(User $user): bool
     {
 
-        $adminRole = Role::findByName(Constant::SUPER_ADMIN_ROLE);
+        $adminRole = Role::findByName("Administrator");
         $this->userRepository->setModel($user);
         return $this->userRepository->manageRoles([$adminRole->id]);
     }
