@@ -2,16 +2,10 @@
 
 namespace Database\Seeders;
 
-use Database\Seeders\Backend\AdminRegisterSeeder;
-use Database\Seeders\Backend\Portfolio\CertificateSeeder;
-use Database\Seeders\Backend\Portfolio\ServiceSeeder;
-use Database\Seeders\Backend\SARegisterSeeder;
-use Database\Seeders\Backend\Setting\CitySeeder;
-use Database\Seeders\Backend\Setting\CountrySeeder;
-use Database\Seeders\Backend\Setting\PermissionSeeder;
-use Database\Seeders\Backend\Setting\RolePermissionSeeder;
-use Database\Seeders\Backend\Setting\RoleSeeder;
-use Database\Seeders\Backend\Setting\StateSeeder;
+use Database\Seeders\Backend\BlogSeeder;
+use Database\Seeders\Backend\PortfolioSeeder;
+use Database\Seeders\Backend\ResumeSeeder;
+use Database\Seeders\Backend\SettingSeeder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Seeder;
 
@@ -26,16 +20,10 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         Model::unguard();
-        $this->call(CountrySeeder::class);
-        $this->call(StateSeeder::class);
-        $this->call(CitySeeder::class);
-        $this->call(PermissionSeeder::class);
-        $this->call(RoleSeeder::class);
-        $this->call(RolePermissionSeeder::class);
-        $this->call(SARegisterSeeder::class);
-        $this->call(AdminRegisterSeeder::class);
-        $this->call(ServiceSeeder::class);
-        $this->call(CertificateSeeder::class);
+        $this->call(SettingSeeder::class);
+        $this->call(PortfolioSeeder::class);
+        $this->call(ResumeSeeder::class);
+        $this->call(BlogSeeder::class);
         Model::reguard();
     }
 }
