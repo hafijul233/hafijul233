@@ -18,7 +18,7 @@ class ServiceFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->name,
+            'name' => $this->faker->jobTitle(),
             'summary' => $this->faker->paragraph(5),
             'description' => $this->faker->randomHtml(20),
             'enabled' => Constant::ENABLED_OPTION

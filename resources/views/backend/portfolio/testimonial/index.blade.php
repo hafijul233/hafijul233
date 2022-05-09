@@ -46,8 +46,8 @@
                                     <thead class="thead-light">
                                     <tr>
                                         <th class="align-middle">@sortablelink('id', '#')</th>
-                                        <th>@sortablelink('client', __('common.Client'))</th>
-                                        <th>@sortablelink('feedback', __('common.Feedback'))</th>
+                                        <th class="text-center">@sortablelink('client', __('common.Client'))</th>
+                                        <th class="text-center">@sortablelink('feedback', __('common.Feedback'))</th>
                                         <th class="text-center">@sortablelink('enabled', __('common.Enabled'))</th>
                                         <th class="text-center">@sortablelink('created_at', __('common.Created'))</th>
                                         <th class="text-center">{!! __('common.Actions') !!}</th>
@@ -62,14 +62,14 @@
                                             <td class="text-left">
                                                 @can('backend.portfolio.testimonials.show')
                                                     <a href="{{ route('backend.portfolio.testimonials.show', $testimonial->id) }}">
-                                                        {{ $testimonial->client }}
+                                                        {{ $testimonial->client ?? null }}
                                                     </a>
                                                 @else
-                                                    {{ $testimonial->client }}
+                                                    {{ $testimonial->client ?? null }}
                                                 @endcan
                                             </td>
-                                            <td class="text-left text-truncate">
-                                                    {{ $testimonial->feedback }}
+                                            <td class="text-left">
+                                                {{ $testimonial->feedback ?? null }}
                                             </td>
 
                                             <td class="text-center exclude-search">
