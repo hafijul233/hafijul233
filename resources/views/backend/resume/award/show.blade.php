@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', $survey->name)
+@section('title', $award->name)
 
 @push('meta')
 
@@ -22,11 +22,11 @@
 
 @endpush
 
-@section('breadcrumbs', Breadcrumbs::render(Route::getCurrentRoute()->getName(), $survey))
+@section('breadcrumbs', Breadcrumbs::render(Route::getCurrentRoute()->getName(), $award))
 
 @section('actions')
-    {!! \Html::backButton('backend.portfolio.surveys.index') !!}
-    {{--    {!! \Html::modelDropdown('backend.portfolio.surveys', $service->id, ['color' => 'success',
+    {!! \Html::backButton('backend.resume.awards.index') !!}
+    {{--    {!! \Html::modelDropdown('backend.resume.awards', $service->id, ['color' => 'success',
             'actions' => array_merge(['edit'], ($service->deleted_at == null) ? ['delete'] : ['restore'])]) !!}--}}
 @endsection
 
@@ -39,11 +39,11 @@
                         <div class="row mb-3">
                             <div class="col-md-6">
                                 <label class="d-block">Name</label>
-                                <p class="font-weight-bold">{{ $survey->name ?? null }}</p>
+                                <p class="font-weight-bold">{{ $award->name ?? null }}</p>
                             </div>
                             <div class="col-md-6">
                                 <label class="d-block">Enabled</label>
-                                <p class="font-weight-bold">{{ \App\Supports\Constant::ENABLED_OPTIONS[$survey->enabled] }}</p>
+                                <p class="font-weight-bold">{{ \App\Supports\Constant::ENABLED_OPTIONS[$award->enabled] }}</p>
                             </div>
                         </div>
 

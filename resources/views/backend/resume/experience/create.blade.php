@@ -26,7 +26,7 @@
 @section('breadcrumbs', \Breadcrumbs::render(Route::getCurrentRoute()->getName()))
 
 @section('actions')
-    {!! \Html::backButton('backend.settings.catalogs.index') !!}
+    {!! \Html::backButton('backend.resume.experiences.index') !!}
 @endsection
 
 @section('content')
@@ -34,8 +34,8 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="card card-default">
-                    {!! \Form::open(['route' => 'backend.settings.catalogs.store', 'id' => 'catalog-form']) !!}
-                    @include('backend.setting.catalog.form')
+                    {!! \Form::open(['route' => 'backend.resume.experiences.store', 'id' => 'catalog-form']) !!}
+                    @include('backend.resume.experience.form')
                     {!! \Form::close() !!}
                 </div>
             </div>

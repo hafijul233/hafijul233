@@ -25,8 +25,8 @@
 @section('breadcrumbs', Breadcrumbs::render(Route::getCurrentRoute()->getName(), $survey))
 
 @section('actions')
-    {!! \Html::backButton('backend.portfolio.surveys.index') !!}
-    {{--    {!! \Html::modelDropdown('backend.portfolio.surveys', $service->id, ['color' => 'success',
+    {!! \Html::backButton('backend.resume.surveys.index') !!}
+    {{--    {!! \Html::modelDropdown('backend.resume.surveys', $service->id, ['color' => 'success',
             'actions' => array_merge(['edit'], ($service->deleted_at == null) ? ['delete'] : ['restore'])]) !!}--}}
 @endsection
 

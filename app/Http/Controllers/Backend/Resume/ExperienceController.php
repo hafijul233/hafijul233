@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Backend\Resume;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Backend\Portfolio\EducationRequest;
-use App\Http\Requests\Backend\Portfolio\AwardRequest;
+use App\Http\Requests\Backend\Resume\AwardRequest;
+use App\Http\Requests\Backend\Resume\ExperienceRequest;
 use App\Services\Auth\AuthenticatedSessionService;
 use App\Services\Backend\Resume\ExperienceService;
 use App\Supports\Constant;
@@ -86,11 +86,11 @@ class ExperienceController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param AwardRequest $request
+     * @param ExperienceRequest $request
      * @return RedirectResponse
-     * @throws Exception|Throwable
+     * @throws Throwable
      */
-    public function store(AwardRequest $request): RedirectResponse
+    public function store(ExperienceRequest $request): RedirectResponse
     {
         $inputs = $request->except('_token');
 
@@ -158,12 +158,12 @@ class ExperienceController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param AwardRequest $request
+     * @param ExperienceRequest $request
      * @param  $id
      * @return RedirectResponse
      * @throws Throwable
      */
-    public function update(EducationRequest $request, $id): RedirectResponse
+    public function update(ExperienceRequest $request, $id): RedirectResponse
     {
         $inputs = $request->except('_token', 'submit', '_method');
         $confirm = $this->experienceService->updateEnumerator($inputs, $id);

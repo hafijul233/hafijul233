@@ -25,8 +25,8 @@
 @section('breadcrumbs', Breadcrumbs::render(Route::getCurrentRoute()->getName(), $catalog))
 
 @section('actions')
-    {!! \Html::backButton('backend.settings.catalogs.index') !!}
-    {!! \Html::modelDropdown('backend.settings.catalogs', $catalog->id, ['color' => 'success',
+    {!! \Html::backButton('backend.resume.experiences.index') !!}
+    {!! \Html::modelDropdown('backend.resume.experiences', $catalog->id, ['color' => 'success',
         'actions' => array_merge(['edit'], ($catalog->deleted_at == null) ? ['delete'] : ['restore'])]) !!}
 @endsection
 
