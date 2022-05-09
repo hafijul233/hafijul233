@@ -2,8 +2,8 @@
 
 namespace Database\Seeders\Backend\Portfolio;
 
-use App\Models\Backend\Portfolio\Service;
 use App\Models\Backend\Portfolio\Testimonial;
+use Database\Factories\Backend\Portfolio\TestimonialFactory;
 use Illuminate\Database\Seeder;
 
 class TestimonialSeeder extends Seeder
@@ -15,6 +15,9 @@ class TestimonialSeeder extends Seeder
      */
     public function run()
     {
+        /**
+         * @var TestimonialFactory
+         */
         Testimonial::factory()->count(20)->create();
     }
 }

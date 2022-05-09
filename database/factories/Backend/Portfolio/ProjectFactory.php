@@ -2,7 +2,6 @@
 
 namespace Database\Factories\Backend\Portfolio;
 
-use App\Models\Backend\Portfolio\Certificate;
 use App\Models\Backend\Portfolio\Project;
 use App\Supports\Constant;
 use Illuminate\Database\Eloquent\Factories\Factory;

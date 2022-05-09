@@ -1,9 +1,9 @@
 <?php
 
+use App\Supports\Constant;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use App\Supports\Constant;
 
 
 class CreateExperiencesTable extends Migration
@@ -30,7 +30,7 @@ class CreateExperiencesTable extends Migration
             $table->text('description')->nullable();
             $table->string('url')->nullable();
             $table->enum('enabled', array_keys(Constant::ENABLED_OPTIONS))
-                  ->default(Constant::ENABLED_OPTION)->nullable();
+                ->default(Constant::ENABLED_OPTION)->nullable();
             $table->dateTime('created_at')->nullable();
             $table->dateTime('updated_at')->nullable();
             $table->dateTime('deleted_at')->nullable();

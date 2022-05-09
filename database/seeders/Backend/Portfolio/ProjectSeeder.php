@@ -3,6 +3,7 @@
 namespace Database\Seeders\Backend\Portfolio;
 
 use App\Models\Backend\Portfolio\Project;
+use Database\Factories\Backend\Portfolio\ProjectFactory;
 use Illuminate\Database\Seeder;
 
 /**
@@ -18,6 +19,9 @@ class ProjectSeeder extends Seeder
      */
     public function run()
     {
+        /**
+         * @var ProjectFactory
+         */
         Project::factory()->count(20)->create();
     }
 }
