@@ -32,6 +32,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.ACTION_GIT_TOKEN }}
         with:
           filename: .github/PHPSTAN_TEMPLATE.md
-          assignees: hafijul233, octocat
+          assignees: hafijul233
           update_existing: true
           search_existing: all
