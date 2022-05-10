@@ -1,10 +1,10 @@
 <div class="card-body">
     <div class="row">
         <div class="col-md-12">
-            {!! \Form::nText('client', __('common.Client'), old('client', $testimonial->client ?? null), true) !!}
+            {!! \Form::nText('client', __('portfolio.testimonial.Client'), old('client', $testimonial->client ?? null), true) !!}
         </div>
         <div class="col-md-12">
-            {!! \Form::nTextarea('feedback', __('common.Client'), old('feedback', $testimonial->feedback ?? null), true) !!}
+            {!! \Form::nTextarea('feedback', __('portfolio.testimonial.Feedback'), old('feedback', $testimonial->feedback ?? null), true) !!}
         </div>
 
     </div>

@@ -26,11 +26,17 @@ return [
         'Verify URL' => 'Verify URL'
     ],
     'project' => [
+        'Add Project' => 'Ad Project',
         'Owner' => 'Owner',
         'Start Date' => 'Start Date',
         'End Date' => 'End Date',
         'Associate' => 'Associate',
         'URL' => 'URL',
+    ],
+    'testimonial' => [
+        'Add Testimonial' => 'Ad Testimonial',
+        'Client' => 'Client',
+        'Feedback' => 'Feedback',
     ],
     'Add Post' => 'Add Post',
     'Edit Post' => 'Edit Post',
