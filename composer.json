@@ -82,6 +82,7 @@
     },
     "scripts": {
         "analyse": "vendor/bin/phpstan analyse > analyse.log",
+        "git-issue" : "vendor/bin/phpstan analyse --error-format=gitlab > phpstan-report.json",
         "test": "vendor/bin/pest",
         "test-coverage": "vendor/bin/pest --coverage",
         "post-autoload-dump": [
