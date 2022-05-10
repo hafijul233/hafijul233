@@ -26,12 +26,12 @@ jobs:
       - name: Run PHPStan
         run: ./vendor/bin/phpstan --error-format=github
 
-      -name: Post issue on github
-               - uses: JasonEtco/create-an-issue@v2
-               env:
-                 GITHUB_TOKEN: ${{ secrets.ACTION_GIT_TOKEN }}
-               with:
-                 filename: .github/PHPSTAN_TEMPLATE.md
-                 assignees: hafijul233, octocat
-                 update_existing: true
-                 search_existing: all
+      - name: Post issue on github
+        uses: JasonEtco/create-an-issue@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.ACTION_GIT_TOKEN }}
+        with:
+          filename: .github/PHPSTAN_TEMPLATE.md
+          assignees: hafijul233, octocat
+          update_existing: true
+          search_existing: all
