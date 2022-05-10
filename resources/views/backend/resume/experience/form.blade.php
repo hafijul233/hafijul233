@@ -6,7 +6,7 @@
             {!! \Form::nText('title', __('resume.experience.Title'), old('title', $experience->title ?? null), true) !!}
         </div>
         <div class="col-md-6">
-            {!! \Form::nSelect('type', __('resume.experience.Type'), ['full-time' => 'Full-time', 'part-time' => 'Part-time', 'intern' => 'Intern'], old('type', $experience->type ?? null), false) !!}
+            {!! \Form::nSelect('type', __('resume.experience.Type'), \App\Supports\Constant::EMPLOYEEMENT_TYPE, old('type', $experience->type ?? null), false) !!}
         </div>
         <div class="col-md-12">
             {!! \Form::nText('organization', __('resume.experience.Organization'), old('organization', $experience->organization ?? null), true) !!}

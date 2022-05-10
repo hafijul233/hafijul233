@@ -47,6 +47,7 @@
                                     <tr>
                                         <th class="align-middle">@sortablelink('id', '#')</th>
                                         <th>@sortablelink('name', __('common.Name'))</th>
+                                        <th>@sortablelink('organization', __('common.Organization'))</th>
                                         <th class="text-center">@sortablelink('type', 'Type')</th>
                                         <th class="text-center">@sortablelink('enabled', __('common.Enabled'))</th>
                                         <th class="text-center">@sortablelink('created_at', __('common.Created'))</th>
@@ -62,15 +63,19 @@
                                             <td class="text-left">
                                                 @can('backend.resume.experiences.show')
                                                     <a href="{{ route('backend.resume.experiences.show', $experience->id) }}">
-                                                        {{ $experience->name }}
+                                                        {{ $experience->title }}
                                                     </a>
                                                 @else
-                                                    {{ $experience->name }}
+                                                    {{ $experience->title }}
                                                 @endcan
                                             </td>
-                                            <td class="text-center">
-                                                {{ \App\Supports\Constant::CATALOG_LABEL[$experience->type] }}
+                                            <td class="text-left">
+                                                {{ $experience->organization ?? null }}
                                             </td>
+                                            <td class="text-center">
+                                                {{ \App\Supports\Constant::EMPLOYEEMENT_TYPE[$experience->type] }}
+                                            </td>
+
                                             <td class="text-center exclude-search">
                                                 {!! \Html::enableToggle($experience) !!}
                                             </td>

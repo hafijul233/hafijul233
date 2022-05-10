@@ -19,11 +19,12 @@ class ExperienceRequest extends FormRequest
     {
         return [
             "title" => ["required", "string", "min:2", "max:255"],
+            "type" => ["required", "string", "min:2", "max:255"],
             "organization" => ["required", "string", "min:2", "max:255"],
-            "issue_date" => ["required", "date"],
-            "expire_date" => ["nullable", "date"],
-            "credential" => ["nullable", "string", "min:2", "max:255"],
-            "verify_url" => ["nullable", "url", "min:2", "max:255"],
+            "start_date" => ["required", "date"],
+            "end_date" => ["nullable", "date"],
+            "address" => ["nullable", "string", "min:2", "max:255"],
+            "url" => ["nullable", "url", "min:2", "max:255"],
             "description" => ["nullable", "string", "min:2"],
             "image" => ["nullable", "image"]
         ];

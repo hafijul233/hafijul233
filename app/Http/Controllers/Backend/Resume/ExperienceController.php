@@ -93,11 +93,11 @@ class ExperienceController extends Controller
     {
         $inputs = $request->except('_token');
 
-        $confirm = $this->experienceService->storeEnumerator($inputs);
+        $confirm = $this->experienceService->storeExperience($inputs);
 
         if ($confirm['status'] == true) {
             notify($confirm['message'], $confirm['level'], $confirm['title']);
-            return redirect()->route('backend.portfolio.experiences.index');
+            return redirect()->route('backend.resume.experiences.index');
         }
 
         notify($confirm['message'], $confirm['level'], $confirm['title']);
@@ -113,7 +113,7 @@ class ExperienceController extends Controller
      */
     public function show($id)
     {
-        if ($experience = $this->experienceService->getEnumeratorById($id)) {
+        if ($experience = $this->experienceService->getExperienceById($id)) {
             return view('backend.resume.experience.show', [
                 'certificate' => $experience,
                 'timeline' => Utility::modelAudits($experience)
@@ -134,7 +134,7 @@ class ExperienceController extends Controller
      */
     public function edit($id)
     {
-        if ($experience = $this->experienceService->getEnumeratorById($id)) {
+        if ($experience = $this->experienceService->getExperienceById($id)) {
 
             $enables = [];
             foreach (Constant::ENABLED_OPTIONS as $field => $label):
@@ -165,11 +165,11 @@ class ExperienceController extends Controller
     public function update(ExperienceRequest $request, $id): RedirectResponse
     {
         $inputs = $request->except('_token', 'submit', '_method');
-        $confirm = $this->experienceService->updateEnumerator($inputs, $id);
+        $confirm = $this->experienceService->updateExperience($inputs, $id);
 
         if ($confirm['status'] == true) {
             notify($confirm['message'], $confirm['level'], $confirm['title']);
-            return redirect()->route('backend.portfolio.experiences.index');
+            return redirect()->route('backend.resume.experiences.index');
         }
 
         notify($confirm['message'], $confirm['level'], $confirm['title']);
@@ -188,14 +188,14 @@ class ExperienceController extends Controller
     {
         if ($this->authenticatedSessionService->validate($request)) {
 
-            $confirm = $this->experienceService->destroyEnumerator($id);
+            $confirm = $this->experienceService->destroyExperience($id);
 
             if ($confirm['status'] == true) {
                 notify($confirm['message'], $confirm['level'], $confirm['title']);
             } else {
                 notify($confirm['message'], $confirm['level'], $confirm['title']);
             }
-            return redirect()->route('backend.portfolio.experiences.index');
+            return redirect()->route('backend.resume.experiences.index');
         }
         abort(403, 'Wrong user credentials');
     }
@@ -212,14 +212,14 @@ class ExperienceController extends Controller
     {
         if ($this->authenticatedSessionService->validate($request)) {
 
-            $confirm = $this->experienceService->restoreEnumerator($id);
+            $confirm = $this->experienceService->restoreExperience($id);
 
             if ($confirm['status'] == true) {
                 notify($confirm['message'], $confirm['level'], $confirm['title']);
             } else {
                 notify($confirm['message'], $confirm['level'], $confirm['title']);
             }
-            return redirect()->route('backend.portfolio.experiences.index');
+            return redirect()->route('backend.resume.experiences.index');
         }
         abort(403, 'Wrong user credentials');
     }
@@ -238,7 +238,7 @@ class ExperienceController extends Controller
     public function export(Request $request)
     {
         $filters = $request->except('page');
-        $experienceExport = $this->experienceService->exportEnumerator($filters);
+        $experienceExport = $this->experienceService->exportExperience($filters);
         $filename = 'Post-' . date('Ymd-His') . '.' . ($filters['format'] ?? 'xlsx');
         return $experienceExport->download($filename, function ($experience) use ($experienceExport) {
             return $experienceExport->map($experience);
@@ -256,11 +256,11 @@ class ExperienceController extends Controller
     {
         $filters = $request->except('page');
 
-        $experiences = $this->experienceService->getAllEnumerators($filters);
+        $experiences = $this->experienceService->getAllExperiences($filters);
 
         if (count($experiences) > 0):
             foreach ($experiences as $index => $experience) :
-                $experiences[$index]->update_route = route('backend.portfolio.experiences.update', $experience->id);
+                $experiences[$index]->update_route = route('backend.resume.experiences.update', $experience->id);
                 $experiences[$index]->survey_id = $experience->surveys->pluck('id')->toArray();
                 $experiences[$index]->prev_post_state_id = $experience->previousPostings->pluck('id')->toArray();
                 $experiences[$index]->future_post_state_id = $experience->futurePostings->pluck('id')->toArray();

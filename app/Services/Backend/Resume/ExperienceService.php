@@ -3,7 +3,7 @@
 namespace App\Services\Backend\Resume;
 
 use App\Abstracts\Service\Service;
-use App\Exports\Backend\Organization\EnumeratorExport;
+use App\Exports\Backend\Organization\ExperienceExport;
 use App\Models\Backend\Portfolio\Post;
 use App\Models\Backend\Resume\Experience;
 use App\Repositories\Eloquent\Backend\Resume\ExperienceRepository;
@@ -44,7 +44,7 @@ class ExperienceService extends Service
      * @return Builder[]|Collection
      * @throws Exception
      */
-    public function getAllEnumerators(array $filters = [], array $eagerRelations = [])
+    public function getAllExperiences(array $filters = [], array $eagerRelations = [])
     {
         return $this->experienceRepository->getWith($filters, $eagerRelations, true);
     }
@@ -70,7 +70,7 @@ class ExperienceService extends Service
      * @return mixed
      * @throws Exception
      */
-    public function getEnumeratorById($id, bool $purge = false)
+    public function getExperienceById($id, bool $purge = false)
     {
         return $this->experienceRepository->show($id, $purge);
     }
@@ -83,19 +83,12 @@ class ExperienceService extends Service
      * @throws Exception
      * @throws Throwable
      */
-    public function storeEnumerator(array $inputs): array
+    public function storeExperience(array $inputs): array
     {
-        $newEnumeratorInfo = $this->formatEnumeratorInfo($inputs);
         DB::beginTransaction();
         try {
-            $newEnumerator = $this->experienceRepository->create($newEnumeratorInfo);
-            if ($newEnumerator instanceof Experience) {
-                //handling Comment List
-                $newEnumerator->surveys()->attach($inputs['survey_id']);
-                $newEnumerator->previousPostings()->attach($inputs['prev_post_state_id']);
-                $newEnumerator->futurePostings()->attach($inputs['future_post_state_id']);
-                $newEnumerator->save();
-
+            $newExperience = $this->experienceRepository->create($inputs);
+            if ($newExperience instanceof Experience) {
                 DB::commit();
                 return ['status' => true, 'message' => __('New Post Created'),
                     'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
@@ -118,7 +111,7 @@ class ExperienceService extends Service
      * @param array $inputs
      * @return array
      */
-    private function formatEnumeratorInfo(array $inputs)
+    private function formatExperienceInfo(array $inputs)
     {
         $experienceInfo = [];
         $experienceInfo["survey_id"] = null;
@@ -162,14 +155,14 @@ class ExperienceService extends Service
      * @return array
      * @throws Throwable
      */
-    public function updateEnumerator(array $inputs, $id): array
+    public function updateExperience(array $inputs, $id): array
     {
-        $newEnumeratorInfo = $this->formatEnumeratorInfo($inputs);
+        $newExperienceInfo = $this->formatExperienceInfo($inputs);
         DB::beginTransaction();
         try {
             $experience = $this->experienceRepository->show($id);
             if ($experience instanceof Experience) {
-                if ($this->experienceRepository->update($newEnumeratorInfo, $id)) {
+                if ($this->experienceRepository->update($newExperienceInfo, $id)) {
                     //handling Comment List
                     $experience->surveys()->sync($inputs['survey_id']);
                     $experience->previousPostings()->sync($inputs['prev_post_state_id']);
@@ -202,7 +195,7 @@ class ExperienceService extends Service
      * @return array
      * @throws Throwable
      */
-    public function destroyEnumerator($id): array
+    public function destroyExperience($id): array
     {
         DB::beginTransaction();
         try {
@@ -231,7 +224,7 @@ class ExperienceService extends Service
      * @return array
      * @throws Throwable
      */
-    public function restoreEnumerator($id): array
+    public function restoreExperience($id): array
     {
         DB::beginTransaction();
         try {
@@ -257,12 +250,12 @@ class ExperienceService extends Service
      * Export Object for Export Download
      *
      * @param array $filters
-     * @return EnumeratorExport
+     * @return ExperienceExport
      * @throws Exception
      */
-    public function exportEnumerator(array $filters = []): EnumeratorExport
+    public function exportExperience(array $filters = []): ExperienceExport
     {
-        return (new EnumeratorExport($this->experienceRepository->getWith($filters)));
+        return (new ExperienceExport($this->experienceRepository->getWith($filters)));
     }
 
     /**

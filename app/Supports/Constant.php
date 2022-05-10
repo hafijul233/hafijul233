@@ -156,4 +156,10 @@ class Constant
         6 => "Others",
 
     ];
+
+    const EMPLOYEEMENT_TYPE = [
+        'full-time' => 'Full-time',
+        'part-time' => 'Part-time',
+        'intern' => 'Intern'
+    ];
 }
