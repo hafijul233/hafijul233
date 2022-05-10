@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Backend\Portfolio;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Backend\Portfolio\SkillRequest;
+use App\Http\Requests\Backend\Portfolio\TestimonialRequest;
 use App\Services\Auth\AuthenticatedSessionService;
 use App\Services\Backend\Portfolio\TestimonialService;
 use App\Supports\Utility;
@@ -76,11 +76,11 @@ class TestimonialController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param SkillRequest $request
+     * @param TestimonialRequest $request
      * @return RedirectResponse
-     * @throws Exception|Throwable
+     * @throws Throwable
      */
-    public function store(SkillRequest $request): RedirectResponse
+    public function store(TestimonialRequest $request): RedirectResponse
     {
         $confirm = $this->testimonialService->storeTestimonial($request->except('_token'));
         if ($confirm['status'] == true) {
@@ -132,12 +132,12 @@ class TestimonialController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param SkillRequest $request
+     * @param TestimonialRequest $request
      * @param  $id
      * @return RedirectResponse
      * @throws Throwable
      */
-    public function update(SkillRequest $request, $id): RedirectResponse
+    public function update(TestimonialRequest $request, $id): RedirectResponse
     {
         $confirm = $this->testimonialService->updateTestimonial($request->except('_token', 'submit', '_method'), $id);
 

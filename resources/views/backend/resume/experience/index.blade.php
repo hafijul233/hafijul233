@@ -28,7 +28,7 @@
 
 @section('actions')
     {!! \Html::linkButton('Add Experience', 'backend.resume.experiences.create', [], 'fas fa-plus', 'success') !!}
-   {{-- {!! \Html::bulkDropdown('backend.resume.experiences', 0, ['color' => 'warning']) !!}--}}
+    {!! \Html::bulkDropdown('backend.resume.experiences', 0, ['color' => 'warning']) !!}
 @endsection
 
 @section('content')

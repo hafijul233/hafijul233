@@ -1,40 +1,38 @@
-//`title`, `type`, `company`, `address`, `start_date`, `end_date`, `description`, `url`, `enabled`
-
 @include('layouts.includes.html-editor')
 
 <div class="card-body">
     <div class="row">
         <div class="col-md-6">
-            {!! \Form::nText('title', __('portfolio.certificate.Title'), old('title', $experience->title ?? null), true) !!}
+            {!! \Form::nText('title', __('resume.experience.Title'), old('title', $experience->title ?? null), true) !!}
         </div>
         <div class="col-md-6">
-            {!! \Form::nText('organization', __('portfolio.certificate.Organization'), old('organization', $experience->organization ?? null), true) !!}
+            {!! \Form::nSelect('type', __('resume.experience.Type'), ['full-time' => 'Full-time', 'part-time' => 'Part-time', 'intern' => 'Intern'], old('type', $experience->type ?? null), false) !!}
         </div>
         <div class="col-md-12">
-            {!! \Form::nText('address', __('portfolio.certificate.Title'), old('address', $experience->address ?? null), true) !!}
+            {!! \Form::nText('organization', __('resume.experience.Organization'), old('organization', $experience->organization ?? null), true) !!}
+        </div>
+        <div class="col-md-12">
+            {!! \Form::nText('address', __('resume.experience.Address'), old('address', $experience->address ?? null), true) !!}
         </div>
         <div class="col-md-6">
-            {!! \Form::nDate('issue_date', __('portfolio.certificate.Issue Date'), old('issue_date', $experience->issue_date ?? null), true) !!}
+            {!! \Form::nDate('start_date', __('resume.experience.Start Date'), old('start_date', $experience->start_date ?? null), true) !!}
         </div>
         <div class="col-md-6">
-            {!! \Form::nDate('expire_date', __('portfolio.certificate.Expire Date'), old('expire_date', $experience->expire_date ?? null), false) !!}
+            {!! \Form::nDate('end_date', __('resume.experience.End Date'), old('end_date', $experience->end_date ?? null), false) !!}
         </div>
-        <div class="col-md-6">
-            {!! \Form::nText('credential', __('portfolio.certificate.Credential ID'), old('credential', $experience->credential ?? null), false) !!}
-        </div>
-        <div class="col-md-6">
-            {!! \Form::nUrl('verify_url', __('portfolio.certificate.Verify URL'), old('verify_url', $experience->verify_url ?? null), false) !!}
-        </div>
+{{--        <div class="col-md-6">
+            {!! \Form::nUrl('url', __('resume.experience.URL'), old('url', $experience->url ?? null), false) !!}
+        </div>--}}
         <div class="col-12">
             {!! \Form::nTextarea('description', __('common.Description'), old('description', $experience->description ?? null), false) !!}
         </div>
-        <div class="col-md-12">
+        {{--<div class="col-md-12">
             {!! \Form::nImage('image',__('common.Image'), false,
                 ['preview' => true, 'height' => '240',
                  'default' => (isset($experience))
                  ? $experience->getFirstMediaUrl('services')
                  : asset(\App\Supports\Constant::SERVICE_IMAGE)]) !!}
-        </div>
+        </div>--}}
     </div>
     <div class="row mt-3">
         <div class="col-12 justify-content-between d-flex">
