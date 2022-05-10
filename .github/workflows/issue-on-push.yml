@@ -1,13 +1,37 @@
-on: [push]
 name: Create an issue on push
+on:
+  push:
+    paths:
+      - '**.php'
+      - 'phpstan.neon.dist'
 permissions:
   contents: read
   issues: write
 jobs:
-  stuff:
+  phpstan:
+    name: run phpstan
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: JasonEtco/create-an-issue@v2
-        env:
-          GITHUB_TOKEN: ${{ secrets.ACTION_GIT_TOKEN }}
+      - uses: actions/checkout@v3
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '7.4'
+          coverage: none
+
+      - name: Install composer dependencies
+        uses: ramsey/composer-install@v1
+
+      - name: Run PHPStan
+        run: ./vendor/bin/phpstan --error-format=github
+
+      -name: Post issue on github
+               - uses: JasonEtco/create-an-issue@v2
+               env:
+                 GITHUB_TOKEN: ${{ secrets.ACTION_GIT_TOKEN }}
+               with:
+                 filename: .github/PHPSTAN_TEMPLATE.md
+                 assignees: hafijul233, octocat
+                 update_existing: true
+                 search_existing: all
