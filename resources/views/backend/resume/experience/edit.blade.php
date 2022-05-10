@@ -23,7 +23,7 @@
 @endpush
 
 
-@section('breadcrumbs', \Breadcrumbs::render(Route::getCurrentRoute()->getName(), $catalog))
+@section('breadcrumbs', \Breadcrumbs::render(Route::getCurrentRoute()->getName(), $experience))
 
 @section('actions')
     {!! \Html::backButton('backend.resume.experiences.index') !!}
@@ -34,7 +34,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="card">
-                    {!! \Form::open(['route' => ['backend.resume.experiences.update', $catalog->id], 'method' => 'put', 'id' => 'catalog-form']) !!}
+                    {!! \Form::open(['route' => ['backend.resume.experiences.update', $experience->id], 'method' => 'put', 'id' => 'experience-form']) !!}
                     @include('backend.resume.experience.form')
                     {!! \Form::close() !!}
                 </div>

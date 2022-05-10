@@ -475,7 +475,7 @@ Breadcrumbs::for('backend.resume.experiences.show', function (BreadcrumbTrail $t
 
     $experience = ($experience instanceof Experience) ? $experience : $experience[0];
 
-    $trail->push($experience->name, route('backend.resume.experiences.show', $experience->id));
+    $trail->push($experience->title, route('backend.resume.experiences.show', $experience->id));
 });
 
 Breadcrumbs::for('backend.resume.experiences.edit', function (BreadcrumbTrail $trail, Experience $experience) {

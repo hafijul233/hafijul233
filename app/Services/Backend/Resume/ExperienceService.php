@@ -89,6 +89,7 @@ class ExperienceService extends Service
         try {
             $newExperience = $this->experienceRepository->create($inputs);
             if ($newExperience instanceof Experience) {
+                $newExperience->save();
                 DB::commit();
                 return ['status' => true, 'message' => __('New Post Created'),
                     'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
@@ -157,27 +158,22 @@ class ExperienceService extends Service
      */
     public function updateExperience(array $inputs, $id): array
     {
-        $newExperienceInfo = $this->formatExperienceInfo($inputs);
         DB::beginTransaction();
         try {
             $experience = $this->experienceRepository->show($id);
             if ($experience instanceof Experience) {
-                if ($this->experienceRepository->update($newExperienceInfo, $id)) {
-                    //handling Comment List
-                    $experience->surveys()->sync($inputs['survey_id']);
-                    $experience->previousPostings()->sync($inputs['prev_post_state_id']);
-                    $experience->futurePostings()->sync($inputs['future_post_state_id']);
+                if ($this->experienceRepository->update($inputs, $id)) {
                     $experience->save();
                     DB::commit();
-                    return ['status' => true, 'message' => __('Post Info Updated'),
+                    return ['status' => true, 'message' => __('Experience Info Updated'),
                         'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
                 } else {
                     DB::rollBack();
-                    return ['status' => false, 'message' => __('Post Info Update Failed'),
+                    return ['status' => false, 'message' => __('Experience Info Update Failed'),
                         'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!'];
                 }
             } else {
-                return ['status' => false, 'message' => __('Post Model Not Found'),
+                return ['status' => false, 'message' => __('Experience Model Not Found'),
                     'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Alert!'];
             }
         } catch (Exception $exception) {
@@ -189,7 +185,7 @@ class ExperienceService extends Service
     }
 
     /**
-     * Destroy Post Model
+     * Destroy Experience Model
      *
      * @param $id
      * @return array
@@ -201,12 +197,12 @@ class ExperienceService extends Service
         try {
             if ($this->experienceRepository->delete($id)) {
                 DB::commit();
-                return ['status' => true, 'message' => __('Post is Trashed'),
+                return ['status' => true, 'message' => __('Experience is Trashed'),
                     'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
 
             } else {
                 DB::rollBack();
-                return ['status' => false, 'message' => __('Post is Delete Failed'),
+                return ['status' => false, 'message' => __('Experience is Delete Failed'),
                     'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!'];
             }
         } catch (Exception $exception) {
@@ -218,7 +214,7 @@ class ExperienceService extends Service
     }
 
     /**
-     * Restore Post Model
+     * Restore Experience Model
      *
      * @param $id
      * @return array
@@ -230,12 +226,12 @@ class ExperienceService extends Service
         try {
             if ($this->experienceRepository->restore($id)) {
                 DB::commit();
-                return ['status' => true, 'message' => __('Post is Restored'),
+                return ['status' => true, 'message' => __('Experience is Restored'),
                     'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
 
             } else {
                 DB::rollBack();
-                return ['status' => false, 'message' => __('Post is Restoration Failed'),
+                return ['status' => false, 'message' => __('Experience is Restoration Failed'),
                     'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!'];
             }
         } catch (Exception $exception) {

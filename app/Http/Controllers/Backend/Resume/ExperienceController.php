@@ -115,7 +115,7 @@ class ExperienceController extends Controller
     {
         if ($experience = $this->experienceService->getExperienceById($id)) {
             return view('backend.resume.experience.show', [
-                'certificate' => $experience,
+                'experience' => $experience,
                 'timeline' => Utility::modelAudits($experience)
             ]);
         }
@@ -128,26 +128,15 @@ class ExperienceController extends Controller
      *
      * @param $id
      * @return Application|Factory|View
-     * @throws ContainerExceptionInterface
-     * @throws NotFoundExceptionInterface
      * @throws Exception
      */
     public function edit($id)
     {
         if ($experience = $this->experienceService->getExperienceById($id)) {
 
-            $enables = [];
-            foreach (Constant::ENABLED_OPTIONS as $field => $label):
-                $enables[$field] = __('common.' . $label);
-            endforeach;
-
             return view('backend.resume.experience.edit', [
-                'certificate' => $experience,
-                'enables' => $enables,
-                'states' => $this->stateService->getStateDropdown(['enabled' => Constant::ENABLED_OPTION, 'type' => 'district', 'sort' => ((session()->get('locale') == 'bd') ? 'native' : 'name'), 'direction' => 'asc'], (session()->get('locale') == 'bd')),
-                'surveys' => $this->surveyService->getSurveyDropDown(),
-                'genders' => $this->catalogService->getCatalogDropdown(['type' => Constant::CATALOG_TYPE['GENDER']], 'bn'),
-                'exam_dropdown' => $this->examLevelService->getExamLevelDropdown(['id' => [1, 2, 3, 4]]),
+                'experience' => $experience,
+
             ]);
         }
 

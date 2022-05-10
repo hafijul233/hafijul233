@@ -48,7 +48,11 @@ class Experience extends Model implements Auditable
      *
      * @var array
      */
-    protected $casts = [];
+    protected $casts = [
+        'start_date' => 'date',
+        'end_date' => 'date',
+
+    ];
 
     /**
      * The model's default values for attributes when new instance created.
