@@ -27,8 +27,8 @@
 @section('breadcrumbs', \Breadcrumbs::render())
 
 @section('actions')
-    {!! \Html::linkButton(__('Add Service'), 'backend.resume.educations.create', [], 'fas fa-plus', 'success') !!}
-    {{--{!! \Html::bulkDropdown('backend.resume.educations', 0, ['color' => 'warning']) !!}--}}
+    {!! \Html::linkButton(__('resume.education.Add Education'), 'backend.resume.educations.create', [], 'fas fa-plus', 'success') !!}
+    {!! \Html::bulkDropdown('backend.resume.educations', 0, ['color' => 'warning']) !!}
 @endsection
 
 @section('content')

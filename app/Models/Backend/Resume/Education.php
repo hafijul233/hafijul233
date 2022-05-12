@@ -34,7 +34,7 @@ class Education extends Model implements Auditable
      *
      * @var array
      */
-    protected $fillable = ['survey_id', 'name', 'name_bd', 'father', 'father_bd', 'mother', 'mother_bd', 'nid', 'mobile_1', 'mobile_2', 'email', 'present_address', 'present_address_bd', 'permanent_address', 'permanent_address_bd', 'gender', 'enabled'];
+    protected $fillable = ['institute', 'degree', 'field', 'start_date', 'end_date', 'grade', 'activity', 'description', 'enabled'];
 
     /**
      * The attributes that should be hidden for arrays.
@@ -48,7 +48,10 @@ class Education extends Model implements Auditable
      *
      * @var array
      */
-    protected $casts = [];
+    protected $casts = [
+        'start_date' => 'date',
+        'end_date' => 'date'
+    ];
 
     /**
      * The model's default values for attributes when new instance created.
@@ -59,10 +62,4 @@ class Education extends Model implements Auditable
         'enabled' => 'yes'
     ];
 
-    /************************ Audit Relations ************************/
-
-    public function enumerators()
-    {
-        return $this->hasMany(Post::class);
-    }
 }
