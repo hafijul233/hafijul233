@@ -27,7 +27,7 @@ class CreateExperiencesTable extends Migration
             $table->string('address')->nullable();
             $table->date('start_date');
             $table->date('end_date')->nullable();
-            $table->text('description')->nullable();
+            $table->mediumText('description')->nullable();
             $table->string('url')->nullable();
             $table->enum('enabled', array_keys(Constant::ENABLED_OPTIONS))
                 ->default(Constant::ENABLED_OPTION)->nullable();

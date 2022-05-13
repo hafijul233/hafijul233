@@ -25,7 +25,7 @@ class CreateAwardsTable extends Migration
             $table->string('associate')->nullable();
             $table->string('issuer');
             $table->date('issue_date');
-            $table->text('description')->nullable();
+            $table->mediumText('description')->nullable();
             $table->enum('enabled', array_keys(Constant::ENABLED_OPTIONS))
                 ->default(Constant::ENABLED_OPTION)->nullable();
             $table->dateTime('created_at')->nullable();

@@ -29,7 +29,7 @@ class CreateEducationsTable extends Migration
             $table->date('end_date')->nullable();
             $table->string('grade')->nullable();
             $table->text('activity')->nullable();
-            $table->text('description')->nullable();
+            $table->mediumText('description')->nullable();
             $table->enum('enabled', array_keys(Constant::ENABLED_OPTIONS))
                 ->default(Constant::ENABLED_OPTION)->nullable();
             $table->dateTime('created_at')->nullable();

@@ -27,7 +27,7 @@ class CreateProjectsTable extends Migration
             $table->string('owner')->nullable();
             $table->string('associate')->nullable();
             $table->string('url')->nullable();
-            $table->longText('description')->nullable();
+            $table->mediumText('description')->nullable();
             $table->enum('enabled', array_keys(Constant::ENABLED_OPTIONS))
                 ->default(Constant::ENABLED_OPTION)->nullable();
             $table->dateTime('created_at')->nullable();

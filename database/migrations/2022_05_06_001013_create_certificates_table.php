@@ -27,7 +27,7 @@ class CreateCertificatesTable extends Migration
             $table->date('expire_date')->nullable();
             $table->string('credential')->nullable();
             $table->string('verify_url')->nullable();
-            $table->text('description')->nullable();
+            $table->mediumText('description')->nullable();
             $table->enum('enabled', array_keys(Constant::ENABLED_OPTIONS))
                 ->default(Constant::ENABLED_OPTION)->nullable();
             $table->dateTime('created_at')->nullable();

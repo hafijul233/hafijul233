@@ -23,7 +23,7 @@ class CreateServicesTable extends Migration
             $table->id();
             $table->string('name');
             $table->text('summary')->nullable();
-            $table->longText('description')->nullable();
+            $table->mediumText('description')->nullable();
             $table->enum('enabled', array_keys(Constant::ENABLED_OPTIONS))
                 ->default(Constant::ENABLED_OPTION)->nullable();
             $table->dateTime('created_at')->nullable();
