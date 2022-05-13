@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('backend.layouts.app')
 
 @section('title', $role->name ?? 'Details')
 
@@ -111,7 +111,7 @@
                             </div>
                             <div class="tab-pane fade" id="pills-timeline" role="tabpanel"
                                  aria-labelledby="pills-timeline-tab">
-                                @include('layouts.partials.timeline', $timeline)
+                                @include('backend.layouts.partials.timeline', $timeline)
                             </div>
                         </div>
                     </div>

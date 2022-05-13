@@ -1,4 +1,4 @@
-@extends('admin::layouts.master')
+@extends('admin::backend.layouts.master')
 
 @section('title', 'System Logs')
 

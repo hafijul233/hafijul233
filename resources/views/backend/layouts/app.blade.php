@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('backend.layouts.master')
 
 @push('meta')
 
@@ -28,20 +28,20 @@
     <body class="sidebar-mini layout-fixed">
     <div class="wrapper">
         <!-- Preloader -->
-    @include('layouts.includes.preloader')
+    @include('backend.layouts.includes.preloader')
     <!-- Navbar -->
-    @include('layouts.partials.navbar')
+    @include('backend.layouts.partials.navbar')
 
     <!-- Main Sidebar Container -->
-    @include('layouts.partials.menu-sidebar')
+    @include('backend.layouts.partials.menu-sidebar')
 
     <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
             <!-- Content Header (Page header) -->
-        @include('layouts.partials.content-header')
+        @include('backend.layouts.partials.content-header')
         <!-- Main content -->
             <section class="content">
-                @include('layouts.includes.errors')
+                @include('backend.layouts.includes.errors')
                 @yield('content')
             </section>
             <!-- /.content -->
@@ -52,23 +52,23 @@
         <!-- /.content-wrapper -->
 
         <!-- Control Sidebar -->
-    @include('layouts.partials.control-sidebar')
+    @include('backend.layouts.partials.control-sidebar')
     <!-- Main Footer -->
-        @include('layouts.partials.main-footer')
+        @include('backend.layouts.partials.main-footer')
     </div>
     <!-- ./wrapper -->
 
-    @include('layouts.includes.js-constants')
+    @include('backend.layouts.includes.js-constants')
 
     <!-- jQuery -->
     <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
     <!-- Bootstrap 4 -->
     <script src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <!-- Plugin JS -->
-    @include('layouts.includes.plugin-script')
+    @include('backend.layouts.includes.plugin-script')
     <!-- AdminLTE App -->
     <script src="{{ asset('assets/js/adminlte.min.js') }}"></script>
     <script src="{{ asset('assets/js/utility.min.js') }}"></script>
     <!-- inline js -->
-    @include('layouts.includes.page-script')
+    @include('backend.layouts.includes.page-script')
 @endsection

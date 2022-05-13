@@ -28,7 +28,7 @@ return [
     |
     */
 
-    'view' => 'layouts.partials.breadcrumb',
+    'view' => 'backend.layouts.partials.breadcrumb',
 
     /*
     |--------------------------------------------------------------------------

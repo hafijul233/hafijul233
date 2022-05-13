@@ -1,4 +1,4 @@
-@extends('layouts.guest')
+@extends('backend.layouts.guest')
 
 @section('title', 'Login')
 
@@ -15,7 +15,7 @@
 
 @section('content')
     <div class="login-box">
-        @include('layouts.includes.app-logo')
+        @include('backend.layouts.includes.app-logo')
         <!-- /.login-logo -->
         <div class="card">
             <div class="card-body login-card-body">

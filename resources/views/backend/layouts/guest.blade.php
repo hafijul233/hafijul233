@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('backend.layouts.master')
 
 @push('meta')
 
@@ -22,21 +22,21 @@
 @section('body')
     <body class="hold-transition @yield('body-class')">
 
-    @include('layouts.includes.preloader')
+    @include('backend.layouts.includes.preloader')
 
     @yield('content')
 
-    @include('layouts.includes.footer')
+    @include('backend.layouts.includes.footer')
     <!-- jQuery -->
     <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
     <!-- Bootstrap 4 -->
     <script src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <!-- Plugin JS -->
-    @include('layouts.includes.plugin-script')
+    @include('backend.layouts.includes.plugin-script')
     <!-- AdminLTE App -->
     <script src="{{ asset('assets/js/adminlte.min.js') }}"></script>
     <script src="{{ asset('assets/js/utility.min.js') }}"></script>
     <!-- inline js -->
-    @include('layouts.includes.page-script')
+    @include('backend.layouts.includes.page-script')
     </body>
 @endsection

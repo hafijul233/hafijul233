@@ -1,11 +1,10 @@
 <div class="card-body">
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-12">
             {!! \Form::nText('name', __('common.Name'), old('name', $skill->name ?? null), true) !!}
         </div>
-        <div class="col-md-6">
-            {!! \Form::nSelect('enabled', __('common.Enabled'), \App\Supports\Constant::ENABLED_OPTIONS,
-                old('enabled', ($skill->enabled ?? \App\Supports\Constant::ENABLED_OPTION)), true) !!}
+        <div class="col-md-12">
+            {!! \Form::nRange('percentage', __('common.Percentage'), 0, true,['min'  => 0,'max' => 100,'step' => 1]) !!}
         </div>
     </div>
     <div class="row mt-3">
@@ -30,8 +29,7 @@
                     enabled: {
                         required: true
                     },
-                    remarks: {
-                    },
+                    remarks: {},
                 }
             });
         });

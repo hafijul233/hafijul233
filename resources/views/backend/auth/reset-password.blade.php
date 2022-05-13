@@ -1,22 +1,11 @@
-@extends('layouts.guest')
+@extends('backend.layouts.guest')
 
-@section('title', 'Forgot Password')
+@section('title', 'Reset Password')
 
 @push('meta')
 
 @endpush
 
-@push('webfont')
-
-@endpush
-
-@push('icon')
-
-@endpush
-
-@push('plugin-style')
-
-@endpush
 
 @push('page-style')
 
@@ -26,18 +15,18 @@
 
 @section('content')
     <div class="login-box">
-    @include('layouts.includes.app-logo')
+    @include('backend.layouts.includes.app-logo')
     <!-- /.login-logo -->
         <div class="card">
             <div class="card-body login-card-body">
-                <p class="login-box-msg">
-                    {{ __('Forgot your password? Here you can easily retrieve a new password.') }}
-                </p>
+                <p class="login-box-msg">{{ __('Reset your password with new one.') }}</p>
+                {!! \Form::open(['route' => 'auth.password.update', 'id' => 'password-update-form', 'method' => 'post']) !!}
 
-                {!! \Form::open(['route' => 'auth.password.email', 'id' => 'password-reset-form', 'method' => 'post']) !!}
+                {!! \Form::hidden('token', $token) !!}
+
                 @if(config('auth.credential_field') == \App\Supports\Constant::LOGIN_EMAIL
-                                || (config('auth.credential_field') == \App\Supports\Constant::LOGIN_OTP
-                                    && config('auth.credential_otp_field') == \App\Supports\Constant::OTP_EMAIL))
+                || (config('auth.credential_field') == \App\Supports\Constant::LOGIN_OTP
+                    && config('auth.credential_otp_field') == \App\Supports\Constant::OTP_EMAIL))
                     {!! \Form::iEmail('email', __('Email'), null, true, "fas fa-envelope", "after",
                                         [ 'minlength' => '5', 'maxlength' => '250',
                                             'size' => '250', 'placeholder' => 'Enter Email Address']) !!}
@@ -56,17 +45,52 @@
                                         [ 'minlength' => '5', 'maxlength' => '250',
                                             'size' => '250', 'placeholder' => 'Enter Username']) !!}
                 @endif
+
+                @if(config('auth.credential_field') != \App\Supports\Constant::LOGIN_OTP)
+                    {!! \Form::iPassword('password', __('Password'), true, "fas fa-lock", "after",
+                                        ["placeholder" => 'Enter New Password', 'autocomplete' => "current-password",
+                                         'minlength' => '5', 'maxlength' => '250', 'size' => '250']) !!}
+
+                    {!! \Form::iPassword('password_confirmation', __('Retype Password'), true, "fas fa-lock", "after",
+                                        ["placeholder" => 'Retype New Password',
+                                        'minlength' => '5', 'maxlength' => '250', 'size' => '250']) !!}
+
+                @endif
                 <div class="row">
-                    <div class="col-12">
-                        <button type="submit" class="btn btn-warning btn-block">Request new Password</button>
+                    @if(config('auth.allow_remembering'))
+                        <div class="col-8">
+                            <div class="icheck-primary">
+                                {!! \Form::checkbox('remember', 'yes', null, ['id' => 'remember_me']) !!}
+                                <label for="remember_me">
+                                    {{ __('Remember me') }}
+                                </label>
+                            </div>
+                        </div>
+                        <!-- /.col -->
+                    @endif
+                    <div class="@if(!config('auth.allow_remembering')) offset-8 @endif col-4">
+                        <button type="submit" class="btn btn-success btn-block">{{ __('Reset') }}</button>
                     </div>
                     <!-- /.col -->
                 </div>
                 {!! \Form::close() !!}
 
+                {{--
+                <div class="social-auth-links text-center mb-3">
+                    <p>- OR -</p>
+                    <a href="#" class="btn btn-block btn-primary">
+                        <i class="fab fa-facebook mr-2"></i> Sign in using Facebook
+                    </a>
+                    <a href="#" class="btn btn-block btn-danger">
+                        <i class="fab fa-google-plus mr-2"></i> Sign in using Google+
+                    </a>
+                </div>
+                --}}
+            <!-- /.social-auth-links -->
+
                 @if(Route::has('auth.login'))
                     <p class="mb-0">
-                        <a href="{{ route('auth.login') }}" class="text-center">I already have a membership? Login</a>
+                        <a href="{{ route('auth.login') }}" class="text-center">Login as different user</a>
                     </p>
                 @endif
 
@@ -91,7 +115,7 @@
 @push('page-script')
     <script type="text/javascript">
         $(function () {
-            $("#password-reset-form").validate({
+            $("#password-update-form").validate({
                 rules: {
                     @if(config('auth.credential_field') == \App\Supports\Constant::LOGIN_EMAIL
                     || (config('auth.credential_field') == \App\Supports\Constant::LOGIN_OTP
@@ -121,6 +145,20 @@
                         minlength: 5,
                         maxlength: 250
                     },
+                    @endif
+
+                            @if(config('auth.credential_field') != \App\Supports\Constant::LOGIN_OTP)
+                    password: {
+                        required: true,
+                        minlength: {{ config('auth.minimum_password_length') }},
+                        maxlength: 250
+                    },
+                    password_confirmation: {
+                        required: true,
+                        minlength: {{ config('auth.minimum_password_length') }},
+                        maxlength: 250,
+                        equalTo : '#password'
+                    }
                     @endif
                 },
                 errorElement: 'span',

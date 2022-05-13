@@ -3,17 +3,17 @@
 <head>
     <title>{{ config('app.name', 'Laravel') }} | @yield('title')</title>
     <!-- meta Tags -->
-@include('layouts.includes.meta')
+@include('backend.layouts.includes.meta')
 <!-- Web Font-->
-@include('layouts.includes.webfont')
+@include('backend.layouts.includes.webfont')
 <!-- Icon -->
-@include('layouts.includes.icon')
+@include('backend.layouts.includes.icon')
 <!-- Plugins -->
-@include('layouts.includes.plugin-style')
+@include('backend.layouts.includes.plugin-style')
 <!-- Theme style -->
-@include('layouts.includes.theme-style')
+@include('backend.layouts.includes.theme-style')
 <!-- Page Level Style -->
-    @include('layouts.includes.page-style')
+    @include('backend.layouts.includes.page-style')
 </head>
 @yield('body')
 </html>

@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('backend.layouts.app')
 
 @section('title', __('menu-sidebar.Users'))
 
@@ -65,7 +65,7 @@
                                                 {{ $user->id }}
                                             </td>
                                             <td class="text-left pl-0">
-                                                @include('layouts.includes.user-media-card', ['dynamicUser' => $user])
+                                                @include('backend.layouts.includes.user-media-card', ['dynamicUser' => $user])
                                             </td>
                                             <td class="text-center">{{ $user->mobile ?? '-' }}</td>
                                             <td class="text-center">
