@@ -27,7 +27,7 @@
 @section('breadcrumbs', \Breadcrumbs::render())
 
 @section('actions')
-    {!! \Html::linkButton(__('Add Testimonial'), 'backend.portfolio.testimonials.create', [], 'fas fa-plus', 'success') !!}
+    {!! \Html::linkButton(__('portfolio.testimonial.Add Testimonial'), 'backend.portfolio.testimonials.create', [], 'fas fa-plus', 'success') !!}
     {!! \Html::bulkDropdown('backend.portfolio.testimonials', 0, ['color' => 'warning']) !!}
 @endsection
 
@@ -46,8 +46,8 @@
                                     <thead class="thead-light">
                                     <tr>
                                         <th class="align-middle">@sortablelink('id', '#')</th>
-                                        <th class="text-center">@sortablelink('client', __('common.Client'))</th>
-                                        <th class="text-center">@sortablelink('feedback', __('common.Feedback'))</th>
+                                        <th class="text-center">@sortablelink('client', __('portfolio.testimonial.Client'))</th>
+                                        <th class="text-center">@sortablelink('feedback', __('portfolio.testimonial.Feedback'))</th>
                                         <th class="text-center">@sortablelink('enabled', __('common.Enabled'))</th>
                                         <th class="text-center">@sortablelink('created_at', __('common.Created'))</th>
                                         <th class="text-center">{!! __('common.Actions') !!}</th>

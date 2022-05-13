@@ -37,6 +37,7 @@ return [
     ],
     'testimonial' => [
         'Add Testimonial' => 'Add Testimonial',
+        'Edit Testimonial' => 'Edit Testimonial',
         'Client' => 'Client',
         'Feedback' => 'Feedback',
     ]
