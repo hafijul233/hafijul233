@@ -26,3 +26,4 @@ composer.phar
 error_log
 /build/*
 analyse.log
+/build/

@@ -28,7 +28,7 @@ return [
     |
     */
 
-    'view' => 'backend.layouts.partials.breadcrumb',
+    'view' => 'shared.breadcrumb',
 
     /*
     |--------------------------------------------------------------------------
