@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', __('service.Add Comment'))
+@section('title', __('resume.skill.Add Skill'))
 
 @push('meta')
 
@@ -26,7 +26,7 @@
 @section('breadcrumbs', \Breadcrumbs::render(Route::getCurrentRoute()->getName()))
 
 @section('actions')
-    {!! \Html::backButton('backend.resume.surveys.index') !!}
+    {!! \Html::backButton('backend.resume.skills.index') !!}
 @endsection
 
 @section('content')
@@ -34,8 +34,8 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="card card-default">
-                    {!! \Form::open(['route' => 'backend.resume.surveys.store', 'id' => 'service-form']) !!}
-                    @include('backend.resume.service.form')
+                    {!! \Form::open(['route' => 'backend.resume.skills.store', 'id' => 'skill-form']) !!}
+                    @include('backend.resume.skill.form')
                     {!! \Form::close() !!}
                 </div>
             </div>

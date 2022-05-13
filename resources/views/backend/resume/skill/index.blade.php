@@ -27,7 +27,7 @@
 @section('breadcrumbs', \Breadcrumbs::render())
 
 @section('actions')
-    {!! \Html::linkButton(__('Add Skill'), 'backend.resume.skills.create', [], 'fas fa-plus', 'success') !!}
+    {!! \Html::linkButton(__('resume.skill.Add Skill'), 'backend.resume.skills.create', [], 'fas fa-plus', 'success') !!}
     {{--{!! \Html::bulkDropdown('backend.resume.skills', 0, ['color' => 'warning']) !!}--}}
 @endsection
 
