@@ -3,7 +3,7 @@
 namespace App\Repositories\Eloquent\Backend\Resume;
 
 use App\Abstracts\Repository\EloquentRepository;
-use App\Models\Backend\Resume\Comment;
+use App\Models\Backend\Resume\Skill;
 use App\Services\Auth\AuthenticatedSessionService;
 use Exception;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
@@ -24,7 +24,7 @@ class SkillRepository extends EloquentRepository
         /**
          * Set the model that will be used for repo
          */
-        parent::__construct(new Comment());
+        parent::__construct(new Skill);
     }
 
     /**

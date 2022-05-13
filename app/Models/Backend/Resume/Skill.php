@@ -37,7 +37,7 @@ class Skill extends Model implements Auditable
      *
      * @var array
      */
-    protected $fillable = ['survey_id', 'name', 'name_bd', 'father', 'father_bd', 'mother', 'mother_bd', 'nid', 'mobile_1', 'mobile_2', 'email', 'present_address', 'present_address_bd', 'permanent_address', 'permanent_address_bd', 'gender', 'enabled'];
+    protected $fillable = [ 'name', 'percentage', 'enabled'];
 
     /**
      * The attributes that should be hidden for arrays.
@@ -62,10 +62,4 @@ class Skill extends Model implements Auditable
         'enabled' => 'yes'
     ];
 
-    /************************ Audit Relations ************************/
-
-    public function enumerators()
-    {
-        return $this->hasMany(Post::class);
-    }
 }
