@@ -43,9 +43,11 @@ class RoleController extends Controller
      * @param RoleService $roleService
      * @param PermissionService $permissionService
      */
-    public function __construct(AuthenticatedSessionService $authenticatedSessionService,
-                                RoleService $roleService,
-                                PermissionService $permissionService)
+    public function __construct(
+        AuthenticatedSessionService $authenticatedSessionService,
+        RoleService $roleService,
+        PermissionService $permissionService
+    )
     {
         $this->roleService = $roleService;
         $this->authenticatedSessionService = $authenticatedSessionService;
@@ -109,7 +111,6 @@ class RoleController extends Controller
     public function show(int $id)
     {
         if ($role = $this->roleService->getRoleById($id)) {
-
             $permissions = $this->permissionService->getAllPermissions([
                 'sort' => 'display_name', 'direction' => 'asc'
             ]);
@@ -137,7 +138,6 @@ class RoleController extends Controller
     public function edit($id)
     {
         if ($role = $this->roleService->getRoleById($id)) {
-
             return view('backend.setting.role.edit', ['role' => $role]);
         }
 
@@ -252,7 +252,6 @@ class RoleController extends Controller
         return $roleExport->download($filename, function ($role) use ($roleExport) {
             return $roleExport->map($role);
         });
-
     }
 
     /**
@@ -263,7 +262,6 @@ class RoleController extends Controller
      */
     public function print(Request $request)
     {
-
         $filters = $request->except('page');
 
         $roleExport = $this->roleService->exportRole($filters);
@@ -286,20 +284,19 @@ class RoleController extends Controller
                     ? $role->deleted_at->format(config('backend.datetime'))
                     : null;
 
-                $format['Creator'] = ($role->createdBy != null)
+            $format['Creator'] = ($role->createdBy != null)
                     ? $role->createdBy->name
                     : null;
 
-                $format['Editor'] = ($role->updatedBy != null)
+            $format['Editor'] = ($role->updatedBy != null)
                     ? $role->updatedBy->name
                     : null;
-                $format['Destructor'] = ($role->deletedBy != null)
+            $format['Destructor'] = ($role->deletedBy != null)
                     ? $role->deletedBy->name
                     : null;
             endif;
             return $format;
         });
-
     }
 
     /**
@@ -311,7 +308,6 @@ class RoleController extends Controller
     public function permission($id, Request $request)
     {
         if ($request->ajax()) {
-
             $jsonResponse = ['message' => null, 'errors' => []];
 
             if ($role = $this->roleService->getRoleById($id)) {
@@ -320,7 +316,6 @@ class RoleController extends Controller
 
                 //formatted response is collected from service
                 return response()->json(array_merge($jsonResponse, $confirm));
-
             } else {
                 throw ValidationException::withMessages([
                     'role' => 'Invalid Role Id Provided'
@@ -343,8 +338,7 @@ class RoleController extends Controller
         $filters = $request->except('_token');
 
         if ($filters['paginate'] === true):
-            $roles = $this->roleService->rolePaginate($filters, ['permissions']);
-        else :
+            $roles = $this->roleService->rolePaginate($filters, ['permissions']); else :
             $roles = $this->roleService->getAllRoles($filters, ['permissions']);
         endif;
 

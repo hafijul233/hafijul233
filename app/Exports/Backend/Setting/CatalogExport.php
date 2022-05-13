@@ -46,4 +46,3 @@ class CatalogExport extends FastExcelExport
         return $this->formatRow;
     }
 }
-

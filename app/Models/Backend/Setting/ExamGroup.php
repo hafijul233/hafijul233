@@ -15,7 +15,10 @@ use OwenIt\Auditing\Contracts\Auditable;
  */
 class ExamGroup extends Model implements Auditable
 {
-    use \OwenIt\Auditing\Auditable, HasFactory, SoftDeletes, Sortable;
+    use \OwenIt\Auditing\Auditable;
+    use HasFactory;
+    use SoftDeletes;
+    use Sortable;
 
     /**
      * @var string $table
@@ -65,5 +68,4 @@ class ExamGroup extends Model implements Auditable
     {
         return $this->belongsTo(ExamTitle::class);
     }
-
 }

@@ -28,4 +28,3 @@ return [
         'forced' => 'Your password has been changed. Please reset password.'
     ]
 ];
-

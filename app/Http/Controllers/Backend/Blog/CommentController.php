@@ -38,10 +38,11 @@ class CommentController extends Controller
      * @param AuthenticatedSessionService $authenticatedSessionService
      * @param CommentService $commentService
      */
-    public function __construct(AuthenticatedSessionService $authenticatedSessionService,
-                                CommentService $commentService)
+    public function __construct(
+        AuthenticatedSessionService $authenticatedSessionService,
+        CommentService $commentService
+    )
     {
-
         $this->authenticatedSessionService = $authenticatedSessionService;
         $this->commentService = $commentService;
     }
@@ -161,7 +162,6 @@ class CommentController extends Controller
     public function destroy($id, Request $request)
     {
         if ($this->authenticatedSessionService->validate($request)) {
-
             $confirm = $this->commentService->destroyComment($id);
 
             if ($confirm['status'] == true) {
@@ -185,7 +185,6 @@ class CommentController extends Controller
     public function restore($id, Request $request)
     {
         if ($this->authenticatedSessionService->validate($request)) {
-
             $confirm = $this->commentService->restoreComment($id);
 
             if ($confirm['status'] == true) {
@@ -215,7 +214,6 @@ class CommentController extends Controller
         return $commentExport->download($filename, function ($comment) use ($commentExport) {
             return $commentExport->map($comment);
         });
-
     }
 
     /**
@@ -261,6 +259,5 @@ class CommentController extends Controller
         return $commentExport->download($filename, function ($comment) use ($commentExport) {
             return $commentExport->map($comment);
         });
-
     }
 }

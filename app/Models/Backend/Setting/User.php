@@ -25,7 +25,13 @@ use Spatie\Permission\Traits\HasRoles;
  */
 class User extends Authenticatable implements HasMedia, Auditable
 {
-    use AuditableTrait, HasFactory, Notifiable, InteractsWithMedia, HasRoles, Sortable, SoftDeletes;
+    use AuditableTrait;
+    use HasFactory;
+    use Notifiable;
+    use InteractsWithMedia;
+    use HasRoles;
+    use Sortable;
+    use SoftDeletes;
 
     /**
      * @var string $table

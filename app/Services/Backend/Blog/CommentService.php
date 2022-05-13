@@ -141,7 +141,6 @@ class CommentService extends Service
                 DB::commit();
                 return ['status' => true, 'message' => __('Comment is Trashed'),
                     'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
-
             } else {
                 DB::rollBack();
                 return ['status' => false, 'message' => __('Comment is Delete Failed'),
@@ -170,7 +169,6 @@ class CommentService extends Service
                 DB::commit();
                 return ['status' => true, 'message' => __('Comment is Restored'),
                     'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
-
             } else {
                 DB::rollBack();
                 return ['status' => false, 'message' => __('Comment is Restoration Failed'),
@@ -207,8 +205,9 @@ class CommentService extends Service
     {
         $comments = $this->getAllComments($filters);
         $commentArray = [];
-        foreach ($comments as $comment)
+        foreach ($comments as $comment) {
             $commentArray[$comment->id] = $comment->name;
+        }
 
         return $commentArray;
     }

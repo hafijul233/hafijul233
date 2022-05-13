@@ -23,7 +23,6 @@ class DashboardController extends Controller
      */
     public function __construct(UserService $userService)
     {
-
         $this->userService = $userService;
     }
 
@@ -34,12 +33,10 @@ class DashboardController extends Controller
      */
     public function __invoke(Request $request)
     {
-
         return view('backend.dashboard', [
             'users' => $this->userService->getAllUsers(['role' => [2, 3, 4]])->count(),
             'enumerators' => 0,
             'surveys' => 0
         ]);
     }
-
 }

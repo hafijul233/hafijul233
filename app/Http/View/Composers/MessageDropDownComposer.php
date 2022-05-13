@@ -21,7 +21,6 @@ class MessageDropDownComposer
      */
     public function __construct()
     {
-
     }
 
     /**
@@ -32,6 +31,5 @@ class MessageDropDownComposer
      */
     public function compose(View $view)
     {
-
     }
 }

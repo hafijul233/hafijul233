@@ -7,15 +7,12 @@ use Illuminate\Routing\Controller;
 
 class PortfolioController extends Controller
 {
-
     public function __construct()
     {
-
     }
 
     public function __invoke(Request $request)
     {
         return view('backend.dashboard');
     }
-
 }

@@ -32,10 +32,11 @@ class CityController extends Controller
      * @param AuthenticatedSessionService $authenticatedSessionService
      * @param CityService $cityService
      */
-    public function __construct(AuthenticatedSessionService $authenticatedSessionService,
-                                CityService $cityService)
+    public function __construct(
+        AuthenticatedSessionService $authenticatedSessionService,
+        CityService $cityService
+    )
     {
-
         $this->authenticatedSessionService = $authenticatedSessionService;
         $this->cityService = $cityService;
     }
@@ -154,7 +155,6 @@ class CityController extends Controller
     public function destroy($id, Request $request)
     {
         if ($this->authenticatedSessionService->validate($request)) {
-
             $confirm = $this->cityService->destroyCity($id);
 
             if ($confirm['status'] == true) {
@@ -178,7 +178,6 @@ class CityController extends Controller
     public function restore($id, Request $request)
     {
         if ($this->authenticatedSessionService->validate($request)) {
-
             $confirm = $this->cityService->restoreCity($id);
 
             if ($confirm['status'] == true) {
@@ -208,7 +207,6 @@ class CityController extends Controller
         return $cityExport->download($filename, function ($city) use ($cityExport) {
             return $cityExport->map($city);
         });
-
     }
 
     /**
@@ -254,7 +252,6 @@ class CityController extends Controller
         return $cityExport->download($filename, function ($city) use ($cityExport) {
             return $cityExport->map($city);
         });
-
     }
 
 
@@ -272,8 +269,7 @@ class CityController extends Controller
         $cities = $this->cityService->getAllCities($filters)->toArray();
 
         if (count($cities) > 0):
-            $jsonReturn = ['status' => true, 'data' => $cities];
-        else :
+            $jsonReturn = ['status' => true, 'data' => $cities]; else :
             $jsonReturn = ['status' => false, 'data' => []];
         endif;
 

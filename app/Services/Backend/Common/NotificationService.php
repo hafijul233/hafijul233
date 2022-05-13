@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Services\Backend\Common;
-
 
 use App\Abstracts\Service\Service;
 use App\Models\Setting\User;
@@ -103,7 +101,6 @@ class NotificationService extends Service
             $notification = $currentUser->notifications()->where('id', $id)->get();
 
             return $notification;
-
         } catch (Exception $exception) {
             return null;
         }
@@ -139,8 +136,9 @@ class NotificationService extends Service
     {
         $roleCollection = $this->userRepository->all();
         $roles = [];
-        foreach ($roleCollection as $role)
+        foreach ($roleCollection as $role) {
             $roles[$role->id] = $role['name'];
+        }
 
         return $roles;
     }

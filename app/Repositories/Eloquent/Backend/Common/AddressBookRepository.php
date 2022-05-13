@@ -24,7 +24,7 @@ class AddressBookRepository extends EloquentRepository
         /**
          * Set the model that will be used for repo
          */
-        parent::__construct(new Address);
+        parent::__construct(new Address());
     }
 
     /**

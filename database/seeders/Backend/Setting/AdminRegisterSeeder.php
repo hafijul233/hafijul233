@@ -38,9 +38,11 @@ class AdminRegisterSeeder extends Seeder
      * @param FileUploadService $fileUploadService
      * @param AddressBookRepository $addressBookRepository
      */
-    public function __construct(UserRepository $userRepository,
-                                FileUploadService $fileUploadService,
-                                AddressBookRepository $addressBookRepository)
+    public function __construct(
+        UserRepository $userRepository,
+        FileUploadService $fileUploadService,
+        AddressBookRepository $addressBookRepository
+    )
     {
         $this->userRepository = $userRepository;
         $this->fileUploadService = $fileUploadService;
@@ -83,7 +85,6 @@ class AdminRegisterSeeder extends Seeder
                 if (!$this->attachUserRoles($newUser)) {
                     throw new \RuntimeException("User Role Assignment Failed");
                 }
-
             } else {
                 throw new \RuntimeException("Failed to Create  User Model");
             }
@@ -122,10 +123,8 @@ class AdminRegisterSeeder extends Seeder
      */
     protected function attachUserRoles(User $user): bool
     {
-
         $adminRole = Role::findByName("Administrator");
         $this->userRepository->setModel($user);
         return $this->userRepository->manageRoles([$adminRole->id]);
     }
-
 }

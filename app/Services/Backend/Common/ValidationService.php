@@ -6,7 +6,6 @@ use App\Abstracts\Service\Service;
 
 class ValidationService extends Service
 {
-
     /**
      * @param string $value
      * @param bool $update

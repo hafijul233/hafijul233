@@ -141,7 +141,6 @@ class StateService extends Service
                 DB::commit();
                 return ['status' => true, 'message' => __('State is Trashed'),
                     'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
-
             } else {
                 DB::rollBack();
                 return ['status' => false, 'message' => __('State is Delete Failed'),
@@ -170,7 +169,6 @@ class StateService extends Service
                 DB::commit();
                 return ['status' => true, 'message' => __('State is Restored'),
                     'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
-
             } else {
                 DB::rollBack();
                 return ['status' => false, 'message' => __('State is Restoration Failed'),
@@ -210,8 +208,9 @@ class StateService extends Service
         $states = $this->getAllStates($filters);
         $stateArray = [];
 
-        foreach ($states as $state)
+        foreach ($states as $state) {
             $stateArray[$state->id] = ($showNative == false) ? $state->name : $state->native;
+        }
 
         return $stateArray;
     }

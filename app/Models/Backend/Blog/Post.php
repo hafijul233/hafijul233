@@ -18,7 +18,10 @@ use OwenIt\Auditing\Contracts\Auditable;
  */
 class Post extends Model implements Auditable
 {
-    use AuditableTrait, HasFactory, SoftDeletes, Sortable;
+    use AuditableTrait;
+    use HasFactory;
+    use SoftDeletes;
+    use Sortable;
 
     /**
      * @var string $table
@@ -102,5 +105,4 @@ class Post extends Model implements Auditable
     {
         return $this->belongsToMany(State::class, 'enumerator_future_state');
     }
-
 }

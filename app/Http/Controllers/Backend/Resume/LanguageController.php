@@ -38,10 +38,11 @@ class LanguageController extends Controller
      * @param AuthenticatedSessionService $authenticatedSessionService
      * @param LanguageService $languageService
      */
-    public function __construct(AuthenticatedSessionService $authenticatedSessionService,
-                                LanguageService $languageService)
+    public function __construct(
+        AuthenticatedSessionService $authenticatedSessionService,
+        LanguageService $languageService
+    )
     {
-
         $this->authenticatedSessionService = $authenticatedSessionService;
         $this->languageService = $languageService;
     }
@@ -161,7 +162,6 @@ class LanguageController extends Controller
     public function destroy($id, Request $request)
     {
         if ($this->authenticatedSessionService->validate($request)) {
-
             $confirm = $this->languageService->destroySurvey($id);
 
             if ($confirm['status'] == true) {
@@ -185,7 +185,6 @@ class LanguageController extends Controller
     public function restore($id, Request $request)
     {
         if ($this->authenticatedSessionService->validate($request)) {
-
             $confirm = $this->languageService->restoreSurvey($id);
 
             if ($confirm['status'] == true) {
@@ -215,7 +214,6 @@ class LanguageController extends Controller
         return $languageExport->download($filename, function ($language) use ($languageExport) {
             return $languageExport->map($language);
         });
-
     }
 
     /**
@@ -261,6 +259,5 @@ class LanguageController extends Controller
         return $languageExport->download($filename, function ($language) use ($languageExport) {
             return $languageExport->map($language);
         });
-
     }
 }

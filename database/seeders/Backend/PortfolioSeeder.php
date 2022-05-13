@@ -24,7 +24,5 @@ class PortfolioSeeder extends Seeder
         $this->call(CertificateSeeder::class);
         $this->call(ProjectSeeder::class);
         $this->call(TestimonialSeeder::class);
-
     }
-
 }

@@ -9,7 +9,6 @@ use Database\Seeders\Backend\SettingSeeder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Seeder;
 
-
 class DatabaseSeeder extends Seeder
 {
     /**

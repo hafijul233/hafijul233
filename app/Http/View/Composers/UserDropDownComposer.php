@@ -8,7 +8,6 @@ use Illuminate\View\View;
 
 class UserDropDownComposer
 {
-
     /**
      * @var User $user
      */
@@ -22,7 +21,6 @@ class UserDropDownComposer
     public function __construct()
     {
         $this->user = Auth::user();
-
     }
 
     /**

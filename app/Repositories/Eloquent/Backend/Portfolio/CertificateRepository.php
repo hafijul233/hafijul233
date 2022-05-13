@@ -24,7 +24,7 @@ class CertificateRepository extends EloquentRepository
         /**
          * Set the model that will be used for repo
          */
-        parent::__construct(new Certificate);
+        parent::__construct(new Certificate());
     }
 
     /**

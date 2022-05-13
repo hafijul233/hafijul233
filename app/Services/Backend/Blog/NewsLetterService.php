@@ -140,7 +140,6 @@ class NewsLetterService extends Service
                 DB::commit();
                 return ['status' => true, 'message' => __('Comment is Trashed'),
                     'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
-
             } else {
                 DB::rollBack();
                 return ['status' => false, 'message' => __('Comment is Delete Failed'),
@@ -169,7 +168,6 @@ class NewsLetterService extends Service
                 DB::commit();
                 return ['status' => true, 'message' => __('Comment is Restored'),
                     'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
-
             } else {
                 DB::rollBack();
                 return ['status' => false, 'message' => __('Comment is Restoration Failed'),
@@ -206,8 +204,9 @@ class NewsLetterService extends Service
     {
         $newsLetters = $this->getAllNewsLetters($filters);
         $newsLetterArray = [];
-        foreach ($newsLetters as $newsLetter)
+        foreach ($newsLetters as $newsLetter) {
             $newsLetterArray[$newsLetter->id] = $newsLetter->name;
+        }
 
         return $newsLetterArray;
     }

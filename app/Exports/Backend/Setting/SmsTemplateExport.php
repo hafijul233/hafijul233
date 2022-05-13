@@ -45,4 +45,3 @@ class SmsTemplateExport extends FastExcelExport
         return $this->formatRow;
     }
 }
-

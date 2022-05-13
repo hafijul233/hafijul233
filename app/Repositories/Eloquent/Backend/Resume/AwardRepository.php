@@ -24,7 +24,7 @@ class AwardRepository extends EloquentRepository
         /**
          * Set the model that will be used for repo
          */
-        parent::__construct(new Award);
+        parent::__construct(new Award());
     }
 
     /**

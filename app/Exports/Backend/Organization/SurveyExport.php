@@ -45,4 +45,3 @@ class SurveyExport extends FastExcelExport
         return $this->formatRow;
     }
 }
-

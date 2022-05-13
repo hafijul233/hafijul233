@@ -5,7 +5,6 @@ namespace Database\Seeders\Backend\Setting;
 use App\Models\Backend\Setting\User;
 use Illuminate\Database\Seeder;
 
-
 class UserSeeder extends Seeder
 {
     /**

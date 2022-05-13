@@ -141,7 +141,6 @@ class CityService extends Service
                 DB::commit();
                 return ['status' => true, 'message' => __('City is Trashed'),
                     'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
-
             } else {
                 DB::rollBack();
                 return ['status' => false, 'message' => __('City is Delete Failed'),
@@ -170,7 +169,6 @@ class CityService extends Service
                 DB::commit();
                 return ['status' => true, 'message' => __('City is Restored'),
                     'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
-
             } else {
                 DB::rollBack();
                 return ['status' => false, 'message' => __('City is Restoration Failed'),

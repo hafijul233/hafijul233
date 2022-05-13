@@ -45,4 +45,3 @@ class TruckLoadExport extends FastExcelExport
         return $this->formatRow;
     }
 }
-

@@ -58,7 +58,6 @@ abstract class FastExcelExport extends FastExcel implements ExportInterface
             ->setFontSize(12)
             ->setShouldWrapText()
             ->setCellAlignment(CellAlignment::LEFT));
-
     }
 
     /**
@@ -114,7 +113,7 @@ abstract class FastExcelExport extends FastExcel implements ExportInterface
      * @param $row
      * @return array
      */
-    public abstract function map($row): array;
+    abstract public function map($row): array;
 
     /**
      * Returns all super admin columns
@@ -128,14 +127,14 @@ abstract class FastExcelExport extends FastExcel implements ExportInterface
                 ? $row->deleted_at->format(config('backend.datetime'))
                 : null;
 
-            $this->formatRow['Creator'] = ($row->createdBy != null)
+        $this->formatRow['Creator'] = ($row->createdBy != null)
                 ? $row->createdBy->name
                 : null;
 
-            $this->formatRow['Editor'] = ($row->updatedBy != null)
+        $this->formatRow['Editor'] = ($row->updatedBy != null)
                 ? $row->updatedBy->name
                 : null;
-            $this->formatRow['Destructor'] = ($row->deletedBy != null)
+        $this->formatRow['Destructor'] = ($row->deletedBy != null)
                 ? $row->deletedBy->name
                 : null;
         endif;

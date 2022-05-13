@@ -45,4 +45,3 @@ class CostExport extends FastExcelExport
         return $this->formatRow;
     }
 }
-

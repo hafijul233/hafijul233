@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Repositories\Eloquent\Backend\Setting;
-
 
 use App\Abstracts\Repository\EloquentRepository;
 use App\Models\Backend\Setting\Permission;
@@ -22,7 +20,7 @@ class PermissionRepository extends EloquentRepository
         /**
          * Set the model that will be used for repo
          */
-        parent::__construct(new Permission);
+        parent::__construct(new Permission());
     }
 
     /**
@@ -97,6 +95,4 @@ class PermissionRepository extends EloquentRepository
             return $query->with($eagerRelations)->get();
         }
     }
-
-
 }

@@ -48,4 +48,3 @@ class OccupationExport extends FastExcelExport
         return $this->formatRow;
     }
 }
-

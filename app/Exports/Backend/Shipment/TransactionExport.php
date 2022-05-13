@@ -45,4 +45,3 @@ class TransactionExport extends FastExcelExport
         return $this->formatRow;
     }
 }
-

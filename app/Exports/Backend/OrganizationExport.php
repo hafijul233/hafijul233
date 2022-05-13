@@ -47,4 +47,3 @@ class OrganizationExport extends FastExcelExport
         return $this->formatRow;
     }
 }
-

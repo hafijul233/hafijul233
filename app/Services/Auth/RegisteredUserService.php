@@ -31,8 +31,10 @@ class RegisteredUserService
      * @param UserRepository $userRepository
      * @param FileUploadService $fileUploadService
      */
-    public function __construct(UserRepository $userRepository,
-                                FileUploadService $fileUploadService)
+    public function __construct(
+        UserRepository $userRepository,
+        FileUploadService $fileUploadService
+    )
     {
         $this->userRepository = $userRepository;
         $this->fileUploadService = $fileUploadService;

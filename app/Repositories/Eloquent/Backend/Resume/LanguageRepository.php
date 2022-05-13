@@ -25,7 +25,7 @@ class LanguageRepository extends EloquentRepository
         /**
          * Set the model that will be used for repo
          */
-        parent::__construct(new Language);
+        parent::__construct(new Language());
     }
 
     /**

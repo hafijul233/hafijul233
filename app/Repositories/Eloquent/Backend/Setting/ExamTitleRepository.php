@@ -24,7 +24,7 @@ class ExamTitleRepository extends EloquentRepository
         /**
          * Set the model that will be used for repo
          */
-        parent::__construct(new ExamTitle);
+        parent::__construct(new ExamTitle());
     }
 
     /**

@@ -154,7 +154,6 @@ class TestimonialService extends Service
                 DB::commit();
                 return ['status' => true, 'message' => __('Testimonial is Trashed'),
                     'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
-
             } else {
                 DB::rollBack();
                 return ['status' => false, 'message' => __('Testimonial is Delete Failed'),
@@ -183,7 +182,6 @@ class TestimonialService extends Service
                 DB::commit();
                 return ['status' => true, 'message' => __('Testimonial is Restored'),
                     'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
-
             } else {
                 DB::rollBack();
                 return ['status' => false, 'message' => __('Testimonial is Restoration Failed'),
@@ -224,16 +222,16 @@ class TestimonialService extends Service
 
         foreach ($examLevels as $examLevel):
             $prefix = $examLevel->code;
-            $qualifications[$examLevel->id]["exam_level_id"] = $inputs["{$prefix}_exam_level_id"] ?? null;
-            $qualifications[$examLevel->id]["exam_title_id"] = $inputs["{$prefix}_exam_title_id"] ?? null;
-            $qualifications[$examLevel->id]["exam_board_id"] = $inputs["{$prefix}_exam_board_id"] ?? null;
-            $qualifications[$examLevel->id]["exam_group_id"] = $inputs["{$prefix}_exam_group_id"] ?? null;
-            $qualifications[$examLevel->id]["institute_id"] = $inputs["{$prefix}_institute_id"] ?? null;
-            $qualifications[$examLevel->id]["pass_year"] = $inputs["{$prefix}_pass_year"] ?? null;
-            $qualifications[$examLevel->id]["roll_number"] = $inputs["{$prefix}_roll_number"] ?? null;
-            $qualifications[$examLevel->id]["grade_type"] = $inputs["{$prefix}_grade_type"] ?? null;
-            $qualifications[$examLevel->id]["grade_point"] = $inputs["{$prefix}_grade_point"] ?? null;
-            $qualifications[$examLevel->id]["enabled"] = "yes";
+        $qualifications[$examLevel->id]["exam_level_id"] = $inputs["{$prefix}_exam_level_id"] ?? null;
+        $qualifications[$examLevel->id]["exam_title_id"] = $inputs["{$prefix}_exam_title_id"] ?? null;
+        $qualifications[$examLevel->id]["exam_board_id"] = $inputs["{$prefix}_exam_board_id"] ?? null;
+        $qualifications[$examLevel->id]["exam_group_id"] = $inputs["{$prefix}_exam_group_id"] ?? null;
+        $qualifications[$examLevel->id]["institute_id"] = $inputs["{$prefix}_institute_id"] ?? null;
+        $qualifications[$examLevel->id]["pass_year"] = $inputs["{$prefix}_pass_year"] ?? null;
+        $qualifications[$examLevel->id]["roll_number"] = $inputs["{$prefix}_roll_number"] ?? null;
+        $qualifications[$examLevel->id]["grade_type"] = $inputs["{$prefix}_grade_type"] ?? null;
+        $qualifications[$examLevel->id]["grade_point"] = $inputs["{$prefix}_grade_point"] ?? null;
+        $qualifications[$examLevel->id]["enabled"] = "yes";
         endforeach;
 
         return $qualifications;
@@ -252,11 +250,11 @@ class TestimonialService extends Service
 
         foreach ($inputs['job'] as $index => $input):
             $qualifications[$index]["company"] = $input["company"] ?? null;
-            $qualifications[$index]["designation"] = $input["designation"] ?? null;
-            $qualifications[$index]["start_date"] = $input["start_date"] ?? null;
-            $qualifications[$index]["end_date"] = $input["end_date"] ?? null;
-            $qualifications[$index]["responsibility"] = $input["responsibility"] ?? null;
-            $qualifications[$index]["enabled"] = "yes";
+        $qualifications[$index]["designation"] = $input["designation"] ?? null;
+        $qualifications[$index]["start_date"] = $input["start_date"] ?? null;
+        $qualifications[$index]["end_date"] = $input["end_date"] ?? null;
+        $qualifications[$index]["responsibility"] = $input["responsibility"] ?? null;
+        $qualifications[$index]["enabled"] = "yes";
         endforeach;
 
         return $qualifications;

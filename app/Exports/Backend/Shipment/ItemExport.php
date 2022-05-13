@@ -45,4 +45,3 @@ class ItemExport extends FastExcelExport
         return $this->formatRow;
     }
 }
-

@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Repositories\Eloquent\Backend\Setting;
-
 
 use App\Abstracts\Repository\EloquentRepository;
 use App\Models\Backend\Setting\Role;
@@ -23,7 +21,7 @@ class RoleRepository extends EloquentRepository
         /**
          * Set the model that will be used for repo
          */
-        parent::__construct(new Role);
+        parent::__construct(new Role());
     }
 
     /**
@@ -81,12 +79,14 @@ class RoleRepository extends EloquentRepository
             $existingPermissionIds = $role->permissions()->pluck('id');
 
             //Remove All
-            if (empty($existingPermissionIds))
+            if (empty($existingPermissionIds)) {
                 $role->permissions()->detach($existingPermissionIds);
+            }
 
             //Remove Selected
-            else
+            else {
                 $role->permissions()->detach($permissions);
+            }
 
             return true;
         } catch (Exception $exception) {
@@ -142,10 +142,9 @@ class RoleRepository extends EloquentRepository
 
         if (isset($filters['id']) && !empty($filters['id'])) :
             if (is_array($filters['id'])):
-                $query->whereIn('id', $filters['id']);
-            else :
+                $query->whereIn('id', $filters['id']); else :
                 $query->where('id', $filters['id']);
-            endif;
+        endif;
         endif;
 
 
@@ -178,5 +177,4 @@ class RoleRepository extends EloquentRepository
             return $query->with($eagerRelations)->get();
         }
     }
-
 }

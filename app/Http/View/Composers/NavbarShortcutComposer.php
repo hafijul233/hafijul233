@@ -21,7 +21,6 @@ class NavbarShortcutComposer
      */
     public function __construct()
     {
-
     }
 
     /**
@@ -32,6 +31,5 @@ class NavbarShortcutComposer
      */
     public function compose(View $view)
     {
-
     }
 }

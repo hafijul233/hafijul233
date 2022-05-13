@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Supports;
 
 /**
@@ -12,67 +11,67 @@ class Constant
     /**
      * System Model Status
      */
-    const ENABLED_OPTIONS = ['yes' => 'Yes', 'no' => 'No'];
+    public const ENABLED_OPTIONS = ['yes' => 'Yes', 'no' => 'No'];
     /**
      * System Model Status
      */
-    const GUEST_ROLE_ID = 4;
+    public const GUEST_ROLE_ID = 4;
 
     /**
      * System User Permission Guards
      */
-    const PERMISSION_GUARDS = ['web' => 'WEB'];
+    public const PERMISSION_GUARDS = ['web' => 'WEB'];
 
     /**
      * System User Permission Guard
      */
-    const PERMISSION_GUARD = 'web';
+    public const PERMISSION_GUARD = 'web';
 
     /**
      * System Permission Title Constraint
      */
-    const PERMISSION_NAME_ALLOW_CHAR = '([a-zA-Z0-9.-_]+)';
+    public const PERMISSION_NAME_ALLOW_CHAR = '([a-zA-Z0-9.-_]+)';
 
     /**
      * Keyword to purge Soft Deleted Models
      */
-    const PURGE_MODEL_QSA = 'purge';
+    public const PURGE_MODEL_QSA = 'purge';
 
     /**
      * Timing Constants
      */
-    const SECOND = '1';
-    const MINUTE = '60';
-    const HOUR = '3600';
-    const DAY = '86400';
-    const WEEK = '604800';
-    const MONTH = '2592000';
-    const YEAR = '31536000';
-    const DECADE = '315360000'; //1de=10y
+    public const SECOND = '1';
+    public const MINUTE = '60';
+    public const HOUR = '3600';
+    public const DAY = '86400';
+    public const WEEK = '604800';
+    public const MONTH = '2592000';
+    public const YEAR = '31536000';
+    public const DECADE = '315360000'; //1de=10y
 
     /**
      * Toastr Message Levels
      */
-    const MSG_TOASTR_ERROR = 'error';
-    const MSG_TOASTR_WARNING = 'warning';
-    const MSG_TOASTR_SUCCESS = 'success';
-    const MSG_TOASTR_INFO = 'info';
+    public const MSG_TOASTR_ERROR = 'error';
+    public const MSG_TOASTR_WARNING = 'warning';
+    public const MSG_TOASTR_SUCCESS = 'success';
+    public const MSG_TOASTR_INFO = 'info';
 
     /**
      * Authentication Login Medium
      */
-    const LOGIN_EMAIL = 'email';
-    const LOGIN_USERNAME = 'username';
-    const LOGIN_MOBILE = 'mobile';
-    const LOGIN_OTP = 'otp';
+    public const LOGIN_EMAIL = 'email';
+    public const LOGIN_USERNAME = 'username';
+    public const LOGIN_MOBILE = 'mobile';
+    public const LOGIN_OTP = 'otp';
 
     /**
      * OTP Medium Source
      */
-    const OTP_MOBILE = 'mobile';
-    const OTP_EMAIL = 'email';
+    public const OTP_MOBILE = 'mobile';
+    public const OTP_EMAIL = 'email';
 
-    const EXPORT_OPTIONS = [
+    public const EXPORT_OPTIONS = [
         'xlsx' => 'Microsoft Excel (.xlsx)',
         'ods' => 'Open Document Spreadsheet (.ods)',
         'csv' => 'Comma Seperated Values (.csv)'
@@ -82,52 +81,52 @@ class Constant
     /**
      * Default Role Name for system administrator
      */
-    const SUPER_ADMIN_ROLE = 'Super Administrator';
+    public const SUPER_ADMIN_ROLE = 'Super Administrator';
 
     /**
      * Default Email Address for backend admin panel
      */
-    const EMAIL = 'hafijul233@gmail.com';
+    public const EMAIL = 'hafijul233@gmail.com';
 
     /**
      * Default model enabled status
      */
-    const ENABLED_OPTION = 'yes';
+    public const ENABLED_OPTION = 'yes';
 
     /**
      * Default model disabled statusENABLED_OPTION
      */
-    const DISABLED_OPTION = 'no';
+    public const DISABLED_OPTION = 'no';
 
     /**
      * Default Password
      */
-    const PASSWORD = 'password';
+    public const PASSWORD = 'password';
 
     /**
      * Default profile display image is user image is missing
      */
-    const USER_PROFILE_IMAGE = 'assets/img/logo.png';
+    public const USER_PROFILE_IMAGE = 'assets/img/logo.png';
     /**
      * Default service display image is user image is missing
      */
-    const SERVICE_IMAGE = 'assets/img/logo.png';
+    public const SERVICE_IMAGE = 'assets/img/logo.png';
 
     /**
      * Default Logged User Redirect Route
      */
-    const DASHBOARD_ROUTE = 'backend.dashboard';
+    public const DASHBOARD_ROUTE = 'backend.dashboard';
 
-    const LOCALE = 'en';
+    public const LOCALE = 'en';
 
     /**
      * Default Exp[ort type
      */
-    const EXPORT_DEFAULT = 'xlsx';
+    public const EXPORT_DEFAULT = 'xlsx';
     /**
      * CATALOG TYPES
      */
-    const CATALOG_TYPE = [
+    public const CATALOG_TYPE = [
         "GENDER" => 'GEN',
         "MARITAL_STATUS" => 'MAS',
         "RELIGION" => 'REL',
@@ -138,7 +137,7 @@ class Constant
     /**
      * CATALOG TYPES
      */
-    const CATALOG_LABEL = [
+    public const CATALOG_LABEL = [
         "GEN" => 'Gender',
         "MAS" => 'Marital Status',
         "REL" => 'Religion',
@@ -147,7 +146,7 @@ class Constant
         "QOT" => 'Quote'
     ];
 
-    const GPA_TYPE = [
+    public const GPA_TYPE = [
         1 => "1st Division",
         2 => "2nd Division",
         3 => "3rd Division",
@@ -157,7 +156,7 @@ class Constant
 
     ];
 
-    const EMPLOYEEMENT_TYPE = [
+    public const EMPLOYEEMENT_TYPE = [
         'full-time' => 'Full-time',
         'part-time' => 'Part-time',
         'intern' => 'Intern'

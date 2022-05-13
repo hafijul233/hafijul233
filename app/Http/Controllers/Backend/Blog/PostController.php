@@ -47,10 +47,11 @@ class PostController extends Controller
      * @param AuthenticatedSessionService $authenticatedSessionService
      * @param PostService $postService
      */
-    public function __construct(AuthenticatedSessionService $authenticatedSessionService,
-                                PostService $postService)
+    public function __construct(
+        AuthenticatedSessionService $authenticatedSessionService,
+        PostService $postService
+    )
     {
-
         $this->authenticatedSessionService = $authenticatedSessionService;
         $this->postService = $postService;
     }
@@ -149,7 +150,6 @@ class PostController extends Controller
     public function edit($id)
     {
         if ($post = $this->postService->getPostById($id)) {
-
             $enables = [];
             foreach (Constant::ENABLED_OPTIONS as $field => $label):
                 $enables[$field] = __('common.' . $label);
@@ -201,7 +201,6 @@ class PostController extends Controller
     public function destroy($id, Request $request)
     {
         if ($this->authenticatedSessionService->validate($request)) {
-
             $confirm = $this->postService->destroyPost($id);
 
             if ($confirm['status'] == true) {
@@ -225,7 +224,6 @@ class PostController extends Controller
     public function restore($id, Request $request)
     {
         if ($this->authenticatedSessionService->validate($request)) {
-
             $confirm = $this->postService->restorePost($id);
 
             if ($confirm['status'] == true) {
@@ -275,14 +273,13 @@ class PostController extends Controller
         if (count($posts) > 0):
             foreach ($posts as $index => $post) :
                 $posts[$index]->update_route = route('backend.portfolio.posts.update', $post->id);
-                $posts[$index]->survey_id = $post->surveys->pluck('id')->toArray();
-                $posts[$index]->prev_post_state_id = $post->previousPostings->pluck('id')->toArray();
-                $posts[$index]->future_post_state_id = $post->futurePostings->pluck('id')->toArray();
-                unset($posts[$index]->surveys, $posts[$index]->previousPostings, $posts[$index]->futurePostings);
-            endforeach;
+        $posts[$index]->survey_id = $post->surveys->pluck('id')->toArray();
+        $posts[$index]->prev_post_state_id = $post->previousPostings->pluck('id')->toArray();
+        $posts[$index]->future_post_state_id = $post->futurePostings->pluck('id')->toArray();
+        unset($posts[$index]->surveys, $posts[$index]->previousPostings, $posts[$index]->futurePostings);
+        endforeach;
 
-            $jsonReturn = ['status' => true, 'data' => $posts];
-        else :
+        $jsonReturn = ['status' => true, 'data' => $posts]; else :
             $jsonReturn = ['status' => false, 'data' => []];
         endif;
 

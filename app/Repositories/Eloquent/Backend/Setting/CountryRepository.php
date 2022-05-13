@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Repositories\Eloquent\Backend\Setting;
-
 
 use App\Abstracts\Repository\EloquentRepository;
 use App\Models\Backend\Setting\Country;
@@ -22,7 +20,7 @@ class CountryRepository extends EloquentRepository
         /**
          * Set the model that will be used for repo
          */
-        parent::__construct(new Country);
+        parent::__construct(new Country());
     }
 
     /**
@@ -97,6 +95,4 @@ class CountryRepository extends EloquentRepository
             return $query->with($eagerRelations)->get();
         }
     }
-
-
 }

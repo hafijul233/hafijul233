@@ -32,10 +32,11 @@ class CountryController extends Controller
      * @param AuthenticatedSessionService $authenticatedSessionService
      * @param CountryService $countryService
      */
-    public function __construct(AuthenticatedSessionService $authenticatedSessionService,
-                                CountryService $countryService)
+    public function __construct(
+        AuthenticatedSessionService $authenticatedSessionService,
+        CountryService $countryService
+    )
     {
-
         $this->authenticatedSessionService = $authenticatedSessionService;
         $this->countryService = $countryService;
     }
@@ -154,7 +155,6 @@ class CountryController extends Controller
     public function destroy($id, Request $request)
     {
         if ($this->authenticatedSessionService->validate($request)) {
-
             $confirm = $this->countryService->destroyCountry($id);
 
             if ($confirm['status'] == true) {
@@ -178,7 +178,6 @@ class CountryController extends Controller
     public function restore($id, Request $request)
     {
         if ($this->authenticatedSessionService->validate($request)) {
-
             $confirm = $this->countryService->restoreCountry($id);
 
             if ($confirm['status'] == true) {
@@ -208,7 +207,6 @@ class CountryController extends Controller
         return $countryExport->download($filename, function ($country) use ($countryExport) {
             return $countryExport->map($country);
         });
-
     }
 
     /**
@@ -254,6 +252,5 @@ class CountryController extends Controller
         return $countryExport->download($filename, function ($country) use ($countryExport) {
             return $countryExport->map($country);
         });
-
     }
 }

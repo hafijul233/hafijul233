@@ -149,7 +149,6 @@ class CertificateService extends Service
                 DB::commit();
                 return ['status' => true, 'message' => __('Comment is Trashed'),
                     'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
-
             } else {
                 DB::rollBack();
                 return ['status' => false, 'message' => __('Comment is Delete Failed'),
@@ -178,7 +177,6 @@ class CertificateService extends Service
                 DB::commit();
                 return ['status' => true, 'message' => __('Comment is Restored'),
                     'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
-
             } else {
                 DB::rollBack();
                 return ['status' => false, 'message' => __('Comment is Restoration Failed'),
@@ -215,8 +213,9 @@ class CertificateService extends Service
     {
         $certificates = $this->getAllCertificates($filters);
         $certificateArray = [];
-        foreach ($certificates as $certificate)
+        foreach ($certificates as $certificate) {
             $certificateArray[$certificate->id] = $certificate->name;
+        }
 
         return $certificateArray;
     }

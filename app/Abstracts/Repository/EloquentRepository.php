@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Abstracts\Repository;
-
 
 use App;
 use App\Interfaces\RepositoryInterface;
@@ -102,24 +100,26 @@ abstract class EloquentRepository implements RepositoryInterface
         Log::error("Query Exception: ");
         Log::error($exception->getMessage());
         //if application is on production keep silent
-        if (App::environment('production'))
+        if (App::environment('production')) {
             Log::error($exception->getMessage());
+        }
 
         //Eloquent Model Exception
-        else if ($exception instanceof ModelNotFoundException)
+        elseif ($exception instanceof ModelNotFoundException) {
             throw new ModelNotFoundException($exception->getMessage());
+        }
 
         //DB Error
-        else if ($exception instanceof PDOException)
+        elseif ($exception instanceof PDOException) {
             throw new PDOException($exception->getMessage());
-
-        else if ($exception instanceof BadMethodCallException)
+        } elseif ($exception instanceof BadMethodCallException) {
             throw new BadMethodCallException($exception->getMessage());
+        }
 
         //Through general Exception
-        else
+        else {
             throw new Exception($exception->getMessage());
-
+        }
     }
 
     /**
@@ -140,7 +140,6 @@ abstract class EloquentRepository implements RepositoryInterface
             $this->handleException($exception);
             return false;
         }
-
     }
 
     /**
@@ -164,11 +163,11 @@ abstract class EloquentRepository implements RepositoryInterface
     {
         $newModel = null;
         try {
-            if ($purge === true)
+            if ($purge === true) {
                 $newModel = $this->model->withTrashed()->findOrFail($id);
-            else
+            } else {
                 $newModel = $this->model->findOrFail($id);
-
+            }
         } catch (ModelNotFoundException $exception) {
             $this->handleException($exception);
         } finally {
@@ -281,14 +280,14 @@ abstract class EloquentRepository implements RepositoryInterface
     {
         try {
             //if Sorting is available for this column
-            if ($is_sortable)
+            if ($is_sortable) {
                 $this->model->sortable();
+            }
 
             if (isset($filters['sort']) && isset($filters['direction'])) {
                 /*                $this->model->orderBy($filters['sort'], $filters['direction']);*/
                 unset($filters['sort'], $filters['direction']);
             }
-
         } catch (BadMethodCallException $exception) {
             $this->handleException($exception);
         } finally {

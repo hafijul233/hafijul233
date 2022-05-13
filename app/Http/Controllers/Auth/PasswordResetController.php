@@ -53,7 +53,6 @@ class PasswordResetController extends Controller
 
         notify($confirm['message'], $confirm['level'], $confirm['title']);
         return redirect()->back();
-
     }
 
     public function edit($token)

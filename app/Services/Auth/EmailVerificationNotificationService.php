@@ -2,7 +2,6 @@
 
 namespace App\Services\Auth;
 
-
 use App\Providers\RouteServiceProvider;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;

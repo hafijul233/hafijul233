@@ -39,14 +39,14 @@ class RolePermissionSeeder extends Seeder
         foreach ($permissions as $permission) :
             $superAdminRole->givePermissionTo($permission);
 
-            if (strpos($permission->name, 'restore') === false) {
-                $adminRole->givePermissionTo($permission);
-                if ((strpos($permission->name, 'destroy') === false) &&
+        if (strpos($permission->name, 'restore') === false) {
+            $adminRole->givePermissionTo($permission);
+            if ((strpos($permission->name, 'destroy') === false) &&
                     (strpos($permission->name, 'delete') === false)
                 ) {
-                    $operatorRole->givePermissionTo($permission);
-                }
+                $operatorRole->givePermissionTo($permission);
             }
+        }
 
         endforeach;
     }

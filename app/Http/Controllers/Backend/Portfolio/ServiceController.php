@@ -45,7 +45,6 @@ class ServiceController extends Controller
      */
     public function __construct(AuthenticatedSessionService $authenticatedSessionService, ServiceService $serviceService)
     {
-
         $this->authenticatedSessionService = $authenticatedSessionService;
         $this->serviceService = $serviceService;
     }
@@ -169,7 +168,6 @@ class ServiceController extends Controller
     public function destroy($id, Request $request)
     {
         if ($this->authenticatedSessionService->validate($request)) {
-
             $confirm = $this->serviceService->destroyService($id);
 
             if ($confirm['status'] == true) {
@@ -193,7 +191,6 @@ class ServiceController extends Controller
     public function restore($id, Request $request)
     {
         if ($this->authenticatedSessionService->validate($request)) {
-
             $confirm = $this->serviceService->restoreService($id);
 
             if ($confirm['status'] == true) {
@@ -243,14 +240,13 @@ class ServiceController extends Controller
         if (count($services) > 0):
             foreach ($services as $index => $service) :
                 $services[$index]->update_route = route('backend.portfolio.services.update', $service->id);
-                $services[$index]->survey_id = $service->surveys->pluck('id')->toArray();
-                $services[$index]->prev_post_state_id = $service->previousPostings->pluck('id')->toArray();
-                $services[$index]->future_post_state_id = $service->futurePostings->pluck('id')->toArray();
-                unset($services[$index]->surveys, $services[$index]->previousPostings, $services[$index]->futurePostings);
-            endforeach;
+        $services[$index]->survey_id = $service->surveys->pluck('id')->toArray();
+        $services[$index]->prev_post_state_id = $service->previousPostings->pluck('id')->toArray();
+        $services[$index]->future_post_state_id = $service->futurePostings->pluck('id')->toArray();
+        unset($services[$index]->surveys, $services[$index]->previousPostings, $services[$index]->futurePostings);
+        endforeach;
 
-            $jsonReturn = ['status' => true, 'data' => $services];
-        else :
+        $jsonReturn = ['status' => true, 'data' => $services]; else :
             $jsonReturn = ['status' => false, 'data' => []];
         endif;
 

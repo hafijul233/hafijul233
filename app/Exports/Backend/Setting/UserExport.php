@@ -8,7 +8,6 @@ use Box\Spout\Common\Exception\InvalidArgumentException;
 use Illuminate\Database\Eloquent\Collection;
 use function config;
 
-
 class UserExport extends FastExcelExport
 {
     /**

@@ -46,10 +46,11 @@ class ExperienceController extends Controller
      * @param AuthenticatedSessionService $authenticatedSessionService
      * @param ExperienceService $experienceService
      */
-    public function __construct(AuthenticatedSessionService $authenticatedSessionService,
-                                ExperienceService $experienceService)
+    public function __construct(
+        AuthenticatedSessionService $authenticatedSessionService,
+        ExperienceService $experienceService
+    )
     {
-
         $this->authenticatedSessionService = $authenticatedSessionService;
         $this->experienceService = $experienceService;
     }
@@ -133,7 +134,6 @@ class ExperienceController extends Controller
     public function edit($id)
     {
         if ($experience = $this->experienceService->getExperienceById($id)) {
-
             return view('backend.resume.experience.edit', [
                 'experience' => $experience,
 
@@ -176,7 +176,6 @@ class ExperienceController extends Controller
     public function destroy($id, Request $request)
     {
         if ($this->authenticatedSessionService->validate($request)) {
-
             $confirm = $this->experienceService->destroyExperience($id);
 
             if ($confirm['status'] == true) {
@@ -200,7 +199,6 @@ class ExperienceController extends Controller
     public function restore($id, Request $request)
     {
         if ($this->authenticatedSessionService->validate($request)) {
-
             $confirm = $this->experienceService->restoreExperience($id);
 
             if ($confirm['status'] == true) {
@@ -250,14 +248,13 @@ class ExperienceController extends Controller
         if (count($experiences) > 0):
             foreach ($experiences as $index => $experience) :
                 $experiences[$index]->update_route = route('backend.resume.experiences.update', $experience->id);
-                $experiences[$index]->survey_id = $experience->surveys->pluck('id')->toArray();
-                $experiences[$index]->prev_post_state_id = $experience->previousPostings->pluck('id')->toArray();
-                $experiences[$index]->future_post_state_id = $experience->futurePostings->pluck('id')->toArray();
-                unset($experiences[$index]->surveys, $experiences[$index]->previousPostings, $experiences[$index]->futurePostings);
-            endforeach;
+        $experiences[$index]->survey_id = $experience->surveys->pluck('id')->toArray();
+        $experiences[$index]->prev_post_state_id = $experience->previousPostings->pluck('id')->toArray();
+        $experiences[$index]->future_post_state_id = $experience->futurePostings->pluck('id')->toArray();
+        unset($experiences[$index]->surveys, $experiences[$index]->previousPostings, $experiences[$index]->futurePostings);
+        endforeach;
 
-            $jsonReturn = ['status' => true, 'data' => $experiences];
-        else :
+        $jsonReturn = ['status' => true, 'data' => $experiences]; else :
             $jsonReturn = ['status' => false, 'data' => []];
         endif;
 

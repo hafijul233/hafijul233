@@ -58,4 +58,3 @@ class EnumeratorExport extends FastExcelExport
         return $this->formatRow;
     }
 }
-

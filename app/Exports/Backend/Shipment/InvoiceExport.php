@@ -45,4 +45,3 @@ class InvoiceExport extends FastExcelExport
         return $this->formatRow;
     }
 }
-

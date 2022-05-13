@@ -38,10 +38,11 @@ class SkillController extends Controller
      * @param AuthenticatedSessionService $authenticatedSessionService
      * @param SkillService $skillService
      */
-    public function __construct(AuthenticatedSessionService $authenticatedSessionService,
-                                SkillService $skillService)
+    public function __construct(
+        AuthenticatedSessionService $authenticatedSessionService,
+        SkillService $skillService
+    )
     {
-
         $this->authenticatedSessionService = $authenticatedSessionService;
         $this->skillService = $skillService;
     }
@@ -161,7 +162,6 @@ class SkillController extends Controller
     public function destroy($id, Request $request)
     {
         if ($this->authenticatedSessionService->validate($request)) {
-
             $confirm = $this->skillService->destroySkill($id);
 
             if ($confirm['status'] == true) {
@@ -185,7 +185,6 @@ class SkillController extends Controller
     public function restore($id, Request $request)
     {
         if ($this->authenticatedSessionService->validate($request)) {
-
             $confirm = $this->skillService->restoreSkill($id);
 
             if ($confirm['status'] == true) {
@@ -215,7 +214,6 @@ class SkillController extends Controller
         return $skillExport->download($filename, function ($skill) use ($skillExport) {
             return $skillExport->map($skill);
         });
-
     }
 
     /**
@@ -261,6 +259,5 @@ class SkillController extends Controller
         return $skillExport->download($filename, function ($skill) use ($skillExport) {
             return $skillExport->map($skill);
         });
-
     }
 }

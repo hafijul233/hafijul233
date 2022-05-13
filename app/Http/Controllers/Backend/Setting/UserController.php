@@ -45,9 +45,11 @@ class UserController extends Controller
      * @param UserService $userService
      * @param RoleService $roleService
      */
-    public function __construct(AuthenticatedSessionService $authenticatedSessionService,
-                                UserService $userService,
-                                RoleService $roleService)
+    public function __construct(
+        AuthenticatedSessionService $authenticatedSessionService,
+        UserService $userService,
+        RoleService $roleService
+    )
     {
         $this->userService = $userService;
         $this->authenticatedSessionService = $authenticatedSessionService;
@@ -154,7 +156,6 @@ class UserController extends Controller
         }
 
         abort(404);
-
     }
 
     /**
@@ -180,7 +181,6 @@ class UserController extends Controller
 
         notify($confirm['message'], $confirm['level'], $confirm['title']);
         return redirect()->back()->withInput();
-
     }
 
     /**
@@ -281,7 +281,6 @@ class UserController extends Controller
      */
     public function print(Request $request)
     {
-
         $filters = $request->except('page');
 
         $userExport = $this->userService->exportUser($filters);

@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Repositories\Eloquent\Backend\Setting;
-
 
 use App\Abstracts\Repository\EloquentRepository;
 use App\Models\Backend\Setting\User;
@@ -11,7 +9,6 @@ use Exception;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
-
 
 class UserRepository extends EloquentRepository
 {
@@ -36,7 +33,6 @@ class UserRepository extends EloquentRepository
      */
     public function manageRoles(array $roles = [], bool $detachOldRoles = false): bool
     {
-
         $alreadyAssignedRoles = [];
 
         $roleCollection = $this->getAssignedRoles();
@@ -136,7 +132,6 @@ class UserRepository extends EloquentRepository
         //Role may be int, string, array
         if (isset($filters['role']) && !empty($filters['role'])) :
             $query->whereHas('roles', function ($subQuery) use ($filters) {
-
                 if (!is_array($filters['role'])):
                     $filters['role'][] = $filters['role'];
                 endif;
@@ -147,7 +142,7 @@ class UserRepository extends EloquentRepository
                 if (!empty($filters['role'])) :
                     foreach ($filters['role'] as $role):
                         $subQuery->orWhere('id', '=', $role);
-                    endforeach;
+                endforeach;
                 endif;
             });
         endif;
@@ -183,6 +178,4 @@ class UserRepository extends EloquentRepository
             return $query->with($eagerRelations)->get();
         }
     }
-
-
 }

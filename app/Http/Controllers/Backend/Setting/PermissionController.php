@@ -31,10 +31,11 @@ class PermissionController extends Controller
      * @param AuthenticatedSessionService $authenticatedSessionService
      * @param PermissionService $permissionService
      */
-    public function __construct(AuthenticatedSessionService $authenticatedSessionService,
-                                PermissionService $permissionService)
+    public function __construct(
+        AuthenticatedSessionService $authenticatedSessionService,
+        PermissionService $permissionService
+    )
     {
-
         $this->authenticatedSessionService = $authenticatedSessionService;
         $this->permissionService = $permissionService;
     }
@@ -154,7 +155,6 @@ class PermissionController extends Controller
     public function destroy($id, Request $request)
     {
         if ($this->authenticatedSessionService->validate($request)) {
-
             $confirm = $this->permissionService->destroyPermission($id);
 
             if ($confirm['status'] == true) {
@@ -178,7 +178,6 @@ class PermissionController extends Controller
     public function restore($id, Request $request)
     {
         if ($this->authenticatedSessionService->validate($request)) {
-
             $confirm = $this->permissionService->restorePermission($id);
 
             if ($confirm['status'] == true) {
@@ -208,7 +207,6 @@ class PermissionController extends Controller
         return $permissionExport->download($filename, function ($permission) use ($permissionExport) {
             return $permissionExport->map($permission);
         });
-
     }
 
     /**
@@ -254,6 +252,5 @@ class PermissionController extends Controller
         return $permissionExport->download($filename, function ($permission) use ($permissionExport) {
             return $permissionExport->map($permission);
         });
-
     }
 }

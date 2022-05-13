@@ -38,10 +38,11 @@ class EducationController extends Controller
      * @param AuthenticatedSessionService $authenticatedSessionService
      * @param EducationService $educationService
      */
-    public function __construct(AuthenticatedSessionService $authenticatedSessionService,
-                                EducationService $educationService)
+    public function __construct(
+        AuthenticatedSessionService $authenticatedSessionService,
+        EducationService $educationService
+    )
     {
-
         $this->authenticatedSessionService = $authenticatedSessionService;
         $this->educationService = $educationService;
     }
@@ -161,7 +162,6 @@ class EducationController extends Controller
     public function destroy($id, Request $request)
     {
         if ($this->authenticatedSessionService->validate($request)) {
-
             $confirm = $this->educationService->destroyEducation($id);
 
             if ($confirm['status'] == true) {
@@ -185,7 +185,6 @@ class EducationController extends Controller
     public function restore($id, Request $request)
     {
         if ($this->authenticatedSessionService->validate($request)) {
-
             $confirm = $this->educationService->restoreEducation($id);
 
             if ($confirm['status'] == true) {
@@ -215,7 +214,6 @@ class EducationController extends Controller
         return $educationExport->download($filename, function ($education) use ($educationExport) {
             return $educationExport->map($education);
         });
-
     }
 
     /**
@@ -261,6 +259,5 @@ class EducationController extends Controller
         return $educationExport->download($filename, function ($education) use ($educationExport) {
             return $educationExport->map($education);
         });
-
     }
 }

@@ -39,10 +39,11 @@ class AwardController extends Controller
      * @param AuthenticatedSessionService $authenticatedSessionService
      * @param AwardService $awardService
      */
-    public function __construct(AuthenticatedSessionService $authenticatedSessionService,
-                                AwardService $awardService)
+    public function __construct(
+        AuthenticatedSessionService $authenticatedSessionService,
+        AwardService $awardService
+    )
     {
-
         $this->authenticatedSessionService = $authenticatedSessionService;
         $this->awardService = $awardService;
     }
@@ -162,7 +163,6 @@ class AwardController extends Controller
     public function destroy($id, Request $request)
     {
         if ($this->authenticatedSessionService->validate($request)) {
-
             $confirm = $this->awardService->destroyAward($id);
 
             if ($confirm['status'] == true) {
@@ -186,7 +186,6 @@ class AwardController extends Controller
     public function restore($id, Request $request)
     {
         if ($this->authenticatedSessionService->validate($request)) {
-
             $confirm = $this->awardService->restoreAward($id);
 
             if ($confirm['status'] == true) {
@@ -216,7 +215,6 @@ class AwardController extends Controller
         return $awardExport->download($filename, function ($award) use ($awardExport) {
             return $awardExport->map($award);
         });
-
     }
 
     /**
@@ -262,6 +260,5 @@ class AwardController extends Controller
         return $awardExport->download($filename, function ($award) use ($awardExport) {
             return $awardExport->map($award);
         });
-
     }
 }

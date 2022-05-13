@@ -38,10 +38,11 @@ class CertificateController extends Controller
      * @param AuthenticatedSessionService $authenticatedSessionService
      * @param CertificateService $certificateService
      */
-    public function __construct(AuthenticatedSessionService $authenticatedSessionService,
-                                CertificateService $certificateService)
+    public function __construct(
+        AuthenticatedSessionService $authenticatedSessionService,
+        CertificateService $certificateService
+    )
     {
-
         $this->authenticatedSessionService = $authenticatedSessionService;
         $this->certificateService = $certificateService;
     }
@@ -161,7 +162,6 @@ class CertificateController extends Controller
     public function destroy($id, Request $request)
     {
         if ($this->authenticatedSessionService->validate($request)) {
-
             $confirm = $this->certificateService->destroyCertificate($id);
 
             if ($confirm['status'] == true) {
@@ -185,7 +185,6 @@ class CertificateController extends Controller
     public function restore($id, Request $request)
     {
         if ($this->authenticatedSessionService->validate($request)) {
-
             $confirm = $this->certificateService->restoreCertificate($id);
 
             if ($confirm['status'] == true) {
@@ -215,7 +214,6 @@ class CertificateController extends Controller
         return $certificateExport->download($filename, function ($certificate) use ($certificateExport) {
             return $certificateExport->map($certificate);
         });
-
     }
 
     /**
@@ -261,6 +259,5 @@ class CertificateController extends Controller
         return $certificateExport->download($filename, function ($certificate) use ($certificateExport) {
             return $certificateExport->map($certificate);
         });
-
     }
 }

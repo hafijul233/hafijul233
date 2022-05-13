@@ -16,7 +16,6 @@ class ModelSoftDeleteController extends Controller
      */
     public function __construct()
     {
-
     }
 
     /**

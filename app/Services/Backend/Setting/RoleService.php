@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Services\Backend\Setting;
-
 
 use App\Abstracts\Service\Service;
 use App\Exports\Backend\Setting\StateExport;
@@ -220,7 +218,6 @@ class RoleService extends Service
                 DB::commit();
                 return ['status' => true, 'message' => __('Role is Restored'),
                     'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
-
             } else {
                 DB::rollBack();
                 return ['status' => false, 'message' => __('Role is Restoration Failed'),

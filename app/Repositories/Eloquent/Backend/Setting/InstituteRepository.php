@@ -24,7 +24,7 @@ class InstituteRepository extends EloquentRepository
         /**
          * Set the model that will be used for repo
          */
-        parent::__construct(new Institute);
+        parent::__construct(new Institute());
     }
 
     /**

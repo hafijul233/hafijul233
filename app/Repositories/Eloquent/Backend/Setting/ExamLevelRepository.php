@@ -24,7 +24,7 @@ class ExamLevelRepository extends EloquentRepository
         /**
          * Set the model that will be used for repo
          */
-        parent::__construct(new ExamLevel);
+        parent::__construct(new ExamLevel());
     }
 
     /**
@@ -66,10 +66,9 @@ class ExamLevelRepository extends EloquentRepository
         endif;
         if (!empty($filters['id'])) :
             if (is_array($filters['id'])) :
-                $query->whereIn('id', $filters['id']);
-            else:
+                $query->whereIn('id', $filters['id']); else:
                 $query->where('id', '=', $filters['id']);
-            endif;
+        endif;
         endif;
 
         if (!empty($filters['sort']) && !empty($filters['direction'])) :

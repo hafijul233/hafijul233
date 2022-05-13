@@ -38,10 +38,11 @@ class TestimonialController extends Controller
      * @param AuthenticatedSessionService $authenticatedSessionService
      * @param TestimonialService $testimonialService
      */
-    public function __construct(AuthenticatedSessionService $authenticatedSessionService,
-                                TestimonialService $testimonialService)
+    public function __construct(
+        AuthenticatedSessionService $authenticatedSessionService,
+        TestimonialService $testimonialService
+    )
     {
-
         $this->authenticatedSessionService = $authenticatedSessionService;
         $this->testimonialService = $testimonialService;
     }
@@ -161,7 +162,6 @@ class TestimonialController extends Controller
     public function destroy($id, Request $request)
     {
         if ($this->authenticatedSessionService->validate($request)) {
-
             $confirm = $this->testimonialService->destroyTestimonial($id);
 
             if ($confirm['status'] == true) {
@@ -185,7 +185,6 @@ class TestimonialController extends Controller
     public function restore($id, Request $request)
     {
         if ($this->authenticatedSessionService->validate($request)) {
-
             $confirm = $this->testimonialService->restoreTestimonial($id);
 
             if ($confirm['status'] == true) {
@@ -215,7 +214,6 @@ class TestimonialController extends Controller
         return $testimonialExport->download($filename, function ($testimonial) use ($testimonialExport) {
             return $testimonialExport->map($testimonial);
         });
-
     }
 
     /**
@@ -261,6 +259,5 @@ class TestimonialController extends Controller
         return $testimonialExport->download($filename, function ($testimonial) use ($testimonialExport) {
             return $testimonialExport->map($testimonial);
         });
-
     }
 }

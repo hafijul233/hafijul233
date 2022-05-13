@@ -15,7 +15,10 @@ use OwenIt\Auditing\Contracts\Auditable;
  */
 class Experience extends Model implements Auditable
 {
-    use AuditableTrait, HasFactory, SoftDeletes, Sortable;
+    use AuditableTrait;
+    use HasFactory;
+    use SoftDeletes;
+    use Sortable;
 
     /**
      * @var string $table
@@ -62,5 +65,4 @@ class Experience extends Model implements Auditable
     protected $attributes = [
         'enabled' => 'yes'
     ];
-
 }

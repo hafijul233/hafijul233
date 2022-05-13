@@ -45,4 +45,3 @@ class VehicleExport extends FastExcelExport
         return $this->formatRow;
     }
 }
-

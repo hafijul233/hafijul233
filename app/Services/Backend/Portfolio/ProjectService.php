@@ -161,7 +161,6 @@ class ProjectService extends Service
                 DB::commit();
                 return ['status' => true, 'message' => __('Post is Trashed'),
                     'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
-
             } else {
                 DB::rollBack();
                 return ['status' => false, 'message' => __('Post is Delete Failed'),
@@ -190,7 +189,6 @@ class ProjectService extends Service
                 DB::commit();
                 return ['status' => true, 'message' => __('Post is Restored'),
                     'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
-
             } else {
                 DB::rollBack();
                 return ['status' => false, 'message' => __('Post is Restoration Failed'),

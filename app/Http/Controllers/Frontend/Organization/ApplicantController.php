@@ -55,13 +55,14 @@ class ApplicantController extends Controller
      * @param ExamLevelService $examLevelService
      * @param StateService $stateService
      */
-    public function __construct(PostService $enumeratorService,
-                                CommentService $surveyService,
-                                CatalogService $catalogService,
-                                ExamLevelService $examLevelService,
-                                StateService $stateService)
+    public function __construct(
+        PostService $enumeratorService,
+        CommentService $surveyService,
+        CatalogService $catalogService,
+        ExamLevelService $examLevelService,
+        StateService $stateService
+    )
     {
-
         $this->enumeratorService = $enumeratorService;
         $this->surveyService = $surveyService;
         $this->catalogService = $catalogService;

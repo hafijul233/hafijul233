@@ -2,7 +2,6 @@
 
 namespace App\Services\Auth;
 
-
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;

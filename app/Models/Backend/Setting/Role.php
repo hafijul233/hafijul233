@@ -12,7 +12,10 @@ use Spatie\Permission\Models\Role as SpatieRole;
 
 class Role extends SpatieRole implements Auditable
 {
-    use AuditableTrait, HasFactory, SoftDeletes, Sortable;
+    use AuditableTrait;
+    use HasFactory;
+    use SoftDeletes;
+    use Sortable;
 
     /**
      * The attributes that are mass assignable.
@@ -93,5 +96,4 @@ class Role extends SpatieRole implements Auditable
     {
         return $this->users->count() ?? 0;
     }
-
 }

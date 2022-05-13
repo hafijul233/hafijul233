@@ -45,4 +45,3 @@ class CustomerExport extends FastExcelExport
         return $this->formatRow;
     }
 }
-

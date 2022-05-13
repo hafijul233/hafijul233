@@ -18,7 +18,11 @@ use Spatie\MediaLibrary\InteractsWithMedia;
  */
 class Service extends Model implements HasMedia, Auditable
 {
-    use AuditableTrait, HasFactory, SoftDeletes, Sortable, InteractsWithMedia;
+    use AuditableTrait;
+    use HasFactory;
+    use SoftDeletes;
+    use Sortable;
+    use InteractsWithMedia;
 
     /**
      * @var string $table

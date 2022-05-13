@@ -45,4 +45,3 @@ class DriverExport extends FastExcelExport
         return $this->formatRow;
     }
 }
-

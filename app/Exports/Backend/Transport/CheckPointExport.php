@@ -45,4 +45,3 @@ class CheckPointExport extends FastExcelExport
         return $this->formatRow;
     }
 }
-

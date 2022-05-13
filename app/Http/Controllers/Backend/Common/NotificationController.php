@@ -14,7 +14,6 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 
-
 class NotificationController extends Controller
 {
     /**
@@ -102,5 +101,4 @@ class NotificationController extends Controller
 
         return redirect()->back();
     }
-
 }

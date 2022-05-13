@@ -33,10 +33,11 @@ class ExamGroupController extends Controller
      * @param AuthenticatedSessionService $authenticatedSessionService
      * @param ExamGroupService $examGroupService
      */
-    public function __construct(AuthenticatedSessionService $authenticatedSessionService,
-                                ExamGroupService $examGroupService)
+    public function __construct(
+        AuthenticatedSessionService $authenticatedSessionService,
+        ExamGroupService $examGroupService
+    )
     {
-
         $this->authenticatedSessionService = $authenticatedSessionService;
         $this->examGroupService = $examGroupService;
     }
@@ -155,7 +156,6 @@ class ExamGroupController extends Controller
     public function destroy($id, Request $request)
     {
         if ($this->authenticatedSessionService->validate($request)) {
-
             $confirm = $this->examGroupService->destroyExamGroup($id);
 
             if ($confirm['status'] == true) {
@@ -179,7 +179,6 @@ class ExamGroupController extends Controller
     public function restore($id, Request $request)
     {
         if ($this->authenticatedSessionService->validate($request)) {
-
             $confirm = $this->examGroupService->restoreExamGroup($id);
 
             if ($confirm['status'] == true) {
@@ -209,7 +208,6 @@ class ExamGroupController extends Controller
         return $examGroupExport->download($filename, function ($examGroup) use ($examGroupExport) {
             return $examGroupExport->map($examGroup);
         });
-
     }
 
     /**
@@ -272,8 +270,7 @@ class ExamGroupController extends Controller
         $examGroups = $this->examGroupService->getAllExamGroups($filters)->toArray();
 
         if (count($examGroups) > 0):
-            $jsonReturn = ['status' => true, 'data' => $examGroups];
-        else :
+            $jsonReturn = ['status' => true, 'data' => $examGroups]; else :
             $jsonReturn = ['status' => false, 'data' => []];
         endif;
 

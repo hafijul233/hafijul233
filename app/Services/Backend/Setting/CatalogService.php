@@ -141,7 +141,6 @@ class CatalogService extends Service
                 DB::commit();
                 return ['status' => true, 'message' => __('Catalog is Trashed'),
                     'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
-
             } else {
                 DB::rollBack();
                 return ['status' => false, 'message' => __('Catalog is Delete Failed'),
@@ -170,7 +169,6 @@ class CatalogService extends Service
                 DB::commit();
                 return ['status' => true, 'message' => __('Catalog is Restored'),
                     'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
-
             } else {
                 DB::rollBack();
                 return ['status' => false, 'message' => __('Catalog is Restoration Failed'),
@@ -224,11 +222,13 @@ class CatalogService extends Service
         $catalogs = $this->getAllCatalogs($filters);
         $catalogArray = [];
         if (is_null($translation)) {
-            foreach ($catalogs as $catalog)
+            foreach ($catalogs as $catalog) {
                 $catalogArray[$catalog->id] = $catalog->name;
+            }
         } else {
-            foreach ($catalogs as $catalog)
+            foreach ($catalogs as $catalog) {
                 $catalogArray[$catalog->id] = __('setting.' . $catalog->name);
+            }
         }
 
         return $catalogArray;

@@ -13,7 +13,6 @@ class Username implements Rule
      */
     public function __construct()
     {
-
     }
 
     /**

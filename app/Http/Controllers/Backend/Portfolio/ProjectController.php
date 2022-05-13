@@ -39,10 +39,11 @@ class ProjectController extends Controller
      * @param AuthenticatedSessionService $authenticatedSessionService
      * @param ProjectService $projectService
      */
-    public function __construct(AuthenticatedSessionService $authenticatedSessionService,
-                                ProjectService $projectService)
+    public function __construct(
+        AuthenticatedSessionService $authenticatedSessionService,
+        ProjectService $projectService
+    )
     {
-
         $this->authenticatedSessionService = $authenticatedSessionService;
         $this->projectService = $projectService;
     }
@@ -162,7 +163,6 @@ class ProjectController extends Controller
     public function destroy($id, Request $request)
     {
         if ($this->authenticatedSessionService->validate($request)) {
-
             $confirm = $this->projectService->destroyProject($id);
 
             if ($confirm['status'] == true) {
@@ -186,7 +186,6 @@ class ProjectController extends Controller
     public function restore($id, Request $request)
     {
         if ($this->authenticatedSessionService->validate($request)) {
-
             $confirm = $this->projectService->restoreProject($id);
 
             if ($confirm['status'] == true) {
@@ -216,7 +215,6 @@ class ProjectController extends Controller
         return $projectExport->download($filename, function ($project) use ($projectExport) {
             return $projectExport->map($project);
         });
-
     }
 
     /**
@@ -262,6 +260,5 @@ class ProjectController extends Controller
         return $projectExport->download($filename, function ($project) use ($projectExport) {
             return $projectExport->map($project);
         });
-
     }
 }

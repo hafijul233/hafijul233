@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Backend\Model;
 
-
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Backend\Model\ModelEnabledRequest;
 use App\Supports\Constant;
@@ -43,16 +42,14 @@ class ModelEnabledController extends Controller
                 $model->enabled = strtolower($update_value);
                 $model->save();
 
-                if ($update_value == Constant::ENABLED_OPTION)
+                if ($update_value == Constant::ENABLED_OPTION) {
                     return response()->json(['status' => true, 'message' => __('Status Enabled Successful'),
                         'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification'], 200);
-
-                else
+                } else {
                     return response()->json(['status' => true, 'message' => __('Status Disabled Successful'),
                         'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Notification'], 200);
-
+                }
             } catch (Exception $exception) {
-
                 Log::error($exception->getMessage());
 
                 return response()->json(['status' => false, 'message' => $exception->getMessage(),

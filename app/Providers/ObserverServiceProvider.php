@@ -39,6 +39,5 @@ class ObserverServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-
     }
 }

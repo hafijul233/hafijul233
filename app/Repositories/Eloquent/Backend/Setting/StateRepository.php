@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Repositories\Eloquent\Backend\Setting;
-
 
 use App\Abstracts\Repository\EloquentRepository;
 use App\Models\Backend\Setting\State;
@@ -22,7 +20,7 @@ class StateRepository extends EloquentRepository
         /**
          * Set the model that will be used for repo
          */
-        parent::__construct(new State);
+        parent::__construct(new State());
     }
 
     /**
@@ -78,18 +76,16 @@ class StateRepository extends EloquentRepository
 
         if (isset($filters['country']) && !empty($filters['country'])) :
             if (is_array($filters['country'])):
-                $query->whereIn('country_id', $filters['country']);
-            else :
+                $query->whereIn('country_id', $filters['country']); else :
                 $query->where('country_id', $filters['country']);
-            endif;
+        endif;
         endif;
 
         if (isset($filters['id']) && !empty($filters['id'])) :
             if (is_array($filters['id'])):
-                $query->whereIn('id', $filters['id']);
-            else :
+                $query->whereIn('id', $filters['id']); else :
                 $query->where('id', $filters['id']);
-            endif;
+        endif;
         endif;
 
         if (AuthenticatedSessionService::isSuperAdmin()) :

@@ -39,10 +39,11 @@ class CatalogController extends Controller
      * @param AuthenticatedSessionService $authenticatedSessionService
      * @param CatalogService $catalogService
      */
-    public function __construct(AuthenticatedSessionService $authenticatedSessionService,
-                                CatalogService $catalogService)
+    public function __construct(
+        AuthenticatedSessionService $authenticatedSessionService,
+        CatalogService $catalogService
+    )
     {
-
         $this->authenticatedSessionService = $authenticatedSessionService;
         $this->catalogService = $catalogService;
     }
@@ -165,7 +166,6 @@ class CatalogController extends Controller
     public function destroy($id, Request $request)
     {
         if ($this->authenticatedSessionService->validate($request)) {
-
             $confirm = $this->catalogService->destroyCatalog($id);
 
             if ($confirm['status'] == true) {
@@ -189,7 +189,6 @@ class CatalogController extends Controller
     public function restore($id, Request $request)
     {
         if ($this->authenticatedSessionService->validate($request)) {
-
             $confirm = $this->catalogService->restoreCatalog($id);
 
             if ($confirm['status'] == true) {
@@ -219,7 +218,6 @@ class CatalogController extends Controller
         return $catalogExport->download($filename, function ($catalog) use ($catalogExport) {
             return $catalogExport->map($catalog);
         });
-
     }
 
     /**
@@ -265,6 +263,5 @@ class CatalogController extends Controller
         return $catalogExport->download($filename, function ($catalog) use ($catalogExport) {
             return $catalogExport->map($catalog);
         });
-
     }
 }

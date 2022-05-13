@@ -8,7 +8,6 @@ use Box\Spout\Common\Exception\InvalidArgumentException;
 use Illuminate\Database\Eloquent\Collection;
 use function config;
 
-
 class CityExport extends FastExcelExport
 {
     /**
@@ -48,9 +47,10 @@ class CityExport extends FastExcelExport
     {
         $roles = $roles->pluck('name')->toArray();
 
-        if (count($roles) > 0)
+        if (count($roles) > 0) {
             return implode(', ', $roles);
-        else
+        } else {
             return 'Not Assigned';
+        }
     }
 }

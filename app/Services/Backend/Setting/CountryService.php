@@ -141,7 +141,6 @@ class CountryService extends Service
                 DB::commit();
                 return ['status' => true, 'message' => __('Country is Trashed'),
                     'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
-
             } else {
                 DB::rollBack();
                 return ['status' => false, 'message' => __('Country is Delete Failed'),
@@ -170,7 +169,6 @@ class CountryService extends Service
                 DB::commit();
                 return ['status' => true, 'message' => __('Country is Restored'),
                     'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
-
             } else {
                 DB::rollBack();
                 return ['status' => false, 'message' => __('Country is Restoration Failed'),
@@ -210,8 +208,9 @@ class CountryService extends Service
         $countries = $this->getAllCountries($filters);
         $countryArray = [];
 
-        foreach ($countries as $country)
+        foreach ($countries as $country) {
             $countryArray[$country->id] = "{$country->emoji} {$country->name} ({$country->iso3})";
+        }
 
         return $countryArray;
     }

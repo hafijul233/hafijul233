@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Supports;
 
 use App\Models\Backend\Common\Address;
@@ -44,7 +43,7 @@ class Utility
     public static function generateUsername(string $name, UserRepository $userRepository = null): string
     {
         if (is_null($userRepository)) {
-            $userRepository = new UserRepository;
+            $userRepository = new UserRepository();
         }
 
         //removed white space from name
@@ -55,7 +54,6 @@ class Utility
 
         //verify generated username is unique
         return ($userRepository->verifyUniqueUsername($username)) ? $username : self::generateUsername($name, $userRepository);
-
     }
 
     /**
@@ -79,7 +77,9 @@ class Utility
             "bg-dark"
         ];
 
-        if ($rounded) $class .= "rounded-pill ";
+        if ($rounded) {
+            $class .= "rounded-pill ";
+        }
 
         $class .= $badges[array_rand($badges)];
 
@@ -128,8 +128,9 @@ class Utility
         if (isset($routeCollection[$method])) {
             foreach ($routeCollection[$method] as $route) {
                 $routeName = $route->getName();
-                if ($routeName === null)
+                if ($routeName === null) {
                     continue;
+                }
 
                 $routes[$method][$routeName] = self::permissionDisplay($routeName);
             }
@@ -198,8 +199,12 @@ class Utility
         }
 
         if (is_numeric($amount)) {
-            $formattedAmount = number_format($amount, $currencyConfig['precision'],
-                $currencyConfig['decimal_mark'], $currencyConfig['thousands_separator']);
+            $formattedAmount = number_format(
+                $amount,
+                $currencyConfig['precision'],
+                $currencyConfig['decimal_mark'],
+                $currencyConfig['thousands_separator']
+            );
 
             $amount = ($onlyCurrency == true)
                 ? $currency . ' ' . $formattedAmount

@@ -24,7 +24,7 @@ class TestimonialRepository extends EloquentRepository
         /**
          * Set the model that will be used for repo
          */
-        parent::__construct(new Testimonial);
+        parent::__construct(new Testimonial());
     }
 
     /**

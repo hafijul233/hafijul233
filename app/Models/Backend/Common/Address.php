@@ -21,7 +21,10 @@ use OwenIt\Auditing\Contracts\Auditable;
  */
 class Address extends Model implements Auditable
 {
-    use AuditableTrait, HasFactory, SoftDeletes, Sortable;
+    use AuditableTrait;
+    use HasFactory;
+    use SoftDeletes;
+    use Sortable;
 
     /**
      * @var string $table

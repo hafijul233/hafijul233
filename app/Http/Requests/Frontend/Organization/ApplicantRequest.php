@@ -14,7 +14,6 @@ use Illuminate\Validation\Rule;
  */
 class ApplicantRequest extends FormRequest
 {
-
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -36,7 +35,7 @@ class ApplicantRequest extends FormRequest
             "id" => ["nullable", "integer"],
             "dob" => ["required", "date"],
             "exam_level" => ["required", "integer", "min:1", "max:5"],
-            "whatsapp" => ["nullable", "string", new PhoneNumber],
+            "whatsapp" => ["nullable", "string", new PhoneNumber()],
             "facebook" => ["nullable", "string", "url"],
             "survey_id" => ["array", "required"],
             "survey_id.*" => ["required", "integer", "min:1"],
@@ -47,8 +46,8 @@ class ApplicantRequest extends FormRequest
             "nid" => ["required", "integer", new MinLength(10), new MaxLength(17),
                 'unique:App\Models\Backend\Organization\Enumerator,nid' . (isset($this->id) ? ',' . $this->id : null)
             ],
-            "mobile_1" => ["required", "string", new PhoneNumber],
-            "mobile_2" => ["nullable", "string", new PhoneNumber],
+            "mobile_1" => ["required", "string", new PhoneNumber()],
+            "mobile_2" => ["nullable", "string", new PhoneNumber()],
             "email" => ["required", "string", "email:rfc,dns"],
             "present_address" => ["required", "string", "min:2", "max:255"],
             "permanent_address" => ["required", "string", "min:2", "max:255"],

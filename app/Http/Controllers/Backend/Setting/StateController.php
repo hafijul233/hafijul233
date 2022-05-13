@@ -37,10 +37,11 @@ class StateController extends Controller
      * @param AuthenticatedSessionService $authenticatedSessionService
      * @param StateService $stateService
      */
-    public function __construct(AuthenticatedSessionService $authenticatedSessionService,
-                                StateService $stateService)
+    public function __construct(
+        AuthenticatedSessionService $authenticatedSessionService,
+        StateService $stateService
+    )
     {
-
         $this->authenticatedSessionService = $authenticatedSessionService;
         $this->stateService = $stateService;
     }
@@ -161,7 +162,6 @@ class StateController extends Controller
     public function destroy($id, Request $request)
     {
         if ($this->authenticatedSessionService->validate($request)) {
-
             $confirm = $this->stateService->destroyState($id);
 
             if ($confirm['status'] == true) {
@@ -185,7 +185,6 @@ class StateController extends Controller
     public function restore($id, Request $request)
     {
         if ($this->authenticatedSessionService->validate($request)) {
-
             $confirm = $this->stateService->restoreState($id);
 
             if ($confirm['status'] == true) {
@@ -215,7 +214,6 @@ class StateController extends Controller
         return $stateExport->download($filename, function ($state) use ($stateExport) {
             return $stateExport->map($state);
         });
-
     }
 
     /**
@@ -277,8 +275,7 @@ class StateController extends Controller
         $states = $this->stateService->getAllStates($filters)->toArray();
 
         if (count($states) > 0):
-            $jsonReturn = ['status' => true, 'data' => $states];
-        else :
+            $jsonReturn = ['status' => true, 'data' => $states]; else :
             $jsonReturn = ['status' => false, 'data' => []];
         endif;
 

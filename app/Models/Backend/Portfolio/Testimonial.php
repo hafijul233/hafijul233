@@ -20,7 +20,10 @@ use OwenIt\Auditing\Contracts\Auditable;
  */
 class Testimonial extends Model implements Auditable
 {
-    use AuditableTrait, HasFactory, SoftDeletes, Sortable;
+    use AuditableTrait;
+    use HasFactory;
+    use SoftDeletes;
+    use Sortable;
 
     /**
      * @var string $table
@@ -101,5 +104,4 @@ class Testimonial extends Model implements Auditable
     {
         return $this->belongsToMany(State::class, 'enumerator_future_state');
     }
-
 }

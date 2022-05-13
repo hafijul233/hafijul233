@@ -141,7 +141,6 @@ class EducationService extends Service
                 DB::commit();
                 return ['status' => true, 'message' => __('Comment is Trashed'),
                     'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
-
             } else {
                 DB::rollBack();
                 return ['status' => false, 'message' => __('Comment is Delete Failed'),
@@ -170,7 +169,6 @@ class EducationService extends Service
                 DB::commit();
                 return ['status' => true, 'message' => __('Comment is Restored'),
                     'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
-
             } else {
                 DB::rollBack();
                 return ['status' => false, 'message' => __('Comment is Restoration Failed'),
@@ -207,8 +205,9 @@ class EducationService extends Service
     {
         $educations = $this->getAllEducations($filters);
         $educationArray = [];
-        foreach ($educations as $education)
+        foreach ($educations as $education) {
             $educationArray[$education->id] = $education->name;
+        }
 
         return $educationArray;
     }

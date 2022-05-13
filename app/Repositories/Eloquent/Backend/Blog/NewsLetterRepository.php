@@ -25,7 +25,7 @@ class NewsLetterRepository extends EloquentRepository
         /**
          * Set the model that will be used for repo
          */
-        parent::__construct(new NewsLetter);
+        parent::__construct(new NewsLetter());
     }
 
     /**

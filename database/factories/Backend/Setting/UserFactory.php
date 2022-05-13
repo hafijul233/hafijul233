@@ -10,7 +10,6 @@ use Illuminate\Support\Str;
 
 class UserFactory extends Factory
 {
-
     /**
      * @var User $model
      */
@@ -67,6 +66,5 @@ class UserFactory extends Factory
             //attach role
             $user->roles()->attach(mt_rand(2, 5));
         });
-
     }
 }

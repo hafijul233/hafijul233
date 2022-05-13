@@ -47,10 +47,11 @@ class NewsLetterController extends Controller
      * @param AuthenticatedSessionService $authenticatedSessionService
      * @param NewsLetterService $newsLetterService
      */
-    public function __construct(AuthenticatedSessionService $authenticatedSessionService,
-                                NewsLetterService $newsLetterService)
+    public function __construct(
+        AuthenticatedSessionService $authenticatedSessionService,
+        NewsLetterService $newsLetterService
+    )
     {
-
         $this->authenticatedSessionService = $authenticatedSessionService;
         $this->newsLetterService = $newsLetterService;
     }
@@ -149,7 +150,6 @@ class NewsLetterController extends Controller
     public function edit($id)
     {
         if ($newsLetter = $this->newsLetterService->getNewsLetterById($id)) {
-
             $enables = [];
             foreach (Constant::ENABLED_OPTIONS as $field => $label):
                 $enables[$field] = __('common.' . $label);
@@ -201,7 +201,6 @@ class NewsLetterController extends Controller
     public function destroy($id, Request $request)
     {
         if ($this->authenticatedSessionService->validate($request)) {
-
             $confirm = $this->newsLetterService->destroyNewsLetter($id);
 
             if ($confirm['status'] == true) {
@@ -225,7 +224,6 @@ class NewsLetterController extends Controller
     public function restore($id, Request $request)
     {
         if ($this->authenticatedSessionService->validate($request)) {
-
             $confirm = $this->newsLetterService->restoreNewsLetter($id);
 
             if ($confirm['status'] == true) {
@@ -275,14 +273,13 @@ class NewsLetterController extends Controller
         if (count($newsLetters) > 0):
             foreach ($newsLetters as $index => $newsLetter) :
                 $newsLetters[$index]->update_route = route('backend.portfolio.newsLetters.update', $newsLetter->id);
-                $newsLetters[$index]->survey_id = $newsLetter->surveys->pluck('id')->toArray();
-                $newsLetters[$index]->prev_post_state_id = $newsLetter->previousPostings->pluck('id')->toArray();
-                $newsLetters[$index]->future_post_state_id = $newsLetter->futurePostings->pluck('id')->toArray();
-                unset($newsLetters[$index]->surveys, $newsLetters[$index]->previousPostings, $newsLetters[$index]->futurePostings);
-            endforeach;
+        $newsLetters[$index]->survey_id = $newsLetter->surveys->pluck('id')->toArray();
+        $newsLetters[$index]->prev_post_state_id = $newsLetter->previousPostings->pluck('id')->toArray();
+        $newsLetters[$index]->future_post_state_id = $newsLetter->futurePostings->pluck('id')->toArray();
+        unset($newsLetters[$index]->surveys, $newsLetters[$index]->previousPostings, $newsLetters[$index]->futurePostings);
+        endforeach;
 
-            $jsonReturn = ['status' => true, 'data' => $newsLetters];
-        else :
+        $jsonReturn = ['status' => true, 'data' => $newsLetters]; else :
             $jsonReturn = ['status' => false, 'data' => []];
         endif;
 

@@ -21,7 +21,6 @@ class NotificationDropDownComposer
      */
     public function __construct()
     {
-
     }
 
     /**
@@ -32,6 +31,5 @@ class NotificationDropDownComposer
      */
     public function compose(View $view)
     {
-
     }
 }

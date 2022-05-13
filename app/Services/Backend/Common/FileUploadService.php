@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Services\Backend\Common;
-
 
 use App\Abstracts\Service\Service;
 use App\Supports\Constant;
@@ -28,8 +26,9 @@ class FileUploadService extends Service
 
         $tmpPath = public_path('/media/tmp/');
 
-        if (!is_dir($tmpPath))
+        if (!is_dir($tmpPath)) {
             mkdir($tmpPath, '0777', true);
+        }
 
         $imageObject = Image::canvas(256, 256, '#ffffff');
         try {
@@ -42,10 +41,10 @@ class FileUploadService extends Service
                 if ($imageObject instanceof \Intervention\Image\Image) {
                     if ($imageObject->resize(256, 256)->save($tmpPath . $fileName, 80, $extension)) {
                         return $tmpPath . $fileName;
-                    } else
+                    } else {
                         return null;
+                    }
                 }
-
             } catch (Exception $imageSaveException) {
                 Log::error($imageSaveException->getMessage());
                 return null;
@@ -86,12 +85,12 @@ class FileUploadService extends Service
                     if ($imageObject->resize(256, null, function ($constraint) {
                         $constraint->aspectRatio();
                     })->crop(256, 256, 0, 0)
-                        ->save($tmpPath . $fileName, 80, $extension))
+                        ->save($tmpPath . $fileName, 80, $extension)) {
                         return $tmpPath . $fileName;
-                    else
+                    } else {
                         return null;
+                    }
                 }
-
             } catch (Exception $imageSaveException) {
                 Log::error($imageSaveException->getMessage());
                 return null;

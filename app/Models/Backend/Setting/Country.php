@@ -12,7 +12,9 @@ use OwenIt\Auditing\Contracts\Auditable;
 
 class Country extends Model implements Auditable
 {
-    use AuditableTrait, SoftDeletes, Sortable;
+    use AuditableTrait;
+    use SoftDeletes;
+    use Sortable;
 
     /**
      * @var string $table

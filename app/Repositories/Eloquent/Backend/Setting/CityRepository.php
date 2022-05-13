@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Repositories\Eloquent\Backend\Setting;
-
 
 use App\Abstracts\Repository\EloquentRepository;
 use App\Models\Backend\Setting\City;
@@ -22,7 +20,7 @@ class CityRepository extends EloquentRepository
         /**
          * Set the model that will be used for repo
          */
-        parent::__construct(new City);
+        parent::__construct(new City());
     }
 
     /**
@@ -71,26 +69,23 @@ class CityRepository extends EloquentRepository
 
         if (isset($filters['id']) && !empty($filters['id'])) :
             if (is_array($filters['id'])):
-                $query->whereIn('id', $filters['id']);
-            else :
+                $query->whereIn('id', $filters['id']); else :
                 $query->where('id', $filters['id']);
-            endif;
+        endif;
         endif;
 
         if (isset($filters['country']) && !empty($filters['country'])) :
             if (is_array($filters['country'])):
-                $query->whereIn('country_id', $filters['country']);
-            else :
+                $query->whereIn('country_id', $filters['country']); else :
                 $query->where('country_id', $filters['country']);
-            endif;
+        endif;
         endif;
 
         if (isset($filters['state']) && !empty($filters['state'])) :
             if (is_array($filters['state'])):
-                $query->whereIn('state_id', $filters['state']);
-            else :
+                $query->whereIn('state_id', $filters['state']); else :
                 $query->where('state_id', $filters['state']);
-            endif;
+        endif;
         endif;
 
         if ($is_sortable == true) :
@@ -121,6 +116,4 @@ class CityRepository extends EloquentRepository
             return $query->with($eagerRelations)->get();
         }
     }
-
-
 }

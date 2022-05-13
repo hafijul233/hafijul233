@@ -2,7 +2,6 @@
 
 namespace App\Services\Auth;
 
-
 use App\Models\Backend\Setting\User;
 use App\Repositories\Eloquent\Backend\Setting\UserRepository;
 use App\Supports\Constant;
@@ -144,6 +143,5 @@ class PasswordResetService
         }
 
         return $confirmation;
-
     }
 }

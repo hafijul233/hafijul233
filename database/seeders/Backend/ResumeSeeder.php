@@ -26,7 +26,5 @@ class ResumeSeeder extends Seeder
         $this->call(AwardSeeder::class);
         $this->call(SkillSeeder::class);
         $this->call(LanguageSeeder::class);
-
     }
-
 }

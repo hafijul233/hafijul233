@@ -75,7 +75,6 @@ Route::prefix('backend')->group(function () {
      * Authentication Route
      */
     Route::name('auth.')->group(function () {
-
         Route::view('/privacy-terms', 'auth::terms')->name('terms');
 
         Route::get('/login', [AuthenticatedSessionController::class, 'create'])
@@ -90,7 +89,7 @@ Route::prefix('backend')->group(function () {
                 ->middleware('guest')
                 ->name('register');
 
-            Route::post('/register', [RegisteredUserController::class, 'store'])
+        Route::post('/register', [RegisteredUserController::class, 'store'])
                 ->middleware('guest');
         endif;
 
@@ -296,8 +295,6 @@ Route::prefix('backend')->group(function () {
                 Route::get('ajax', [ExamGroupController::class, 'ajax'])->name('ajax')->middleware('ajax')->withoutMiddleware('auth');
             });
             Route::resource('exam-groups', ExamGroupController::class)->where(['exam-group' => '([0-9]+)']);
-
         });
     });
-
 });

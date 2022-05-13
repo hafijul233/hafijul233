@@ -16,7 +16,10 @@ use OwenIt\Auditing\Contracts\Auditable;
  */
 class ExamTitle extends Model implements Auditable
 {
-    use AuditableTrait, HasFactory, SoftDeletes, Sortable;
+    use AuditableTrait;
+    use HasFactory;
+    use SoftDeletes;
+    use Sortable;
 
     /**
      * @var string $table
