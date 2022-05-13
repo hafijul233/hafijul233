@@ -27,7 +27,7 @@
 @section('breadcrumbs', \Breadcrumbs::render())
 
 @section('actions')
-    {!! \Html::linkButton('Add Experience', 'backend.resume.experiences.create', [], 'fas fa-plus', 'success') !!}
+    {!! \Html::linkButton(__('resume.experience.Add Experience'), 'backend.resume.experiences.create', [], 'fas fa-plus', 'success') !!}
     {!! \Html::bulkDropdown('backend.resume.experiences', 0, ['color' => 'warning']) !!}
 @endsection
 
@@ -46,8 +46,8 @@
                                     <thead class="thead-light">
                                     <tr>
                                         <th class="align-middle">@sortablelink('id', '#')</th>
-                                        <th>@sortablelink('name', __('common.Name'))</th>
-                                        <th>@sortablelink('organization', __('common.Organization'))</th>
+                                        <th>@sortablelink('title', __('resume.experience.Title'))</th>
+                                        <th>@sortablelink('organization', __('resume.experience.Organization'))</th>
                                         <th class="text-center">@sortablelink('type', 'Type')</th>
                                         <th class="text-center">@sortablelink('enabled', __('common.Enabled'))</th>
                                         <th class="text-center">@sortablelink('created_at', __('common.Created'))</th>

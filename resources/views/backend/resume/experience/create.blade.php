@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Add Catalog')
+@section('title', __('resume.experience.Add Experience'))
 
 @push('meta')
 
