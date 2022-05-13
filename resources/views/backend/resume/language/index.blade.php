@@ -27,7 +27,7 @@
 @section('breadcrumbs', \Breadcrumbs::render())
 
 @section('actions')
-    {!! \Html::linkButton(__('Add Language'), 'backend.resume.languages.create', [], 'fas fa-plus', 'success') !!}
+    {!! \Html::linkButton(__('resume.language.Add Language'), 'backend.resume.languages.create', [], 'fas fa-plus', 'success') !!}
     {{--{!! \Html::bulkDropdown('backend.resume.languages', 0, ['color' => 'warning']) !!}--}}
 @endsection
 
@@ -36,16 +36,17 @@
         <div class="row">
             <div class="col-12">
                 <div class="card card-default">
-                    @if(!empty($services))
+                    @if(!empty($languages))
                         <div class="card-body p-0">
                             {!! \Html::cardSearch('search', 'backend.resume.languages.index',
                             ['placeholder' => 'Search Comment Name etc.',
-                            'class' => 'form-control', 'id' => 'search', 'data-target-table' => 'service-table']) !!}
+                            'class' => 'form-control', 'id' => 'search', 'data-target-table' => 'language-table']) !!}
                             <div class="table-responsive">
                                 <table class="table table-hover mb-0" id="branch-table">
                                     <thead class="thead-light">
                                     <tr>
                                         <th class="align-middle">@sortablelink('id', '#')</th>
+                                        <th>@sortablelink('name', __('common.Name'))</th>
                                         <th>@sortablelink('name', __('common.Name'))</th>
                                         <th class="text-center">@sortablelink('enabled', __('common.Enabled'))</th>
                                         <th class="text-center">@sortablelink('created_at', __('common.Created'))</th>
@@ -53,26 +54,27 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @forelse($services as $index => $service)
-                                        <tr @if($service->deleted_at != null) class="table-danger" @endif>
+                                    @forelse($languages as $index => $language)
+                                        <tr @if($language->deleted_at != null) class="table-danger" @endif>
                                             <td class="exclude-search align-middle">
-                                                {{ $service->id }}
+                                                {{ $language->id }}
                                             </td>
                                             <td class="text-left">
                                                 @can('backend.resume.languages.show')
-                                                    <a href="{{ route('backend.resume.languages.show', $service->id) }}">
-                                                        {{ $service->name }}
+                                                    <a href="{{ route('backend.resume.languages.show', $language->id) }}">
+                                                        {{ $language->name }}
                                                     </a>
                                                 @else
-                                                    {{ $service->name }}
+                                                    {{ $language->name }}
                                                 @endcan
                                             </td>
+                                            <td>{{ ucwords(($language->level ?? '')) }}</td>
                                             <td class="text-center exclude-search">
-                                                {!! \Html::enableToggle($service) !!}
+                                                {!! \Html::enableToggle($language) !!}
                                             </td>
-                                            <td class="text-center">{{ $service->created_at->format(config('backend.datetime')) ?? '' }}</td>
+                                            <td class="text-center">{{ $language->created_at->format(config('backend.datetime')) ?? '' }}</td>
                                             <td class="exclude-search pr-3 text-center align-middle">
-                                                {!! \Html::actionDropdown('backend.resume.languages', $service->id, array_merge(['show', 'edit'], ($service->deleted_at == null) ? ['delete'] : ['restore'])) !!}
+                                                {!! \Html::actionDropdown('backend.resume.languages', $language->id, array_merge(['show', 'edit'], ($language->deleted_at == null) ? ['delete'] : ['restore'])) !!}
                                             </td>
                                         </tr>
                                     @empty
@@ -85,7 +87,7 @@
                             </div>
                         </div>
                         <div class="card-footer bg-transparent pb-0">
-                            {!! \App\Supports\CHTML::pagination($services) !!}
+                            {!! \App\Supports\CHTML::pagination($languages) !!}
                         </div>
                     @else
                         <div class="card-body min-vh-100">

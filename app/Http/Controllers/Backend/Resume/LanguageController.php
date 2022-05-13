@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Backend\Resume;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Backend\Portfolio\ExperienceRequest;
+use App\Http\Requests\Backend\Resume\LanguageRequest;
 use App\Services\Auth\AuthenticatedSessionService;
 use App\Services\Backend\Resume\LanguageService;
 use App\Supports\Utility;
@@ -81,9 +81,9 @@ class LanguageController extends Controller
      * @return RedirectResponse
      * @throws Exception|Throwable
      */
-    public function store(ExperienceRequest $request): RedirectResponse
+    public function store(LanguageRequest $request): RedirectResponse
     {
-        $confirm = $this->languageService->storeSurvey($request->except('_token'));
+        $confirm = $this->languageService->storeLanguage($request->except('_token'));
         if ($confirm['status'] == true) {
             notify($confirm['message'], $confirm['level'], $confirm['title']);
             return redirect()->route('backend.resume.languages.index');
@@ -102,7 +102,7 @@ class LanguageController extends Controller
      */
     public function show($id)
     {
-        if ($language = $this->languageService->getSurveyById($id)) {
+        if ($language = $this->languageService->getLanguageById($id)) {
             return view('backend.resume.language.show', [
                 'service' => $language,
                 'timeline' => Utility::modelAudits($language)
@@ -121,7 +121,7 @@ class LanguageController extends Controller
      */
     public function edit($id)
     {
-        if ($language = $this->languageService->getSurveyById($id)) {
+        if ($language = $this->languageService->getLanguageById($id)) {
             return view('backend.resume.language.edit', [
                 'service' => $language
             ]);
@@ -140,7 +140,7 @@ class LanguageController extends Controller
      */
     public function update(ExperienceRequest $request, $id): RedirectResponse
     {
-        $confirm = $this->languageService->updateSurvey($request->except('_token', 'submit', '_method'), $id);
+        $confirm = $this->languageService->updateLanguage($request->except('_token', 'submit', '_method'), $id);
 
         if ($confirm['status'] == true) {
             notify($confirm['message'], $confirm['level'], $confirm['title']);
@@ -162,7 +162,7 @@ class LanguageController extends Controller
     public function destroy($id, Request $request)
     {
         if ($this->authenticatedSessionService->validate($request)) {
-            $confirm = $this->languageService->destroySurvey($id);
+            $confirm = $this->languageService->destroyLanguage($id);
 
             if ($confirm['status'] == true) {
                 notify($confirm['message'], $confirm['level'], $confirm['title']);
@@ -185,7 +185,7 @@ class LanguageController extends Controller
     public function restore($id, Request $request)
     {
         if ($this->authenticatedSessionService->validate($request)) {
-            $confirm = $this->languageService->restoreSurvey($id);
+            $confirm = $this->languageService->restoreLanguage($id);
 
             if ($confirm['status'] == true) {
                 notify($confirm['message'], $confirm['level'], $confirm['title']);
@@ -207,7 +207,7 @@ class LanguageController extends Controller
     {
         $filters = $request->except('page');
 
-        $languageExport = $this->languageService->exportSurvey($filters);
+        $languageExport = $this->languageService->exportLanguage($filters);
 
         $filename = 'Comment-' . date('Ymd-His') . '.' . ($filters['format'] ?? 'xlsx');
 
@@ -235,7 +235,7 @@ class LanguageController extends Controller
     public function importBulk(Request $request)
     {
         $filters = $request->except('page');
-        $languages = $this->languageService->getAllSurveys($filters);
+        $languages = $this->languageService->getAllLanguages($filters);
 
         return view('backend.resume.languageindex', [
             'languages' => $languages
@@ -252,7 +252,7 @@ class LanguageController extends Controller
     {
         $filters = $request->except('page');
 
-        $languageExport = $this->languageService->exportSurvey($filters);
+        $languageExport = $this->languageService->exportLanguage($filters);
 
         $filename = 'Comment-' . date('Ymd-His') . '.' . ($filters['format'] ?? 'xlsx');
 

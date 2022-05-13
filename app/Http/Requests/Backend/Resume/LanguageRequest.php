@@ -28,8 +28,8 @@ class LanguageRequest extends FormRequest
     public function rules()
     {
         return [
-            "client" => ["required", "string", "min:2", "max:255"],
-            "feedback" => ["required", "string", "min:2"],
+            "name" => ["required", "string", "min:2", "max:255"],
+            "level" => ["required", "string", "min:2"],
             "image" => ["nullable", "image"]
         ];
     }

@@ -3,7 +3,6 @@
 namespace App\Repositories\Eloquent\Backend\Resume;
 
 use App\Abstracts\Repository\EloquentRepository;
-use App\Models\Backend\Resume\Comment;
 use App\Models\Backend\Resume\Language;
 use App\Services\Auth\AuthenticatedSessionService;
 use Exception;
@@ -25,7 +24,7 @@ class LanguageRepository extends EloquentRepository
         /**
          * Set the model that will be used for repo
          */
-        parent::__construct(new Language());
+        parent::__construct(new Language);
     }
 
     /**

@@ -4,7 +4,7 @@ namespace App\Services\Backend\Resume;
 
 use App\Abstracts\Service\Service;
 use App\Exports\Backend\Organization\LanguageExport;
-use App\Models\Backend\Portfolio\Post;
+use App\Models\Backend\Resume\Language;
 use App\Repositories\Eloquent\Backend\Resume\LanguageRepository;
 use App\Supports\Constant;
 use Exception;
@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\DB;
 use Throwable;
 
 /**
- * @class PostService
+ * @class LanguageService
  * @package App\Services\Backend\Portfolio
  */
 class LanguageService extends Service
@@ -26,7 +26,7 @@ class LanguageService extends Service
     private $languageRepository;
 
     /**
-     * PostService constructor.
+     * LanguageService constructor.
      * @param LanguageRepository $languageRepository
      */
     public function __construct(LanguageRepository $languageRepository)
@@ -36,7 +36,7 @@ class LanguageService extends Service
     }
 
     /**
-     * Get All Post models as collection
+     * Get All Language models as collection
      *
      * @param array $filters
      * @param array $eagerRelations
@@ -49,7 +49,7 @@ class LanguageService extends Service
     }
 
     /**
-     * Create Post Model Pagination
+     * Create Language Model Pagination
      *
      * @param array $filters
      * @param array $eagerRelations
@@ -62,7 +62,7 @@ class LanguageService extends Service
     }
 
     /**
-     * Show Post Model
+     * Show Language Model
      *
      * @param int $id
      * @param bool $purge
@@ -75,7 +75,7 @@ class LanguageService extends Service
     }
 
     /**
-     * Save Post Model
+     * Save Language Model
      *
      * @param array $inputs
      * @return array
@@ -84,23 +84,18 @@ class LanguageService extends Service
      */
     public function storeLanguage(array $inputs): array
     {
-        $newLanguageInfo = $this->formatLanguageInfo($inputs);
         DB::beginTransaction();
         try {
-            $newLanguage = $this->languageRepository->create($newLanguageInfo);
-            if ($newLanguage instanceof Post) {
-                //handling Comment List
-                $newLanguage->surveys()->attach($inputs['survey_id']);
-                $newLanguage->previousPostings()->attach($inputs['prev_post_state_id']);
-                $newLanguage->futurePostings()->attach($inputs['future_post_state_id']);
+            $newLanguage = $this->languageRepository->create($inputs);
+            if ($newLanguage instanceof Language) {
                 $newLanguage->save();
 
                 DB::commit();
-                return ['status' => true, 'message' => __('New Post Created'),
+                return ['status' => true, 'message' => __('New Language Created'),
                     'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
             } else {
                 DB::rollBack();
-                return ['status' => false, 'message' => __('New Post Creation Failed'),
+                return ['status' => false, 'message' => __('New Language Creation Failed'),
                     'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!'];
             }
         } catch (Exception $exception) {
@@ -154,7 +149,7 @@ class LanguageService extends Service
     }
 
     /**
-     * Update Post Model
+     * Update Language Model
      *
      * @param array $inputs
      * @param $id
@@ -167,23 +162,23 @@ class LanguageService extends Service
         DB::beginTransaction();
         try {
             $language = $this->languageRepository->show($id);
-            if ($language instanceof Post) {
+            if ($language instanceof Language) {
                 if ($this->languageRepository->update($newLanguageInfo, $id)) {
                     //handling Comment List
                     $language->surveys()->sync($inputs['survey_id']);
-                    $language->previousPostings()->sync($inputs['prev_post_state_id']);
-                    $language->futurePostings()->sync($inputs['future_post_state_id']);
+                    $language->previousLanguageings()->sync($inputs['prev_post_state_id']);
+                    $language->futureLanguageings()->sync($inputs['future_post_state_id']);
                     $language->save();
                     DB::commit();
-                    return ['status' => true, 'message' => __('Post Info Updated'),
+                    return ['status' => true, 'message' => __('Language Info Updated'),
                         'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
                 } else {
                     DB::rollBack();
-                    return ['status' => false, 'message' => __('Post Info Update Failed'),
+                    return ['status' => false, 'message' => __('Language Info Update Failed'),
                         'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!'];
                 }
             } else {
-                return ['status' => false, 'message' => __('Post Model Not Found'),
+                return ['status' => false, 'message' => __('Language Model Not Found'),
                     'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Alert!'];
             }
         } catch (Exception $exception) {
@@ -195,7 +190,7 @@ class LanguageService extends Service
     }
 
     /**
-     * Destroy Post Model
+     * Destroy Language Model
      *
      * @param $id
      * @return array
@@ -207,11 +202,11 @@ class LanguageService extends Service
         try {
             if ($this->languageRepository->delete($id)) {
                 DB::commit();
-                return ['status' => true, 'message' => __('Post is Trashed'),
+                return ['status' => true, 'message' => __('Language is Trashed'),
                     'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
             } else {
                 DB::rollBack();
-                return ['status' => false, 'message' => __('Post is Delete Failed'),
+                return ['status' => false, 'message' => __('Language is Delete Failed'),
                     'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!'];
             }
         } catch (Exception $exception) {
@@ -223,7 +218,7 @@ class LanguageService extends Service
     }
 
     /**
-     * Restore Post Model
+     * Restore Language Model
      *
      * @param $id
      * @return array
@@ -235,11 +230,11 @@ class LanguageService extends Service
         try {
             if ($this->languageRepository->restore($id)) {
                 DB::commit();
-                return ['status' => true, 'message' => __('Post is Restored'),
+                return ['status' => true, 'message' => __('Language is Restored'),
                     'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
             } else {
                 DB::rollBack();
-                return ['status' => false, 'message' => __('Post is Restoration Failed'),
+                return ['status' => false, 'message' => __('Language is Restoration Failed'),
                     'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!'];
             }
         } catch (Exception $exception) {
