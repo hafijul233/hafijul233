@@ -22,12 +22,13 @@ class CreateEducationsTable extends Migration
         Schema::create('educations', function (Blueprint $table) {
             $table->id();
             $table->string('institute');
+            $table->string('address')->nullable();
             $table->string('degree');
             $table->string('field')->nullable();
             $table->date('start_date');
             $table->date('end_date')->nullable();
             $table->string('grade')->nullable();
-            $table->string('activity')->nullable();
+            $table->text('activity')->nullable();
             $table->text('description')->nullable();
             $table->enum('enabled', array_keys(Constant::ENABLED_OPTIONS))
                 ->default(Constant::ENABLED_OPTION)->nullable();

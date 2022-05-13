@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Backend\Resume;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Backend\Portfolio\ExperienceRequest;
+use App\Http\Requests\Backend\Resume\EducationRequest;
 use App\Services\Auth\AuthenticatedSessionService;
 use App\Services\Backend\Resume\EducationService;
 use App\Supports\Utility;
@@ -80,12 +80,12 @@ class EducationController extends Controller
      * @return RedirectResponse
      * @throws Exception|Throwable
      */
-    public function store(ExperienceRequest $request): RedirectResponse
+    public function store(EducationRequest $request): RedirectResponse
     {
-        $confirm = $this->educationService->storeSurvey($request->except('_token'));
+        $confirm = $this->educationService->storeEducation($request->except('_token'));
         if ($confirm['status'] == true) {
             notify($confirm['message'], $confirm['level'], $confirm['title']);
-            return redirect()->route('backend.portfolio.educations.index');
+            return redirect()->route('backend.resume.educations.index');
         }
 
         notify($confirm['message'], $confirm['level'], $confirm['title']);
@@ -101,9 +101,9 @@ class EducationController extends Controller
      */
     public function show($id)
     {
-        if ($education = $this->educationService->getSurveyById($id)) {
+        if ($education = $this->educationService->getEducationById($id)) {
             return view('backend.resume.education.show', [
-                'service' => $education,
+                'education' => $education,
                 'timeline' => Utility::modelAudits($education)
             ]);
         }
@@ -120,9 +120,9 @@ class EducationController extends Controller
      */
     public function edit($id)
     {
-        if ($education = $this->educationService->getSurveyById($id)) {
+        if ($education = $this->educationService->getEducationById($id)) {
             return view('backend.resume.education.edit', [
-                'service' => $education
+                'education' => $education
             ]);
         }
 
@@ -139,11 +139,11 @@ class EducationController extends Controller
      */
     public function update(ExperienceRequest $request, $id): RedirectResponse
     {
-        $confirm = $this->educationService->updateSurvey($request->except('_token', 'submit', '_method'), $id);
+        $confirm = $this->educationService->updateEducation($request->except('_token', 'submit', '_method'), $id);
 
         if ($confirm['status'] == true) {
             notify($confirm['message'], $confirm['level'], $confirm['title']);
-            return redirect()->route('backend.portfolio.educations.index');
+            return redirect()->route('backend.resume.educations.index');
         }
 
         notify($confirm['message'], $confirm['level'], $confirm['title']);
@@ -162,14 +162,14 @@ class EducationController extends Controller
     {
         if ($this->authenticatedSessionService->validate($request)) {
 
-            $confirm = $this->educationService->destroySurvey($id);
+            $confirm = $this->educationService->destroyEducation($id);
 
             if ($confirm['status'] == true) {
                 notify($confirm['message'], $confirm['level'], $confirm['title']);
             } else {
                 notify($confirm['message'], $confirm['level'], $confirm['title']);
             }
-            return redirect()->route('backend.portfolio.educations.index');
+            return redirect()->route('backend.resume.educations.index');
         }
         abort(403, 'Wrong user credentials');
     }
@@ -186,14 +186,14 @@ class EducationController extends Controller
     {
         if ($this->authenticatedSessionService->validate($request)) {
 
-            $confirm = $this->educationService->restoreSurvey($id);
+            $confirm = $this->educationService->restoreEducation($id);
 
             if ($confirm['status'] == true) {
                 notify($confirm['message'], $confirm['level'], $confirm['title']);
             } else {
                 notify($confirm['message'], $confirm['level'], $confirm['title']);
             }
-            return redirect()->route('backend.portfolio.educations.index');
+            return redirect()->route('backend.resume.educations.index');
         }
         abort(403, 'Wrong user credentials');
     }
@@ -208,7 +208,7 @@ class EducationController extends Controller
     {
         $filters = $request->except('page');
 
-        $educationExport = $this->educationService->exportSurvey($filters);
+        $educationExport = $this->educationService->exportEducation($filters);
 
         $filename = 'Comment-' . date('Ymd-His') . '.' . ($filters['format'] ?? 'xlsx');
 
@@ -237,7 +237,7 @@ class EducationController extends Controller
     public function importBulk(Request $request)
     {
         $filters = $request->except('page');
-        $educations = $this->educationService->getAllSurveys($filters);
+        $educations = $this->educationService->getAllEducations($filters);
 
         return view('backend.portfolio.educationindex', [
             'educations' => $educations
@@ -254,7 +254,7 @@ class EducationController extends Controller
     {
         $filters = $request->except('page');
 
-        $educationExport = $this->educationService->exportSurvey($filters);
+        $educationExport = $this->educationService->exportEducation($filters);
 
         $filename = 'Comment-' . date('Ymd-His') . '.' . ($filters['format'] ?? 'xlsx');
 

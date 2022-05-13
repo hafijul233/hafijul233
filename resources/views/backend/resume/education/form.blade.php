@@ -2,17 +2,17 @@
 
 <div class="card-body">
     <div class="row">
+        <div class="col-md-6">
+            {!! \Form::nText('degree', __('resume.education.Degree'), old('degree', $education->degree ?? null), true, ['placeholder' => 'Example: Bachelors']) !!}
+        </div>
+        <div class="col-md-6">
+            {!! \Form::nText('field', __('resume.education.Field'), old('field', $education->field ?? null), true, ['placeholder' => 'Example: Computer Science']) !!}
+        </div>
         <div class="col-md-12">
-            {!! \Form::nText('degree', __('resume.education.Degree'), old('degree', $education->degree ?? null), true) !!}
-        </div>
-        <div class="col-md-6">
-            {!! \Form::nSelect('type', __('resume.education.Type'), \App\Supports\Constant::EMPLOYEEMENT_TYPE, old('type', $education->type ?? null), false) !!}
-        </div>
-        <div class="col-md-6">
             {!! \Form::nText('institute', __('resume.education.Institute'), old('institute', $education->institute ?? null), true) !!}
         </div>
-        <div class="col-md-6">
-            {!! \Form::nText('address', __('resume.education.Address'), old('address', $education->address ?? null), true) !!}
+        <div class="col-md-12">
+            {!! \Form::nText('address', __('resume.education.Address'), old('address', $education->address ?? null), false) !!}
         </div>
         <div class="col-md-6">
             {!! \Form::nDate('start_date', __('resume.education.Start Date'), old('start_date', $education->start_date ?? null), true) !!}
@@ -20,9 +20,6 @@
         <div class="col-md-6">
             {!! \Form::nDate('end_date', __('resume.education.End Date'), old('end_date', $education->end_date ?? null), false) !!}
         </div>
-        {{--        <div class="col-md-6">
-                    {!! \Form::nUrl('url', __('resume.education.URL'), old('url', $education->url ?? null), false) !!}
-                </div>--}}
         <div class="col-12">
             {!! \Form::nTextarea('description', __('common.Description'), old('description', $education->description ?? null), false) !!}
         </div>

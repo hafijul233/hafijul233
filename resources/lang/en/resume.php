@@ -26,7 +26,8 @@ return [
     'education' => [
         'Add Education' => 'Add Education',
         'Edit Education' => 'Edit Education',
-        'Title' => 'Title',
+        'Degree' => 'Degree',
+        'Field' => 'Field',
         'Institute' => 'Institute',
         'Start Date' => 'Start Date',
         'End Date' => 'End Date',

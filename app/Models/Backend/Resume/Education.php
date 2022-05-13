@@ -34,7 +34,7 @@ class Education extends Model implements Auditable
      *
      * @var array
      */
-    protected $fillable = ['institute', 'degree', 'field', 'start_date', 'end_date', 'grade', 'activity', 'description', 'enabled'];
+    protected $fillable = ['institute', 'degree', 'field', 'start_date', 'end_date', 'grade', 'activity', 'description', 'address','enabled'];
 
     /**
      * The attributes that should be hidden for arrays.

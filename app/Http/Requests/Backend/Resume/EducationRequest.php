@@ -30,8 +30,10 @@ class EducationRequest extends FormRequest
         return [
             "start_date" => ["required", "date"],
             "end_date" => ["nullable", "date"],
-            "name" => ["required", "string", "min:2", "max:255"],
-            "owner" => ["required", "string", "min:2", "max:255"],
+            "degree" => ["required", "string", "min:2", "max:255"],
+            "field" => ["required", "string", "min:2", "max:255"],
+            "institute" => ["required", "string", "min:2", "max:255"],
+            "address" => ["nullable", "string", "min:2", "max:255"],
             "url" => ["nullable", "url", "min:2"],
             "description" => ["nullable", "string"],
             "associate" => ["nullable", "string"],

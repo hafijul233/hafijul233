@@ -507,7 +507,7 @@ Breadcrumbs::for('backend.resume.educations.show', function (BreadcrumbTrail $tr
 
     $education = ($education instanceof Education) ? $education : $education[0];
 
-    $trail->push($education->name, route('backend.resume.educations.show', $education->id));
+    $trail->push("{$education->degree} of {$education->field}", route('backend.resume.educations.show', $education->id));
 });
 
 Breadcrumbs::for('backend.resume.educations.edit', function (BreadcrumbTrail $trail, Education $education) {

@@ -46,7 +46,8 @@
                                     <thead class="thead-light">
                                     <tr>
                                         <th class="align-middle">@sortablelink('id', '#')</th>
-                                        <th>@sortablelink('name', __('common.Name'))</th>
+                                        <th>@sortablelink('degree', __('resume.education.Degree'))</th>
+                                        <th>@sortablelink('institute', __('resume.education.Institute'))</th>
                                         <th class="text-center">@sortablelink('enabled', __('common.Enabled'))</th>
                                         <th class="text-center">@sortablelink('created_at', __('common.Created'))</th>
                                         <th class="text-center">{!! __('common.Actions') !!}</th>
@@ -61,12 +62,13 @@
                                             <td class="text-left">
                                                 @can('backend.resume.educations.show')
                                                     <a href="{{ route('backend.resume.educations.show', $education->id) }}">
-                                                        {{ $education->name }}
+                                                        {{ $education->degree }} of {{ $education->field }}
                                                     </a>
                                                 @else
-                                                    {{ $education->name }}
+                                                    {{ $education->degree }} of {{ $education->field }}
                                                 @endcan
                                             </td>
+                                            <td>{{ $education->institute ?? null }}</td>
                                             <td class="text-center exclude-search">
                                                 {!! \Html::enableToggle($education) !!}
                                             </td>
