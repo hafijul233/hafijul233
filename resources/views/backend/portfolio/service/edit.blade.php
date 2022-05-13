@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', __('service.Edit Comment'))
+@section('title', __('portfolio.service.Edit Service'))
 
 @push('meta')
 

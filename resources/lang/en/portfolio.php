@@ -14,6 +14,7 @@ return [
     */
     'service' => [
         'Add Service' => 'Add Service',
+        'Edit Service' => 'Edit Service',
     ],
     'certificate' => [
         'Add Certificate' => 'Add Certificate',
