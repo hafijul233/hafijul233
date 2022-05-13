@@ -28,6 +28,7 @@ return [
     ],
     'project' => [
         'Add Project' => 'Add Project',
+        'Edit Project' => 'Edit Project',
         'Owner' => 'Owner',
         'Start Date' => 'Start Date',
         'End Date' => 'End Date',

@@ -27,7 +27,7 @@
 @section('breadcrumbs', \Breadcrumbs::render())
 
 @section('actions')
-    {!! \Html::linkButton(__('Add Project'), 'backend.portfolio.projects.create', [], 'fas fa-plus', 'success') !!}
+    {!! \Html::linkButton(__('portfolio.project.Add Project'), 'backend.portfolio.projects.create', [], 'fas fa-plus', 'success') !!}
     {!! \Html::bulkDropdown('backend.portfolio.projects', 0, ['color' => 'warning']) !!}
 @endsection
 
