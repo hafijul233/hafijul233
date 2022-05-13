@@ -3,7 +3,8 @@
 namespace App\Http\Controllers\Backend\Resume;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Backend\Portfolio\ExperienceRequest;
+use App\Http\Requests\Backend\Resume\AwardRequest;
+use App\Http\Requests\Backend\Resume\ExperienceRequest;
 use App\Services\Auth\AuthenticatedSessionService;
 use App\Services\Backend\Resume\AwardService;
 use App\Supports\Utility;
@@ -80,12 +81,12 @@ class AwardController extends Controller
      * @return RedirectResponse
      * @throws Exception|Throwable
      */
-    public function store(ExperienceRequest $request): RedirectResponse
+    public function store(AwardRequest $request): RedirectResponse
     {
-        $confirm = $this->awardService->storeSurvey($request->except('_token'));
+        $confirm = $this->awardService->storeAward($request->except('_token'));
         if ($confirm['status'] == true) {
             notify($confirm['message'], $confirm['level'], $confirm['title']);
-            return redirect()->route('backend.portfolio.awards.index');
+            return redirect()->route('backend.resume.awards.index');
         }
 
         notify($confirm['message'], $confirm['level'], $confirm['title']);
@@ -101,9 +102,9 @@ class AwardController extends Controller
      */
     public function show($id)
     {
-        if ($award = $this->awardService->getSurveyById($id)) {
+        if ($award = $this->awardService->getAwardById($id)) {
             return view('backend.resume.award.show', [
-                'service' => $award,
+                'award' => $award,
                 'timeline' => Utility::modelAudits($award)
             ]);
         }
@@ -120,9 +121,9 @@ class AwardController extends Controller
      */
     public function edit($id)
     {
-        if ($award = $this->awardService->getSurveyById($id)) {
+        if ($award = $this->awardService->getAwardById($id)) {
             return view('backend.resume.award.edit', [
-                'service' => $award
+                'award' => $award
             ]);
         }
 
@@ -137,13 +138,13 @@ class AwardController extends Controller
      * @return RedirectResponse
      * @throws Throwable
      */
-    public function update(ExperienceRequest $request, $id): RedirectResponse
+    public function update(AwardRequest $request, $id): RedirectResponse
     {
-        $confirm = $this->awardService->updateSurvey($request->except('_token', 'submit', '_method'), $id);
+        $confirm = $this->awardService->updateAward($request->except('_token', 'submit', '_method'), $id);
 
         if ($confirm['status'] == true) {
             notify($confirm['message'], $confirm['level'], $confirm['title']);
-            return redirect()->route('backend.portfolio.awards.index');
+            return redirect()->route('backend.resume.awards.index');
         }
 
         notify($confirm['message'], $confirm['level'], $confirm['title']);
@@ -162,14 +163,14 @@ class AwardController extends Controller
     {
         if ($this->authenticatedSessionService->validate($request)) {
 
-            $confirm = $this->awardService->destroySurvey($id);
+            $confirm = $this->awardService->destroyAward($id);
 
             if ($confirm['status'] == true) {
                 notify($confirm['message'], $confirm['level'], $confirm['title']);
             } else {
                 notify($confirm['message'], $confirm['level'], $confirm['title']);
             }
-            return redirect()->route('backend.portfolio.awards.index');
+            return redirect()->route('backend.resume.awards.index');
         }
         abort(403, 'Wrong user credentials');
     }
@@ -186,14 +187,14 @@ class AwardController extends Controller
     {
         if ($this->authenticatedSessionService->validate($request)) {
 
-            $confirm = $this->awardService->restoreSurvey($id);
+            $confirm = $this->awardService->restoreAward($id);
 
             if ($confirm['status'] == true) {
                 notify($confirm['message'], $confirm['level'], $confirm['title']);
             } else {
                 notify($confirm['message'], $confirm['level'], $confirm['title']);
             }
-            return redirect()->route('backend.portfolio.awards.index');
+            return redirect()->route('backend.resume.awards.index');
         }
         abort(403, 'Wrong user credentials');
     }
@@ -208,7 +209,7 @@ class AwardController extends Controller
     {
         $filters = $request->except('page');
 
-        $awardExport = $this->awardService->exportSurvey($filters);
+        $awardExport = $this->awardService->exportAward($filters);
 
         $filename = 'Comment-' . date('Ymd-His') . '.' . ($filters['format'] ?? 'xlsx');
 
@@ -225,7 +226,7 @@ class AwardController extends Controller
      */
     public function import()
     {
-        return view('backend.portfolio.awardimport');
+        return view('backend.resume.awardimport');
     }
 
     /**
@@ -237,9 +238,9 @@ class AwardController extends Controller
     public function importBulk(Request $request)
     {
         $filters = $request->except('page');
-        $awards = $this->awardService->getAllSurveys($filters);
+        $awards = $this->awardService->getAllAwards($filters);
 
-        return view('backend.portfolio.awardindex', [
+        return view('backend.resume.awardindex', [
             'awards' => $awards
         ]);
     }
@@ -254,7 +255,7 @@ class AwardController extends Controller
     {
         $filters = $request->except('page');
 
-        $awardExport = $this->awardService->exportSurvey($filters);
+        $awardExport = $this->awardService->exportAward($filters);
 
         $filename = 'Comment-' . date('Ymd-His') . '.' . ($filters['format'] ?? 'xlsx');
 

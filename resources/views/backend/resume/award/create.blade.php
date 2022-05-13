@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', __('service.Add Comment'))
+@section('title', __('resume.award.Add Award'))
 
 @push('meta')
 

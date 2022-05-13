@@ -225,7 +225,7 @@ class EducationController extends Controller
      */
     public function import()
     {
-        return view('backend.portfolio.educationimport');
+        return view('backend.resume.educationimport');
     }
 
     /**
@@ -239,7 +239,7 @@ class EducationController extends Controller
         $filters = $request->except('page');
         $educations = $this->educationService->getAllEducations($filters);
 
-        return view('backend.portfolio.educationindex', [
+        return view('backend.resume.educationindex', [
             'educations' => $educations
         ]);
     }

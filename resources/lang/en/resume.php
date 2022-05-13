@@ -38,11 +38,11 @@ return [
         'Add Award' => 'Add Award',
         'Edit Award' => 'Edit Award',
         'Title' => 'Title',
-        'Organization' => 'Organization',
-        'Start Date' => 'Start Date',
-        'End Date' => 'End Date',
+        'Associate' => 'Associate',
+        'Issue Date' => 'Issue Date',
         'Address' => 'Address',
-        'URL' => 'URL'
+        'URL' => 'URL',
+        'Issuer' => 'Issuer',
     ],
     'skill' => [
         'Add Skill' => 'Add Skill',

@@ -34,7 +34,7 @@ class Award extends Model implements Auditable
      *
      * @var array
      */
-    protected $fillable = ['survey_id', 'name', 'name_bd', 'father', 'father_bd', 'mother', 'mother_bd', 'nid', 'mobile_1', 'mobile_2', 'email', 'present_address', 'present_address_bd', 'permanent_address', 'permanent_address_bd', 'gender', 'enabled'];
+    protected $fillable = ['title', 'associate', 'issuer', 'issue_date', 'description', 'enabled'];
 
     /**
      * The attributes that should be hidden for arrays.
@@ -48,7 +48,9 @@ class Award extends Model implements Auditable
      *
      * @var array
      */
-    protected $casts = [];
+    protected $casts = [
+        'issue_date' => 'date'
+    ];
 
     /**
      * The model's default values for attributes when new instance created.

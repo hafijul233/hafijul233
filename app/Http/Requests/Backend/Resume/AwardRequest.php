@@ -28,9 +28,12 @@ class AwardRequest extends FormRequest
     public function rules()
     {
         return [
-            "name" => ["required", "string", "min:2", "max:255"],
-            "summary" => ["required", "string", "min:2"],
-            "description" => ["required", "string", "min:2"],
+            "title" => ["required", "string", "min:2", "max:255"],
+            "associate" => ["nullable", "string", "min:2"],
+            "issuer" => ["required", "string", "min:2"],
+            "issue_date" => ["required", "date"],
+            "url" => ["nullable", "url"],
+            "description" => ["nullable", "string", "min:2"],
             "image" => ["nullable", "image"]
         ];
     }

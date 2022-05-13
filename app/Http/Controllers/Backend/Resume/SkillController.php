@@ -85,7 +85,7 @@ class SkillController extends Controller
         $confirm = $this->skillService->storeSkill($request->except('_token'));
         if ($confirm['status'] == true) {
             notify($confirm['message'], $confirm['level'], $confirm['title']);
-            return redirect()->route('backend.portfolio.skills.index');
+            return redirect()->route('backend.resume.skills.index');
         }
 
         notify($confirm['message'], $confirm['level'], $confirm['title']);
@@ -143,7 +143,7 @@ class SkillController extends Controller
 
         if ($confirm['status'] == true) {
             notify($confirm['message'], $confirm['level'], $confirm['title']);
-            return redirect()->route('backend.portfolio.skills.index');
+            return redirect()->route('backend.resume.skills.index');
         }
 
         notify($confirm['message'], $confirm['level'], $confirm['title']);
@@ -169,7 +169,7 @@ class SkillController extends Controller
             } else {
                 notify($confirm['message'], $confirm['level'], $confirm['title']);
             }
-            return redirect()->route('backend.portfolio.skills.index');
+            return redirect()->route('backend.resume.skills.index');
         }
         abort(403, 'Wrong user credentials');
     }
@@ -193,7 +193,7 @@ class SkillController extends Controller
             } else {
                 notify($confirm['message'], $confirm['level'], $confirm['title']);
             }
-            return redirect()->route('backend.portfolio.skills.index');
+            return redirect()->route('backend.resume.skills.index');
         }
         abort(403, 'Wrong user credentials');
     }
@@ -225,7 +225,7 @@ class SkillController extends Controller
      */
     public function import()
     {
-        return view('backend.portfolio.skillimport');
+        return view('backend.resume.skillimport');
     }
 
     /**
@@ -239,7 +239,7 @@ class SkillController extends Controller
         $filters = $request->except('page');
         $skills = $this->skillService->getAllSkills($filters);
 
-        return view('backend.portfolio.skillindex', [
+        return view('backend.resume.skillindex', [
             'skills' => $skills
         ]);
     }

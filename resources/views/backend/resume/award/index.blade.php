@@ -27,7 +27,7 @@
 @section('breadcrumbs', \Breadcrumbs::render())
 
 @section('actions')
-    {!! \Html::linkButton(__('Add Award'), 'backend.resume.awards.create', [], 'fas fa-plus', 'success') !!}
+    {!! \Html::linkButton(__('resume.award.Add Award'), 'backend.resume.awards.create', [], 'fas fa-plus', 'success') !!}
     {{--{!! \Html::bulkDropdown('backend.resume.awards', 0, ['color' => 'warning']) !!}--}}
 @endsection
 
@@ -47,6 +47,8 @@
                                     <tr>
                                         <th class="align-middle">@sortablelink('id', '#')</th>
                                         <th>@sortablelink('name', __('common.Name'))</th>
+                                        <th>@sortablelink('issuer', __('resume.award.Issuer'))</th>
+                                        <th>@sortablelink('issue_date', __('resume.award.Issue Date'))</th>
                                         <th class="text-center">@sortablelink('enabled', __('common.Enabled'))</th>
                                         <th class="text-center">@sortablelink('created_at', __('common.Created'))</th>
                                         <th class="text-center">{!! __('common.Actions') !!}</th>
@@ -61,12 +63,15 @@
                                             <td class="text-left">
                                                 @can('backend.resume.awards.show')
                                                     <a href="{{ route('backend.resume.awards.show', $award->id) }}">
-                                                        {{ $award->name }}
+                                                        {{ $award->title ?? null }}
                                                     </a>
                                                 @else
-                                                    {{ $award->name }}
+                                                    {{ $award->title ?? null }}
                                                 @endcan
                                             </td>
+                                            <td>{{ $award->issuer ?? null }}</td>
+                                            <td>{{ $award->issue_date->format('dS F, Y') ?? null }}</td>
+
                                             <td class="text-center exclude-search">
                                                 {!! \Html::enableToggle($award) !!}
                                             </td>

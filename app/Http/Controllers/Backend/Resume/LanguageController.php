@@ -85,7 +85,7 @@ class LanguageController extends Controller
         $confirm = $this->languageService->storeSurvey($request->except('_token'));
         if ($confirm['status'] == true) {
             notify($confirm['message'], $confirm['level'], $confirm['title']);
-            return redirect()->route('backend.portfolio.languages.index');
+            return redirect()->route('backend.resume.languages.index');
         }
 
         notify($confirm['message'], $confirm['level'], $confirm['title']);
@@ -143,7 +143,7 @@ class LanguageController extends Controller
 
         if ($confirm['status'] == true) {
             notify($confirm['message'], $confirm['level'], $confirm['title']);
-            return redirect()->route('backend.portfolio.languages.index');
+            return redirect()->route('backend.resume.languages.index');
         }
 
         notify($confirm['message'], $confirm['level'], $confirm['title']);
@@ -169,7 +169,7 @@ class LanguageController extends Controller
             } else {
                 notify($confirm['message'], $confirm['level'], $confirm['title']);
             }
-            return redirect()->route('backend.portfolio.languages.index');
+            return redirect()->route('backend.resume.languages.index');
         }
         abort(403, 'Wrong user credentials');
     }
@@ -193,7 +193,7 @@ class LanguageController extends Controller
             } else {
                 notify($confirm['message'], $confirm['level'], $confirm['title']);
             }
-            return redirect()->route('backend.portfolio.languages.index');
+            return redirect()->route('backend.resume.languages.index');
         }
         abort(403, 'Wrong user credentials');
     }
@@ -225,7 +225,7 @@ class LanguageController extends Controller
      */
     public function import()
     {
-        return view('backend.portfolio.languageimport');
+        return view('backend.resume.languageimport');
     }
 
     /**
@@ -239,7 +239,7 @@ class LanguageController extends Controller
         $filters = $request->except('page');
         $languages = $this->languageService->getAllSurveys($filters);
 
-        return view('backend.portfolio.languageindex', [
+        return view('backend.resume.languageindex', [
             'languages' => $languages
         ]);
     }
