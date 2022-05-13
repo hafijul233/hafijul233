@@ -21,7 +21,7 @@ class CreateCertificatesTable extends Migration
         //Table Structure
         Schema::create('certificates', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
+            $table->string('name');
             $table->string('organization');
             $table->date('issue_date')->nullable();
             $table->date('expire_date')->nullable();

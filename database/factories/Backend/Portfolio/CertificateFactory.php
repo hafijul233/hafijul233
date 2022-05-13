@@ -18,7 +18,7 @@ class CertificateFactory extends Factory
     public function definition()
     {
         return [
-            'title' => $this->faker->paragraph(1),
+            'name' => $this->faker->paragraph(1),
             'organization' => $this->faker->company(),
             'issue_date' => $this->faker->date(),
             'expire_date' => $this->faker->date(),

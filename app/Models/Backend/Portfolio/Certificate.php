@@ -37,7 +37,7 @@ class Certificate extends Model implements Auditable, HasMedia
      *
      * @var array
      */
-    protected $fillable = ['title', 'organization', 'issue_date', 'expire_date', 'credential', 'verify_url', 'description', 'enabled'];
+    protected $fillable = ['name', 'organization', 'issue_date', 'expire_date', 'credential', 'verify_url', 'description', 'enabled'];
 
     /**
      * The attributes that should be hidden for arrays.

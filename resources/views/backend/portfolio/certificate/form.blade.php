@@ -3,7 +3,7 @@
 <div class="card-body">
     <div class="row">
         <div class="col-md-6">
-            {!! \Form::nText('title', __('portfolio.certificate.Title'), old('title', $certificate->title ?? null), true) !!}
+            {!! \Form::nText('name', __('common.Name'), old('name', $certificate->name ?? null), true) !!}
         </div>
         <div class="col-md-6">
             {!! \Form::nText('organization', __('portfolio.certificate.Organization'), old('organization', $certificate->organization ?? null), true) !!}

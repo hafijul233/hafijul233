@@ -2,7 +2,7 @@
 
 <div class="card-body">
     <div class="row">
-        <div class="col-md-12">linked
+        <div class="col-md-12">
             {!! \Form::nText('degree', __('resume.education.Degree'), old('degree', $education->degree ?? null), true) !!}
         </div>
         <div class="col-md-6">
