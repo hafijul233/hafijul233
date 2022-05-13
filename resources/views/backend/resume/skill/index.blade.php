@@ -47,6 +47,7 @@
                                     <tr>
                                         <th class="align-middle">@sortablelink('id', '#')</th>
                                         <th>@sortablelink('name', __('common.Name'))</th>
+                                        <th>@sortablelink('percentage', __('common.Percentage'))</th>
                                         <th class="text-center">@sortablelink('enabled', __('common.Enabled'))</th>
                                         <th class="text-center">@sortablelink('created_at', __('common.Created'))</th>
                                         <th class="text-center">{!! __('common.Actions') !!}</th>
@@ -67,6 +68,7 @@
                                                     {{ $skill->name }}
                                                 @endcan
                                             </td>
+                                            <td>{{ $skill->percentage ?? 0 }}</td>
                                             <td class="text-center exclude-search">
                                                 {!! \Html::enableToggle($skill) !!}
                                             </td>
