@@ -28,7 +28,7 @@
 
 @section('actions')
     {!! \Html::linkButton('Add User', 'backend.settings.users.create', [], 'fas fa-plus', 'success') !!}
-    {{--{!! \Html::bulkDropdown('backend.settings.users', 0, ['color' => 'warning']) !!}--}}
+    {!! \Html::bulkDropdown('backend.settings.users', 0, ['color' => 'warning']) !!}
 
 @endsection
 

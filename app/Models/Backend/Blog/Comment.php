@@ -2,8 +2,10 @@
 
 namespace App\Models\Backend\Blog;
 
+use App\Models\Backend\Setting\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Kyslik\ColumnSortable\Sortable;
 use OwenIt\Auditing\Auditable as AuditableTrait;
@@ -64,8 +66,29 @@ class Comment extends Model implements Auditable
 
     /************************ Audit Relations ************************/
 
-    public function enumerators()
+    /**
+     * @return BelongsTo
+     */
+    public function post()
     {
-        return $this->hasMany(Post::class);
+        return $this->belongsTo(Post::class);
+    }
+
+    /**
+     * @return BelongsTo
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function ancestor()
+    {
+        $this->belongsTo(self::class, 'parent_id', 'id');
+    }
+
+    public function descendants()
+    {
+        $this->hasMany(self::class, 'id', 'parent_id');
     }
 }

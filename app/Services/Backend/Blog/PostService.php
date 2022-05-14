@@ -124,7 +124,7 @@ class PostService extends Service
             if ($post instanceof Post) {
                 if ($this->postRepository->update($inputs, $id)) {
                     if (isset($inputs['image']) && $inputs['image'] instanceof UploadedFile) {
-                        $post->addMedia($inputs['image'])->toMediaCollection('services');
+                        $post->addMedia($inputs['image'])->toMediaCollection('posts');
                     }
                     $post->save();
                     DB::commit();

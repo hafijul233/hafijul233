@@ -46,7 +46,8 @@
                                     <thead class="thead-light">
                                     <tr>
                                         <th class="align-middle">@sortablelink('id', '#')</th>
-                                        <th>@sortablelink('name', __('common.Name'))</th>
+                                        <th>@sortablelink('user.name', __('common.User'))</th>
+                                        <th class="text-center">@sortablelink('message', __('common.Message'))</th>
                                         <th class="text-center">@sortablelink('enabled', __('common.Enabled'))</th>
                                         <th class="text-center">@sortablelink('created_at', __('common.Created'))</th>
                                         <th class="text-center">{!! __('common.Actions') !!}</th>
@@ -58,13 +59,23 @@
                                             <td class="exclude-search align-middle">
                                                 {{ $comment->id }}
                                             </td>
+                                            <td class="text-left pl-0">
+                                                @include('backend.layouts.includes.user-media-card', ['dynamicUser' => $comment->user])
+                                            </td>
                                             <td class="text-left">
+                                                <button type="button" class="btn btn-xs p-0 border-0 d-inline mr-3 rounded-circle btn-light"
+                                                        data-toggle="popover"
+                                                        title="Comment Message"
+                                                        data-placement="bottom"
+                                                        data-content="{{ $comment->message ?? '' }}">
+                                                    <i class="fas fa-info-circle"></i>
+                                                </button>
                                                 @can('backend.blog.comments.show')
                                                     <a href="{{ route('backend.blog.comments.show', $comment->id) }}">
-                                                        {{ $comment->name }}
+                                                        {{ \App\Supports\Utility::textTruncate(($comment->message ?? ''), 50) }}
                                                     </a>
                                                 @else
-                                                    {{ $comment->name }}
+                                                    {{ \App\Supports\Utility::textTruncate(($comment->message ?? ''), 50) }}
                                                 @endcan
                                             </td>
                                             <td class="text-center exclude-search">
@@ -106,5 +117,9 @@
 @endpush
 
 @push('page-script')
-
+<script>
+    $(function () {
+        $('[data-toggle="popover"]').popover()
+    });
+</script>
 @endpush
