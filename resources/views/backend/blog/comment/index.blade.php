@@ -28,7 +28,7 @@
 
 @section('actions')
     {!! \Html::linkButton(__('Add Comment'), 'backend.blog.comments.create', [], 'fas fa-plus', 'success') !!}
-    {{--{!! \Html::bulkDropdown('backend.blog.comments', 0, ['color' => 'warning']) !!}--}}
+    {!! \Html::bulkDropdown('backend.blog.comments', 0, ['color' => 'warning']) !!}
 @endsection
 
 @section('content')

@@ -12,6 +12,21 @@ return [
     | these language lines according to your application's requirements.
     |
     */
-    'Add Comment' => 'Add Comment',
-    'Edit Comment' => 'Edit Comment',
+    'post' => [
+        'Add Post' => 'Add Post',
+        'Edit Post' => 'Edit Post',
+        'Title' => 'Title',
+        'Summary' => 'Summary',
+        'Content' => 'Content',
+        'Category' => 'Category',
+        'Published' => 'Published'
+    ],
+    'comment' => [
+        'Add Comment' => 'Add Comment',
+        'Edit Comment' => 'Edit Comment',
+    ],
+    'newsletter' => [
+        'Add NewsLetter' => 'Add NewsLetter',
+        'Edit NewsLetter' => 'Edit NewsLetter',
+    ]
 ];

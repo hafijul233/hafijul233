@@ -25,9 +25,9 @@
 @section('breadcrumbs', Breadcrumbs::render(Route::getCurrentRoute()->getName(), $survey))
 
 @section('actions')
-    {!! \Html::backButton('backend.portfolio.surveys.index') !!}
-    {{--    {!! \Html::modelDropdown('backend.portfolio.surveys', $service->id, ['color' => 'success',
-            'actions' => array_merge(['edit'], ($service->deleted_at == null) ? ['delete'] : ['restore'])]) !!}--}}
+    {!! \Html::backButton('backend.blog.surveys.index') !!}
+    {{--    {!! \Html::modelDropdown('backend.blog.surveys', $newsletter->id, ['color' => 'success',
+            'actions' => array_merge(['edit'], ($newsletter->deleted_at == null) ? ['delete'] : ['restore'])]) !!}--}}
 @endsection
 
 @section('content')

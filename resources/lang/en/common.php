@@ -22,7 +22,7 @@ return [
     'Show' => 'Show',
     'Details' => 'Details',
     'Clone' => 'Clone',
-    'Send' => 'Send',
+    'Publish' => 'Publish',
     'Save' => 'Save',
     'Print' => 'Print',
     'Export' => 'Export',

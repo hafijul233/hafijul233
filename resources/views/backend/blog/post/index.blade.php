@@ -27,8 +27,8 @@
 @section('breadcrumbs', \Breadcrumbs::render())
 
 @section('actions')
-    {!! \Html::linkButton(__('Add Post'), 'backend.blog.posts.create', [], 'fas fa-plus', 'success') !!}
-    {{--{!! \Html::bulkDropdown('backend.blog.posts', 0, ['color' => 'warning']) !!}--}}
+    {!! \Html::linkButton(__('blog.post.Add Post'), 'backend.blog.posts.create', [], 'fas fa-plus', 'success') !!}
+    {!! \Html::bulkDropdown('backend.blog.posts', 0, ['color' => 'warning']) !!}
 @endsection
 
 @section('content')
@@ -46,7 +46,8 @@
                                     <thead class="thead-light">
                                     <tr>
                                         <th class="align-middle">@sortablelink('id', '#')</th>
-                                        <th>@sortablelink('name', __('common.Name'))</th>
+                                        <th>@sortablelink('title', __('blog.post.Title'))</th>
+                                        <th>@sortablelink('published_at', __('blog.post.Published'))</th>
                                         <th class="text-center">@sortablelink('enabled', __('common.Enabled'))</th>
                                         <th class="text-center">@sortablelink('created_at', __('common.Created'))</th>
                                         <th class="text-center">{!! __('common.Actions') !!}</th>
@@ -61,10 +62,10 @@
                                             <td class="text-left">
                                                 @can('backend.blog.posts.show')
                                                     <a href="{{ route('backend.blog.posts.show', $post->id) }}">
-                                                        {{ $post->name }}
+                                                        {{ $post->title }}
                                                     </a>
                                                 @else
-                                                    {{ $post->name }}
+                                                    {{ $post->title }}
                                                 @endcan
                                             </td>
                                             <td class="text-center exclude-search">

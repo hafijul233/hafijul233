@@ -1,6 +1,6 @@
 @extends('backend.layouts.app')
 
-@section('title', __('service.Add Comment'))
+@section('title', __('blog.post.Add Post'))
 
 @push('meta')
 
@@ -26,7 +26,7 @@
 @section('breadcrumbs', \Breadcrumbs::render(Route::getCurrentRoute()->getName()))
 
 @section('actions')
-    {!! \Html::backButton('backend.portfolio.surveys.index') !!}
+    {!! \Html::backButton('backend.blog.posts.index') !!}
 @endsection
 
 @section('content')
@@ -34,8 +34,8 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="card card-default">
-                    {!! \Form::open(['route' => 'backend.portfolio.surveys.store', 'id' => 'service-form']) !!}
-                    @include('backend.portfolio.service.form')
+                    {!! \Form::open(['route' => 'backend.blog.posts.store', 'files' => true, 'id' => 'post-form']) !!}
+                    @include('backend.blog.post.form')
                     {!! \Form::close() !!}
                 </div>
             </div>

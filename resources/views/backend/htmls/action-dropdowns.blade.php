@@ -1,6 +1,7 @@
 @if(!empty($options))
     @canany([$resourceRouteName . '.show', $resourceRouteName . '.edit',
-            $resourceRouteName . '.destroy', $resourceRouteName . '.restore'])
+            $resourceRouteName . '.destroy', $resourceRouteName . '.restore',
+            $resourceRouteName . '.publish'])
         <style>
             .action-dropdown > ul > li > a.link-muted:hover {
                 color: #007bff
@@ -61,13 +62,13 @@
                         @endcan
                     @endif
 
-                    @if(in_array('send', $options) && Route::has($resourceRouteName . '.send'))
-                        @can($resourceRouteName . '.restore')
+                    @if(in_array('publish', $options) && Route::has($resourceRouteName . '.publish'))
+                        @can($resourceRouteName . '.publish')
                             <li>
-                                <a href="{{ route('backend.common.restore', [$resourceRouteName, $id]) }}"
-                                   title="Restore"
+                                <a href="{{ route($resourceRouteName . '.publish', $id) }}"
+                                   title="Publish"
                                    class="d-flex align-items-center link-muted py-2 px-3 restore-btn">
-                                    <i class="far fa-paper-plane  mr-2"></i> {!! __('common.Send') !!}
+                                    <i class="far fa-paper-plane  mr-2"></i> {!! __('common.Publish') !!}
                                 </a>
                             </li>
                         @endcan

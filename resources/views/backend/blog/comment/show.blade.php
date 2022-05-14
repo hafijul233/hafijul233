@@ -1,6 +1,6 @@
 @extends('backend.layouts.app')
 
-@section('title', $survey->name)
+@section('title', $comment->name)
 
 @push('meta')
 
@@ -22,12 +22,12 @@
 
 @endpush
 
-@section('breadcrumbs', Breadcrumbs::render(Route::getCurrentRoute()->getName(), $survey))
+@section('breadcrumbs', Breadcrumbs::render(Route::getCurrentRoute()->getName(), $comment))
 
 @section('actions')
-    {!! \Html::backButton('backend.portfolio.surveys.index') !!}
-    {{--    {!! \Html::modelDropdown('backend.portfolio.surveys', $service->id, ['color' => 'success',
-            'actions' => array_merge(['edit'], ($service->deleted_at == null) ? ['delete'] : ['restore'])]) !!}--}}
+    {!! \Html::backButton('backend.blog.comments.index') !!}
+    {{--    {!! \Html::modelDropdown('backend.blog.comments', $comment->id, ['color' => 'success',
+            'actions' => array_merge(['edit'], ($comment->deleted_at == null) ? ['delete'] : ['restore'])]) !!}--}}
 @endsection
 
 @section('content')
@@ -39,11 +39,11 @@
                         <div class="row mb-3">
                             <div class="col-md-6">
                                 <label class="d-block">Name</label>
-                                <p class="font-weight-bold">{{ $survey->name ?? null }}</p>
+                                <p class="font-weight-bold">{{ $comment->name ?? null }}</p>
                             </div>
                             <div class="col-md-6">
                                 <label class="d-block">Enabled</label>
-                                <p class="font-weight-bold">{{ \App\Supports\Constant::ENABLED_OPTIONS[$survey->enabled] }}</p>
+                                <p class="font-weight-bold">{{ \App\Supports\Constant::ENABLED_OPTIONS[$comment->enabled] }}</p>
                             </div>
                         </div>
 

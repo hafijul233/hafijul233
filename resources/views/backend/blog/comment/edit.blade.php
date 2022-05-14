@@ -1,6 +1,6 @@
 @extends('backend.layouts.app')
 
-@section('title', __('service.Edit Comment'))
+@section('title', __('comment.Edit Comment'))
 
 @push('meta')
 
@@ -23,10 +23,10 @@
 @endpush
 
 
-@section('breadcrumbs', \Breadcrumbs::render(Route::getCurrentRoute()->getName(), $survey))
+@section('breadcrumbs', \Breadcrumbs::render(Route::getCurrentRoute()->getName(), $comment))
 
 @section('actions')
-    {!! \Html::backButton('backend.portfolio.surveys.index') !!}
+    {!! \Html::backButton('backend.blog.comments.index') !!}
 @endsection
 
 @section('content')
@@ -34,8 +34,8 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="card">
-                    {!! \Form::open(['route' => ['backend.portfolio.surveys.update', $survey->id], 'method' => 'put', 'id' => 'service-form']) !!}
-                    @include('backend.portfolio.service.form')
+                    {!! \Form::open(['route' => ['backend.blog.comments.update', $comment->id], 'method' => 'put', 'id' => 'comment-form']) !!}
+                    @include('backend.blog.comment.form')
                     {!! \Form::close() !!}
                 </div>
             </div>

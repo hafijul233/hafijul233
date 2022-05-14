@@ -20,7 +20,7 @@
 @push('page-script')
     <script>
         $(function () {
-            $("#service-form").validate({
+            $("#newsletter-form").validate({
                 rules: {
                     name: {
                         required: true,
