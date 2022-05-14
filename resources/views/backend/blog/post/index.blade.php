@@ -47,7 +47,7 @@
                                     <tr>
                                         <th class="align-middle">@sortablelink('id', '#')</th>
                                         <th>@sortablelink('title', __('blog.post.Title'))</th>
-                                        <th>@sortablelink('published_at', __('blog.post.Published'))</th>
+                                        <th class="text-center">@sortablelink('published_at', __('blog.post.Published'))</th>
                                         <th class="text-center">@sortablelink('enabled', __('common.Enabled'))</th>
                                         <th class="text-center">@sortablelink('created_at', __('common.Created'))</th>
                                         <th class="text-center">{!! __('common.Actions') !!}</th>
@@ -67,6 +67,14 @@
                                                 @else
                                                     {{ $post->title }}
                                                 @endcan
+                                            </td>
+                                            <td class="text-center">@if(is_null($post->published_at))
+                                                    <span class="text-danger font-weight-bold">
+                                                        Not Published
+                                                    </span>
+                                                    @else
+                                                {{ $post->published_at->format(config('backend.datetime')) }}
+                                                    @endif
                                             </td>
                                             <td class="text-center exclude-search">
                                                 {!! \Html::enableToggle($post) !!}
