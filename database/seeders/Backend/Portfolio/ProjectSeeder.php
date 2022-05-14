@@ -7,7 +7,7 @@ use Database\Factories\Backend\Portfolio\ProjectFactory;
 use Illuminate\Database\Seeder;
 
 /**
- * Class ProjectSeeder
+ * Class CommentSeeder
  * @package Database\Seeders\Backend\Portfolio
  */
 class ProjectSeeder extends Seeder
