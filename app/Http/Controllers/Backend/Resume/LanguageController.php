@@ -41,8 +41,7 @@ class LanguageController extends Controller
     public function __construct(
         AuthenticatedSessionService $authenticatedSessionService,
         LanguageService $languageService
-    )
-    {
+    ) {
         $this->authenticatedSessionService = $authenticatedSessionService;
         $this->languageService = $languageService;
     }

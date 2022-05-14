@@ -41,8 +41,7 @@ class SkillController extends Controller
     public function __construct(
         AuthenticatedSessionService $authenticatedSessionService,
         SkillService $skillService
-    )
-    {
+    ) {
         $this->authenticatedSessionService = $authenticatedSessionService;
         $this->skillService = $skillService;
     }

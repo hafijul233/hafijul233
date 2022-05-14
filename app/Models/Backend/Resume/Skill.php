@@ -61,5 +61,4 @@ class Skill extends Model implements Auditable
     protected $attributes = [
         'enabled' => 'yes'
     ];
-
 }
