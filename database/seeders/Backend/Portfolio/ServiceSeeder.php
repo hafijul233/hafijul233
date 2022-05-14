@@ -3,7 +3,7 @@
 namespace Database\Seeders\Backend\Portfolio;
 
 use App\Models\Backend\Portfolio\Service;
-use Database\Factories\Backend\Portfolio\ServiceFactory;
+use Database\Factories\Backend\Portfolio\PostFactory;
 use Illuminate\Database\Seeder;
 
 class ServiceSeeder extends Seeder
@@ -16,7 +16,7 @@ class ServiceSeeder extends Seeder
     public function run()
     {
         /**
-         * @var ServiceFactory
+         * @var PostFactory
          */
         Service::factory()->count(20)->create();
     }
