@@ -1,6 +1,6 @@
 @extends('backend.layouts.app')
 
-@section('title', __('post.Edit Comment'))
+@section('title', __('blog.post.Edit Post'))
 
 @push('meta')
 
@@ -34,7 +34,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="card">
-                    {!! \Form::open(['route' => ['backend.blog.posts.update', $post->id], 'method' => 'put', 'id' => 'post-form']) !!}
+                    {!! \Form::open(['route' => ['backend.blog.posts.update', $post->id], 'method' => 'put', 'files' => true, 'id' => 'post-form']) !!}
                     @include('backend.blog.post.form')
                     {!! \Form::close() !!}
                 </div>
