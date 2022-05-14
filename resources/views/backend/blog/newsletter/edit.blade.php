@@ -23,10 +23,10 @@
 @endpush
 
 
-@section('breadcrumbs', \Breadcrumbs::render(Route::getCurrentRoute()->getName(), $survey))
+@section('breadcrumbs', \Breadcrumbs::render(Route::getCurrentRoute()->getName(), $newsLetter))
 
 @section('actions')
-    {!! \Html::backButton('backend.blog.surveys.index') !!}
+    {!! \Html::backButton('backend.blog.newsletters.index') !!}
 @endsection
 
 @section('content')
@@ -34,7 +34,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="card">
-                    {!! \Form::open(['route' => ['backend.blog.surveys.update', $survey->id], 'method' => 'put', 'id' => 'newsletter-form']) !!}
+                    {!! \Form::open(['route' => ['backend.blog.newsletters.update', $newsLetter->id], 'method' => 'put', 'id' => 'newsletter-form']) !!}
                     @include('backend.blog.newsletter.form')
                     {!! \Form::close() !!}
                 </div>

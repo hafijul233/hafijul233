@@ -26,7 +26,7 @@
 @section('breadcrumbs', \Breadcrumbs::render(Route::getCurrentRoute()->getName()))
 
 @section('actions')
-    {!! \Html::backButton('backend.blog.surveys.index') !!}
+    {!! \Html::backButton('backend.blog.newsletters.index') !!}
 @endsection
 
 @section('content')
@@ -34,7 +34,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="card card-default">
-                    {!! \Form::open(['route' => 'backend.blog.surveys.store', 'id' => 'newsletter-form']) !!}
+                    {!! \Form::open(['route' => 'backend.blog.newsletters.store', 'id' => 'newsletter-form']) !!}
                     @include('backend.blog.newsletter.form')
                     {!! \Form::close() !!}
                 </div>

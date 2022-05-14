@@ -1,11 +1,19 @@
 <div class="card-body">
     <div class="row">
         <div class="col-md-6">
-            {!! \Form::nText('name', __('common.Name'), old('name', $survey->name ?? null), true) !!}
+            {!! \Form::nText('name', __('common.Name'), old('name', $newsLetter->name ?? null), true) !!}
         </div>
         <div class="col-md-6">
-            {!! \Form::nSelect('enabled', __('common.Enabled'), \App\Supports\Constant::ENABLED_OPTIONS,
-                old('enabled', ($survey->enabled ?? \App\Supports\Constant::ENABLED_OPTION)), true) !!}
+            {!! \Form::nEmail('email', __('common.Email'), old('email', $newsLetter->email ?? null), true) !!}
+        </div>
+        <div class="col-md-6">
+            {!! \Form::nTel('mobile', __('common.Mobile'), old('mobile', $newsLetter->mobile ?? null), true) !!}
+        </div>
+        <div class="col-md-6">
+            {!! \Form::nUrl('website', __('common.Website'), old('website', $newsLetter->website ?? null), true) !!}
+        </div>
+        <div class="col-md-12">
+            {!! \Form::nTextarea('message', __('common.Message'), old('message', $newsLetter->message ?? null), true, ['rows' => 10]) !!}
         </div>
     </div>
     <div class="row mt-3">

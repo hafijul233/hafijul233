@@ -76,8 +76,6 @@ class NewsLetterController extends Controller
      * Show the form for creating a new resource.
      *
      * @return Application|Factory|View
-     * @throws ContainerExceptionInterface
-     * @throws NotFoundExceptionInterface
      * @throws Exception
      */
     public function create()
@@ -100,7 +98,7 @@ class NewsLetterController extends Controller
 
         if ($confirm['status'] == true) {
             notify($confirm['message'], $confirm['level'], $confirm['title']);
-            return redirect()->route('backend.blog.newsLetters.index');
+            return redirect()->route('backend.blog.newsletters.index');
         }
 
         notify($confirm['message'], $confirm['level'], $confirm['title']);
@@ -159,7 +157,7 @@ class NewsLetterController extends Controller
 
         if ($confirm['status'] == true) {
             notify($confirm['message'], $confirm['level'], $confirm['title']);
-            return redirect()->route('backend.blog.newsLetters.index');
+            return redirect()->route('backend.blog.newsletters.index');
         }
 
         notify($confirm['message'], $confirm['level'], $confirm['title']);
@@ -184,7 +182,7 @@ class NewsLetterController extends Controller
             } else {
                 notify($confirm['message'], $confirm['level'], $confirm['title']);
             }
-            return redirect()->route('backend.blog.newsLetters.index');
+            return redirect()->route('backend.blog.newsletters.index');
         }
         abort(403, 'Wrong user credentials');
     }
@@ -207,7 +205,7 @@ class NewsLetterController extends Controller
             } else {
                 notify($confirm['message'], $confirm['level'], $confirm['title']);
             }
-            return redirect()->route('backend.blog.newsLetters.index');
+            return redirect()->route('backend.blog.newsletters.index');
         }
         abort(403, 'Wrong user credentials');
     }
@@ -248,7 +246,7 @@ class NewsLetterController extends Controller
 
         if (count($newsLetters) > 0):
             foreach ($newsLetters as $index => $newsLetter) :
-                $newsLetters[$index]->update_route = route('backend.blog.newsLetters.update', $newsLetter->id);
+                $newsLetters[$index]->update_route = route('backend.blog.newsletters.update', $newsLetter->id);
         $newsLetters[$index]->survey_id = $newsLetter->surveys->pluck('id')->toArray();
         $newsLetters[$index]->prev_post_state_id = $newsLetter->previousPostings->pluck('id')->toArray();
         $newsLetters[$index]->future_post_state_id = $newsLetter->futurePostings->pluck('id')->toArray();
