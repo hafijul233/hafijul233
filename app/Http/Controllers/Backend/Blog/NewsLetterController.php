@@ -3,8 +3,7 @@
 namespace App\Http\Controllers\Backend\Blog;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Backend\Portfolio\CreateNewsLetterRequest;
-use App\Http\Requests\Backend\Portfolio\UpdateNewsLetterRequest;
+use App\Http\Requests\Backend\Blog\NewsLetterRequest;
 use App\Services\Auth\AuthenticatedSessionService;
 use App\Services\Backend\Blog\NewsLetterService;
 use App\Supports\Constant;
@@ -83,28 +82,17 @@ class NewsLetterController extends Controller
      */
     public function create()
     {
-        $enables = [];
-        foreach (Constant::ENABLED_OPTIONS as $field => $label):
-            $enables[$field] = __('common.' . $label);
-        endforeach;
-
-        return view('backend.blog.newsletter.create', [
-            'enables' => $enables,
-            'states' => $this->stateService->getStateDropdown(['enabled' => Constant::ENABLED_OPTION, 'type' => 'district', 'sort' => ((session()->get('locale') == 'bd') ? 'native' : 'name'), 'direction' => 'asc'], (session()->get('locale') == 'bd')),
-            'surveys' => $this->surveyService->getSurveyDropDown(['enabled' => Constant::ENABLED_OPTION]),
-            'genders' => $this->catalogService->getCatalogDropdown(['type' => Constant::CATALOG_TYPE['GENDER']], 'bn'),
-            'exam_dropdown' => $this->examLevelService->getExamLevelDropdown(['id' => [1, 2, 3, 4]]),
-        ]);
+        return view('backend.blog.newsletter.create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param CreateNewsLetterRequest $request
+     * @param NewsLetterRequest $request
      * @return RedirectResponse
-     * @throws Exception|Throwable
+     * @throws Throwable
      */
-    public function store(CreateNewsLetterRequest $request): RedirectResponse
+    public function store(NewsLetterRequest $request): RedirectResponse
     {
         $inputs = $request->except('_token');
 
@@ -112,7 +100,7 @@ class NewsLetterController extends Controller
 
         if ($confirm['status'] == true) {
             notify($confirm['message'], $confirm['level'], $confirm['title']);
-            return redirect()->route('backend.portfolio.newsLetters.index');
+            return redirect()->route('backend.blog.newsLetters.index');
         }
 
         notify($confirm['message'], $confirm['level'], $confirm['title']);
@@ -130,7 +118,7 @@ class NewsLetterController extends Controller
     {
         if ($newsLetter = $this->newsLetterService->getNewsLetterById($id)) {
             return view('backend.blog.newsletter.show', [
-                'certificate' => $newsLetter,
+                'newsLetter' => $newsLetter,
                 'timeline' => Utility::modelAudits($newsLetter)
             ]);
         }
@@ -143,26 +131,14 @@ class NewsLetterController extends Controller
      *
      * @param $id
      * @return Application|Factory|View
-     * @throws ContainerExceptionInterface
-     * @throws NotFoundExceptionInterface
      * @throws Exception
      */
     public function edit($id)
     {
         if ($newsLetter = $this->newsLetterService->getNewsLetterById($id)) {
-            $enables = [];
-            foreach (Constant::ENABLED_OPTIONS as $field => $label):
-                $enables[$field] = __('common.' . $label);
-            endforeach;
 
             return view('backend.blog.newsletter.edit', [
-                'certificate' => $newsLetter,
-                'enables' => $enables,
-                'states' => $this->stateService->getStateDropdown(['enabled' => Constant::ENABLED_OPTION, 'type' => 'district', 'sort' => ((session()->get('locale') == 'bd') ? 'native' : 'name'), 'direction' => 'asc'], (session()->get('locale') == 'bd')),
-                'surveys' => $this->surveyService->getSurveyDropDown(),
-                'genders' => $this->catalogService->getCatalogDropdown(['type' => Constant::CATALOG_TYPE['GENDER']], 'bn'),
-                'exam_dropdown' => $this->examLevelService->getExamLevelDropdown(['id' => [1, 2, 3, 4]]),
-            ]);
+                'newsLetter' => $newsLetter]);
         }
 
         abort(404);
@@ -171,19 +147,19 @@ class NewsLetterController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param CreateNewsLetterRequest $request
+     * @param NewsLetterRequest $request
      * @param  $id
      * @return RedirectResponse
      * @throws Throwable
      */
-    public function update(UpdateNewsLetterRequest $request, $id): RedirectResponse
+    public function update(NewsLetterRequest $request, $id): RedirectResponse
     {
         $inputs = $request->except('_token', 'submit', '_method');
         $confirm = $this->newsLetterService->updateNewsLetter($inputs, $id);
 
         if ($confirm['status'] == true) {
             notify($confirm['message'], $confirm['level'], $confirm['title']);
-            return redirect()->route('backend.portfolio.newsLetters.index');
+            return redirect()->route('backend.blog.newsLetters.index');
         }
 
         notify($confirm['message'], $confirm['level'], $confirm['title']);
@@ -208,7 +184,7 @@ class NewsLetterController extends Controller
             } else {
                 notify($confirm['message'], $confirm['level'], $confirm['title']);
             }
-            return redirect()->route('backend.portfolio.newsLetters.index');
+            return redirect()->route('backend.blog.newsLetters.index');
         }
         abort(403, 'Wrong user credentials');
     }
@@ -231,7 +207,7 @@ class NewsLetterController extends Controller
             } else {
                 notify($confirm['message'], $confirm['level'], $confirm['title']);
             }
-            return redirect()->route('backend.portfolio.newsLetters.index');
+            return redirect()->route('backend.blog.newsLetters.index');
         }
         abort(403, 'Wrong user credentials');
     }
@@ -272,7 +248,7 @@ class NewsLetterController extends Controller
 
         if (count($newsLetters) > 0):
             foreach ($newsLetters as $index => $newsLetter) :
-                $newsLetters[$index]->update_route = route('backend.portfolio.newsLetters.update', $newsLetter->id);
+                $newsLetters[$index]->update_route = route('backend.blog.newsLetters.update', $newsLetter->id);
         $newsLetters[$index]->survey_id = $newsLetter->surveys->pluck('id')->toArray();
         $newsLetters[$index]->prev_post_state_id = $newsLetter->previousPostings->pluck('id')->toArray();
         $newsLetters[$index]->future_post_state_id = $newsLetter->futurePostings->pluck('id')->toArray();

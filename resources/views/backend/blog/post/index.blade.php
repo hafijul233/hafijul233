@@ -62,10 +62,10 @@
                                             <td class="text-left">
                                                 @can('backend.blog.posts.show')
                                                     <a href="{{ route('backend.blog.posts.show', $post->id) }}">
-                                                        {{ $post->title }}
+                                                        {{ \App\Supports\Utility::textTruncate(($post->title ?? ''), 50) }}
                                                     </a>
                                                 @else
-                                                    {{ $post->title }}
+                                                    {{ \App\Supports\Utility::textTruncate(($post->title ?? ''), 50) }}
                                                 @endcan
                                             </td>
                                             <td class="text-center">@if(is_null($post->published_at))
