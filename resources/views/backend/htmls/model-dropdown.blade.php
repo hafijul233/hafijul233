@@ -1,7 +1,7 @@
 @if(!empty($options['actions']))
     @canany([$resourceRouteName . '.edit', $resourceRouteName . '.destroy', $resourceRouteName . '.restore'])
         <div class="dropdown d-inline-block  m-1 m-md-0">
-            <button class="btn btn-{{ $options['color'] ?? 'warning' }} dropdown-toggle"
+            <button class="{{-- dropdown-toggle --}}btn btn-{{ $options['color'] ?? 'warning' }}"
                     type="button" id="dropdownMenuButton"
                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fa fa-sliders-h"></i>
