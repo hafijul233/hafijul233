@@ -5,10 +5,10 @@
             {!! \Form::nText('title', __('blog.post.Title'), old('title', $post->title ?? null), true) !!}
         </div>
         <div class="col-md-12">
-            {!! \Form::nTextarea('summary', __('blog.post.Summary'), old('summary', $post->summary ?? null), true) !!}
+            {!! \Form::nTextarea('content', __('blog.post.Content'), old('content', $post->content ?? null), true) !!}
         </div>
         <div class="col-md-12">
-            {!! \Form::nTextarea('content', __('blog.post.Content'), old('content', $post->content ?? null), true) !!}
+            {!! \Form::nTextarea('summary', __('blog.post.Summary'), old('summary', $post->summary ?? null), true) !!}
         </div>
         <div class="col-md-12">
             {!! \Form::nImage('image',__('common.Image'), false,

@@ -5,23 +5,27 @@ namespace App\Models\Backend\Blog;
 use App\Models\Backend\Setting\Catalog;
 use App\Models\Backend\Setting\ExamLevel;
 use App\Models\Backend\Setting\State;
+use App\Supports\Constant;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Kyslik\ColumnSortable\Sortable;
 use OwenIt\Auditing\Auditable as AuditableTrait;
 use OwenIt\Auditing\Contracts\Auditable;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 
 /**
  * Class Post
  * @package App\Models\Backend\Blog
  */
-class Post extends Model implements Auditable
+class Post extends Model implements Auditable,HasMedia
 {
     use AuditableTrait;
     use HasFactory;
     use SoftDeletes;
     use Sortable;
+    use InteractsWithMedia;
 
     /**
      * @var string $table
@@ -67,4 +71,17 @@ class Post extends Model implements Auditable
         'enabled' => 'no',
         'published_at' => null
     ];
+
+    /**
+     * Register Cover Image Media Collection
+     * @return void
+     */
+    public function registerMediaCollections(): void
+    {
+        $this->addMediaCollection('posts')
+            ->useDisk('post')
+            ->useFallbackUrl(asset(Constant::SERVICE_IMAGE))
+            ->acceptsMimeTypes(['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/svg'])
+            ->singleFile();
+    }
 }
