@@ -573,7 +573,7 @@ Breadcrumbs::for('backend.blog.posts.show', function (BreadcrumbTrail $trail, $p
 
     $post = ($post instanceof Post) ? $post : $post[0];
 
-    $trail->push($post->title, route('backend.blog.posts.show', $post->id));
+    $trail->push(\App\Supports\Utility::textTruncate($post->title, 30), route('backend.blog.posts.show', $post->id));
 });
 
 Breadcrumbs::for('backend.blog.posts.edit', function (BreadcrumbTrail $trail, Post $post) {

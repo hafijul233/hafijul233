@@ -1,6 +1,6 @@
 @extends('backend.layouts.app')
 
-@section('title', $post->title)
+@section('title', \App\Supports\Utility::textTruncate($post->title,30))
 
 @push('meta')
 
