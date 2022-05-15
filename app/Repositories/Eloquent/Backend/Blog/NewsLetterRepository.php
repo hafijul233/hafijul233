@@ -66,6 +66,10 @@ class NewsLetterRepository extends EloquentRepository
             $query->where('enabled', '=', $filters['enabled']);
         endif;
 
+        if (!empty($filters['newsletter'])) :
+            $query->whereIn('id', ((is_array($filters['newsletter'])) ? $filters['newsletter'] : [$filters['newsletter']]));
+        endif;
+
         if (!empty($filters['sort']) && !empty($filters['direction'])) :
             $query->orderBy($filters['sort'], $filters['direction']);
         endif;

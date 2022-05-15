@@ -74,6 +74,10 @@ class TestimonialRepository extends EloquentRepository
             $query->where('nid', '=', $filters['nid']);
         endif;
 
+        if (!empty($filters['testimonial'])) :
+            $query->whereIn('id', ((is_array($filters['testimonial'])) ? $filters['testimonial'] : [$filters['testimonial']]));
+        endif;
+
         if (!empty($filters['sort']) && !empty($filters['direction'])) :
             $query->orderBy($filters['sort'], $filters['direction']);
         endif;

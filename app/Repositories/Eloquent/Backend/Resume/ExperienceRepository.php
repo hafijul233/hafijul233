@@ -74,6 +74,10 @@ class ExperienceRepository extends EloquentRepository
             $query->where('nid', '=', $filters['nid']);
         endif;
 
+        if (!empty($filters['experience'])) :
+            $query->whereIn('id', ((is_array($filters['experience'])) ? $filters['experience'] : [$filters['experience']]));
+        endif;
+
         if (!empty($filters['sort']) && !empty($filters['direction'])) :
             $query->orderBy($filters['sort'], $filters['direction']);
         endif;

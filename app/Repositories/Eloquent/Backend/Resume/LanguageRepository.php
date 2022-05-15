@@ -65,6 +65,10 @@ class LanguageRepository extends EloquentRepository
             $query->where('enabled', '=', $filters['enabled']);
         endif;
 
+        if (!empty($filters['language'])) :
+            $query->whereIn('id', ((is_array($filters['language'])) ? $filters['language'] : [$filters['language']]));
+        endif;
+
         if (!empty($filters['sort']) && !empty($filters['direction'])) :
             $query->orderBy($filters['sort'], $filters['direction']);
         endif;

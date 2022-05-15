@@ -75,6 +75,10 @@ class EducationRepository extends EloquentRepository
             $query->where('nid', '=', $filters['nid']);
         endif;
 
+        if (!empty($filters['education'])) :
+            $query->whereIn('id', ((is_array($filters['education'])) ? $filters['education'] : [$filters['education']]));
+        endif;
+
         if (!empty($filters['sort']) && !empty($filters['direction'])) :
             $query->orderBy($filters['sort'], $filters['direction']);
         endif;

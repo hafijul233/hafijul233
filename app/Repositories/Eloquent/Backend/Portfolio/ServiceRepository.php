@@ -67,8 +67,8 @@ class ServiceRepository extends EloquentRepository
             $query->where('enabled', '=', $filters['enabled']);
         endif;
 
-        if (!empty($filters['id'])) :
-            $query->where('id', '=', $filters['id']);
+        if (!empty($filters['service'])) :
+            $query->whereIn('id', ((is_array($filters['service'])) ? $filters['service'] : [$filters['service']]));
         endif;
 
         if (!empty($filters['sort']) && !empty($filters['direction'])) :

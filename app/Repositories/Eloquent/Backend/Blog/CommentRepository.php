@@ -65,6 +65,10 @@ class CommentRepository extends EloquentRepository
             $query->where('enabled', '=', $filters['enabled']);
         endif;
 
+        if (!empty($filters['comment'])) :
+            $query->whereIn('id', ((is_array($filters['comment'])) ? $filters['comment'] : [$filters['comment']]));
+        endif;
+
         if (!empty($filters['sort']) && !empty($filters['direction'])) :
             $query->orderBy($filters['sort'], $filters['direction']);
         endif;

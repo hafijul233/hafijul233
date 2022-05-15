@@ -74,6 +74,10 @@ class ProjectRepository extends EloquentRepository
             $query->where('nid', '=', $filters['nid']);
         endif;
 
+        if (!empty($filters['project'])) :
+            $query->whereIn('id', ((is_array($filters['project'])) ? $filters['project'] : [$filters['project']]));
+        endif;
+
         if (!empty($filters['sort']) && !empty($filters['direction'])) :
             $query->orderBy($filters['sort'], $filters['direction']);
         endif;

@@ -74,6 +74,10 @@ class PostRepository extends EloquentRepository
             $query->where('nid', '=', $filters['nid']);
         endif;
 
+        if (!empty($filters['post'])) :
+            $query->whereIn('id', ((is_array($filters['post'])) ? $filters['post'] : [$filters['post']]));
+        endif;
+
         if (!empty($filters['sort']) && !empty($filters['direction'])) :
             $query->orderBy($filters['sort'], $filters['direction']);
         endif;

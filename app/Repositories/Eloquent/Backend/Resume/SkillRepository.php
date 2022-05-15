@@ -65,6 +65,10 @@ class SkillRepository extends EloquentRepository
             $query->where('enabled', '=', $filters['enabled']);
         endif;
 
+        if (!empty($filters['skill'])) :
+            $query->whereIn('id', ((is_array($filters['skill'])) ? $filters['skill'] : [$filters['skill']]));
+        endif;
+
         if (!empty($filters['sort']) && !empty($filters['direction'])) :
             $query->orderBy($filters['sort'], $filters['direction']);
         endif;

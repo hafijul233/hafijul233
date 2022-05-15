@@ -65,6 +65,10 @@ class AwardRepository extends EloquentRepository
             $query->where('enabled', '=', $filters['enabled']);
         endif;
 
+        if (!empty($filters['award'])) :
+            $query->whereIn('id', ((is_array($filters['award'])) ? $filters['award'] : [$filters['award']]));
+        endif;
+
         if (!empty($filters['sort']) && !empty($filters['direction'])) :
             $query->orderBy($filters['sort'], $filters['direction']);
         endif;
