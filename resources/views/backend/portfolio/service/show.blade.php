@@ -56,7 +56,7 @@
                             <div class="col-md-12">
                                 <label class="d-block">{{ __('common.Image') }}</label>
                                 <div class="d-flex justify-content-center p-2 border">
-                                    <img src="{!! $service->getFirstMediaUrl('services') !!}" class="img-fluid">
+                                    <img src="{!! asset($service->getFirstMediaUrl('services')) !!}" class="img-fluid">
                                 </div>
                             </div>
                         </div>
