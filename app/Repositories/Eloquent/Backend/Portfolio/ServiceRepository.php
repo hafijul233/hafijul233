@@ -58,20 +58,13 @@ class ServiceRepository extends EloquentRepository
         $query = $this->getQueryBuilder();
         if (!empty($filters['search'])) :
             $query->where('name', 'like', "%{$filters['search']}%")
-                ->orWhere('enabled', 'like', "%{$filters['search']}%")
-                ->orWhere('nid', 'like', "%{$filters['search']}%")
-                ->orWhere('mobile_1', 'like', "%{$filters['search']}%")
-                ->orWhere('mobile_2', 'like', "%{$filters['search']}%")
-                ->orWhere('email', 'like', "%{$filters['search']}%")
-                ->orWhere('present_address', 'like', "%{$filters['search']}%")
-                ->orWhere('permanent_address', 'like', "%{$filters['search']}%");
+                ->orWhere('summary', 'like', "%{$filters['search']}%")
+                ->orWhere('enabled', 'like', "%" . strtolower($filters['search']) . "%")
+                ->orWhere('description', 'like', "%{$filters['search']}%");
         endif;
 
         if (!empty($filters['enabled'])) :
             $query->where('enabled', '=', $filters['enabled']);
-        endif;
-        if (!empty($filters['nid'])) :
-            $query->where('nid', '=', $filters['nid']);
         endif;
 
         if (!empty($filters['sort']) && !empty($filters['direction'])) :

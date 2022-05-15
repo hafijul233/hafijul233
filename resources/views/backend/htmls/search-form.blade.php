@@ -5,7 +5,10 @@
             {!! \Form::search($field, old($field, (request()->get($field) ?? null)),
                 array_merge(['class' => 'form-control'], $attributes)) !!}
             <div class="input-group-append">
-                {!! \Form::submit('Search', ['class' => 'btn btn-primary input-group-right-btn']) !!}
+                <button type="submit" class="btn btn-primary input-group-right-btn">
+                    <i class="fas fa-search"></i>
+                    <span class="d-none d-md-inline">{!! __('common.Search') !!}</span>
+                </button>
             </div>
         </div>
     </div>

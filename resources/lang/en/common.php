@@ -23,6 +23,7 @@ return [
     'Details' => 'Details',
     'Clone' => 'Clone',
     'Publish' => 'Publish',
+    'Search' => 'Search',
     'Save' => 'Save',
     'Print' => 'Print',
     'Export' => 'Export',

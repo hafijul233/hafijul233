@@ -28,7 +28,7 @@
 
 @section('actions')
     {!! \Html::linkButton(__('portfolio.service.Add Service'), 'backend.portfolio.services.create', [], 'fas fa-plus', 'success') !!}
-    {{--{!! \Html::bulkDropdown('backend.portfolio.services', 0, ['color' => 'warning']) !!}--}}
+    {!! \Html::bulkDropdown('backend.portfolio.services', 0, ['color' => 'warning']) !!}
 @endsection
 
 @section('content')
@@ -39,10 +39,10 @@
                     @if(!empty($services))
                         <div class="card-body p-0">
                             {!! \Html::cardSearch('search', 'backend.portfolio.services.index',
-                            ['placeholder' => 'Search Comment Name etc.',
+                            ['placeholder' => 'Search service name, summary, description, enabled etc.',
                             'class' => 'form-control', 'id' => 'search', 'data-target-table' => 'service-table']) !!}
                             <div class="table-responsive">
-                                <table class="table table-hover mb-0" id="branch-table">
+                                <table class="table table-hover mb-0" id="service-table">
                                     <thead class="thead-light">
                                     <tr>
                                         <th class="align-middle">@sortablelink('id', '#')</th>
