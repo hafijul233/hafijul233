@@ -18,6 +18,7 @@ use App\Models\Backend\Setting\Permission;
 use App\Models\Backend\Setting\Role;
 use App\Models\Backend\Setting\State;
 use App\Models\Backend\Setting\User;
+use App\Supports\Utility;
 use Diglactic\Breadcrumbs\Breadcrumbs;
 use Diglactic\Breadcrumbs\Generator as BreadcrumbTrail;
 
@@ -333,7 +334,7 @@ Breadcrumbs::for('backend.portfolio.certificates.show', function (BreadcrumbTrai
 
     $certificate = ($certificate instanceof Certificate) ? $certificate : $certificate[0];
 
-    $trail->push(($certificate->title ?? ''), route('backend.portfolio.certificates.show', $certificate->id));
+    $trail->push(Utility::textTruncate($certificate->name, 30), route('backend.portfolio.certificates.show', $certificate->id));
 });
 
 Breadcrumbs::for('backend.portfolio.certificates.edit', function (BreadcrumbTrail $trail, Certificate $certificate) {
@@ -361,7 +362,7 @@ Breadcrumbs::for('backend.portfolio.projects.show', function (BreadcrumbTrail $t
 
     $project = ($project instanceof Project) ? $project : $project[0];
 
-    $trail->push($project->name, route('backend.portfolio.projects.show', $project->id));
+    $trail->push(Utility::textTruncate($project->name,30), route('backend.portfolio.projects.show', $project->id));
 });
 
 Breadcrumbs::for('backend.portfolio.projects.edit', function (BreadcrumbTrail $trail, Project $project) {
@@ -573,7 +574,7 @@ Breadcrumbs::for('backend.blog.posts.show', function (BreadcrumbTrail $trail, $p
 
     $post = ($post instanceof Post) ? $post : $post[0];
 
-    $trail->push(\App\Supports\Utility::textTruncate($post->title, 30), route('backend.blog.posts.show', $post->id));
+    $trail->push(Utility::textTruncate($post->title, 30), route('backend.blog.posts.show', $post->id));
 });
 
 Breadcrumbs::for('backend.blog.posts.edit', function (BreadcrumbTrail $trail, Post $post) {

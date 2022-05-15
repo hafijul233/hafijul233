@@ -174,6 +174,7 @@ Route::prefix('backend')->group(function () {
             Route::prefix('projects')->name('projects.')->group(function () {
                 Route::patch('{project}/restore', [ProjectController::class, 'restore'])->name('restore');
                 Route::get('export', [ProjectController::class, 'export'])->name('export');
+                Route::get('ajax', [ProjectController::class, 'ajax'])->name('ajax')->middleware('ajax');
             });
             Route::resource('projects', ProjectController::class)->where(['project' => '([0-9]+)']);
 

@@ -1,6 +1,6 @@
 @extends('backend.layouts.app')
 
-@section('title', $project->name)
+@section('title', \App\Supports\Utility::textTruncate($project->name, 30))
 
 @push('meta')
 
@@ -38,7 +38,7 @@
                     <div class="card-body min-vh-100">
                         <div class="row">
                             <div class="col-md-6 mb-3">
-                                <label class="d-block">{{ __('portfolio.project.Title') }}</label>
+                                <label class="d-block">{{ __('common.Name') }}</label>
                                 <div class="border p-2">{{ $project->name ?? null }}</div>
                             </div>
                             <div class="col-md-6 mb-3">
@@ -56,7 +56,7 @@
                                 <div class="border p-2">{{ $project->end_date->format('d F, Y') ?? null }}</div>
                             </div>
                             <div class="col-md-6 mb-3">
-                                <label class="d-block">{{ __('portfolio.project.Credential ID') }}</label>
+                                <label class="d-block">{{ __('portfolio.project.Associate') }}</label>
                                 <div class="border p-2">{{ $project->associate ?? null }}</div>
                             </div>
                             <div class="col-md-6 mb-3">

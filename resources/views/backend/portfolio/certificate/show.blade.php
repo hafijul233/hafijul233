@@ -1,6 +1,6 @@
 @extends('backend.layouts.app')
 
-@section('title', $certificate->name)
+@section('title', \App\Supports\Utility::textTruncate($certificate->name, 30))
 
 @push('meta')
 
