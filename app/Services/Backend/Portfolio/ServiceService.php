@@ -89,7 +89,7 @@ class ServiceService extends Service
         try {
             $newService = $this->serviceRepository->create($inputs);
             if ($newService instanceof ServiceModel) {
-                if ($inputs['image'] instanceof UploadedFile) {
+                if (isset($inputs['image']) && $inputs['image'] instanceof UploadedFile) {
                     $newService->addMedia($inputs['image'])->toMediaCollection('services');
                 }
                 DB::commit();
