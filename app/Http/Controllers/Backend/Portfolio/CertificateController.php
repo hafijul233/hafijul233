@@ -215,9 +215,16 @@ class CertificateController extends Controller
     {
         $filters = $request->except('page');
 
+        $exportFormat = 'xlsx';
+
+        if(isset($filters['format'])) {
+            $exportFormat = $filters['format'];
+            unset($filters['format']);
+        }
+
         $certificateExport = $this->certificateService->exportCertificate($filters);
 
-        $filename = 'Certificates-' . date(config('backend.export_datetime')) . '.' . ($filters['format'] ?? 'xlsx');
+        $filename = 'certificate-export-' . date(config('backend.export_datetime')) . ".{$exportFormat}";
 
         return $certificateExport->download($filename, function ($certificate) use ($certificateExport) {
             return $certificateExport->map($certificate);
