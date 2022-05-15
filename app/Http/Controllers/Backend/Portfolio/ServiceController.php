@@ -3,8 +3,7 @@
 namespace App\Http\Controllers\Backend\Portfolio;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Backend\Portfolio\AwardRequest;
-use App\Http\Requests\Backend\Portfolio\UpdateServiceRequest;
+use App\Http\Requests\Backend\Portfolio\ServiceRequest;
 use App\Services\Auth\AuthenticatedSessionService;
 use App\Services\Backend\Portfolio\ServiceService;
 use App\Supports\Utility;
@@ -80,11 +79,11 @@ class ServiceController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param AwardRequest $request
+     * @param ServiceRequest $request
      * @return RedirectResponse
      * @throws Exception|Throwable
      */
-    public function store(AwardRequest $request): RedirectResponse
+    public function store(ServiceRequest $request): RedirectResponse
     {
         $inputs = $request->except('_token');
 
