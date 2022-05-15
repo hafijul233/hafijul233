@@ -884,7 +884,7 @@
         var cellSplit = [
             ui.button({
                 className: 'note-btn-jtable-cell-split',
-                contents : ui.icon('note-icon-table-cell-split'),
+                contents : 'Split',//ui.icon('note-icon-table-cell-split'),
                 tooltip  : lang.jTable.merge.split,
                 container: options.container,
                 click    : context.createInvokeHandler('jTable.cellSplit'),
@@ -895,7 +895,7 @@
             return ui.buttonGroup({
                 children: [
                     ui.button({
-                        contents : ui.icon('note-icon-table-merge'),
+                        contents : 'Merge',//ui.icon('note-icon-table-merge'),
                         tooltip  : lang.jTable.merge.merge,
                         container: options.container,
                         click    : context.createInvokeHandler('jTable.cellMerge'),
