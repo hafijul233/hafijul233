@@ -261,44 +261,6 @@ function notify(message, level = 'success', title = '') {
     }
 }
 
-/**
- * Render Html Editor
- *
- * @param target
- * @param options
- */
-function htmlEditor(target, options) {
-    if (typeof $.fn.summernote === "function") {
-        var defaultOptions = {
-            placeholder: 'Write here ...',
-            fontSizeUnits: ['px', 'pt', 'rem', 'em'],
-            codemirror: {
-                lineNumbers: true,
-                theme: 'monokai'
-            },
-            toolbar: [
-                ['style', ['style']],
-                ['font', [ 'bold', 'underline', 'fontsizeunit','clear']],
-                ['fontname', ['fontname']],
-                ['color', ['color']],
-                ['para', ['ul', 'ol', 'paragraph', 'height']],
-                ['table', ['table']],
-                ['insert', ['link', 'picture', 'video', 'hr']],
-                ['view', ['fullscreen', 'codeview', 'help']],
-            ]
-        };
-
-        for (const property in options) {
-            if (options.hasOwnProperty(property)) {
-                defaultOptions[property] = options[property];
-            }
-        }
-        $("body").find(target).each(function () {
-            $(this).summernote(defaultOptions);
-        });
-    }
-}
-
 /***************************************** JQuery Validation **********************************/
 if (typeof $.validator === 'function') {
 
