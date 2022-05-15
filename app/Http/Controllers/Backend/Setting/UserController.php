@@ -241,45 +241,10 @@ class UserController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return Application|Factory|View
-     * @throws Exception
-     */
-    public function importBulk(Request $request)
-    {
-        $filters = $request->except('page');
-        $users = $this->userService->getAllUsers($filters);
-
-        return view('backend.setting.user.index', [
-            'users' => $users
-        ]);
-    }
-
-    /**
-     * Display a listing of the resource.
-     *
      * @return string|StreamedResponse
      * @throws Exception
      */
     public function export(Request $request)
-    {
-        $filters = $request->except('page');
-
-        $userExport = $this->userService->exportUser($filters);
-
-        $filename = 'User-' . date(config('backend.export_datetime')) . '.' . ($filters['format'] ?? 'xlsx');
-
-        return $userExport->download($filename, function ($user) use ($userExport) {
-            return $userExport->map($user);
-        });
-    }
-
-    /**
-     * Display a detail of the resource.
-     *
-     * @return StreamedResponse|string
-     * @throws Exception
-     */
-    public function print(Request $request)
     {
         $filters = $request->except('page');
 

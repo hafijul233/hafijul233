@@ -218,39 +218,4 @@ class CountryController extends Controller
     {
         return view('setting.country.import');
     }
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @return Application|Factory|View
-     * @throws Exception
-     */
-    public function importBulk(Request $request)
-    {
-        $filters = $request->except('page');
-        $countrys = $this->countryService->getAllCountries($filters);
-
-        return view('setting.country.index', [
-            'countrys' => $countrys
-        ]);
-    }
-
-    /**
-     * Display a detail of the resource.
-     *
-     * @return StreamedResponse|string
-     * @throws Exception
-     */
-    public function print(Request $request)
-    {
-        $filters = $request->except('page');
-
-        $countryExport = $this->countryService->exportCountry($filters);
-
-        $filename = 'Country-' . date(config('backend.export_datetime')) . '.' . ($filters['format'] ?? 'xlsx');
-
-        return $countryExport->download($filename, function ($country) use ($countryExport) {
-            return $countryExport->map($country);
-        });
-    }
 }

@@ -222,22 +222,6 @@ class RoleController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return Application|Factory|View
-     * @throws Exception
-     */
-    public function importBulk(Request $request)
-    {
-        $filters = $request->except('page');
-        $permissions = $this->permissionService->getAllPermissions($filters);
-
-        return view('backend.setting.permission.index', [
-            'permissions' => $permissions
-        ]);
-    }
-
-    /**
-     * Display a listing of the resource.
-     *
      * @return string|StreamedResponse
      * @throws Exception
      */
@@ -251,51 +235,6 @@ class RoleController extends Controller
 
         return $roleExport->download($filename, function ($role) use ($roleExport) {
             return $roleExport->map($role);
-        });
-    }
-
-    /**
-     * Display a detail of the resource.
-     *
-     * @return StreamedResponse|string
-     * @throws Exception
-     */
-    public function print(Request $request)
-    {
-        $filters = $request->except('page');
-
-        $roleExport = $this->roleService->exportRole($filters);
-
-        $filename = 'Role-' . date(config('backend.export_datetime')) . '.' . ($filters['format'] ?? 'xlsx');
-
-        return $roleExport->download($filename, function ($role) {
-            $format = [
-                '#' => $role->id,
-                'Display Name' => $role->display_name,
-                'System Name' => $role->name,
-                'Guard' => ucfirst($role->guard_name),
-                'Remarks' => $role->remarks,
-                'Enabled' => ucfirst($role->enabled),
-                'Created' => $role->created_at->format(config('backend.datetime')),
-                'Updated' => $role->updated_at->format(config('backend.datetime'))
-            ];
-            if (AuthenticatedSessionService::isSuperAdmin()):
-                $format['Deleted'] = ($role->deleted_at != null)
-                    ? $role->deleted_at->format(config('backend.datetime'))
-                    : null;
-
-            $format['Creator'] = ($role->createdBy != null)
-                    ? $role->createdBy->name
-                    : null;
-
-            $format['Editor'] = ($role->updatedBy != null)
-                    ? $role->updatedBy->name
-                    : null;
-            $format['Destructor'] = ($role->deletedBy != null)
-                    ? $role->deletedBy->name
-                    : null;
-            endif;
-            return $format;
         });
     }
 

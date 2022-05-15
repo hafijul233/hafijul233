@@ -226,39 +226,4 @@ class ProjectController extends Controller
     {
         return view('backend.portfolio.projectimport');
     }
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @return Application|Factory|View
-     * @throws Exception
-     */
-    public function importBulk(Request $request)
-    {
-        $filters = $request->except('page');
-        $projects = $this->projectService->getAllProjects($filters);
-
-        return view('backend.portfolio.projectindex', [
-            'projects' => $projects
-        ]);
-    }
-
-    /**
-     * Display a detail of the resource.
-     *
-     * @return StreamedResponse|string
-     * @throws Exception
-     */
-    public function print(Request $request)
-    {
-        $filters = $request->except('page');
-
-        $projectExport = $this->projectService->exportProject($filters);
-
-        $filename = 'Project-' . date(config('backend.export_datetime')) . '.' . ($filters['format'] ?? 'xlsx');
-
-        return $projectExport->download($filename, function ($project) use ($projectExport) {
-            return $projectExport->map($project);
-        });
-    }
 }

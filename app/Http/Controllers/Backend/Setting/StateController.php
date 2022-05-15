@@ -227,41 +227,6 @@ class StateController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
-     *
-     * @return Application|Factory|View
-     * @throws Exception
-     */
-    public function importBulk(Request $request)
-    {
-        $filters = $request->except('page');
-        $states = $this->stateService->getAllStates($filters);
-
-        return view('backend.setting.state.index', [
-            'states' => $states
-        ]);
-    }
-
-    /**
-     * Display a detail of the resource.
-     *
-     * @return StreamedResponse|string
-     * @throws Exception
-     */
-    public function print(Request $request)
-    {
-        $filters = $request->except('page');
-
-        $stateExport = $this->stateService->exportState($filters);
-
-        $filename = 'State-' . date(config('backend.export_datetime')) . '.' . ($filters['format'] ?? 'xlsx');
-
-        return $stateExport->download($filename, function ($state) use ($stateExport) {
-            return $stateExport->map($state);
-        });
-    }
-
-    /**
      * Display a detail of the resource.
      *
      * @param Request $request

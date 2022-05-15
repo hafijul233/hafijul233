@@ -224,39 +224,4 @@ class LanguageController extends Controller
     {
         return view('backend.resume.languageimport');
     }
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @return Application|Factory|View
-     * @throws Exception
-     */
-    public function importBulk(Request $request)
-    {
-        $filters = $request->except('page');
-        $languages = $this->languageService->getAllLanguages($filters);
-
-        return view('backend.resume.languageindex', [
-            'languages' => $languages
-        ]);
-    }
-
-    /**
-     * Display a detail of the resource.
-     *
-     * @return StreamedResponse|string
-     * @throws Exception
-     */
-    public function print(Request $request)
-    {
-        $filters = $request->except('page');
-
-        $languageExport = $this->languageService->exportLanguage($filters);
-
-        $filename = 'Comment-' . date(config('backend.export_datetime')) . '.' . ($filters['format'] ?? 'xlsx');
-
-        return $languageExport->download($filename, function ($language) use ($languageExport) {
-            return $languageExport->map($language);
-        });
-    }
 }

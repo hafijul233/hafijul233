@@ -220,42 +220,6 @@ class CityController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
-     *
-     * @return Application|Factory|View
-     * @throws Exception
-     */
-    public function importBulk(Request $request)
-    {
-        $filters = $request->except('page');
-        $citys = $this->cityService->getAllCountries($filters);
-
-        return view('setting.city.index', [
-            'citys' => $citys
-        ]);
-    }
-
-    /**
-     * Display a detail of the resource.
-     *
-     * @return StreamedResponse|string
-     * @throws Exception
-     */
-    public function print(Request $request)
-    {
-        $filters = $request->except('page');
-
-        $cityExport = $this->cityService->exportCity($filters);
-
-        $filename = 'City-' . date(config('backend.export_datetime')) . '.' . ($filters['format'] ?? 'xlsx');
-
-        return $cityExport->download($filename, function ($city) use ($cityExport) {
-            return $cityExport->map($city);
-        });
-    }
-
-
-    /**
      * Display a detail of the resource.
      *
      * @param Request $request

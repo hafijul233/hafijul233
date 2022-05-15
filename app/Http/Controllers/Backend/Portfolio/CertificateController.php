@@ -233,39 +233,4 @@ class CertificateController extends Controller
     {
         return view('backend.portfolio.certificateimport');
     }
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @return Application|Factory|View
-     * @throws Exception
-     */
-    public function importBulk(Request $request)
-    {
-        $filters = $request->except('page');
-        $certificates = $this->certificateService->getAllCertificates($filters);
-
-        return view('backend.portfolio.certificateindex', [
-            'certificates' => $certificates
-        ]);
-    }
-
-    /**
-     * Display a detail of the resource.
-     *
-     * @return StreamedResponse|string
-     * @throws Exception
-     */
-    public function print(Request $request)
-    {
-        $filters = $request->except('page');
-
-        $certificateExport = $this->certificateService->exportCertificate($filters);
-
-        $filename = 'Certificate-' . date(config('backend.export_datetime')) . '.' . ($filters['format'] ?? 'xlsx');
-
-        return $certificateExport->download($filename, function ($certificate) use ($certificateExport) {
-            return $certificateExport->map($certificate);
-        });
-    }
 }

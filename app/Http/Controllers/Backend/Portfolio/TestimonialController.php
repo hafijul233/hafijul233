@@ -225,39 +225,4 @@ class TestimonialController extends Controller
     {
         return view('backend.portfolio.testimonialimport');
     }
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @return Application|Factory|View
-     * @throws Exception
-     */
-    public function importBulk(Request $request)
-    {
-        $filters = $request->except('page');
-        $testimonials = $this->testimonialService->getAllTestimonials($filters);
-
-        return view('backend.portfolio.testimonialindex', [
-            'testimonials' => $testimonials
-        ]);
-    }
-
-    /**
-     * Display a detail of the resource.
-     *
-     * @return StreamedResponse|string
-     * @throws Exception
-     */
-    public function print(Request $request)
-    {
-        $filters = $request->except('page');
-
-        $testimonialExport = $this->testimonialService->exportTestimonial($filters);
-
-        $filename = 'Comment-' . date(config('backend.export_datetime')) . '.' . ($filters['format'] ?? 'xlsx');
-
-        return $testimonialExport->download($filename, function ($testimonial) use ($testimonialExport) {
-            return $testimonialExport->map($testimonial);
-        });
-    }
 }

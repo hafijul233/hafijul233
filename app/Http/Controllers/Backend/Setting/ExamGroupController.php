@@ -221,41 +221,6 @@ class ExamGroupController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
-     *
-     * @return Application|Factory|View
-     * @throws Exception
-     */
-    public function importBulk(Request $request)
-    {
-        $filters = $request->except('page');
-        $examGroups = $this->examGroupService->getAllCountries($filters);
-
-        return view('setting.examGroup.index', [
-            'examGroups' => $examGroups
-        ]);
-    }
-
-    /**
-     * Display a detail of the resource.
-     *
-     * @return StreamedResponse|string
-     * @throws Exception
-     */
-    public function print(Request $request)
-    {
-        $filters = $request->except('page');
-
-        $examGroupExport = $this->examGroupService->exportExamGroup($filters);
-
-        $filename = 'ExamGroup-' . date(config('backend.export_datetime')) . '.' . ($filters['format'] ?? 'xlsx');
-
-        return $examGroupExport->download($filename, function ($examGroup) use ($examGroupExport) {
-            return $examGroupExport->map($examGroup);
-        });
-    }
-
-    /**
      * Display a detail of the resource.
      *
      * @param Request $request

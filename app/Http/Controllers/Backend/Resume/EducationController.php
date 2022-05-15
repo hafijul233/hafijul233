@@ -225,39 +225,4 @@ class EducationController extends Controller
     {
         return view('backend.resume.educationimport');
     }
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @return Application|Factory|View
-     * @throws Exception
-     */
-    public function importBulk(Request $request)
-    {
-        $filters = $request->except('page');
-        $educations = $this->educationService->getAllEducations($filters);
-
-        return view('backend.resume.educationindex', [
-            'educations' => $educations
-        ]);
-    }
-
-    /**
-     * Display a detail of the resource.
-     *
-     * @return StreamedResponse|string
-     * @throws Exception
-     */
-    public function print(Request $request)
-    {
-        $filters = $request->except('page');
-
-        $educationExport = $this->educationService->exportEducation($filters);
-
-        $filename = 'Comment-' . date(config('backend.export_datetime')) . '.' . ($filters['format'] ?? 'xlsx');
-
-        return $educationExport->download($filename, function ($education) use ($educationExport) {
-            return $educationExport->map($education);
-        });
-    }
 }

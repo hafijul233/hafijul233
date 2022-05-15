@@ -225,39 +225,4 @@ class CommentController extends Controller
     {
         return view('backend.portfolio.commentimport');
     }
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @return Application|Factory|View
-     * @throws Exception
-     */
-    public function importBulk(Request $request)
-    {
-        $filters = $request->except('page');
-        $comments = $this->commentService->getAllComments($filters);
-
-        return view('backend.portfolio.commentindex', [
-            'comments' => $comments
-        ]);
-    }
-
-    /**
-     * Display a detail of the resource.
-     *
-     * @return StreamedResponse|string
-     * @throws Exception
-     */
-    public function print(Request $request)
-    {
-        $filters = $request->except('page');
-
-        $commentExport = $this->commentService->exportComment($filters);
-
-        $filename = 'Comment-' . date(config('backend.export_datetime')) . '.' . ($filters['format'] ?? 'xlsx');
-
-        return $commentExport->download($filename, function ($comment) use ($commentExport) {
-            return $commentExport->map($comment);
-        });
-    }
 }
