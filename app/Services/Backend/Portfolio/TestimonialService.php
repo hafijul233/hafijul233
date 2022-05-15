@@ -3,7 +3,7 @@
 namespace App\Services\Backend\Portfolio;
 
 use App\Abstracts\Service\Service;
-use App\Exports\Backend\Organization\TestimonialExport;
+use App\Exports\Backend\Portfolio\TestimonialExport;
 use App\Models\Backend\Portfolio\Testimonial;
 use App\Repositories\Eloquent\Backend\Portfolio\TestimonialRepository;
 use App\Supports\Constant;

@@ -42,7 +42,7 @@
                                 <div class="border p-2">{{ $certificate->name ?? null }}</div>
                             </div>
                             <div class="col-md-6 mb-3">
-                                <label class="d-block">{{ __('portfolio.certificate.Organization') }}</label>
+                                <label class="d-block">{{ __('portfolio.certificate.Portfolio') }}</label>
                                 <div class="border p-2">
                                     {!! $certificate->organization ?? null !!}
                                 </div>

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Exports\Backend\Organization;
+namespace App\Exports\Backend\Portfolio;
 
 use App\Abstracts\Export\FastExcelExport;
 use App\Models\Backend\Portfolio\Post;
@@ -8,13 +8,13 @@ use Box\Spout\Common\Exception\InvalidArgumentException;
 use Carbon\Carbon;
 
 /**
- * @class EnumeratorExport
+ * @class TestimonialExport
  * @package App\Exports\Backend\Portfolio
  */
-class EnumeratorExport extends FastExcelExport
+class TestimonialExport extends FastExcelExport
 {
     /**
-     * EnumeratorExport constructor.
+     * TestimonialExport constructor.
      *
      * @param null $data
      * @throws InvalidArgumentException

@@ -48,7 +48,7 @@
                                 </div>
                             </div>
                             <div class="col-md-12 mb-3">
-                                <label class="d-block">{{ __('resume.experience.Organization') }}</label>
+                                <label class="d-block">{{ __('resume.experience.Portfolio') }}</label>
                                 <div class="border p-2">
                                     {!! $experience->organization ?? null !!}
                                 </div>

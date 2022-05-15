@@ -3,7 +3,7 @@
 namespace App\Services\Backend\Blog;
 
 use App\Abstracts\Service\Service;
-use App\Exports\Backend\Organization\CommentExport;
+use App\Exports\Backend\Portfolio\CommentExport;
 use App\Models\Backend\Blog\Comment;
 use App\Repositories\Eloquent\Backend\Blog\CommentRepository;
 use App\Supports\Constant;

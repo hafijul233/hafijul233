@@ -17,7 +17,7 @@ return [
         'Edit Experience' => 'Edit Experience',
         'Title' => 'Title',
         'Type' => 'Type',
-        'Organization' => 'Organization',
+        'Portfolio' => 'Portfolio',
         'Start Date' => 'Start Date',
         'End Date' => 'End Date',
         'Address' => 'Address',

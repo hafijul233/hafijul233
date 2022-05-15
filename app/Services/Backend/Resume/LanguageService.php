@@ -3,7 +3,7 @@
 namespace App\Services\Backend\Resume;
 
 use App\Abstracts\Service\Service;
-use App\Exports\Backend\Organization\LanguageExport;
+use App\Exports\Backend\Portfolio\LanguageExport;
 use App\Models\Backend\Resume\Language;
 use App\Repositories\Eloquent\Backend\Resume\LanguageRepository;
 use App\Supports\Constant;

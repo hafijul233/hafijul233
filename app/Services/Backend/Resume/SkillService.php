@@ -3,7 +3,7 @@
 namespace App\Services\Backend\Resume;
 
 use App\Abstracts\Service\Service;
-use App\Exports\Backend\Organization\SkillExport;
+use App\Exports\Backend\Portfolio\SkillExport;
 use App\Models\Backend\Resume\Skill;
 use App\Repositories\Eloquent\Backend\Portfolio\ServiceRepository;
 use App\Repositories\Eloquent\Backend\Resume\SkillRepository;

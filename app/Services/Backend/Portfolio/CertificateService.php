@@ -3,7 +3,7 @@
 namespace App\Services\Backend\Portfolio;
 
 use App\Abstracts\Service\Service;
-use App\Exports\Backend\Organization\CertificateExport;
+use App\Exports\Backend\Portfolio\CertificateExport;
 use App\Models\Backend\Portfolio\Certificate;
 use App\Repositories\Eloquent\Backend\Portfolio\CertificateRepository;
 use App\Supports\Constant;

@@ -3,7 +3,7 @@
 namespace App\Services\Backend\Portfolio;
 
 use App\Abstracts\Service\Service;
-use App\Exports\Backend\Organization\ServiceExport;
+use App\Exports\Backend\Portfolio\ServiceExport;
 use App\Models\Backend\Portfolio\Service as ServiceModel;
 use App\Repositories\Eloquent\Backend\Portfolio\ServiceRepository;
 use App\Supports\Constant;

@@ -47,7 +47,7 @@
                                     <tr>
                                         <th class="align-middle">@sortablelink('id', '#')</th>
                                         <th>@sortablelink('name', __('common.Name'))</th>
-                                        <th>@sortablelink('organization', __('portfolio.certificate.Organization'))</th>
+                                        <th>@sortablelink('organization', __('portfolio.certificate.Portfolio'))</th>
                                         <th>@sortablelink('issue_date', __('portfolio.certificate.Issue Date'))</th>
                                         <th class="text-center">@sortablelink('enabled', __('common.Enabled'))</th>
                                         <th class="text-center">@sortablelink('created_at', __('common.Created'))</th>

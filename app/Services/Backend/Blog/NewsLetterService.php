@@ -3,7 +3,7 @@
 namespace App\Services\Backend\Blog;
 
 use App\Abstracts\Service\Service;
-use App\Exports\Backend\Organization\NewsLetterExport;
+use App\Exports\Backend\Portfolio\NewsLetterExport;
 use App\Models\Backend\Blog\NewsLetter;
 use App\Repositories\Eloquent\Backend\Blog\NewsLetterRepository;
 use App\Supports\Constant;

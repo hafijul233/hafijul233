@@ -7,6 +7,10 @@ use App\Http\Requests\Backend\Portfolio\ExperienceRequest;
 use App\Services\Auth\AuthenticatedSessionService;
 use App\Services\Backend\Portfolio\CertificateService;
 use App\Supports\Utility;
+use Box\Spout\Common\Exception\InvalidArgumentException;
+use Box\Spout\Common\Exception\IOException;
+use Box\Spout\Common\Exception\UnsupportedTypeException;
+use Box\Spout\Writer\Exception\WriterNotOpenedException;
 use Exception;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -200,8 +204,12 @@ class CertificateController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param Request $request
      * @return string|StreamedResponse
-     * @throws Exception
+     * @throws IOException
+     * @throws InvalidArgumentException
+     * @throws UnsupportedTypeException
+     * @throws WriterNotOpenedException
      */
     public function export(Request $request)
     {
@@ -209,7 +217,7 @@ class CertificateController extends Controller
 
         $certificateExport = $this->certificateService->exportCertificate($filters);
 
-        $filename = 'Certificate-' . date('Ymd-His') . '.' . ($filters['format'] ?? 'xlsx');
+        $filename = 'Certificates-' . date('Ymd-His') . '.' . ($filters['format'] ?? 'xlsx');
 
         return $certificateExport->download($filename, function ($certificate) use ($certificateExport) {
             return $certificateExport->map($certificate);
