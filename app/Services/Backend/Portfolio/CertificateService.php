@@ -76,7 +76,7 @@ class CertificateService extends Service
         try {
             $newCertificate = $this->certificateRepository->create($inputs);
             if ($newCertificate instanceof Certificate) {
-                if ($inputs['image'] instanceof UploadedFile) {
+                if (isset($inputs['image']) && $inputs['image'] instanceof UploadedFile) {
                     $newCertificate->addMedia($inputs['image'])->toMediaCollection('certificates');
                 }
                 $newCertificate->save();

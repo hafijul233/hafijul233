@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Backend\Portfolio;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Backend\Portfolio\ExperienceRequest;
+use App\Http\Requests\Backend\Portfolio\CertificateRequest;
 use App\Services\Auth\AuthenticatedSessionService;
 use App\Services\Backend\Portfolio\CertificateService;
 use App\Supports\Utility;
@@ -85,7 +85,7 @@ class CertificateController extends Controller
      * @return RedirectResponse
      * @throws Exception|Throwable
      */
-    public function store(ExperienceRequest $request): RedirectResponse
+    public function store(CertificateRequest $request): RedirectResponse
     {
         $confirm = $this->certificateService->storeCertificate($request->except('_token'));
         if ($confirm['status'] == true) {
@@ -137,12 +137,12 @@ class CertificateController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param ExperienceRequest $request
+     * @param CertificateRequest $request
      * @param  $id
      * @return RedirectResponse
      * @throws Throwable
      */
-    public function update(ExperienceRequest $request, $id): RedirectResponse
+    public function update(CertificateRequest $request, $id): RedirectResponse
     {
         $confirm = $this->certificateService->updateCertificate($request->except('_token', 'submit', '_method'), $id);
 
