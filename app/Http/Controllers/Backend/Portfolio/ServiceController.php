@@ -238,14 +238,11 @@ class ServiceController extends Controller
 
         if (count($services) > 0):
             foreach ($services as $index => $service) :
-                $services[$index]->update_route = route('backend.portfolio.services.update', $service->id);
-        $services[$index]->survey_id = $service->surveys->pluck('id')->toArray();
-        $services[$index]->prev_post_state_id = $service->previousPostings->pluck('id')->toArray();
-        $services[$index]->future_post_state_id = $service->futurePostings->pluck('id')->toArray();
-        unset($services[$index]->surveys, $services[$index]->previousPostings, $services[$index]->futurePostings);
-        endforeach;
+                $services[$index]->image = $service->getFirstMediaUrl('services');
+            endforeach;
 
-        $jsonReturn = ['status' => true, 'data' => $services]; else :
+            $jsonReturn = ['status' => true, 'data' => $services];
+        else :
             $jsonReturn = ['status' => false, 'data' => []];
         endif;
 

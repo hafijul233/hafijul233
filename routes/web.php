@@ -158,6 +158,8 @@ Route::prefix('backend')->group(function () {
             Route::prefix('services')->name('services.')->group(function () {
                 Route::patch('{service}/restore', [ServiceController::class, 'restore'])->name('restore');
                 Route::get('export', [ServiceController::class, 'export'])->name('export');
+                Route::get('ajax', [ServiceController::class, 'ajax'])->name('ajax')->middleware('ajax');
+
             });
             Route::resource('services', ServiceController::class)->where(['service' => '([0-9]+)']);
 
