@@ -18,7 +18,7 @@
       tableStyles: {
         tooltip: "Table style",
         stylesExclusive: ["Basic", "Bordered"],
-        stylesInclusive: ["Striped", "Condensed", "Hoverable"]
+        stylesInclusive: ["Striped", "Hoverable", "Dark Mode", "Small"]
       }
     }
   });
@@ -26,7 +26,7 @@
     tableStyles: {
       // Must keep the same order as in lang.tableStyles.styles*
       stylesExclusive: ["", "table-bordered"],
-      stylesInclusive: ["table-striped", "table-condensed", "table-hover"]
+      stylesInclusive: ["table-striped", "table-hover", "table-dark", "table-sm"]
     }
   });
 
@@ -60,7 +60,7 @@
             }
           }),
           ui.dropdownCheck({
-            className: "dropdown-table-style",
+            className: "dropdown-table",
             checkClassName: options.icons.menuCheck,
             items: self.generateListItems(
               options.tableStyles.stylesExclusive,

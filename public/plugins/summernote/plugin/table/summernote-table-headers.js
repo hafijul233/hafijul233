@@ -27,7 +27,7 @@
             context.memo('button.tableHeaders', function () {
                 return ui.buttonGroup([
                     ui.button({
-                        contents: '<b>H<b>', //ui.icon(options.icons.bold),
+                        contents: '<b>H<b>',
                         tooltip:  'Toggle table header',
                         click:function (e) {
                             self.toggleTableHeader();

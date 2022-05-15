@@ -30,7 +30,7 @@
                 return ui.button({
                     contents: '<'+tag+'>'+char+'</'+tag+'>',
                     tooltip: tooltip + ' <' + tag + '>',
-                    className: 'note-add-text-tags-btn',
+                    className: 'note-add-text-btn',
                     click: function (e) {
                         self.wrapInTag(tag);
                     }
@@ -48,7 +48,7 @@
             var samp = self.generateBtn('samp', 'Sample output');
 
 
-            context.memo('button.add-text-tags', function () {
+            context.memo('button.add-text', function () {
                 return ui.buttonGroup([
                     ui.button({
                         className: 'dropdown-toggle',
@@ -60,11 +60,11 @@
                     }),
                     ui.dropdown([
                         ui.buttonGroup({
-                            className: 'note-add-text-tags-code',
+                            className: 'note-add-text-code',
                             children: [code, samp, keyboard, variable]
                         }),
                         ui.buttonGroup({
-                            className: 'note-add-text-tags-other',
+                            className: 'note-add-text-other',
                             children: [mark, small, ins, del]
                         })
                     ])
