@@ -202,7 +202,7 @@ class CityController extends Controller
 
         $cityExport = $this->cityService->exportCity($filters);
 
-        $filename = 'City-' . date('Ymd-His') . '.' . ($filters['format'] ?? 'xlsx');
+        $filename = 'City-' . date(config('backend.export_datetime')) . '.' . ($filters['format'] ?? 'xlsx');
 
         return $cityExport->download($filename, function ($city) use ($cityExport) {
             return $cityExport->map($city);
@@ -247,7 +247,7 @@ class CityController extends Controller
 
         $cityExport = $this->cityService->exportCity($filters);
 
-        $filename = 'City-' . date('Ymd-His') . '.' . ($filters['format'] ?? 'xlsx');
+        $filename = 'City-' . date(config('backend.export_datetime')) . '.' . ($filters['format'] ?? 'xlsx');
 
         return $cityExport->download($filename, function ($city) use ($cityExport) {
             return $cityExport->map($city);

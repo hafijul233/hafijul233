@@ -210,7 +210,7 @@ class ProjectController extends Controller
 
         $projectExport = $this->projectService->exportProject($filters);
 
-        $filename = 'Project-' . date('Ymd-His') . '.' . ($filters['format'] ?? 'xlsx');
+        $filename = 'Project-' . date(config('backend.export_datetime')) . '.' . ($filters['format'] ?? 'xlsx');
 
         return $projectExport->download($filename, function ($project) use ($projectExport) {
             return $projectExport->map($project);
@@ -255,7 +255,7 @@ class ProjectController extends Controller
 
         $projectExport = $this->projectService->exportProject($filters);
 
-        $filename = 'Project-' . date('Ymd-His') . '.' . ($filters['format'] ?? 'xlsx');
+        $filename = 'Project-' . date(config('backend.export_datetime')) . '.' . ($filters['format'] ?? 'xlsx');
 
         return $projectExport->download($filename, function ($project) use ($projectExport) {
             return $projectExport->map($project);

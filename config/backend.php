@@ -56,9 +56,23 @@ return [
 
     'js_time' => 'hh:mm a',
 
+
     /*
     |--------------------------------------------------------------------------
-    | Application JavaScript Default Date & Time Format
+    | Application Export DateFormat
+    |--------------------------------------------------------------------------
+    |
+    | This value is the name of your application. This value is used when the
+    | framework needs to place the application's name in a notification or
+    | any other location as required by the application or its packages.
+    |
+    */
+
+    'export_datetime' => 'Ymd-His',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Application Setting Modules
     |--------------------------------------------------------------------------
     |
     | Null if we don't want preloader default enabled
@@ -87,60 +101,60 @@ return [
             'description' => 'states available on countries',
             'enabled' => Constant::ENABLED_OPTION
         ],
-/*        'city' => [
-            'module' => 'Contact',
-            'name' => 'City',
-            'icon' => 'fas fa-building',
-            'route' => 'backend.settings.cities.index',
-            'color' => '#007bff',
-            'description' => 'user who can access this system',
-            'enabled' => Constant::ENABLED_OPTION
-        ],
-        'blood-group' => [
-            'module' => 'Contact',
-            'name' => 'Blood Group',
-            'icon' => 'fas fa-object-group',
-            'route' => 'backend.settings.blood-groups.index',
-            'color' => '#007bff',
-            'description' => 'user who can access this system',
-            'enabled' => Constant::ENABLED_OPTION
-        ],
-        'gender' => [
-            'module' => 'Contact',
-            'name' => 'Gender',
-            'icon' => 'fas fa-venus-mars',
-            'route' => 'backend.settings.genders.index',
-            'color' => '#007bff',
-            'description' => 'user who can access this system',
-            'enabled' => Constant::ENABLED_OPTION
-        ],
-        'occupation' => [
-            'module' => 'Contact',
-            'name' => 'ExamGroup',
-            'icon' => 'fas fa-user-md',
-            'route' => 'backend.settings.occupations.index',
-            'color' => '#007bff',
-            'description' => 'user who can access this system',
-            'enabled' => Constant::ENABLED_OPTION
-        ],
-        'relation' => [
-            'module' => 'Contact',
-            'name' => 'Relation',
-            'icon' => 'fas fa-people-arrows',
-            'route' => 'backend.settings.relations.index',
-            'color' => '#007bff',
-            'description' => 'user who can access this system',
-            'enabled' => Constant::ENABLED_OPTION
-        ],
-        'religion' => [
-            'module' => 'Contact',
-            'name' => 'Religion',
-            'icon' => 'fas fa-place-of-worship',
-            'route' => 'backend.settings.religions.index',
-            'color' => '#007bff',
-            'description' => 'user who can access this system',
-            'enabled' => Constant::ENABLED_OPTION
-        ],*/
+        /*        'city' => [
+                    'module' => 'Contact',
+                    'name' => 'City',
+                    'icon' => 'fas fa-building',
+                    'route' => 'backend.settings.cities.index',
+                    'color' => '#007bff',
+                    'description' => 'user who can access this system',
+                    'enabled' => Constant::ENABLED_OPTION
+                ],
+                'blood-group' => [
+                    'module' => 'Contact',
+                    'name' => 'Blood Group',
+                    'icon' => 'fas fa-object-group',
+                    'route' => 'backend.settings.blood-groups.index',
+                    'color' => '#007bff',
+                    'description' => 'user who can access this system',
+                    'enabled' => Constant::ENABLED_OPTION
+                ],
+                'gender' => [
+                    'module' => 'Contact',
+                    'name' => 'Gender',
+                    'icon' => 'fas fa-venus-mars',
+                    'route' => 'backend.settings.genders.index',
+                    'color' => '#007bff',
+                    'description' => 'user who can access this system',
+                    'enabled' => Constant::ENABLED_OPTION
+                ],
+                'occupation' => [
+                    'module' => 'Contact',
+                    'name' => 'ExamGroup',
+                    'icon' => 'fas fa-user-md',
+                    'route' => 'backend.settings.occupations.index',
+                    'color' => '#007bff',
+                    'description' => 'user who can access this system',
+                    'enabled' => Constant::ENABLED_OPTION
+                ],
+                'relation' => [
+                    'module' => 'Contact',
+                    'name' => 'Relation',
+                    'icon' => 'fas fa-people-arrows',
+                    'route' => 'backend.settings.relations.index',
+                    'color' => '#007bff',
+                    'description' => 'user who can access this system',
+                    'enabled' => Constant::ENABLED_OPTION
+                ],
+                'religion' => [
+                    'module' => 'Contact',
+                    'name' => 'Religion',
+                    'icon' => 'fas fa-place-of-worship',
+                    'route' => 'backend.settings.religions.index',
+                    'color' => '#007bff',
+                    'description' => 'user who can access this system',
+                    'enabled' => Constant::ENABLED_OPTION
+                ],*/
         'user' => [
             'module' => 'Core',
             'name' => 'User',

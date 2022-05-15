@@ -225,7 +225,7 @@ class NewsLetterController extends Controller
     {
         $filters = $request->except('page');
         $newsLetterExport = $this->newsLetterService->exportNewsLetter($filters);
-        $filename = 'Post-' . date('Ymd-His') . '.' . ($filters['format'] ?? 'xlsx');
+        $filename = 'Post-' . date(config('backend.export_datetime')) . '.' . ($filters['format'] ?? 'xlsx');
         return $newsLetterExport->download($filename, function ($newsLetter) use ($newsLetterExport) {
             return $newsLetterExport->map($newsLetter);
         });

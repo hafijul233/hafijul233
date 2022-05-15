@@ -213,7 +213,7 @@ class CatalogController extends Controller
 
         $catalogExport = $this->catalogService->exportCatalog($filters);
 
-        $filename = 'Catalog-' . date('Ymd-His') . '.' . ($filters['format'] ?? 'xlsx');
+        $filename = 'Catalog-' . date(config('backend.export_datetime')) . '.' . ($filters['format'] ?? 'xlsx');
 
         return $catalogExport->download($filename, function ($catalog) use ($catalogExport) {
             return $catalogExport->map($catalog);
@@ -258,7 +258,7 @@ class CatalogController extends Controller
 
         $catalogExport = $this->catalogService->exportCatalog($filters);
 
-        $filename = 'Catalog-' . date('Ymd-His') . '.' . ($filters['format'] ?? 'xlsx');
+        $filename = 'Catalog-' . date(config('backend.export_datetime')) . '.' . ($filters['format'] ?? 'xlsx');
 
         return $catalogExport->download($filename, function ($catalog) use ($catalogExport) {
             return $catalogExport->map($catalog);

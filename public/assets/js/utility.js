@@ -501,32 +501,6 @@ $(document).ready(function () {
         });
     });
 
-    //Export modal operations
-    $("body").find(".export-btn").each(function () {
-        $(this).click(function (event) {
-            //stop href to trigger
-            event.preventDefault();
-            $("#exportOptionForm").attr('action', $(this).attr('href'));
-            $("#exportConfirmModal").modal();
-        });
-    });
-
-    $("body").find("#exportOptionForm").each(function () {
-        $(this).submit(function (event) {
-            event.preventDefault();
-            var search = window.location.search;
-            if (search.length === 0) {
-                search = "?";
-            }
-            var formAction = $(this).attr('action') + search + "&format=" + $("#format").val();
-            var deleted = $('#exportOptionForm input[name=with_trashed]:radio');
-            if (deleted) {
-                formAction += "&with_trashed=" + deleted.val();
-            }
-            window.location.href = formAction;
-        });
-    });
-
     //Import modal operations
     $("body").find(".import-btn").each(function () {
         $(this).click(function (event) {

@@ -209,7 +209,7 @@ class TestimonialController extends Controller
 
         $testimonialExport = $this->testimonialService->exportTestimonial($filters);
 
-        $filename = 'Comment-' . date('Ymd-His') . '.' . ($filters['format'] ?? 'xlsx');
+        $filename = 'Comment-' . date(config('backend.export_datetime')) . '.' . ($filters['format'] ?? 'xlsx');
 
         return $testimonialExport->download($filename, function ($testimonial) use ($testimonialExport) {
             return $testimonialExport->map($testimonial);
@@ -254,7 +254,7 @@ class TestimonialController extends Controller
 
         $testimonialExport = $this->testimonialService->exportTestimonial($filters);
 
-        $filename = 'Comment-' . date('Ymd-His') . '.' . ($filters['format'] ?? 'xlsx');
+        $filename = 'Comment-' . date(config('backend.export_datetime')) . '.' . ($filters['format'] ?? 'xlsx');
 
         return $testimonialExport->download($filename, function ($testimonial) use ($testimonialExport) {
             return $testimonialExport->map($testimonial);

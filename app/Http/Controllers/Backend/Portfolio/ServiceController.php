@@ -216,8 +216,18 @@ class ServiceController extends Controller
     public function export(Request $request)
     {
         $filters = $request->except('page');
+
+        $exportFormat = 'xlsx';
+
+        if(isset($filters['format'])) {
+            $exportFormat = $filters['format'];
+            unset($filters['format']);
+        }
+
         $serviceExport = $this->serviceService->exportService($filters);
-        $filename = 'Post-' . date('Ymd-His') . '.' . ($filters['format'] ?? 'xlsx');
+
+        $filename = 'service-export-' . date(config('backend.export_datetime')) . ".{$exportFormat}";
+
         return $serviceExport->download($filename, function ($service) use ($serviceExport) {
             return $serviceExport->map($service);
         });

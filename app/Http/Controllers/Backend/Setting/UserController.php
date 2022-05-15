@@ -266,7 +266,7 @@ class UserController extends Controller
 
         $userExport = $this->userService->exportUser($filters);
 
-        $filename = 'User-' . date('Ymd-His') . '.' . ($filters['format'] ?? 'xlsx');
+        $filename = 'User-' . date(config('backend.export_datetime')) . '.' . ($filters['format'] ?? 'xlsx');
 
         return $userExport->download($filename, function ($user) use ($userExport) {
             return $userExport->map($user);
@@ -285,7 +285,7 @@ class UserController extends Controller
 
         $userExport = $this->userService->exportUser($filters);
 
-        $filename = 'User-' . date('Ymd-His') . '.' . ($filters['format'] ?? 'xlsx');
+        $filename = 'User-' . date(config('backend.export_datetime')) . '.' . ($filters['format'] ?? 'xlsx');
 
         return $userExport->download($filename, function ($user) use ($userExport) {
             return $userExport->map($user);

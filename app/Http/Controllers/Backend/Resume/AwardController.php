@@ -210,7 +210,7 @@ class AwardController extends Controller
 
         $awardExport = $this->awardService->exportAward($filters);
 
-        $filename = 'Comment-' . date('Ymd-His') . '.' . ($filters['format'] ?? 'xlsx');
+        $filename = 'Comment-' . date(config('backend.export_datetime')) . '.' . ($filters['format'] ?? 'xlsx');
 
         return $awardExport->download($filename, function ($award) use ($awardExport) {
             return $awardExport->map($award);
@@ -255,7 +255,7 @@ class AwardController extends Controller
 
         $awardExport = $this->awardService->exportAward($filters);
 
-        $filename = 'Comment-' . date('Ymd-His') . '.' . ($filters['format'] ?? 'xlsx');
+        $filename = 'Comment-' . date(config('backend.export_datetime')) . '.' . ($filters['format'] ?? 'xlsx');
 
         return $awardExport->download($filename, function ($award) use ($awardExport) {
             return $awardExport->map($award);

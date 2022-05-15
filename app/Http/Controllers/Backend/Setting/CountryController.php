@@ -202,7 +202,7 @@ class CountryController extends Controller
 
         $countryExport = $this->countryService->exportCountry($filters);
 
-        $filename = 'Country-' . date('Ymd-His') . '.' . ($filters['format'] ?? 'xlsx');
+        $filename = 'Country-' . date(config('backend.export_datetime')) . '.' . ($filters['format'] ?? 'xlsx');
 
         return $countryExport->download($filename, function ($country) use ($countryExport) {
             return $countryExport->map($country);
@@ -247,7 +247,7 @@ class CountryController extends Controller
 
         $countryExport = $this->countryService->exportCountry($filters);
 
-        $filename = 'Country-' . date('Ymd-His') . '.' . ($filters['format'] ?? 'xlsx');
+        $filename = 'Country-' . date(config('backend.export_datetime')) . '.' . ($filters['format'] ?? 'xlsx');
 
         return $countryExport->download($filename, function ($country) use ($countryExport) {
             return $countryExport->map($country);

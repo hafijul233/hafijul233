@@ -13,10 +13,10 @@
                 {!! \Form::nSelect('format', 'Export Format', \App\Supports\Constant::EXPORT_OPTIONS,
                      \App\Supports\Constant::EXPORT_DEFAULT, true) !!}
 
-                @hasrole(\App\Supports\Constant::SUPER_ADMIN_ROLE)
+                {{--@hasrole(\App\Supports\Constant::SUPER_ADMIN_ROLE)
                 {!! \Form::nRadio('with_trashed', 'Include Trashed',
                      ['yes' => 'With Trashed', 'no' => 'Exclude Trashed'], 'no') !!}
-                @endhasrole
+                @endhasrole--}}
             </div>
             <div class="modal-footer d-flex justify-content-between">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
@@ -26,3 +26,40 @@
         </div>
     </div>
 </div>
+
+
+@push('page-script')
+    <script>
+        $(document).ready(function () {
+            //Export modal operations
+            $("body").find(".export-btn").each(function () {
+                $(this).click(function (event) {
+                    //stop href to trigger
+                    event.preventDefault();
+                    $("#exportOptionForm").attr('action', $(this).attr('href'));
+                    $("#exportConfirmModal").modal();
+                });
+            });
+
+            $("body").find("#exportOptionForm").each(function () {
+                $(this).submit(function (event) {
+                    event.preventDefault();
+                    var search = window.location.search;
+                    if (search.length === 0) {
+                        search = "?";
+                    }
+
+                    var formAction = $(this).attr('action') + search + "&format=" + $("#format").val();
+
+                    var deleted = $('#exportOptionForm input[name=with_trashed]:radio');
+
+                    if (deleted) {
+                        formAction += "&with_trashed=" + deleted.val();
+                    }
+                    $("#exportConfirmModal").modal("hide");
+                    window.location.href = formAction;
+                });
+            });
+        });
+    </script>
+@endpush

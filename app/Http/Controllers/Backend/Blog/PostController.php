@@ -254,7 +254,7 @@ class PostController extends Controller
     {
         $filters = $request->except('page');
         $postExport = $this->postService->exportPost($filters);
-        $filename = 'Post-' . date('Ymd-His') . '.' . ($filters['format'] ?? 'xlsx');
+        $filename = 'Post-' . date(config('backend.export_datetime')) . '.' . ($filters['format'] ?? 'xlsx');
         return $postExport->download($filename, function ($post) use ($postExport) {
             return $postExport->map($post);
         });

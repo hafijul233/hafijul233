@@ -203,7 +203,7 @@ class ExamGroupController extends Controller
 
         $examGroupExport = $this->examGroupService->exportExamGroup($filters);
 
-        $filename = 'ExamGroup-' . date('Ymd-His') . '.' . ($filters['format'] ?? 'xlsx');
+        $filename = 'ExamGroup-' . date(config('backend.export_datetime')) . '.' . ($filters['format'] ?? 'xlsx');
 
         return $examGroupExport->download($filename, function ($examGroup) use ($examGroupExport) {
             return $examGroupExport->map($examGroup);
@@ -248,7 +248,7 @@ class ExamGroupController extends Controller
 
         $examGroupExport = $this->examGroupService->exportExamGroup($filters);
 
-        $filename = 'ExamGroup-' . date('Ymd-His') . '.' . ($filters['format'] ?? 'xlsx');
+        $filename = 'ExamGroup-' . date(config('backend.export_datetime')) . '.' . ($filters['format'] ?? 'xlsx');
 
         return $examGroupExport->download($filename, function ($examGroup) use ($examGroupExport) {
             return $examGroupExport->map($examGroup);

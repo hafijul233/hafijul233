@@ -209,7 +209,7 @@ class StateController extends Controller
 
         $stateExport = $this->stateService->exportState($filters);
 
-        $filename = 'State-' . date('Ymd-His') . '.' . ($filters['format'] ?? 'xlsx');
+        $filename = 'State-' . date(config('backend.export_datetime')) . '.' . ($filters['format'] ?? 'xlsx');
 
         return $stateExport->download($filename, function ($state) use ($stateExport) {
             return $stateExport->map($state);
@@ -254,7 +254,7 @@ class StateController extends Controller
 
         $stateExport = $this->stateService->exportState($filters);
 
-        $filename = 'State-' . date('Ymd-His') . '.' . ($filters['format'] ?? 'xlsx');
+        $filename = 'State-' . date(config('backend.export_datetime')) . '.' . ($filters['format'] ?? 'xlsx');
 
         return $stateExport->download($filename, function ($state) use ($stateExport) {
             return $stateExport->map($state);

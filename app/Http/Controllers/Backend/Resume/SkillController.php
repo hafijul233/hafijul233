@@ -208,7 +208,7 @@ class SkillController extends Controller
 
         $skillExport = $this->skillService->exportSkill($filters);
 
-        $filename = 'Comment-' . date('Ymd-His') . '.' . ($filters['format'] ?? 'xlsx');
+        $filename = 'Comment-' . date(config('backend.export_datetime')) . '.' . ($filters['format'] ?? 'xlsx');
 
         return $skillExport->download($filename, function ($skill) use ($skillExport) {
             return $skillExport->map($skill);
@@ -253,7 +253,7 @@ class SkillController extends Controller
 
         $skillExport = $this->skillService->exportSkill($filters);
 
-        $filename = 'Comment-' . date('Ymd-His') . '.' . ($filters['format'] ?? 'xlsx');
+        $filename = 'Comment-' . date(config('backend.export_datetime')) . '.' . ($filters['format'] ?? 'xlsx');
 
         return $skillExport->download($filename, function ($skill) use ($skillExport) {
             return $skillExport->map($skill);

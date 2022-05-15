@@ -247,7 +247,7 @@ class RoleController extends Controller
 
         $roleExport = $this->roleService->exportRole($filters);
 
-        $filename = 'Role-' . date('Ymd-His') . '.' . ($filters['format'] ?? 'xlsx');
+        $filename = 'Role-' . date(config('backend.export_datetime')) . '.' . ($filters['format'] ?? 'xlsx');
 
         return $roleExport->download($filename, function ($role) use ($roleExport) {
             return $roleExport->map($role);
@@ -266,7 +266,7 @@ class RoleController extends Controller
 
         $roleExport = $this->roleService->exportRole($filters);
 
-        $filename = 'Role-' . date('Ymd-His') . '.' . ($filters['format'] ?? 'xlsx');
+        $filename = 'Role-' . date(config('backend.export_datetime')) . '.' . ($filters['format'] ?? 'xlsx');
 
         return $roleExport->download($filename, function ($role) {
             $format = [

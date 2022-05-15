@@ -42,7 +42,9 @@ class CertificateExport extends FastExcelExport
             'Description' => $row->description,
             'Enabled' => ucfirst($row->enabled),
             'Created At' => $row->created_at->format(config('backend.datetime')),
-            'Updated At' => $row->updated_at->format(config('backend.datetime'))
+            'Updated At' => $row->updated_at->format(config('backend.datetime')),
+            'Deleted At' => $row->deleted_at->format(config('backend.datetime')),
+
         ];
     }
 }

@@ -209,7 +209,7 @@ class CommentController extends Controller
 
         $commentExport = $this->commentService->exportComment($filters);
 
-        $filename = 'Comment-' . date('Ymd-His') . '.' . ($filters['format'] ?? 'xlsx');
+        $filename = 'Comment-' . date(config('backend.export_datetime')) . '.' . ($filters['format'] ?? 'xlsx');
 
         return $commentExport->download($filename, function ($comment) use ($commentExport) {
             return $commentExport->map($comment);
@@ -254,7 +254,7 @@ class CommentController extends Controller
 
         $commentExport = $this->commentService->exportComment($filters);
 
-        $filename = 'Comment-' . date('Ymd-His') . '.' . ($filters['format'] ?? 'xlsx');
+        $filename = 'Comment-' . date(config('backend.export_datetime')) . '.' . ($filters['format'] ?? 'xlsx');
 
         return $commentExport->download($filename, function ($comment) use ($commentExport) {
             return $commentExport->map($comment);

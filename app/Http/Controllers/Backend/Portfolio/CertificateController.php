@@ -217,7 +217,7 @@ class CertificateController extends Controller
 
         $certificateExport = $this->certificateService->exportCertificate($filters);
 
-        $filename = 'Certificates-' . date('Ymd-His') . '.' . ($filters['format'] ?? 'xlsx');
+        $filename = 'Certificates-' . date(config('backend.export_datetime')) . '.' . ($filters['format'] ?? 'xlsx');
 
         return $certificateExport->download($filename, function ($certificate) use ($certificateExport) {
             return $certificateExport->map($certificate);
@@ -262,7 +262,7 @@ class CertificateController extends Controller
 
         $certificateExport = $this->certificateService->exportCertificate($filters);
 
-        $filename = 'Certificate-' . date('Ymd-His') . '.' . ($filters['format'] ?? 'xlsx');
+        $filename = 'Certificate-' . date(config('backend.export_datetime')) . '.' . ($filters['format'] ?? 'xlsx');
 
         return $certificateExport->download($filename, function ($certificate) use ($certificateExport) {
             return $certificateExport->map($certificate);

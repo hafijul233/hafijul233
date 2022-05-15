@@ -208,7 +208,7 @@ class LanguageController extends Controller
 
         $languageExport = $this->languageService->exportLanguage($filters);
 
-        $filename = 'Comment-' . date('Ymd-His') . '.' . ($filters['format'] ?? 'xlsx');
+        $filename = 'Comment-' . date(config('backend.export_datetime')) . '.' . ($filters['format'] ?? 'xlsx');
 
         return $languageExport->download($filename, function ($language) use ($languageExport) {
             return $languageExport->map($language);
@@ -253,7 +253,7 @@ class LanguageController extends Controller
 
         $languageExport = $this->languageService->exportLanguage($filters);
 
-        $filename = 'Comment-' . date('Ymd-His') . '.' . ($filters['format'] ?? 'xlsx');
+        $filename = 'Comment-' . date(config('backend.export_datetime')) . '.' . ($filters['format'] ?? 'xlsx');
 
         return $languageExport->download($filename, function ($language) use ($languageExport) {
             return $languageExport->map($language);

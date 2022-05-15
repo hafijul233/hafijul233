@@ -209,7 +209,7 @@ class EducationController extends Controller
 
         $educationExport = $this->educationService->exportEducation($filters);
 
-        $filename = 'Comment-' . date('Ymd-His') . '.' . ($filters['format'] ?? 'xlsx');
+        $filename = 'Comment-' . date(config('backend.export_datetime')) . '.' . ($filters['format'] ?? 'xlsx');
 
         return $educationExport->download($filename, function ($education) use ($educationExport) {
             return $educationExport->map($education);
@@ -254,7 +254,7 @@ class EducationController extends Controller
 
         $educationExport = $this->educationService->exportEducation($filters);
 
-        $filename = 'Comment-' . date('Ymd-His') . '.' . ($filters['format'] ?? 'xlsx');
+        $filename = 'Comment-' . date(config('backend.export_datetime')) . '.' . ($filters['format'] ?? 'xlsx');
 
         return $educationExport->download($filename, function ($education) use ($educationExport) {
             return $educationExport->map($education);

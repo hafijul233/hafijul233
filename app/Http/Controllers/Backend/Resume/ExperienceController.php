@@ -226,7 +226,7 @@ class ExperienceController extends Controller
     {
         $filters = $request->except('page');
         $experienceExport = $this->experienceService->exportExperience($filters);
-        $filename = 'Post-' . date('Ymd-His') . '.' . ($filters['format'] ?? 'xlsx');
+        $filename = 'Post-' . date(config('backend.export_datetime')) . '.' . ($filters['format'] ?? 'xlsx');
         return $experienceExport->download($filename, function ($experience) use ($experienceExport) {
             return $experienceExport->map($experience);
         });
