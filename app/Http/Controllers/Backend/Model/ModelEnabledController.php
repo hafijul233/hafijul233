@@ -50,8 +50,6 @@ class ModelEnabledController extends Controller
                         'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Notification'], 200);
                 }
             } catch (Exception $exception) {
-                Log::error($exception->getMessage());
-
                 return response()->json(['status' => false, 'message' => $exception->getMessage(),
                     'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Error!'], 422);
             }
