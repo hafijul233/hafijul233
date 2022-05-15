@@ -137,12 +137,12 @@ class ServiceController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param AwardRequest $request
+     * @param ServiceRequest $request
      * @param  $id
      * @return RedirectResponse
      * @throws Throwable
      */
-    public function update(AwardRequest $request, $id): RedirectResponse
+    public function update(ServiceRequest $request, $id): RedirectResponse
     {
         $inputs = $request->except('_token', 'submit', '_method');
         $confirm = $this->serviceService->updateService($inputs, $id);
