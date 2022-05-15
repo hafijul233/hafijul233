@@ -50,7 +50,7 @@ class CHTML
     public static function pagination($collection, string $type = 'default')
     {
         return $collection->onEachSide(2)->appends(request()->query())
-            ->links('backend.layouts.paginate.' . $type . '-paginate');
+            ->links('backend.layouts.partials.paginate.' . $type . '-paginate');
     }
 
     /**
