@@ -73,7 +73,7 @@
                                                 {{ $experience->organization ?? null }}
                                             </td>
                                             <td class="text-center">
-                                                {{ \App\Supports\Constant::EMPLOYEEMENT_TYPE[$experience->type] }}
+                                                {{ \App\Supports\Constant::EMPLOYMENT_TYPE[$experience->type] }}
                                             </td>
 
                                             <td class="text-center exclude-search">
