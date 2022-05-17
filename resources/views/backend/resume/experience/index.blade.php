@@ -48,7 +48,7 @@
                                         <th class="align-middle">@sortablelink('id', '#')</th>
                                         <th>@sortablelink('title', __('resume.experience.Title'))</th>
                                         <th>@sortablelink('organization', __('resume.experience.Organization'))</th>
-                                        <th class="text-center">@sortablelink('employmentType', 'Type')</th>
+                                        <th class="text-center">@sortablelink('employmentType.name', 'Type')</th>
                                         <th class="text-center">@sortablelink('enabled', __('common.Enabled'))</th>
                                         <th class="text-center">@sortablelink('created_at', __('common.Created'))</th>
                                         <th class="text-center">{!! __('common.Actions') !!}</th>
