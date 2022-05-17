@@ -2,8 +2,10 @@
 
 namespace App\Models\Backend\Resume;
 
+use App\Models\Backend\Setting\Catalog;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Kyslik\ColumnSortable\Sortable;
 use OwenIt\Auditing\Auditable as AuditableTrait;
@@ -65,4 +67,12 @@ class Experience extends Model implements Auditable
     protected $attributes = [
         'enabled' => 'yes'
     ];
+
+    /**
+     * @return BelongsTo
+     */
+    public function employmentType():BelongsTo
+    {
+        return $this->belongsTo(Catalog::class, 'employment_type_id', 'id');
+    }
 }

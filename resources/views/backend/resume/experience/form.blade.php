@@ -6,10 +6,10 @@
             {!! \Form::nText('title', __('resume.experience.Title'), old('title', $experience->title ?? null), true) !!}
         </div>
         <div class="col-md-6">
-            {!! \Form::nSelect('type', __('resume.experience.Type'), \App\Supports\Constant::EMPLOYMENT_TYPE, old('type', $experience->type ?? null), false) !!}
+            {!! \Form::nSelect('type', __('resume.experience.Employment Type'), ($employment_types ?? []), old('type', (isset($experience->employmentType) ? $experience->employmentType->id : null)), false) !!}
         </div>
         <div class="col-md-12">
-            {!! \Form::nText('organization', __('resume.experience.Portfolio'), old('organization', $experience->organization ?? null), true) !!}
+            {!! \Form::nText('organization', __('resume.experience.Organization'), old('organization', $experience->organization ?? null), true) !!}
         </div>
         <div class="col-md-12">
             {!! \Form::nText('address', __('resume.experience.Address'), old('address', $experience->address ?? null), true) !!}
