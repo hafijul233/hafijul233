@@ -68,7 +68,11 @@ class CountryRepository extends EloquentRepository
         endif;
 
         if ($is_sortable == true) :
-            $query->sortable();
+                if (!empty($filters['sort'])):
+                    $query->sortable([$filters['sort'] => ($filters['direction'] ?? 'asc')]);
+                else:
+                    $query->sortable();
+                endif;
         endif;
 
         if (AuthenticatedSessionService::isSuperAdmin()) :
