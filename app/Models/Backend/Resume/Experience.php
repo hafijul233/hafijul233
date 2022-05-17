@@ -39,7 +39,7 @@ class Experience extends Model implements Auditable
      *
      * @var array
      */
-    protected $fillable = ['title', 'type', 'organization', 'address', 'start_date', 'end_date', 'description', 'url', 'enabled'];
+    protected $fillable = ['title', 'employment_type_id', 'organization', 'address', 'start_date', 'end_date', 'description', 'url', 'enabled'];
 
     /**
      * The attributes that should be hidden for arrays.
