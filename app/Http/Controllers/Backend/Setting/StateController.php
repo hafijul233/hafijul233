@@ -55,7 +55,7 @@ class StateController extends Controller
      */
     public function index(Request $request)
     {
-        $filters = $request->except('page');
+        $filters = $request->except('page', 'sort', 'direction');
         $states = $this->stateService->statePaginate($filters);
 
         return view('backend.setting.state.index', [
@@ -205,7 +205,7 @@ class StateController extends Controller
      */
     public function export(Request $request)
     {
-        $filters = $request->except('page');
+        $filters = $request->except('page', 'sort', 'direction');
 
         $stateExport = $this->stateService->exportState($filters);
 
@@ -235,7 +235,7 @@ class StateController extends Controller
      */
     public function ajax(Request $request): JsonResponse
     {
-        $filters = $request->except('page');
+        $filters = $request->except('page', 'sort', 'direction');
 
         $states = $this->stateService->getAllStates($filters)->toArray();
 

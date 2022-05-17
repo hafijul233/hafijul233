@@ -60,7 +60,7 @@ class CertificateController extends Controller
      */
     public function index(Request $request)
     {
-        $filters = $request->except('page');
+        $filters = $request->except('page', 'sort', 'direction');
         $certificates = $this->certificateService->certificatePaginate($filters);
 
         return view('backend.portfolio.certificate.index', [
@@ -213,7 +213,7 @@ class CertificateController extends Controller
      */
     public function export(Request $request)
     {
-        $filters = $request->except('page');
+        $filters = $request->except('page', 'sort', 'direction');
 
         $exportFormat = 'xlsx';
 

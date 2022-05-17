@@ -49,7 +49,7 @@ class PermissionController extends Controller
      */
     public function index(Request $request)
     {
-        $filters = $request->except('page');
+        $filters = $request->except('page', 'sort', 'direction');
         $permissions = $this->permissionService->permissionPaginate($filters);
 
         return view('backend.setting.permission.index', [
@@ -198,7 +198,7 @@ class PermissionController extends Controller
      */
     public function export(Request $request)
     {
-        $filters = $request->except('page');
+        $filters = $request->except('page', 'sort', 'direction');
 
         $permissionExport = $this->permissionService->exportPermission($filters);
 

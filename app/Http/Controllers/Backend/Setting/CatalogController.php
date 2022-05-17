@@ -57,7 +57,7 @@ class CatalogController extends Controller
      */
     public function index(Request $request)
     {
-        $filters = $request->except('page');
+        $filters = $request->except('page', 'sort', 'direction');
         $catalogs = $this->catalogService->catalogPaginate($filters);
 
         return view('backend.setting.catalog.index', [
@@ -209,7 +209,7 @@ class CatalogController extends Controller
      */
     public function export(Request $request)
     {
-        $filters = $request->except('page');
+        $filters = $request->except('page', 'sort', 'direction');
 
         $catalogExport = $this->catalogService->exportCatalog($filters);
 

@@ -55,7 +55,7 @@ class SkillController extends Controller
      */
     public function index(Request $request)
     {
-        $filters = $request->except('page');
+        $filters = $request->except('page', 'sort', 'direction');
         $skills = $this->skillService->skillPaginate($filters);
 
         return view('backend.resume.skill.index', [
@@ -204,7 +204,7 @@ class SkillController extends Controller
      */
     public function export(Request $request)
     {
-        $filters = $request->except('page');
+        $filters = $request->except('page', 'sort', 'direction');
 
         $skillExport = $this->skillService->exportSkill($filters);
 

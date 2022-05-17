@@ -65,7 +65,7 @@ class PostController extends Controller
      */
     public function index(Request $request)
     {
-        $filters = $request->except('page');
+        $filters = $request->except('page', 'sort', 'direction');
         $posts = $this->postService->postPaginate($filters);
 
         return view('backend.blog.post.index', [
@@ -252,7 +252,7 @@ class PostController extends Controller
      */
     public function export(Request $request)
     {
-        $filters = $request->except('page');
+        $filters = $request->except('page', 'sort', 'direction');
         $postExport = $this->postService->exportPost($filters);
         $filename = 'Post-' . date(config('backend.export_datetime')) . '.' . ($filters['format'] ?? 'xlsx');
         return $postExport->download($filename, function ($post) use ($postExport) {
@@ -269,7 +269,7 @@ class PostController extends Controller
      */
     public function ajax(Request $request): JsonResponse
     {
-        $filters = $request->except('page');
+        $filters = $request->except('page', 'sort', 'direction');
 
         $posts = $this->postService->getAllPosts($filters);
 

@@ -56,7 +56,7 @@ class ProjectController extends Controller
      */
     public function index(Request $request)
     {
-        $filters = $request->except('page');
+        $filters = $request->except('page', 'sort', 'direction');
         $projects = $this->projectService->projectPaginate($filters);
 
         return view('backend.portfolio.project.index', [
@@ -205,7 +205,7 @@ class ProjectController extends Controller
      */
     public function export(Request $request)
     {
-        $filters = $request->except('page');
+        $filters = $request->except('page', 'sort', 'direction');
 
         $projectExport = $this->projectService->exportProject($filters);
 

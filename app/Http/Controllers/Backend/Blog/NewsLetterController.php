@@ -64,7 +64,7 @@ class NewsLetterController extends Controller
      */
     public function index(Request $request)
     {
-        $filters = $request->except('page');
+        $filters = $request->except('page', 'sort', 'direction');
         $newsLetters = $this->newsLetterService->newsLetterPaginate($filters);
 
         return view('backend.blog.newsletter.index', [
@@ -223,7 +223,7 @@ class NewsLetterController extends Controller
      */
     public function export(Request $request)
     {
-        $filters = $request->except('page');
+        $filters = $request->except('page', 'sort', 'direction');
         $newsLetterExport = $this->newsLetterService->exportNewsLetter($filters);
         $filename = 'Post-' . date(config('backend.export_datetime')) . '.' . ($filters['format'] ?? 'xlsx');
         return $newsLetterExport->download($filename, function ($newsLetter) use ($newsLetterExport) {
@@ -240,7 +240,7 @@ class NewsLetterController extends Controller
      */
     public function ajax(Request $request): JsonResponse
     {
-        $filters = $request->except('page');
+        $filters = $request->except('page', 'sort', 'direction');
 
         $newsLetters = $this->newsLetterService->getAllNewsLetters($filters);
 

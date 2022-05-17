@@ -49,7 +49,7 @@ class CityController extends Controller
      */
     public function index(Request $request)
     {
-        $filters = $request->except('page');
+        $filters = $request->except('page', 'sort', 'direction');
         $citys = $this->cityService->cityPaginate($filters);
 
         return view('setting.city.index', [
@@ -198,7 +198,7 @@ class CityController extends Controller
      */
     public function export(Request $request)
     {
-        $filters = $request->except('page');
+        $filters = $request->except('page', 'sort', 'direction');
 
         $cityExport = $this->cityService->exportCity($filters);
 
@@ -228,7 +228,7 @@ class CityController extends Controller
      */
     public function ajax(Request $request): JsonResponse
     {
-        $filters = $request->except('page');
+        $filters = $request->except('page', 'sort', 'direction');
 
         $cities = $this->cityService->getAllCities($filters)->toArray();
 

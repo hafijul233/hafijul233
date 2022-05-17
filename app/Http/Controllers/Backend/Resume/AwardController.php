@@ -57,7 +57,7 @@ class AwardController extends Controller
      */
     public function index(Request $request)
     {
-        $filters = $request->except('page');
+        $filters = $request->except('page', 'sort', 'direction');
         $awards = $this->awardService->awardPaginate($filters);
 
         return view('backend.resume.award.index', [
@@ -206,7 +206,7 @@ class AwardController extends Controller
      */
     public function export(Request $request)
     {
-        $filters = $request->except('page');
+        $filters = $request->except('page', 'sort', 'direction');
 
         $awardExport = $this->awardService->exportAward($filters);
 

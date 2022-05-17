@@ -56,7 +56,7 @@ class EducationController extends Controller
      */
     public function index(Request $request)
     {
-        $filters = $request->except('page');
+        $filters = $request->except('page', 'sort', 'direction');
         $educations = $this->educationService->educationPaginate($filters);
 
         return view('backend.resume.education.index', [
@@ -205,7 +205,7 @@ class EducationController extends Controller
      */
     public function export(Request $request)
     {
-        $filters = $request->except('page');
+        $filters = $request->except('page', 'sort', 'direction');
 
         $educationExport = $this->educationService->exportEducation($filters);
 

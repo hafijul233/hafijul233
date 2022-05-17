@@ -56,7 +56,7 @@ class CommentController extends Controller
      */
     public function index(Request $request)
     {
-        $filters = $request->except('page');
+        $filters = $request->except('page', 'sort', 'direction');
         $comments = $this->commentService->commentPaginate($filters);
 
         return view('backend.blog.comment.index', [
@@ -205,7 +205,7 @@ class CommentController extends Controller
      */
     public function export(Request $request)
     {
-        $filters = $request->except('page');
+        $filters = $request->except('page', 'sort', 'direction');
 
         $commentExport = $this->commentService->exportComment($filters);
 

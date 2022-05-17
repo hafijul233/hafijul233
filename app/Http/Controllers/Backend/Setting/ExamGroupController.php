@@ -50,7 +50,7 @@ class ExamGroupController extends Controller
      */
     public function index(Request $request)
     {
-        $filters = $request->except('page');
+        $filters = $request->except('page', 'sort', 'direction');
         $examGroups = $this->examGroupService->examGroupPaginate($filters);
 
         return view('setting.examGroup.index', [
@@ -199,7 +199,7 @@ class ExamGroupController extends Controller
      */
     public function export(Request $request)
     {
-        $filters = $request->except('page');
+        $filters = $request->except('page', 'sort', 'direction');
 
         $examGroupExport = $this->examGroupService->exportExamGroup($filters);
 
@@ -229,7 +229,7 @@ class ExamGroupController extends Controller
      */
     public function ajax(Request $request): JsonResponse
     {
-        $filters = $request->except('page');
+        $filters = $request->except('page', 'sort', 'direction');
 
         Log::info("Ajax Request:", $request->all());
         $examGroups = $this->examGroupService->getAllExamGroups($filters)->toArray();

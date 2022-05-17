@@ -227,7 +227,7 @@ class RoleController extends Controller
      */
     public function export(Request $request)
     {
-        $filters = $request->except('page');
+        $filters = $request->except('page', 'sort', 'direction');
 
         $roleExport = $this->roleService->exportRole($filters);
 

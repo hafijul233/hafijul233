@@ -55,7 +55,7 @@ class LanguageController extends Controller
      */
     public function index(Request $request)
     {
-        $filters = $request->except('page');
+        $filters = $request->except('page', 'sort', 'direction');
         $languages = $this->languageService->languagePaginate($filters);
 
         return view('backend.resume.language.index', [
@@ -204,7 +204,7 @@ class LanguageController extends Controller
      */
     public function export(Request $request)
     {
-        $filters = $request->except('page');
+        $filters = $request->except('page', 'sort', 'direction');
 
         $languageExport = $this->languageService->exportLanguage($filters);
 

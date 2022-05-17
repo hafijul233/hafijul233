@@ -64,7 +64,7 @@ class UserController extends Controller
      */
     public function index(Request $request): View
     {
-        $filters = $request->except('page');
+        $filters = $request->except('page', 'sort', 'direction');
         $filters['role'] = [2, 3, 4];
 
         if (AuthenticatedSessionService::isSuperAdmin()) {
@@ -246,7 +246,7 @@ class UserController extends Controller
      */
     public function export(Request $request)
     {
-        $filters = $request->except('page');
+        $filters = $request->except('page', 'sort', 'direction');
 
         $userExport = $this->userService->exportUser($filters);
 

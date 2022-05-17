@@ -70,7 +70,7 @@ class ExperienceController extends Controller
      */
     public function index(Request $request)
     {
-        $filters = $request->except('page');
+        $filters = $request->except('page', 'sort', 'direction');
         $experiences = $this->experienceService->experiencePaginate($filters);
 
         return view('backend.resume.experience.index', [
@@ -232,7 +232,7 @@ class ExperienceController extends Controller
      */
     public function export(Request $request)
     {
-        $filters = $request->except('page');
+        $filters = $request->except('page', 'sort', 'direction');
         $experienceExport = $this->experienceService->exportExperience($filters);
         $filename = 'Post-' . date(config('backend.export_datetime')) . '.' . ($filters['format'] ?? 'xlsx');
         return $experienceExport->download($filename, function ($experience) use ($experienceExport) {
@@ -249,7 +249,7 @@ class ExperienceController extends Controller
      */
     public function ajax(Request $request): JsonResponse
     {
-        $filters = $request->except('page');
+        $filters = $request->except('page', 'sort', 'direction');
 
         $experiences = $this->experienceService->getAllExperiences($filters);
 

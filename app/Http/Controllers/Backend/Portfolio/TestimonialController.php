@@ -56,7 +56,7 @@ class TestimonialController extends Controller
      */
     public function index(Request $request)
     {
-        $filters = $request->except('page');
+        $filters = $request->except('page', 'sort', 'direction');
         $testimonials = $this->testimonialService->testimonialPaginate($filters);
 
         return view('backend.portfolio.testimonial.index', [
@@ -205,7 +205,7 @@ class TestimonialController extends Controller
      */
     public function export(Request $request)
     {
-        $filters = $request->except('page');
+        $filters = $request->except('page', 'sort', 'direction');
 
         $testimonialExport = $this->testimonialService->exportTestimonial($filters);
 

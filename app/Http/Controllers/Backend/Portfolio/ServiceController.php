@@ -57,7 +57,7 @@ class ServiceController extends Controller
      */
     public function index(Request $request)
     {
-        $filters = $request->except('page');
+        $filters = $request->except('page', 'sort', 'direction');
         $services = $this->serviceService->servicePaginate($filters);
 
         return view('backend.portfolio.service.index', [
@@ -215,7 +215,7 @@ class ServiceController extends Controller
      */
     public function export(Request $request)
     {
-        $filters = $request->except('page');
+        $filters = $request->except('page', 'sort', 'direction');
 
         $exportFormat = 'xlsx';
 
@@ -242,7 +242,7 @@ class ServiceController extends Controller
      */
     public function ajax(Request $request): JsonResponse
     {
-        $filters = $request->except('page');
+        $filters = $request->except('page', 'sort', 'direction');
 
         $services = $this->serviceService->getAllServices($filters);
 
