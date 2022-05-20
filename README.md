@@ -1,55 +1,40 @@
-# BBD NSDS Implementation Support Project
-This application is intend for enumerator/ applicant registration process assistance.
+### Hi there 👋 , I'm Mohammad Hafijul Islam (Hridoy)!
+![Profile Views](https://gpvc.arturio.dev/hafijul233)
+![image](https://img.shields.io/github/followers/hafijul233?label=follow&style=social)
+    
+Hi there, I'm **Mohammad Hafijul Islam (Hridoy)**, **Software Engineer**, **Web Developer** and a **Open-Source maintainer** 🚀 from Bangladesh 🇧🇩.
 
-## Installation 
-This application is based on [Laravel@8.54](https://laravel.com). with boilerplate of [Adminlte 3](https://adminlte.io/themes/v3/) as UI Template.
-Please follow this steps properly to install this application.
-* Clone/Download as zip this from project/repo from [Github](https://github.com/hafijul233/bbs-nsds)
-* Your PC Must have minimal PHP 7.4 installed to operate this application
-* For Windows please Download [XAMPP](https://www.apachefriends.org/download.html) for Development Environment.
-* Install [Composer](https://getcomposer.org/download/) package manager for application dependence.
-* Install [Node/NPM](https://nodejs.org/en/) for Asset Compilations
-* Mysql Database Server configuration **XAMPP** comes with prebuild mysql db server setup
+### Talking about Personal Stuffs:
+  - 🔭 I’m currently working as Professional Software Engineer
+  - ⚡ Excited to create open-source projects
+  - 🌱 I’m currently learning **Software Architecture** and **Software Service Oriented Design**
+  - 💕 I'm currently maintain [**hafijul233/ci-recharge**](https://packagist.org/packages/hafijul233/ci-recharge), **hafijul233/notify**, [**hafijul233/bolierplate**](https://packagist.org/packages/hafijul233/boilerplate),  [**hafijul233/form**](https://packagist.org/packages/hafijul233/form), 
+  - 📫 You can reach me at <a href="mailto:hafijul233@gmail.com">hafijul233@gmail.com</a>
+ 
+ <p align="left">
+    <img src="https://github-readme-stats.vercel.app/api?username=hafijul233&show_icons=true&count_private=true" height=214 />
+    <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=hafijul233&layout=compact" height=214 />
+</p>
+<p align="left"> 
+    <img src="https://github-profile-trophy.vercel.app/?username=hafijul233&row=2&column=4" alt="hafijul233" />
+    <img src="https://github-readme-streak-stats.herokuapp.com/?user=hafijul233&layout=compact" height="220" alt="Hafijul Islam Contributions" />
+</p>
 
-If you have All this pre-required tools installed then follow this process to step by step .
-* Go To Project Directory using File Explorer then rename the .env.example file to .env
-* Open your DBMS Tool like **PHPmyAdmin**/ any other tools create a new Database there  
-* Open .env File using any text editor then change the DB Configuration values and save
-* Open Command Prompt/Git Bash Window on Project directory and run the command to install package
-```bash
-composer install
-```
-* Run the migration command to load database with application database schema
-```bash
-php artisan migrate:refresh --seed
-```
-* After package installation complete.then configure application encryption key using this command
-```bash
-php artisan key:generate
-```
-* Now, to install npm packages run this command
-```bash
-npm install
-```
-* Finally, Run thwe asset compilation command
-```bash
-npm run dev
-```
-Installation process is complete.
+### Professional Skills:
+- Language
+![HTML5](https://img.shields.io/badge/-HTML5-DD4B25?style=plastic&logo=html5&logoColor=white)
+![CSS3](https://img.shields.io/badge/-CSS3-146EB0?style=plastic&logo=css3&logoColor=white)
+![Bootstrap](https://img.shields.io/badge/-Bootstrap-8613F6?style=plastic&logo=bootstrap&logoColor=white)
+![MarkDown](https://img.shields.io/badge/-Markdown-black?style=plastic&logo=markdown&logoColor=white)
+![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=plastic&logo=javascript&logoColor=%23F7DF1E)
+![PHP](https://img.shields.io/badge/-PHP-7377AD?style=plastic&logo=php&logoColor=white)
+![Laravel](https://img.shields.io/badge/-Laravel-E8111E?style=plastic&logo=laravel&logoColor=white)
+![MYSQL](https://img.shields.io/badge/-MySQL-DE8A00?style=plastic&logo=mysql&logoColor=white)
+![PostgreSql](https://img.shields.io/badge/-PostgreSql-DE8A00?style=plastic&logo=posttgres&logoColor=white)
 
-Run this command to start application
-```bash
-php artisan serve --port=8000
-```
-Application start on **[127.0.0.1:8000](http://127.0.0.1:8000)** address
-
-Administrator Login URL:**[Admin Login](http://127.0.0.1:8000/backend/login/)**
-
-Admin Email: **hafijul233@gmail.com**
-
-Admin Password: **password**
-
-You can change it after first login.
-
-Default Password for all user will be **password**
-
+### Let's connect!
+<p>
+    <a href="https://www.linkedin.com/in/mohammad-hafijul-islam-b9a882137/" target="blank"><img align="left" alt="Mohammad Hafijul Islam's LinkedIn" width="22px" src="https://cdn.jsdelivr.net/npm/simple-icons@v3/icons/linkedin.svg" /></a>
+    <a href="https://web.facebook.com/hafijul233" target="blank"><img align="left" alt="Mohammad Hafijul Islam's Facebook" width="22px" src="https://cdn.jsdelivr.net/npm/simple-icons@v3/icons/facebook.svg" /></a>
+    <a href="https://twitter.com/hafijul233" target="blank"><img align="left" alt="Mohammad Hafijul Islam's Twitter" width="22px" src="https://cdn.jsdelivr.net/npm/simple-icons@v3/icons/twitter.svg" /></a>
+</p>
