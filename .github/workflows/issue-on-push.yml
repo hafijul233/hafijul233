@@ -1,6 +1,8 @@
 name: Create an issue on push
 on:
   push:
+    branches:
+      - master
     paths:
       - '**.php'
       - 'phpstan.neon.dist'

@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('backend.layouts.app')
 
 @section('title', __('menu-sidebar.Skills'))
 
@@ -27,7 +27,7 @@
 @section('breadcrumbs', \Breadcrumbs::render())
 
 @section('actions')
-    {!! \Html::linkButton(__('Add Skill'), 'backend.resume.skills.create', [], 'fas fa-plus', 'success') !!}
+    {!! \Html::linkButton(__('resume.skill.Add Skill'), 'backend.resume.skills.create', [], 'fas fa-plus', 'success') !!}
     {{--{!! \Html::bulkDropdown('backend.resume.skills', 0, ['color' => 'warning']) !!}--}}
 @endsection
 
@@ -47,6 +47,7 @@
                                     <tr>
                                         <th class="align-middle">@sortablelink('id', '#')</th>
                                         <th>@sortablelink('name', __('common.Name'))</th>
+                                        <th>@sortablelink('percentage', __('common.Percentage'))</th>
                                         <th class="text-center">@sortablelink('enabled', __('common.Enabled'))</th>
                                         <th class="text-center">@sortablelink('created_at', __('common.Created'))</th>
                                         <th class="text-center">{!! __('common.Actions') !!}</th>
@@ -67,6 +68,7 @@
                                                     {{ $skill->name }}
                                                 @endcan
                                             </td>
+                                            <td>{{ $skill->percentage ?? 0 }}</td>
                                             <td class="text-center exclude-search">
                                                 {!! \Html::enableToggle($skill) !!}
                                             </td>

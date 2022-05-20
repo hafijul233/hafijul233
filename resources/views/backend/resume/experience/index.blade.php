@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('backend.layouts.app')
 
 @section('title', __('menu-sidebar.Experiences'))
 
@@ -48,7 +48,7 @@
                                         <th class="align-middle">@sortablelink('id', '#')</th>
                                         <th>@sortablelink('title', __('resume.experience.Title'))</th>
                                         <th>@sortablelink('organization', __('resume.experience.Organization'))</th>
-                                        <th class="text-center">@sortablelink('type', 'Type')</th>
+                                        <th class="text-center">@sortablelink('employmentType.name', 'Type')</th>
                                         <th class="text-center">@sortablelink('enabled', __('common.Enabled'))</th>
                                         <th class="text-center">@sortablelink('created_at', __('common.Created'))</th>
                                         <th class="text-center">{!! __('common.Actions') !!}</th>
@@ -73,7 +73,7 @@
                                                 {{ $experience->organization ?? null }}
                                             </td>
                                             <td class="text-center">
-                                                {{ \App\Supports\Constant::EMPLOYEEMENT_TYPE[$experience->type] }}
+                                                {!! (isset($experience->employmentType) ? $experience->employmentType->name : null) !!}
                                             </td>
 
                                             <td class="text-center exclude-search">

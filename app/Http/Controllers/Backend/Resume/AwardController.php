@@ -57,7 +57,7 @@ class AwardController extends Controller
      */
     public function index(Request $request)
     {
-        $filters = $request->except('page');
+        $filters = $request->except('page', 'sort', 'direction');
         $awards = $this->awardService->awardPaginate($filters);
 
         return view('backend.resume.award.index', [
@@ -206,11 +206,11 @@ class AwardController extends Controller
      */
     public function export(Request $request)
     {
-        $filters = $request->except('page');
+        $filters = $request->except('page', 'sort', 'direction');
 
         $awardExport = $this->awardService->exportAward($filters);
 
-        $filename = 'Comment-' . date('Ymd-His') . '.' . ($filters['format'] ?? 'xlsx');
+        $filename = 'Comment-' . date(config('backend.export_datetime')) . '.' . ($filters['format'] ?? 'xlsx');
 
         return $awardExport->download($filename, function ($award) use ($awardExport) {
             return $awardExport->map($award);
@@ -225,40 +225,5 @@ class AwardController extends Controller
     public function import()
     {
         return view('backend.resume.awardimport');
-    }
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @return Application|Factory|View
-     * @throws Exception
-     */
-    public function importBulk(Request $request)
-    {
-        $filters = $request->except('page');
-        $awards = $this->awardService->getAllAwards($filters);
-
-        return view('backend.resume.awardindex', [
-            'awards' => $awards
-        ]);
-    }
-
-    /**
-     * Display a detail of the resource.
-     *
-     * @return StreamedResponse|string
-     * @throws Exception
-     */
-    public function print(Request $request)
-    {
-        $filters = $request->except('page');
-
-        $awardExport = $this->awardService->exportAward($filters);
-
-        $filename = 'Comment-' . date('Ymd-His') . '.' . ($filters['format'] ?? 'xlsx');
-
-        return $awardExport->download($filename, function ($award) use ($awardExport) {
-            return $awardExport->map($award);
-        });
     }
 }

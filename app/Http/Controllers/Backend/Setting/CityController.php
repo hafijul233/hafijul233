@@ -49,7 +49,7 @@ class CityController extends Controller
      */
     public function index(Request $request)
     {
-        $filters = $request->except('page');
+        $filters = $request->except('page', 'sort', 'direction');
         $citys = $this->cityService->cityPaginate($filters);
 
         return view('setting.city.index', [
@@ -198,11 +198,11 @@ class CityController extends Controller
      */
     public function export(Request $request)
     {
-        $filters = $request->except('page');
+        $filters = $request->except('page', 'sort', 'direction');
 
         $cityExport = $this->cityService->exportCity($filters);
 
-        $filename = 'City-' . date('Ymd-His') . '.' . ($filters['format'] ?? 'xlsx');
+        $filename = 'City-' . date(config('backend.export_datetime')) . '.' . ($filters['format'] ?? 'xlsx');
 
         return $cityExport->download($filename, function ($city) use ($cityExport) {
             return $cityExport->map($city);
@@ -220,42 +220,6 @@ class CityController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
-     *
-     * @return Application|Factory|View
-     * @throws Exception
-     */
-    public function importBulk(Request $request)
-    {
-        $filters = $request->except('page');
-        $citys = $this->cityService->getAllCountries($filters);
-
-        return view('setting.city.index', [
-            'citys' => $citys
-        ]);
-    }
-
-    /**
-     * Display a detail of the resource.
-     *
-     * @return StreamedResponse|string
-     * @throws Exception
-     */
-    public function print(Request $request)
-    {
-        $filters = $request->except('page');
-
-        $cityExport = $this->cityService->exportCity($filters);
-
-        $filename = 'City-' . date('Ymd-His') . '.' . ($filters['format'] ?? 'xlsx');
-
-        return $cityExport->download($filename, function ($city) use ($cityExport) {
-            return $cityExport->map($city);
-        });
-    }
-
-
-    /**
      * Display a detail of the resource.
      *
      * @param Request $request
@@ -264,7 +228,7 @@ class CityController extends Controller
      */
     public function ajax(Request $request): JsonResponse
     {
-        $filters = $request->except('page');
+        $filters = $request->except('page', 'sort', 'direction');
 
         $cities = $this->cityService->getAllCities($filters)->toArray();
 

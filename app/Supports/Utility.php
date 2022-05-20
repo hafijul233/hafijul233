@@ -217,28 +217,22 @@ class Utility
     }
 
     /**
-     * @param string $code
-     * @return mixed
-     */
-    public static function getExamLevelByCode(string $code)
-    {
-        return ExamLevel::where('code', '=', $code)->first();
-    }
-
-    /**
+     * Truncate string to max allowed length
      *
-     * @param int $exam_level_id
-     * @return array
+     * @param string $string
+     * @param int $maxAllowedLength
+     * @param int $startPosition
+     * @return string
      */
-    public static function getExamTitleById(int $exam_level_id)
+    public static function textTruncate(string $string, int $maxAllowedLength = 30, int $startPosition = 0): string
     {
-        $examTitleCollection = ExamTitle::where('exam_level_id', '=', $exam_level_id)->get();
+        $length  = strlen($string);
 
-        $examTitleArray = [];
-        foreach ($examTitleCollection as $item):
-            $examTitleArray[$item->id] = $item->name;
-        endforeach;
+        $string = ($length > $maxAllowedLength)
+            ? (substr($string, $startPosition, $maxAllowedLength) . '...')
+            : $string;
 
-        return $examTitleArray;
+        return $string;
     }
+
 }

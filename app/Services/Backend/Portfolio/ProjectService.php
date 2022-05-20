@@ -3,7 +3,7 @@
 namespace App\Services\Backend\Portfolio;
 
 use App\Abstracts\Service\Service;
-use App\Exports\Backend\Organization\ProjectExport;
+use App\Exports\Backend\Portfolio\ProjectExport;
 use App\Models\Backend\Portfolio\Project;
 use App\Repositories\Eloquent\Backend\Portfolio\ProjectRepository;
 use App\Supports\Constant;
@@ -27,7 +27,7 @@ class ProjectService extends Service
     private $projectRepository;
 
     /**
-     * PostProject constructor.
+     * ProjectProject constructor.
      * @param ProjectRepository $projectRepository
      */
     public function __construct(ProjectRepository $projectRepository)
@@ -37,7 +37,7 @@ class ProjectService extends Service
     }
 
     /**
-     * Get All Post models as collection
+     * Get All Project models as collection
      *
      * @param array $filters
      * @param array $eagerRelations
@@ -50,7 +50,7 @@ class ProjectService extends Service
     }
 
     /**
-     * Create Post Model Pagination
+     * Create Project Model Pagination
      *
      * @param array $filters
      * @param array $eagerRelations
@@ -63,7 +63,7 @@ class ProjectService extends Service
     }
 
     /**
-     * Show Post Model
+     * Show Project Model
      *
      * @param int $id
      * @param bool $purge
@@ -76,7 +76,7 @@ class ProjectService extends Service
     }
 
     /**
-     * Save Post Model
+     * Save Project Model
      *
      * @param array $inputs
      * @return array
@@ -89,15 +89,15 @@ class ProjectService extends Service
         try {
             $newProject = $this->projectRepository->create($inputs);
             if ($newProject instanceof Project) {
-                if ($inputs['image'] instanceof UploadedFile) {
+                if (isset($inputs['image']) && $inputs['image'] instanceof UploadedFile) {
                     $newProject->addMedia($inputs['image'])->toMediaCollection('projects');
                 }
                 DB::commit();
-                return ['status' => true, 'message' => __('New Post Created'),
+                return ['status' => true, 'message' => __('New Project Created'),
                     'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
             } else {
                 DB::rollBack();
-                return ['status' => false, 'message' => __('New Post Creation Failed'),
+                return ['status' => false, 'message' => __('New Project Creation Failed'),
                     'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!'];
             }
         } catch (Exception $exception) {
@@ -109,7 +109,7 @@ class ProjectService extends Service
     }
 
     /**
-     * Update Post Model
+     * Update Project Model
      *
      * @param array $inputs
      * @param $id
@@ -127,15 +127,15 @@ class ProjectService extends Service
                         $project->addMedia($inputs['image'])->toMediaCollection('projects');
                     }
                     DB::commit();
-                    return ['status' => true, 'message' => __('Post Info Updated'),
+                    return ['status' => true, 'message' => __('Project Info Updated'),
                         'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
                 } else {
                     DB::rollBack();
-                    return ['status' => false, 'message' => __('Post Info Update Failed'),
+                    return ['status' => false, 'message' => __('Project Info Update Failed'),
                         'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!'];
                 }
             } else {
-                return ['status' => false, 'message' => __('Post Model Not Found'),
+                return ['status' => false, 'message' => __('Project Model Not Found'),
                     'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Alert!'];
             }
         } catch (Exception $exception) {
@@ -147,7 +147,7 @@ class ProjectService extends Service
     }
 
     /**
-     * Destroy Post Model
+     * Destroy Project Model
      *
      * @param $id
      * @return array
@@ -159,11 +159,11 @@ class ProjectService extends Service
         try {
             if ($this->projectRepository->delete($id)) {
                 DB::commit();
-                return ['status' => true, 'message' => __('Post is Trashed'),
+                return ['status' => true, 'message' => __('Project is Trashed'),
                     'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
             } else {
                 DB::rollBack();
-                return ['status' => false, 'message' => __('Post is Delete Failed'),
+                return ['status' => false, 'message' => __('Project is Delete Failed'),
                     'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!'];
             }
         } catch (Exception $exception) {
@@ -175,7 +175,7 @@ class ProjectService extends Service
     }
 
     /**
-     * Restore Post Model
+     * Restore Project Model
      *
      * @param $id
      * @return array
@@ -187,11 +187,11 @@ class ProjectService extends Service
         try {
             if ($this->projectRepository->restore($id)) {
                 DB::commit();
-                return ['status' => true, 'message' => __('Post is Restored'),
+                return ['status' => true, 'message' => __('Project is Restored'),
                     'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
             } else {
                 DB::rollBack();
-                return ['status' => false, 'message' => __('Post is Restoration Failed'),
+                return ['status' => false, 'message' => __('Project is Restoration Failed'),
                     'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!'];
             }
         } catch (Exception $exception) {

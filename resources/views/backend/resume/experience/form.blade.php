@@ -1,4 +1,4 @@
-@include('layouts.includes.html-editor')
+@include('backend.layouts.includes.html-editor')
 
 <div class="card-body">
     <div class="row">
@@ -6,7 +6,7 @@
             {!! \Form::nText('title', __('resume.experience.Title'), old('title', $experience->title ?? null), true) !!}
         </div>
         <div class="col-md-6">
-            {!! \Form::nSelect('type', __('resume.experience.Type'), \App\Supports\Constant::EMPLOYEEMENT_TYPE, old('type', $experience->type ?? null), false) !!}
+            {!! \Form::nSelect('type', __('resume.experience.Employment Type'), ($employment_types ?? []), old('type', (isset($experience->employmentType) ? $experience->employmentType->id : null)), false) !!}
         </div>
         <div class="col-md-12">
             {!! \Form::nText('organization', __('resume.experience.Organization'), old('organization', $experience->organization ?? null), true) !!}

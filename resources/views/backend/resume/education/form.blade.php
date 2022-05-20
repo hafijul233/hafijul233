@@ -1,4 +1,4 @@
-@include('layouts.includes.html-editor')
+@include('backend.layouts.includes.html-editor')
 
 <div class="card-body">
     <div class="row">

@@ -22,8 +22,8 @@ class CreateCommentsTable extends Migration
             $table->id();
             $table->foreignId('user_id')->nullable();
             $table->foreignId('post_id')->nullable();
-            $table->foreignId('parent_id')->nullable();
-            $table->longText('content')->nullable();
+            $table->foreignId('parent_id')->nullable()->constrained('comments');
+            $table->mediumText('message')->nullable();
             $table->enum('enabled', array_keys(Constant::ENABLED_OPTIONS))
                 ->default(Constant::ENABLED_OPTION)->nullable();
             $table->dateTime('created_at')->nullable();

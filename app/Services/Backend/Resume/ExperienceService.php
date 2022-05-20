@@ -3,7 +3,7 @@
 namespace App\Services\Backend\Resume;
 
 use App\Abstracts\Service\Service;
-use App\Exports\Backend\Organization\ExperienceExport;
+use App\Exports\Backend\Portfolio\ExperienceExport;
 use App\Models\Backend\Portfolio\Post;
 use App\Models\Backend\Resume\Experience;
 use App\Repositories\Eloquent\Backend\Resume\ExperienceRepository;

@@ -55,7 +55,7 @@ class StateController extends Controller
      */
     public function index(Request $request)
     {
-        $filters = $request->except('page');
+        $filters = $request->except('page', 'sort', 'direction');
         $states = $this->stateService->statePaginate($filters);
 
         return view('backend.setting.state.index', [
@@ -205,11 +205,11 @@ class StateController extends Controller
      */
     public function export(Request $request)
     {
-        $filters = $request->except('page');
+        $filters = $request->except('page', 'sort', 'direction');
 
         $stateExport = $this->stateService->exportState($filters);
 
-        $filename = 'State-' . date('Ymd-His') . '.' . ($filters['format'] ?? 'xlsx');
+        $filename = 'State-' . date(config('backend.export_datetime')) . '.' . ($filters['format'] ?? 'xlsx');
 
         return $stateExport->download($filename, function ($state) use ($stateExport) {
             return $stateExport->map($state);
@@ -227,41 +227,6 @@ class StateController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
-     *
-     * @return Application|Factory|View
-     * @throws Exception
-     */
-    public function importBulk(Request $request)
-    {
-        $filters = $request->except('page');
-        $states = $this->stateService->getAllStates($filters);
-
-        return view('backend.setting.state.index', [
-            'states' => $states
-        ]);
-    }
-
-    /**
-     * Display a detail of the resource.
-     *
-     * @return StreamedResponse|string
-     * @throws Exception
-     */
-    public function print(Request $request)
-    {
-        $filters = $request->except('page');
-
-        $stateExport = $this->stateService->exportState($filters);
-
-        $filename = 'State-' . date('Ymd-His') . '.' . ($filters['format'] ?? 'xlsx');
-
-        return $stateExport->download($filename, function ($state) use ($stateExport) {
-            return $stateExport->map($state);
-        });
-    }
-
-    /**
      * Display a detail of the resource.
      *
      * @param Request $request
@@ -270,7 +235,7 @@ class StateController extends Controller
      */
     public function ajax(Request $request): JsonResponse
     {
-        $filters = $request->except('page');
+        $filters = $request->except('page', 'sort', 'direction');
 
         $states = $this->stateService->getAllStates($filters)->toArray();
 

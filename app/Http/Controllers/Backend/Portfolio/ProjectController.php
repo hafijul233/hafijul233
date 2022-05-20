@@ -3,8 +3,7 @@
 namespace App\Http\Controllers\Backend\Portfolio;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Backend\Portfolio\EducationRequest;
-use App\Http\Requests\Backend\Portfolio\ExperienceRequest;
+use App\Http\Requests\Backend\Portfolio\ProjectRequest;
 use App\Services\Auth\AuthenticatedSessionService;
 use App\Services\Backend\Portfolio\ProjectService;
 use App\Supports\Utility;
@@ -57,7 +56,7 @@ class ProjectController extends Controller
      */
     public function index(Request $request)
     {
-        $filters = $request->except('page');
+        $filters = $request->except('page', 'sort', 'direction');
         $projects = $this->projectService->projectPaginate($filters);
 
         return view('backend.portfolio.project.index', [
@@ -82,7 +81,7 @@ class ProjectController extends Controller
      * @return RedirectResponse
      * @throws Exception|Throwable
      */
-    public function store(EducationRequest $request): RedirectResponse
+    public function store(ProjectRequest $request): RedirectResponse
     {
         $confirm = $this->projectService->storeProject($request->except('_token'));
         if ($confirm['status'] == true) {
@@ -134,12 +133,12 @@ class ProjectController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param ExperienceRequest $request
+     * @param ProjectRequest $request
      * @param  $id
      * @return RedirectResponse
      * @throws Throwable
      */
-    public function update(EducationRequest $request, $id): RedirectResponse
+    public function update(ProjectRequest $request, $id): RedirectResponse
     {
         $confirm = $this->projectService->updateProject($request->except('_token', 'submit', '_method'), $id);
 
@@ -206,11 +205,11 @@ class ProjectController extends Controller
      */
     public function export(Request $request)
     {
-        $filters = $request->except('page');
+        $filters = $request->except('page', 'sort', 'direction');
 
         $projectExport = $this->projectService->exportProject($filters);
 
-        $filename = 'Project-' . date('Ymd-His') . '.' . ($filters['format'] ?? 'xlsx');
+        $filename = 'Project-' . date(config('backend.export_datetime')) . '.' . ($filters['format'] ?? 'xlsx');
 
         return $projectExport->download($filename, function ($project) use ($projectExport) {
             return $projectExport->map($project);
@@ -225,40 +224,5 @@ class ProjectController extends Controller
     public function import()
     {
         return view('backend.portfolio.projectimport');
-    }
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @return Application|Factory|View
-     * @throws Exception
-     */
-    public function importBulk(Request $request)
-    {
-        $filters = $request->except('page');
-        $projects = $this->projectService->getAllProjects($filters);
-
-        return view('backend.portfolio.projectindex', [
-            'projects' => $projects
-        ]);
-    }
-
-    /**
-     * Display a detail of the resource.
-     *
-     * @return StreamedResponse|string
-     * @throws Exception
-     */
-    public function print(Request $request)
-    {
-        $filters = $request->except('page');
-
-        $projectExport = $this->projectService->exportProject($filters);
-
-        $filename = 'Project-' . date('Ymd-His') . '.' . ($filters['format'] ?? 'xlsx');
-
-        return $projectExport->download($filename, function ($project) use ($projectExport) {
-            return $projectExport->map($project);
-        });
     }
 }

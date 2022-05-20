@@ -3,7 +3,6 @@
 namespace App\Services\Backend\Blog;
 
 use App\Abstracts\Service\Service;
-use App\Exports\Backend\Organization\PostExport;
 use App\Models\Backend\Blog\Post;
 use App\Repositories\Eloquent\Backend\Blog\PostRepository;
 use App\Supports\Constant;
@@ -11,6 +10,7 @@ use Exception;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\DB;
 use Throwable;
 
@@ -84,17 +84,14 @@ class PostService extends Service
      */
     public function storePost(array $inputs): array
     {
-        $newPostInfo = $this->formatPostInfo($inputs);
         DB::beginTransaction();
         try {
-            $newPost = $this->postRepository->create($newPostInfo);
+            $newPost = $this->postRepository->create($inputs);
             if ($newPost instanceof Post) {
-                //handling Comment List
-                $newPost->surveys()->attach($inputs['survey_id']);
-                $newPost->previousPostings()->attach($inputs['prev_post_state_id']);
-                $newPost->futurePostings()->attach($inputs['future_post_state_id']);
+                if ($inputs['image'] instanceof UploadedFile) {
+                    $newPost->addMedia($inputs['image'])->toMediaCollection('posts');
+                }
                 $newPost->save();
-
                 DB::commit();
                 return ['status' => true, 'message' => __('New Post Created'),
                     'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
@@ -112,48 +109,6 @@ class PostService extends Service
     }
 
     /**
-     * Return formatted applicant profile format array
-     *
-     * @param array $inputs
-     * @return array
-     */
-    private function formatPostInfo(array $inputs)
-    {
-        $postInfo = [];
-        $postInfo["survey_id"] = null;
-        $postInfo["gender_id"] = $inputs['gender_id'] ?? null;
-        $postInfo["dob"] = $inputs['dob'] ?? null;
-        $postInfo["name"] = $inputs["name"] ?? null;
-        $postInfo["name_bd"] = $inputs["name_bd"] ?? null;
-        $postInfo["father"] = $inputs["father"] ?? null;
-        $postInfo["father_bd"] = $inputs["father_bd"] ?? null;
-        $postInfo["mother"] = $inputs["mother"] ?? null;
-        $postInfo["mother_bd"] = $inputs["mother_bd"] ?? null;
-        $postInfo["nid"] = $inputs["nid"] ?? null;
-        $postInfo["mobile_1"] = $inputs["mobile_1"] ?? null;
-        $postInfo["mobile_2"] = $inputs["mobile_2"] ?? null;
-        $postInfo["email"] = $inputs["email"] ?? null;
-        $postInfo["present_address"] = $inputs["present_address"] ?? null;
-        $postInfo["present_address_bd"] = $inputs["present_address_bd"] ?? null;
-        $postInfo["permanent_address"] = $inputs["permanent_address"] ?? null;
-        $postInfo["permanent_address_bd"] = $inputs["permanent_address_bd"] ?? null;
-        $postInfo["exam_level"] = $inputs["exam_level"] ?? null;
-        $postInfo["whatsapp"] = $inputs["whatsapp"] ?? null;
-        $postInfo["facebook"] = $inputs["facebook"] ?? null;
-
-        $postInfo["is_employee"] = $inputs["is_employee"] ?? 'no';
-        $postInfo["designation"] = null;
-        $postInfo["company"] = null;
-
-        if ($postInfo["is_employee"] == 'yes') {
-            $postInfo["designation"] = $inputs['designation'] ?? null;
-            $postInfo["company"] = $inputs['company'] ?? null;
-        }
-
-        return $postInfo;
-    }
-
-    /**
      * Update Post Model
      *
      * @param array $inputs
@@ -163,16 +118,14 @@ class PostService extends Service
      */
     public function updatePost(array $inputs, $id): array
     {
-        $newPostInfo = $this->formatPostInfo($inputs);
         DB::beginTransaction();
         try {
             $post = $this->postRepository->show($id);
             if ($post instanceof Post) {
-                if ($this->postRepository->update($newPostInfo, $id)) {
-                    //handling Comment List
-                    $post->surveys()->sync($inputs['survey_id']);
-                    $post->previousPostings()->sync($inputs['prev_post_state_id']);
-                    $post->futurePostings()->sync($inputs['future_post_state_id']);
+                if ($this->postRepository->update($inputs, $id)) {
+                    if (isset($inputs['image']) && $inputs['image'] instanceof UploadedFile) {
+                        $post->addMedia($inputs['image'])->toMediaCollection('posts');
+                    }
                     $post->save();
                     DB::commit();
                     return ['status' => true, 'message' => __('Post Info Updated'),

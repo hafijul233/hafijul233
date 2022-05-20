@@ -50,7 +50,7 @@ class CHTML
     public static function pagination($collection, string $type = 'default')
     {
         return $collection->onEachSide(2)->appends(request()->query())
-            ->links('layouts.paginate.' . $type . '-paginate');
+            ->links('backend.layouts.partials.paginate.' . $type . '-paginate');
     }
 
     /**
@@ -62,25 +62,25 @@ class CHTML
     {
         $HTML = '';
         if (in_array('delete', $actions)) :
-            $HTML .= view("layouts.partials.soft-delete-modal", [
+            $HTML .= view("backend.layouts.partials.soft-delete-modal", [
                 'model' => $modelName
             ]);
         endif;
 
         if (in_array('restore', $actions)) :
-            $HTML .= view("layouts.partials.restore-modal", [
+            $HTML .= view("backend.layouts.partials.restore-modal", [
                 'model' => $modelName
             ]);
         endif;
 
         if (in_array('export', $actions)) :
-            $HTML .= view("layouts.partials.export-modal", [
+            $HTML .= view("backend.layouts.partials.export-modal", [
                 'model' => $modelName
             ]);
         endif;
 
         if (in_array('import', $actions)) :
-            $HTML .= view("layouts.partials.import-modal", [
+            $HTML .= view("backend.layouts.partials.import-modal", [
                 'model' => $modelName
             ]);
         endif;

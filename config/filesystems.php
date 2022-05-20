@@ -49,20 +49,6 @@ return [
             'visibility' => 'public',
         ],
 
-        'upload' => [
-            'driver' => 'local',
-            'root' => public_path('uploads'),
-            'url' => env('APP_URL') . '/upload',
-            'visibility' => 'public',
-        ],
-
-        'media' => [
-            'driver' => 'local',
-            'root' => public_path('media'),
-            'url' => env('APP_URL') . '/media',
-            'visibility' => 'public',
-        ],
-
         'avatar' => [
             'driver' => 'local',
             'root' => public_path('media/avatars'),
@@ -113,10 +99,28 @@ return [
                 ],
             ],
         ],
+
         'project' => [
             'driver' => 'local',
             'root' => public_path('media/projects'),
             'url' => env('APP_URL') . '/media/projects',
+            'visibility' => 'public',
+            'permissions' => [
+                'file' => [
+                    'public' => 0644,
+                    'private' => 0644,
+                ],
+                'dir' => [
+                    'public' => 0775,
+                    'private' => 0775,
+                ],
+            ],
+        ],
+
+        'post' => [
+            'driver' => 'local',
+            'root' => public_path('media/posts'),
+            'url' => env('APP_URL') . '/media/posts',
             'visibility' => 'public',
             'permissions' => [
                 'file' => [

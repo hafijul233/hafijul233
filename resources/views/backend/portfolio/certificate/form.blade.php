@@ -1,4 +1,4 @@
-@include('layouts.includes.html-editor')
+@include('backend.layouts.includes.html-editor')
 
 <div class="card-body">
     <div class="row">
@@ -6,7 +6,7 @@
             {!! \Form::nText('name', __('common.Name'), old('name', $certificate->name ?? null), true) !!}
         </div>
         <div class="col-md-6">
-            {!! \Form::nText('organization', __('portfolio.certificate.Organization'), old('organization', $certificate->organization ?? null), true) !!}
+            {!! \Form::nText('organization', __('portfolio.certificate.Portfolio'), old('organization', $certificate->organization ?? null), true) !!}
         </div>
         <div class="col-md-6">
             {!! \Form::nDate('issue_date', __('portfolio.certificate.Issue Date'), old('issue_date', $certificate->issue_date ?? null), true) !!}

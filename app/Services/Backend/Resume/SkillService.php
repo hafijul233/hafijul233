@@ -3,9 +3,10 @@
 namespace App\Services\Backend\Resume;
 
 use App\Abstracts\Service\Service;
-use App\Exports\Backend\Organization\SkillExport;
-use App\Models\Backend\Portfolio\Post;
+use App\Exports\Backend\Portfolio\SkillExport;
+use App\Models\Backend\Resume\Skill;
 use App\Repositories\Eloquent\Backend\Portfolio\ServiceRepository;
+use App\Repositories\Eloquent\Backend\Resume\SkillRepository;
 use App\Supports\Constant;
 use Exception;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
@@ -21,22 +22,22 @@ use Throwable;
 class SkillService extends Service
 {
     /**
-     * @var ServiceRepository
+     * @var SkillRepository
      */
     private $skillRepository;
 
     /**
-     * PostService constructor.
-     * @param ServiceRepository $skillRepository
+     * SkillService constructor.
+     * @param SkillRepository $skillRepository
      */
-    public function __construct(ServiceRepository $skillRepository)
+    public function __construct(SkillRepository $skillRepository)
     {
         $this->skillRepository = $skillRepository;
         $this->skillRepository->itemsPerPage = 10;
     }
 
     /**
-     * Get All Post models as collection
+     * Get All Skill models as collection
      *
      * @param array $filters
      * @param array $eagerRelations
@@ -49,7 +50,7 @@ class SkillService extends Service
     }
 
     /**
-     * Create Post Model Pagination
+     * Create Skill Model Pagination
      *
      * @param array $filters
      * @param array $eagerRelations
@@ -62,7 +63,7 @@ class SkillService extends Service
     }
 
     /**
-     * Show Post Model
+     * Show Skill Model
      *
      * @param int $id
      * @param bool $purge
@@ -75,7 +76,7 @@ class SkillService extends Service
     }
 
     /**
-     * Save Post Model
+     * Save Skill Model
      *
      * @param array $inputs
      * @return array
@@ -84,23 +85,18 @@ class SkillService extends Service
      */
     public function storeSkill(array $inputs): array
     {
-        $newSkillInfo = $this->formatSkillInfo($inputs);
         DB::beginTransaction();
         try {
-            $newSkill = $this->skillRepository->create($newSkillInfo);
-            if ($newSkill instanceof Post) {
-                //handling Comment List
-                $newSkill->surveys()->attach($inputs['survey_id']);
-                $newSkill->previousPostings()->attach($inputs['prev_post_state_id']);
-                $newSkill->futurePostings()->attach($inputs['future_post_state_id']);
+            $newSkill = $this->skillRepository->create($inputs);
+            if ($newSkill instanceof Skill) {
                 $newSkill->save();
 
                 DB::commit();
-                return ['status' => true, 'message' => __('New Post Created'),
+                return ['status' => true, 'message' => __('New Skill Created'),
                     'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
             } else {
                 DB::rollBack();
-                return ['status' => false, 'message' => __('New Post Creation Failed'),
+                return ['status' => false, 'message' => __('New Skill Creation Failed'),
                     'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!'];
             }
         } catch (Exception $exception) {
@@ -112,49 +108,7 @@ class SkillService extends Service
     }
 
     /**
-     * Return formatted applicant profile format array
-     *
-     * @param array $inputs
-     * @return array
-     */
-    private function formatSkillInfo(array $inputs)
-    {
-        $skillInfo = [];
-        $skillInfo["survey_id"] = null;
-        $skillInfo["gender_id"] = $inputs['gender_id'] ?? null;
-        $skillInfo["dob"] = $inputs['dob'] ?? null;
-        $skillInfo["name"] = $inputs["name"] ?? null;
-        $skillInfo["name_bd"] = $inputs["name_bd"] ?? null;
-        $skillInfo["father"] = $inputs["father"] ?? null;
-        $skillInfo["father_bd"] = $inputs["father_bd"] ?? null;
-        $skillInfo["mother"] = $inputs["mother"] ?? null;
-        $skillInfo["mother_bd"] = $inputs["mother_bd"] ?? null;
-        $skillInfo["nid"] = $inputs["nid"] ?? null;
-        $skillInfo["mobile_1"] = $inputs["mobile_1"] ?? null;
-        $skillInfo["mobile_2"] = $inputs["mobile_2"] ?? null;
-        $skillInfo["email"] = $inputs["email"] ?? null;
-        $skillInfo["present_address"] = $inputs["present_address"] ?? null;
-        $skillInfo["present_address_bd"] = $inputs["present_address_bd"] ?? null;
-        $skillInfo["permanent_address"] = $inputs["permanent_address"] ?? null;
-        $skillInfo["permanent_address_bd"] = $inputs["permanent_address_bd"] ?? null;
-        $skillInfo["exam_level"] = $inputs["exam_level"] ?? null;
-        $skillInfo["whatsapp"] = $inputs["whatsapp"] ?? null;
-        $skillInfo["facebook"] = $inputs["facebook"] ?? null;
-
-        $skillInfo["is_employee"] = $inputs["is_employee"] ?? 'no';
-        $skillInfo["designation"] = null;
-        $skillInfo["company"] = null;
-
-        if ($skillInfo["is_employee"] == 'yes') {
-            $skillInfo["designation"] = $inputs['designation'] ?? null;
-            $skillInfo["company"] = $inputs['company'] ?? null;
-        }
-
-        return $skillInfo;
-    }
-
-    /**
-     * Update Post Model
+     * Update Skill Model
      *
      * @param array $inputs
      * @param $id
@@ -163,27 +117,22 @@ class SkillService extends Service
      */
     public function updateSkill(array $inputs, $id): array
     {
-        $newSkillInfo = $this->formatSkillInfo($inputs);
         DB::beginTransaction();
         try {
             $skill = $this->skillRepository->show($id);
-            if ($skill instanceof Post) {
-                if ($this->skillRepository->update($newSkillInfo, $id)) {
-                    //handling Comment List
-                    $skill->surveys()->sync($inputs['survey_id']);
-                    $skill->previousPostings()->sync($inputs['prev_post_state_id']);
-                    $skill->futurePostings()->sync($inputs['future_post_state_id']);
+            if ($skill instanceof Skill) {
+                if ($this->skillRepository->update($inputs, $id)) {
                     $skill->save();
                     DB::commit();
-                    return ['status' => true, 'message' => __('Post Info Updated'),
+                    return ['status' => true, 'message' => __('Skill Info Updated'),
                         'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
                 } else {
                     DB::rollBack();
-                    return ['status' => false, 'message' => __('Post Info Update Failed'),
+                    return ['status' => false, 'message' => __('Skill Info Update Failed'),
                         'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!'];
                 }
             } else {
-                return ['status' => false, 'message' => __('Post Model Not Found'),
+                return ['status' => false, 'message' => __('Skill Model Not Found'),
                     'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Alert!'];
             }
         } catch (Exception $exception) {
@@ -195,7 +144,7 @@ class SkillService extends Service
     }
 
     /**
-     * Destroy Post Model
+     * Destroy Skill Model
      *
      * @param $id
      * @return array
@@ -207,11 +156,11 @@ class SkillService extends Service
         try {
             if ($this->skillRepository->delete($id)) {
                 DB::commit();
-                return ['status' => true, 'message' => __('Post is Trashed'),
+                return ['status' => true, 'message' => __('Skill is Trashed'),
                     'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
             } else {
                 DB::rollBack();
-                return ['status' => false, 'message' => __('Post is Delete Failed'),
+                return ['status' => false, 'message' => __('Skill is Delete Failed'),
                     'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!'];
             }
         } catch (Exception $exception) {
@@ -223,7 +172,7 @@ class SkillService extends Service
     }
 
     /**
-     * Restore Post Model
+     * Restore Skill Model
      *
      * @param $id
      * @return array
@@ -235,11 +184,11 @@ class SkillService extends Service
         try {
             if ($this->skillRepository->restore($id)) {
                 DB::commit();
-                return ['status' => true, 'message' => __('Post is Restored'),
+                return ['status' => true, 'message' => __('Skill is Restored'),
                     'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
             } else {
                 DB::rollBack();
-                return ['status' => false, 'message' => __('Post is Restoration Failed'),
+                return ['status' => false, 'message' => __('Skill is Restoration Failed'),
                     'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!'];
             }
         } catch (Exception $exception) {

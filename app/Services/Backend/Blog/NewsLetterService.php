@@ -3,7 +3,8 @@
 namespace App\Services\Backend\Blog;
 
 use App\Abstracts\Service\Service;
-use App\Exports\Backend\Organization\NewsLetterExport;
+use App\Exports\Backend\Portfolio\NewsLetterExport;
+use App\Models\Backend\Blog\NewsLetter;
 use App\Repositories\Eloquent\Backend\Blog\NewsLetterRepository;
 use App\Supports\Constant;
 use Exception;
@@ -25,7 +26,7 @@ class NewsLetterService extends Service
     private $newsLetterRepository;
 
     /**
-     * CommentService constructor.
+     * NewsLetterService constructor.
      * @param NewsLetterRepository $newsLetterRepository
      */
     public function __construct(NewsLetterRepository $newsLetterRepository)
@@ -35,7 +36,7 @@ class NewsLetterService extends Service
     }
 
     /**
-     * Create Comment Model Pagination
+     * Create NewsLetter Model Pagination
      *
      * @param array $filters
      * @param array $eagerRelations
@@ -48,7 +49,7 @@ class NewsLetterService extends Service
     }
 
     /**
-     * Show Comment Model
+     * Show NewsLetter Model
      *
      * @param int $id
      * @param bool $purge
@@ -61,7 +62,7 @@ class NewsLetterService extends Service
     }
 
     /**
-     * Save Comment Model
+     * Save NewsLetter Model
      *
      * @param array $inputs
      * @return array
@@ -73,13 +74,13 @@ class NewsLetterService extends Service
         DB::beginTransaction();
         try {
             $newNewsLetter = $this->newsLetterRepository->create($inputs);
-            if ($newNewsLetter instanceof Comment) {
+            if ($newNewsLetter instanceof NewsLetter) {
                 DB::commit();
-                return ['status' => true, 'message' => __('New Comment Created'),
+                return ['status' => true, 'message' => __('New NewsLetter Created'),
                     'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
             } else {
                 DB::rollBack();
-                return ['status' => false, 'message' => __('New Comment Creation Failed'),
+                return ['status' => false, 'message' => __('New NewsLetter Creation Failed'),
                     'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!'];
             }
         } catch (Exception $exception) {
@@ -91,7 +92,7 @@ class NewsLetterService extends Service
     }
 
     /**
-     * Update Comment Model
+     * Update NewsLetter Model
      *
      * @param array $inputs
      * @param $id
@@ -103,18 +104,18 @@ class NewsLetterService extends Service
         DB::beginTransaction();
         try {
             $newsLetter = $this->newsLetterRepository->show($id);
-            if ($newsLetter instanceof Comment) {
+            if ($newsLetter instanceof NewsLetter) {
                 if ($this->newsLetterRepository->update($inputs, $id)) {
                     DB::commit();
-                    return ['status' => true, 'message' => __('Comment Info Updated'),
+                    return ['status' => true, 'message' => __('NewsLetter Info Updated'),
                         'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
                 } else {
                     DB::rollBack();
-                    return ['status' => false, 'message' => __('Comment Info Update Failed'),
+                    return ['status' => false, 'message' => __('NewsLetter Info Update Failed'),
                         'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!'];
                 }
             } else {
-                return ['status' => false, 'message' => __('Comment Model Not Found'),
+                return ['status' => false, 'message' => __('NewsLetter Model Not Found'),
                     'level' => Constant::MSG_TOASTR_WARNING, 'title' => 'Alert!'];
             }
         } catch (Exception $exception) {
@@ -126,7 +127,7 @@ class NewsLetterService extends Service
     }
 
     /**
-     * Destroy Comment Model
+     * Destroy NewsLetter Model
      *
      * @param $id
      * @return array
@@ -138,11 +139,11 @@ class NewsLetterService extends Service
         try {
             if ($this->newsLetterRepository->delete($id)) {
                 DB::commit();
-                return ['status' => true, 'message' => __('Comment is Trashed'),
+                return ['status' => true, 'message' => __('NewsLetter is Trashed'),
                     'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
             } else {
                 DB::rollBack();
-                return ['status' => false, 'message' => __('Comment is Delete Failed'),
+                return ['status' => false, 'message' => __('NewsLetter is Delete Failed'),
                     'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!'];
             }
         } catch (Exception $exception) {
@@ -154,7 +155,7 @@ class NewsLetterService extends Service
     }
 
     /**
-     * Restore Comment Model
+     * Restore NewsLetter Model
      *
      * @param $id
      * @return array
@@ -166,11 +167,11 @@ class NewsLetterService extends Service
         try {
             if ($this->newsLetterRepository->restore($id)) {
                 DB::commit();
-                return ['status' => true, 'message' => __('Comment is Restored'),
+                return ['status' => true, 'message' => __('NewsLetter is Restored'),
                     'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
             } else {
                 DB::rollBack();
-                return ['status' => false, 'message' => __('Comment is Restoration Failed'),
+                return ['status' => false, 'message' => __('NewsLetter is Restoration Failed'),
                     'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!'];
             }
         } catch (Exception $exception) {
@@ -194,7 +195,7 @@ class NewsLetterService extends Service
     }
 
     /**
-     * Created Array Styled Comment List for dropdown
+     * Created Array Styled NewsLetter List for dropdown
      *
      * @param array $filters
      * @return array
@@ -212,7 +213,7 @@ class NewsLetterService extends Service
     }
 
     /**
-     * Get All Comment models as collection
+     * Get All NewsLetter models as collection
      *
      * @param array $filters
      * @param array $eagerRelations

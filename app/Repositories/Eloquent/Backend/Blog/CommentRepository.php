@@ -65,12 +65,20 @@ class CommentRepository extends EloquentRepository
             $query->where('enabled', '=', $filters['enabled']);
         endif;
 
+        if (!empty($filters['comment'])) :
+            $query->whereIn('id', ((is_array($filters['comment'])) ? $filters['comment'] : [$filters['comment']]));
+        endif;
+
         if (!empty($filters['sort']) && !empty($filters['direction'])) :
             $query->orderBy($filters['sort'], $filters['direction']);
         endif;
 
         if ($is_sortable == true) :
-            $query->sortable();
+            if (!empty($filters['sort'])):
+                $query->sortable([$filters['sort'] => ($filters['direction'] ?? 'asc')]);
+            else:
+                $query->sortable();
+            endif;
         endif;
 
         if (AuthenticatedSessionService::isSuperAdmin()) :

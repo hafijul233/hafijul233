@@ -1,6 +1,6 @@
-@extends('layouts.app')
+@extends('backend.layouts.app')
 
-@section('title', __('service.Add Comment'))
+@section('title', __('language.Add Comment'))
 
 @push('meta')
 
@@ -26,7 +26,7 @@
 @section('breadcrumbs', \Breadcrumbs::render(Route::getCurrentRoute()->getName()))
 
 @section('actions')
-    {!! \Html::backButton('backend.resume.surveys.index') !!}
+    {!! \Html::backButton('backend.resume.languages.index') !!}
 @endsection
 
 @section('content')
@@ -34,8 +34,8 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="card card-default">
-                    {!! \Form::open(['route' => 'backend.resume.surveys.store', 'id' => 'service-form']) !!}
-                    @include('backend.resume.service.form')
+                    {!! \Form::open(['route' => 'backend.resume.languages.store', 'id' => 'language-form']) !!}
+                    @include('backend.resume.language.form')
                     {!! \Form::close() !!}
                 </div>
             </div>

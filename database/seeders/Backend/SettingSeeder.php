@@ -5,6 +5,7 @@ namespace Database\Seeders\Backend;
 use Database\Seeders\Backend\Setting\AdminRegisterSeeder;
 use Database\Seeders\Backend\Setting\CitySeeder;
 use Database\Seeders\Backend\Setting\CountrySeeder;
+use Database\Seeders\Backend\Setting\EmploymentTypeSeeder;
 use Database\Seeders\Backend\Setting\PermissionSeeder;
 use Database\Seeders\Backend\Setting\RolePermissionSeeder;
 use Database\Seeders\Backend\Setting\RoleSeeder;
@@ -27,6 +28,7 @@ class SettingSeeder extends Seeder
         $this->call(CountrySeeder::class);
         $this->call(StateSeeder::class);
         $this->call(CitySeeder::class);
+        $this->call(EmploymentTypeSeeder::class);
         $this->call(PermissionSeeder::class);
         $this->call(RoleSeeder::class);
         $this->call(RolePermissionSeeder::class);

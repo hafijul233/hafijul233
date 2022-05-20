@@ -132,7 +132,8 @@ class Constant
         "RELIGION" => 'REL',
         "UNIVERSITY" => 'UNI',
         "BOARD" => 'BOR',
-        "QUOTA" => 'QOT'
+        "QUOTA" => 'QOT',
+        "EMPLOYMENT_TYPE" => "EMT"
     ];
     /**
      * CATALOG TYPES
@@ -143,7 +144,8 @@ class Constant
         "REL" => 'Religion',
         "UNI" => 'University',
         "BOR" => 'Board',
-        "QOT" => 'Quote'
+        "QOT" => 'Quote',
+        "EMT" => 'Employment Type'
     ];
 
     public const GPA_TYPE = [
@@ -154,11 +156,5 @@ class Constant
         5 => "GPA(Out of 5)",
         6 => "Others",
 
-    ];
-
-    public const EMPLOYEEMENT_TYPE = [
-        'full-time' => 'Full-time',
-        'part-time' => 'Part-time',
-        'intern' => 'Intern'
     ];
 }

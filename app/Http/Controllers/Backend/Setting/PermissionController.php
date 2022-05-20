@@ -49,7 +49,7 @@ class PermissionController extends Controller
      */
     public function index(Request $request)
     {
-        $filters = $request->except('page');
+        $filters = $request->except('page', 'sort', 'direction');
         $permissions = $this->permissionService->permissionPaginate($filters);
 
         return view('backend.setting.permission.index', [
@@ -198,11 +198,11 @@ class PermissionController extends Controller
      */
     public function export(Request $request)
     {
-        $filters = $request->except('page');
+        $filters = $request->except('page', 'sort', 'direction');
 
         $permissionExport = $this->permissionService->exportPermission($filters);
 
-        $filename = 'Permission-' . date('Ymd-His') . '.' . ($filters['format'] ?? 'xlsx');
+        $filename = 'Permission-' . date(config('backend.export_datetime')) . '.' . ($filters['format'] ?? 'xlsx');
 
         return $permissionExport->download($filename, function ($permission) use ($permissionExport) {
             return $permissionExport->map($permission);
@@ -217,40 +217,5 @@ class PermissionController extends Controller
     public function import()
     {
         return view('backend.setting.permission.import');
-    }
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @return Application|Factory|View
-     * @throws Exception
-     */
-    public function importBulk(Request $request)
-    {
-        $filters = $request->except('page');
-        $permissions = $this->permissionService->getAllPermissions($filters);
-
-        return view('backend.setting.permission.index', [
-            'permissions' => $permissions
-        ]);
-    }
-
-    /**
-     * Display a detail of the resource.
-     *
-     * @return StreamedResponse|string
-     * @throws Exception
-     */
-    public function print(Request $request)
-    {
-        $filters = $request->except('page');
-
-        $permissionExport = $this->permissionService->exportPermission($filters);
-
-        $filename = 'Permission-' . date('Ymd-His') . '.' . ($filters['format'] ?? 'xlsx');
-
-        return $permissionExport->download($filename, function ($permission) use ($permissionExport) {
-            return $permissionExport->map($permission);
-        });
     }
 }

@@ -6,7 +6,7 @@
         "issues": "https://github.com/hafijul233/boilerplate/issues",
         "wiki": "https://github.com/hafijul233/boilerplate/wiki",
         "source": "https://github.com/hafijul233/boilerplate",
-        "docs": "http://hafijulislam.me/projects/boilerplate"
+        "docs": "https://hafijulislam.me/projects/boilerplate"
     },
     "keywords": [
         "framework",
@@ -20,7 +20,7 @@
         {
             "name": "Hafijul Islam",
             "email": "hafijul233@gmail.com",
-            "homepage": "http://hafijulislam.me",
+            "homepage": "https://hafijulislam.me",
             "role": "Maintainer"
         }
     ],

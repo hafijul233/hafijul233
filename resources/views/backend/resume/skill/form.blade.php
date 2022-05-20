@@ -1,11 +1,10 @@
 <div class="card-body">
     <div class="row">
-        <div class="col-md-6">
-            {!! \Form::nText('name', __('common.Name'), old('name', $survey->name ?? null), true) !!}
+        <div class="col-md-12">
+            {!! \Form::nText('name', __('common.Name'), old('name', $skill->name ?? null), true) !!}
         </div>
-        <div class="col-md-6">
-            {!! \Form::nSelect('enabled', __('common.Enabled'), \App\Supports\Constant::ENABLED_OPTIONS,
-                old('enabled', ($survey->enabled ?? \App\Supports\Constant::ENABLED_OPTION)), true) !!}
+        <div class="col-md-12">
+            {!! \Form::nRange('percentage', __('common.Percentage'), 0, true,['min'  => 0,'max' => 100,'step' => 1]) !!}
         </div>
     </div>
     <div class="row mt-3">
@@ -20,7 +19,7 @@
 @push('page-script')
     <script>
         $(function () {
-            $("#service-form").validate({
+            $("#skill-form").validate({
                 rules: {
                     name: {
                         required: true,
@@ -30,8 +29,7 @@
                     enabled: {
                         required: true
                     },
-                    remarks: {
-                    },
+                    remarks: {},
                 }
             });
         });

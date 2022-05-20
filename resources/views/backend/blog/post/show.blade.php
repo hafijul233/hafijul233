@@ -1,6 +1,6 @@
-@extends('layouts.app')
+@extends('backend.layouts.app')
 
-@section('title', $survey->name)
+@section('title', \App\Supports\Utility::textTruncate($post->title,30))
 
 @push('meta')
 
@@ -22,12 +22,12 @@
 
 @endpush
 
-@section('breadcrumbs', Breadcrumbs::render(Route::getCurrentRoute()->getName(), $survey))
+@section('breadcrumbs', Breadcrumbs::render(Route::getCurrentRoute()->getName(), $post))
 
 @section('actions')
-    {!! \Html::backButton('backend.portfolio.surveys.index') !!}
-    {{--    {!! \Html::modelDropdown('backend.portfolio.surveys', $service->id, ['color' => 'success',
-            'actions' => array_merge(['edit'], ($service->deleted_at == null) ? ['delete'] : ['restore'])]) !!}--}}
+    {!! \Html::backButton('backend.blog.posts.index') !!}
+        {!! \Html::modelDropdown('backend.blog.posts', $post->id, ['color' => 'success',
+            'actions' => array_merge(['edit'], ($post->deleted_at == null) ? ['delete'] : ['restore'])]) !!}
 @endsection
 
 @section('content')
@@ -36,17 +36,30 @@
             <div class="col-12">
                 <div class="card card-default">
                     <div class="card-body min-vh-100">
-                        <div class="row mb-3">
-                            <div class="col-md-6">
-                                <label class="d-block">Name</label>
-                                <p class="font-weight-bold">{{ $survey->name ?? null }}</p>
+                        <div class="row">
+                            <div class="col-md-12 mb-3">
+                                <label class="d-block">{{ __('common.Name') }}</label>
+                                <div class="border p-2">{{ $post->title ?? null }}</div>
                             </div>
-                            <div class="col-md-6">
-                                <label class="d-block">Enabled</label>
-                                <p class="font-weight-bold">{{ \App\Supports\Constant::ENABLED_OPTIONS[$survey->enabled] }}</p>
+                            <div class="col-md-12 mb-3">
+                                <label class="d-block">{{ __('common.Summary') }}</label>
+                                <div class="border p-2">
+                                    {!! $post->summary ?? null !!}
+                                </div>
+                            </div>
+                            <div class="col-md-12 mb-3">
+                                <label class="d-block">{{ __('common.Content') }}</label>
+                                <div class="border p-2">
+                                    {!! $post->content ?? null !!}
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <label class="d-block">{{ __('common.Image') }}</label>
+                                <div class="d-flex justify-content-center p-2 border">
+                                    <img src="{!! $post->getFirstMediaUrl('posts') !!}" class="img-fluid">
+                                </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>

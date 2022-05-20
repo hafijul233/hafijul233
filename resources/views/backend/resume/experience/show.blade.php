@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('backend.layouts.app')
 
 @section('title', $experience->title)
 
@@ -42,9 +42,9 @@
                                 <div class="border p-2">{{ $experience->title ?? null }}</div>
                             </div>
                             <div class="col-md-6 mb-3">
-                                <label class="d-block">{{ __('resume.experience.Type') }}</label>
+                                <label class="d-block">{{ __('resume.experience.Employment Type') }}</label>
                                 <div class="border p-2">
-                                    {!! \App\Supports\Constant::EMPLOYEEMENT_TYPE[$experience->type] ?? null !!}
+                                    {!! (isset($experience->employmentType) ? $experience->employmentType->name : null) !!}
                                 </div>
                             </div>
                             <div class="col-md-12 mb-3">

@@ -28,8 +28,8 @@ class SkillRequest extends FormRequest
     public function rules()
     {
         return [
-            "client" => ["required", "string", "min:2", "max:255"],
-            "feedback" => ["required", "string", "min:2"],
+            "name" => ["required", "string", "min:2", "max:255"],
+            "percentage" => ["required", "integer", "min:0"],
             "image" => ["nullable", "image"]
         ];
     }

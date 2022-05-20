@@ -3,7 +3,7 @@
 namespace App\Services\Backend\Resume;
 
 use App\Abstracts\Service\Service;
-use App\Exports\Backend\Organization\AwardExport;
+use App\Exports\Backend\Portfolio\AwardExport;
 use App\Models\Backend\Resume\Award;
 use App\Repositories\Eloquent\Backend\Portfolio\ServiceRepository;
 use App\Repositories\Eloquent\Backend\Resume\AwardRepository;

@@ -158,6 +158,7 @@ Route::prefix('backend')->group(function () {
             Route::prefix('services')->name('services.')->group(function () {
                 Route::patch('{service}/restore', [ServiceController::class, 'restore'])->name('restore');
                 Route::get('export', [ServiceController::class, 'export'])->name('export');
+                Route::get('ajax', [ServiceController::class, 'ajax'])->name('ajax')->middleware('ajax');
             });
             Route::resource('services', ServiceController::class)->where(['service' => '([0-9]+)']);
 
@@ -165,6 +166,7 @@ Route::prefix('backend')->group(function () {
             Route::prefix('certificates')->name('certificates.')->group(function () {
                 Route::patch('{certificate}/restore', [CertificateController::class, 'restore'])->name('restore');
                 Route::get('export', [CertificateController::class, 'export'])->name('export');
+                Route::get('ajax', [CertificateController::class, 'ajax'])->name('ajax')->middleware('ajax');
             });
             Route::resource('certificates', CertificateController::class)->where(['certificate' => '([0-9]+)']);
 
@@ -172,6 +174,7 @@ Route::prefix('backend')->group(function () {
             Route::prefix('projects')->name('projects.')->group(function () {
                 Route::patch('{project}/restore', [ProjectController::class, 'restore'])->name('restore');
                 Route::get('export', [ProjectController::class, 'export'])->name('export');
+                Route::get('ajax', [ProjectController::class, 'ajax'])->name('ajax')->middleware('ajax');
             });
             Route::resource('projects', ProjectController::class)->where(['project' => '([0-9]+)']);
 

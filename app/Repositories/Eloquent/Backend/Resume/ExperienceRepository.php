@@ -74,12 +74,16 @@ class ExperienceRepository extends EloquentRepository
             $query->where('nid', '=', $filters['nid']);
         endif;
 
-        if (!empty($filters['sort']) && !empty($filters['direction'])) :
-            $query->orderBy($filters['sort'], $filters['direction']);
+        if (!empty($filters['experience'])) :
+            $query->whereIn('id', ((is_array($filters['experience'])) ? $filters['experience'] : [$filters['experience']]));
         endif;
 
         if ($is_sortable == true) :
-            $query->sortable();
+            if (!empty($filters['sort'])):
+                $query->sortable([$filters['sort'] => ($filters['direction'] ?? 'asc')]);
+            else:
+                $query->sortable();
+            endif;
         endif;
 
         if (AuthenticatedSessionService::isSuperAdmin()) :

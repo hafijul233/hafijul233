@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('backend.layouts.app')
 
 @section('title', $user->name ?? 'Details')
 
@@ -45,7 +45,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-3">
-                @include('layouts.includes.profile-sidebar', $user)
+                @include('backend.layouts.includes.profile-sidebar', $user)
             </div>
             <div class="col-md-9">
                 <div class="card">

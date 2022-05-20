@@ -3,6 +3,7 @@
 namespace Database\Factories\Backend\Resume;
 
 use App\Models\Backend\Resume\Experience;
+use App\Models\Backend\Setting\Catalog;
 use App\Supports\Constant;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -19,7 +20,7 @@ class ExperienceFactory extends Factory
     {
         return [
             'title' => $this->faker->jobTitle(),
-            'type' => 'full-time',
+            'employment_type_id' => Catalog::where('type', '=', Constant::CATALOG_TYPE['EMPLOYMENT_TYPE'])->inRandomOrder()->first()->id,
             'organization' => $this->faker->company(),
             'address' => $this->faker->streetAddress(),
             'url' => $this->faker->url,

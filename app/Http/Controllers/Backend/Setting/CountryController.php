@@ -49,7 +49,7 @@ class CountryController extends Controller
      */
     public function index(Request $request)
     {
-        $filters = $request->except('page');
+        $filters = $request->except('page', 'sort', 'direction');
         $countries = $this->countryService->countryPaginate($filters);
 
         return view('setting.country.index', [
@@ -198,11 +198,11 @@ class CountryController extends Controller
      */
     public function export(Request $request)
     {
-        $filters = $request->except('page');
+        $filters = $request->except('page', 'sort', 'direction');
 
         $countryExport = $this->countryService->exportCountry($filters);
 
-        $filename = 'Country-' . date('Ymd-His') . '.' . ($filters['format'] ?? 'xlsx');
+        $filename = 'Country-' . date(config('backend.export_datetime')) . '.' . ($filters['format'] ?? 'xlsx');
 
         return $countryExport->download($filename, function ($country) use ($countryExport) {
             return $countryExport->map($country);
@@ -217,40 +217,5 @@ class CountryController extends Controller
     public function import()
     {
         return view('setting.country.import');
-    }
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @return Application|Factory|View
-     * @throws Exception
-     */
-    public function importBulk(Request $request)
-    {
-        $filters = $request->except('page');
-        $countrys = $this->countryService->getAllCountries($filters);
-
-        return view('setting.country.index', [
-            'countrys' => $countrys
-        ]);
-    }
-
-    /**
-     * Display a detail of the resource.
-     *
-     * @return StreamedResponse|string
-     * @throws Exception
-     */
-    public function print(Request $request)
-    {
-        $filters = $request->except('page');
-
-        $countryExport = $this->countryService->exportCountry($filters);
-
-        $filename = 'Country-' . date('Ymd-His') . '.' . ($filters['format'] ?? 'xlsx');
-
-        return $countryExport->download($filename, function ($country) use ($countryExport) {
-            return $countryExport->map($country);
-        });
     }
 }

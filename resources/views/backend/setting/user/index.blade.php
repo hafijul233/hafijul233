@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('backend.layouts.app')
 
 @section('title', __('menu-sidebar.Users'))
 
@@ -28,7 +28,7 @@
 
 @section('actions')
     {!! \Html::linkButton('Add User', 'backend.settings.users.create', [], 'fas fa-plus', 'success') !!}
-    {{--{!! \Html::bulkDropdown('backend.settings.users', 0, ['color' => 'warning']) !!}--}}
+    {!! \Html::bulkDropdown('backend.settings.users', 0, ['color' => 'warning']) !!}
 
 @endsection
 
@@ -65,7 +65,7 @@
                                                 {{ $user->id }}
                                             </td>
                                             <td class="text-left pl-0">
-                                                @include('layouts.includes.user-media-card', ['dynamicUser' => $user])
+                                                @include('backend.layouts.includes.user-media-card', ['dynamicUser' => $user])
                                             </td>
                                             <td class="text-center">{{ $user->mobile ?? '-' }}</td>
                                             <td class="text-center">

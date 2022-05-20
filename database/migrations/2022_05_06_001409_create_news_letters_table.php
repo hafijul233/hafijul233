@@ -23,7 +23,7 @@ class CreateNewsLettersTable extends Migration
             $table->string('name');
             $table->string('email');
             $table->string('mobile')->nullable();
-            $table->text('message')->nullable();
+            $table->mediumText('message')->nullable();
             $table->enum('enabled', array_keys(Constant::ENABLED_OPTIONS))
                 ->default(Constant::ENABLED_OPTION)->nullable();
             $table->dateTime('created_at')->nullable();

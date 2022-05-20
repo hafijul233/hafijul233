@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Backend\Resume;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Backend\Portfolio\SkillRequest;
+use App\Http\Requests\Backend\Resume\SkillRequest;
 use App\Services\Auth\AuthenticatedSessionService;
 use App\Services\Backend\Resume\SkillService;
 use App\Supports\Utility;
@@ -41,8 +41,7 @@ class SkillController extends Controller
     public function __construct(
         AuthenticatedSessionService $authenticatedSessionService,
         SkillService $skillService
-    )
-    {
+    ) {
         $this->authenticatedSessionService = $authenticatedSessionService;
         $this->skillService = $skillService;
     }
@@ -56,7 +55,7 @@ class SkillController extends Controller
      */
     public function index(Request $request)
     {
-        $filters = $request->except('page');
+        $filters = $request->except('page', 'sort', 'direction');
         $skills = $this->skillService->skillPaginate($filters);
 
         return view('backend.resume.skill.index', [
@@ -205,11 +204,11 @@ class SkillController extends Controller
      */
     public function export(Request $request)
     {
-        $filters = $request->except('page');
+        $filters = $request->except('page', 'sort', 'direction');
 
         $skillExport = $this->skillService->exportSkill($filters);
 
-        $filename = 'Comment-' . date('Ymd-His') . '.' . ($filters['format'] ?? 'xlsx');
+        $filename = 'Comment-' . date(config('backend.export_datetime')) . '.' . ($filters['format'] ?? 'xlsx');
 
         return $skillExport->download($filename, function ($skill) use ($skillExport) {
             return $skillExport->map($skill);
@@ -224,40 +223,5 @@ class SkillController extends Controller
     public function import()
     {
         return view('backend.resume.skillimport');
-    }
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @return Application|Factory|View
-     * @throws Exception
-     */
-    public function importBulk(Request $request)
-    {
-        $filters = $request->except('page');
-        $skills = $this->skillService->getAllSkills($filters);
-
-        return view('backend.resume.skillindex', [
-            'skills' => $skills
-        ]);
-    }
-
-    /**
-     * Display a detail of the resource.
-     *
-     * @return StreamedResponse|string
-     * @throws Exception
-     */
-    public function print(Request $request)
-    {
-        $filters = $request->except('page');
-
-        $skillExport = $this->skillService->exportSkill($filters);
-
-        $filename = 'Comment-' . date('Ymd-His') . '.' . ($filters['format'] ?? 'xlsx');
-
-        return $skillExport->download($filename, function ($skill) use ($skillExport) {
-            return $skillExport->map($skill);
-        });
     }
 }

@@ -1,6 +1,6 @@
-@extends('layouts.app')
+@extends('backend.layouts.app')
 
-@section('title', __('service.Edit Comment'))
+@section('title', __('skill.Edit Comment'))
 
 @push('meta')
 
@@ -23,10 +23,10 @@
 @endpush
 
 
-@section('breadcrumbs', \Breadcrumbs::render(Route::getCurrentRoute()->getName(), $survey))
+@section('breadcrumbs', \Breadcrumbs::render(Route::getCurrentRoute()->getName(), $skill))
 
 @section('actions')
-    {!! \Html::backButton('backend.resume.surveys.index') !!}
+    {!! \Html::backButton('backend.resume.skills.index') !!}
 @endsection
 
 @section('content')
@@ -34,8 +34,8 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="card">
-                    {!! \Form::open(['route' => ['backend.resume.surveys.update', $survey->id], 'method' => 'put', 'id' => 'service-form']) !!}
-                    @include('backend.resume.service.form')
+                    {!! \Form::open(['route' => ['backend.resume.skills.update', $skill->id], 'method' => 'put', 'id' => 'skill-form']) !!}
+                    @include('backend.resume.skill.form')
                     {!! \Form::close() !!}
                 </div>
             </div>

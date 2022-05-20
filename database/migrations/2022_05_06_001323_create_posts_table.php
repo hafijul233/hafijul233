@@ -23,7 +23,8 @@ class CreatePostsTable extends Migration
             $table->string('title');
             $table->text('summary')->nullable();
             $table->longText('content')->nullable();
-            $table->foreignId('category_id')->nullable();
+            $table->foreignId('category_id')->index()->nullable();
+            $table->dateTime('published_at')->nullable();
             $table->enum('enabled', array_keys(Constant::ENABLED_OPTIONS))
                 ->default(Constant::ENABLED_OPTION)->nullable();
             $table->dateTime('created_at')->nullable();

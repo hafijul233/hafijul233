@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Backend\Resume\ExperienceRequest;
 use App\Services\Auth\AuthenticatedSessionService;
 use App\Services\Backend\Resume\ExperienceService;
+use App\Services\Backend\Setting\CatalogService;
 use App\Supports\Constant;
 use App\Supports\Utility;
 use Box\Spout\Common\Exception\InvalidArgumentException;
@@ -19,8 +20,6 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Psr\Container\ContainerExceptionInterface;
-use Psr\Container\NotFoundExceptionInterface;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 use Throwable;
 
@@ -39,20 +38,27 @@ class ExperienceController extends Controller
      * @var ExperienceService
      */
     private $experienceService;
+    /**
+     * @var CatalogService
+     */
+    private $catalogService;
 
     /**
      * PostController Constructor
      *
      * @param AuthenticatedSessionService $authenticatedSessionService
      * @param ExperienceService $experienceService
+     * @param CatalogService $catalogService
      */
     public function __construct(
         AuthenticatedSessionService $authenticatedSessionService,
-        ExperienceService $experienceService
+        ExperienceService $experienceService,
+        CatalogService $catalogService
     )
     {
         $this->authenticatedSessionService = $authenticatedSessionService;
         $this->experienceService = $experienceService;
+        $this->catalogService = $catalogService;
     }
 
     /**
@@ -64,7 +70,7 @@ class ExperienceController extends Controller
      */
     public function index(Request $request)
     {
-        $filters = $request->except('page');
+        $filters = $request->except('page', 'sort', 'direction');
         $experiences = $this->experienceService->experiencePaginate($filters);
 
         return view('backend.resume.experience.index', [
@@ -80,7 +86,9 @@ class ExperienceController extends Controller
      */
     public function create()
     {
-        return view('backend.resume.experience.create');
+        return view('backend.resume.experience.create', [
+            'employment_types' => $this->catalogService->getCatalogDropdown(['type' => Constant::CATALOG_TYPE['EMPLOYMENT_TYPE']])
+        ]);
     }
 
     /**
@@ -136,7 +144,7 @@ class ExperienceController extends Controller
         if ($experience = $this->experienceService->getExperienceById($id)) {
             return view('backend.resume.experience.edit', [
                 'experience' => $experience,
-
+                'employment_types' => $this->catalogService->getCatalogDropdown(['type' => Constant::CATALOG_TYPE['EMPLOYMENT_TYPE']])
             ]);
         }
 
@@ -224,9 +232,9 @@ class ExperienceController extends Controller
      */
     public function export(Request $request)
     {
-        $filters = $request->except('page');
+        $filters = $request->except('page', 'sort', 'direction');
         $experienceExport = $this->experienceService->exportExperience($filters);
-        $filename = 'Post-' . date('Ymd-His') . '.' . ($filters['format'] ?? 'xlsx');
+        $filename = 'Post-' . date(config('backend.export_datetime')) . '.' . ($filters['format'] ?? 'xlsx');
         return $experienceExport->download($filename, function ($experience) use ($experienceExport) {
             return $experienceExport->map($experience);
         });
@@ -241,20 +249,21 @@ class ExperienceController extends Controller
      */
     public function ajax(Request $request): JsonResponse
     {
-        $filters = $request->except('page');
+        $filters = $request->except('page', 'sort', 'direction');
 
         $experiences = $this->experienceService->getAllExperiences($filters);
 
         if (count($experiences) > 0):
             foreach ($experiences as $index => $experience) :
                 $experiences[$index]->update_route = route('backend.resume.experiences.update', $experience->id);
-        $experiences[$index]->survey_id = $experience->surveys->pluck('id')->toArray();
-        $experiences[$index]->prev_post_state_id = $experience->previousPostings->pluck('id')->toArray();
-        $experiences[$index]->future_post_state_id = $experience->futurePostings->pluck('id')->toArray();
-        unset($experiences[$index]->surveys, $experiences[$index]->previousPostings, $experiences[$index]->futurePostings);
-        endforeach;
+                $experiences[$index]->survey_id = $experience->surveys->pluck('id')->toArray();
+                $experiences[$index]->prev_post_state_id = $experience->previousPostings->pluck('id')->toArray();
+                $experiences[$index]->future_post_state_id = $experience->futurePostings->pluck('id')->toArray();
+                unset($experiences[$index]->surveys, $experiences[$index]->previousPostings, $experiences[$index]->futurePostings);
+            endforeach;
 
-        $jsonReturn = ['status' => true, 'data' => $experiences]; else :
+            $jsonReturn = ['status' => true, 'data' => $experiences];
+        else :
             $jsonReturn = ['status' => false, 'data' => []];
         endif;
 

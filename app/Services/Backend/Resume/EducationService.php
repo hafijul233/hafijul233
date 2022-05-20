@@ -3,7 +3,7 @@
 namespace App\Services\Backend\Resume;
 
 use App\Abstracts\Service\Service;
-use App\Exports\Backend\Organization\EducationExport;
+use App\Exports\Backend\Portfolio\EducationExport;
 use App\Models\Backend\Resume\Education;
 use App\Repositories\Eloquent\Backend\Resume\EducationRepository;
 use App\Supports\Constant;

@@ -3,10 +3,14 @@
 namespace App\Http\Controllers\Backend\Portfolio;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Backend\Portfolio\ExperienceRequest;
+use App\Http\Requests\Backend\Portfolio\CertificateRequest;
 use App\Services\Auth\AuthenticatedSessionService;
 use App\Services\Backend\Portfolio\CertificateService;
 use App\Supports\Utility;
+use Box\Spout\Common\Exception\InvalidArgumentException;
+use Box\Spout\Common\Exception\IOException;
+use Box\Spout\Common\Exception\UnsupportedTypeException;
+use Box\Spout\Writer\Exception\WriterNotOpenedException;
 use Exception;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -56,7 +60,7 @@ class CertificateController extends Controller
      */
     public function index(Request $request)
     {
-        $filters = $request->except('page');
+        $filters = $request->except('page', 'sort', 'direction');
         $certificates = $this->certificateService->certificatePaginate($filters);
 
         return view('backend.portfolio.certificate.index', [
@@ -81,7 +85,7 @@ class CertificateController extends Controller
      * @return RedirectResponse
      * @throws Exception|Throwable
      */
-    public function store(ExperienceRequest $request): RedirectResponse
+    public function store(CertificateRequest $request): RedirectResponse
     {
         $confirm = $this->certificateService->storeCertificate($request->except('_token'));
         if ($confirm['status'] == true) {
@@ -133,12 +137,12 @@ class CertificateController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param ExperienceRequest $request
+     * @param CertificateRequest $request
      * @param  $id
      * @return RedirectResponse
      * @throws Throwable
      */
-    public function update(ExperienceRequest $request, $id): RedirectResponse
+    public function update(CertificateRequest $request, $id): RedirectResponse
     {
         $confirm = $this->certificateService->updateCertificate($request->except('_token', 'submit', '_method'), $id);
 
@@ -200,16 +204,27 @@ class CertificateController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param Request $request
      * @return string|StreamedResponse
-     * @throws Exception
+     * @throws IOException
+     * @throws InvalidArgumentException
+     * @throws UnsupportedTypeException
+     * @throws WriterNotOpenedException
      */
     public function export(Request $request)
     {
-        $filters = $request->except('page');
+        $filters = $request->except('page', 'sort', 'direction');
+
+        $exportFormat = 'xlsx';
+
+        if(isset($filters['format'])) {
+            $exportFormat = $filters['format'];
+            unset($filters['format']);
+        }
 
         $certificateExport = $this->certificateService->exportCertificate($filters);
 
-        $filename = 'Certificate-' . date('Ymd-His') . '.' . ($filters['format'] ?? 'xlsx');
+        $filename = 'certificate-export-' . date(config('backend.export_datetime')) . ".{$exportFormat}";
 
         return $certificateExport->download($filename, function ($certificate) use ($certificateExport) {
             return $certificateExport->map($certificate);
@@ -224,40 +239,5 @@ class CertificateController extends Controller
     public function import()
     {
         return view('backend.portfolio.certificateimport');
-    }
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @return Application|Factory|View
-     * @throws Exception
-     */
-    public function importBulk(Request $request)
-    {
-        $filters = $request->except('page');
-        $certificates = $this->certificateService->getAllCertificates($filters);
-
-        return view('backend.portfolio.certificateindex', [
-            'certificates' => $certificates
-        ]);
-    }
-
-    /**
-     * Display a detail of the resource.
-     *
-     * @return StreamedResponse|string
-     * @throws Exception
-     */
-    public function print(Request $request)
-    {
-        $filters = $request->except('page');
-
-        $certificateExport = $this->certificateService->exportCertificate($filters);
-
-        $filename = 'Certificate-' . date('Ymd-His') . '.' . ($filters['format'] ?? 'xlsx');
-
-        return $certificateExport->download($filename, function ($certificate) use ($certificateExport) {
-            return $certificateExport->map($certificate);
-        });
     }
 }

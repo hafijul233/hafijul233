@@ -1,4 +1,4 @@
-@extends('layouts.frontend')
+@extends('backend.layouts.frontend')
 
 @section('title', __('certificate.Applicant Registration'))
 

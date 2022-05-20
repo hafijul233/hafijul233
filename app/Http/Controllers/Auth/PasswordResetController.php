@@ -31,7 +31,7 @@ class PasswordResetController extends Controller
      */
     public function create(): View
     {
-        return view('auth.forgot-password');
+        return view('backend.auth.forgot-password');
     }
 
     /**
@@ -57,7 +57,7 @@ class PasswordResetController extends Controller
 
     public function edit($token)
     {
-        return view('auth.reset-password', ['token' => $token]);
+        return view('backend.auth.reset-password', ['token' => $token]);
     }
 
     public function update(NewPasswordRequest $request)

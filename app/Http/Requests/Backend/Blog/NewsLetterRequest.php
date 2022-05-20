@@ -18,14 +18,11 @@ class NewsLetterRequest extends FormRequest
     public function rules()
     {
         return [
-            "title" => ["required", "string", "min:2", "max:255"],
-            "organization" => ["required", "string", "min:2", "max:255"],
-            "issue_date" => ["required", "date"],
-            "expire_date" => ["nullable", "date"],
-            "credential" => ["nullable", "string", "min:2", "max:255"],
-            "verify_url" => ["nullable", "url", "min:2", "max:255"],
-            "description" => ["nullable", "string", "min:2"],
-            "image" => ["nullable", "image"]
+            "name" => ["required", "string", "min:2", "max:255"],
+            "mobile" => ["required", "string", "min:2", "max:255"],
+            "email" => ["required", "email"],
+            "website" => ["nullable", "url", "min:2", "max:255"],
+            "message" => ["nullable", "string", "min:2"]
         ];
     }
 

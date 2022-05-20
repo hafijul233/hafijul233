@@ -56,7 +56,7 @@ class CommentController extends Controller
      */
     public function index(Request $request)
     {
-        $filters = $request->except('page');
+        $filters = $request->except('page', 'sort', 'direction');
         $comments = $this->commentService->commentPaginate($filters);
 
         return view('backend.blog.comment.index', [
@@ -205,11 +205,11 @@ class CommentController extends Controller
      */
     public function export(Request $request)
     {
-        $filters = $request->except('page');
+        $filters = $request->except('page', 'sort', 'direction');
 
         $commentExport = $this->commentService->exportComment($filters);
 
-        $filename = 'Comment-' . date('Ymd-His') . '.' . ($filters['format'] ?? 'xlsx');
+        $filename = 'Comment-' . date(config('backend.export_datetime')) . '.' . ($filters['format'] ?? 'xlsx');
 
         return $commentExport->download($filename, function ($comment) use ($commentExport) {
             return $commentExport->map($comment);
@@ -224,40 +224,5 @@ class CommentController extends Controller
     public function import()
     {
         return view('backend.portfolio.commentimport');
-    }
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @return Application|Factory|View
-     * @throws Exception
-     */
-    public function importBulk(Request $request)
-    {
-        $filters = $request->except('page');
-        $comments = $this->commentService->getAllComments($filters);
-
-        return view('backend.portfolio.commentindex', [
-            'comments' => $comments
-        ]);
-    }
-
-    /**
-     * Display a detail of the resource.
-     *
-     * @return StreamedResponse|string
-     * @throws Exception
-     */
-    public function print(Request $request)
-    {
-        $filters = $request->except('page');
-
-        $commentExport = $this->commentService->exportComment($filters);
-
-        $filename = 'Comment-' . date('Ymd-His') . '.' . ($filters['format'] ?? 'xlsx');
-
-        return $commentExport->download($filename, function ($comment) use ($commentExport) {
-            return $commentExport->map($comment);
-        });
     }
 }

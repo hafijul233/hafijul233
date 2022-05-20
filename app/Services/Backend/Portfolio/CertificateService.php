@@ -3,7 +3,7 @@
 namespace App\Services\Backend\Portfolio;
 
 use App\Abstracts\Service\Service;
-use App\Exports\Backend\Organization\CertificateExport;
+use App\Exports\Backend\Portfolio\CertificateExport;
 use App\Models\Backend\Portfolio\Certificate;
 use App\Repositories\Eloquent\Backend\Portfolio\CertificateRepository;
 use App\Supports\Constant;
@@ -76,7 +76,7 @@ class CertificateService extends Service
         try {
             $newCertificate = $this->certificateRepository->create($inputs);
             if ($newCertificate instanceof Certificate) {
-                if ($inputs['image'] instanceof UploadedFile) {
+                if (isset($inputs['image']) && $inputs['image'] instanceof UploadedFile) {
                     $newCertificate->addMedia($inputs['image'])->toMediaCollection('certificates');
                 }
                 $newCertificate->save();

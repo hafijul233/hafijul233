@@ -190,7 +190,7 @@ function fileSizeValidation(fileSize, minSize, maxSize) {
  * @param maxHeight
  * @param stdRatio
  * @returns {{error: string, status: boolean}}
- */1
+ */
 
 function imageResolutionValidation(imgWidth, imgHeight, minWidth, minHeight, maxWidth, maxHeight, stdRatio) {
     var ratio = (imgWidth / imgHeight).toPrecision(3);
@@ -258,44 +258,6 @@ function notify(message, level = 'success', title = '') {
                 toastr.success(message, title, []);
                 break;
         }
-    }
-}
-
-/**
- * Render Html Editor
- *
- * @param target
- * @param options
- */
-function htmlEditor(target, options) {
-    if (typeof $.fn.summernote === "function") {
-        var defaultOptions = {
-            placeholder: 'Write here ...',
-            fontSizeUnits: ['px', 'pt', 'rem', 'em'],
-            codemirror: {
-                lineNumbers: true,
-                theme: 'monokai'
-            },
-            toolbar: [
-                ['style', ['style']],
-                ['font', [ 'bold', 'underline', 'fontsizeunit','clear']],
-                ['fontname', ['fontname']],
-                ['color', ['color']],
-                ['para', ['ul', 'ol', 'paragraph', 'height']],
-                ['table', ['table']],
-                ['insert', ['link', 'picture', 'video', 'hr']],
-                ['view', ['fullscreen', 'codeview', 'help']],
-            ]
-        };
-
-        for (const property in options) {
-            if (options.hasOwnProperty(property)) {
-                defaultOptions[property] = options[property];
-            }
-        }
-        $("body").find(target).each(function () {
-            $(this).summernote(defaultOptions);
-        });
     }
 }
 
@@ -452,6 +414,7 @@ if (typeof $.validator === 'function') {
 $(document).ready(function () {
     //Enable Tooltip
     $('[data-toggle="tooltip"]').tooltip();
+    $('[data-toggle="popover"]').popover();
 
     //Delete  Modal Operation
     $("body").find(".delete-btn").each(function () {
@@ -474,82 +437,6 @@ $(document).ready(function () {
                     });
                 });
             }
-        });
-    });
-
-    //Restore  Modal Operation
-    $("body").find(".restore-btn").each(function () {
-        $(this).click(function (event) {
-            //stop href to trigger
-            event.preventDefault();
-            //ahref has link
-            var url = this.getAttribute('href');
-            if (url.length > 0 && url !== "#") {
-                //Ajax
-                $.get(url, function (response) {
-                    $("#restoreConfirmationForm").empty().html(response);
-                }, 'html').done(function () {
-                }).fail(function (error) {
-                    $("#restoreConfirmationForm").empty().html(error.responseText);
-                }).always(function () {
-                    $("#restoreModal").modal({
-                        backdrop: 'static',
-                        show: true
-                    });
-                });
-            }
-        });
-    });
-
-    //Export modal operations
-    $("body").find(".export-btn").each(function () {
-        $(this).click(function (event) {
-            //stop href to trigger
-            event.preventDefault();
-            $("#exportOptionForm").attr('action', $(this).attr('href'));
-            $("#exportConfirmModal").modal();
-        });
-    });
-
-    $("body").find("#exportOptionForm").each(function () {
-        $(this).submit(function (event) {
-            event.preventDefault();
-            var search = window.location.search;
-            if (search.length === 0) {
-                search = "?";
-            }
-            var formAction = $(this).attr('action') + search + "&format=" + $("#format").val();
-            var deleted = $('#exportOptionForm input[name=with_trashed]:radio');
-            if (deleted) {
-                formAction += "&with_trashed=" + deleted.val();
-            }
-            window.location.href = formAction;
-        });
-    });
-
-    //Import modal operations
-    $("body").find(".import-btn").each(function () {
-        $(this).click(function (event) {
-            //stop href to trigger
-            event.preventDefault();
-            $("#importOptionForm").attr('action', $(this).attr('href'));
-            $("#importConfirmModal").modal();
-        });
-    });
-
-    $("body").find("#importOptionForm").each(function () {
-        $(this).submit(function (event) {
-            event.preventDefault();
-            var search = window.location.search;
-            if (search.length === 0) {
-                search = "?";
-            }
-            var formAction = $(this).attr('action') + search + "&format=" + $("#format").val();
-            var deleted = $('#exportOptionForm input[name=with_trashed]:radio');
-            if (deleted) {
-                formAction += "&with_trashed=" + deleted.val();
-            }
-            window.location.href = formAction;
         });
     });
 

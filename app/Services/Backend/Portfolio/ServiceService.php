@@ -3,7 +3,7 @@
 namespace App\Services\Backend\Portfolio;
 
 use App\Abstracts\Service\Service;
-use App\Exports\Backend\Organization\ServiceExport;
+use App\Exports\Backend\Portfolio\ServiceExport;
 use App\Models\Backend\Portfolio\Service as ServiceModel;
 use App\Repositories\Eloquent\Backend\Portfolio\ServiceRepository;
 use App\Supports\Constant;
@@ -27,7 +27,7 @@ class ServiceService extends Service
     private $serviceRepository;
 
     /**
-     * PostService constructor.
+     * ServiceService constructor.
      * @param ServiceRepository $serviceRepository
      */
     public function __construct(ServiceRepository $serviceRepository)
@@ -37,7 +37,7 @@ class ServiceService extends Service
     }
 
     /**
-     * Get All Post models as collection
+     * Get All Service models as collection
      *
      * @param array $filters
      * @param array $eagerRelations
@@ -50,7 +50,7 @@ class ServiceService extends Service
     }
 
     /**
-     * Create Post Model Pagination
+     * Create Service Model Pagination
      *
      * @param array $filters
      * @param array $eagerRelations
@@ -63,7 +63,7 @@ class ServiceService extends Service
     }
 
     /**
-     * Show Post Model
+     * Show Service Model
      *
      * @param int $id
      * @param bool $purge
@@ -76,7 +76,7 @@ class ServiceService extends Service
     }
 
     /**
-     * Save Post Model
+     * Save Service Model
      *
      * @param array $inputs
      * @return array
@@ -85,16 +85,13 @@ class ServiceService extends Service
      */
     public function storeService(array $inputs): array
     {
-        $newServiceInfo = $this->formatServiceInfo($inputs);
         DB::beginTransaction();
         try {
-            $newService = $this->serviceRepository->create($newServiceInfo);
+            $newService = $this->serviceRepository->create($inputs);
             if ($newService instanceof ServiceModel) {
-                if ($inputs['image'] instanceof UploadedFile) {
+                if (isset($inputs['image']) && $inputs['image'] instanceof UploadedFile) {
                     $newService->addMedia($inputs['image'])->toMediaCollection('services');
                 }
-                $newService->save();
-
                 DB::commit();
                 return ['status' => true, 'message' => __('New Service Created'),
                     'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
@@ -112,23 +109,7 @@ class ServiceService extends Service
     }
 
     /**
-     * Return formatted applicant profile format array
-     *
-     * @param array $inputs
-     * @return array
-     */
-    private function formatServiceInfo(array $inputs)
-    {
-        $serviceInfo = [];
-        $serviceInfo["name"] = $inputs['name'] ?? null;
-        $serviceInfo["summary"] = $inputs['summary'] ?? null;
-        $serviceInfo["description"] = $inputs["description"] ?? null;
-
-        return $serviceInfo;
-    }
-
-    /**
-     * Update Post Model
+     * Update Service Model
      *
      * @param array $inputs
      * @param $id
@@ -137,16 +118,14 @@ class ServiceService extends Service
      */
     public function updateService(array $inputs, $id): array
     {
-        $serviceInfo = $this->formatServiceInfo($inputs);
         DB::beginTransaction();
         try {
             $service = $this->serviceRepository->show($id);
             if ($service instanceof ServiceModel) {
-                if ($this->serviceRepository->update($serviceInfo, $id)) {
+                if ($this->serviceRepository->update($inputs, $id)) {
                     if (isset($inputs['image']) && $inputs['image'] instanceof UploadedFile) {
                         $service->addMedia($inputs['image'])->toMediaCollection('services');
                     }
-                    $service->save();
                     DB::commit();
                     return ['status' => true, 'message' => __('Service Info Updated'),
                         'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
@@ -168,7 +147,7 @@ class ServiceService extends Service
     }
 
     /**
-     * Destroy Post Model
+     * Destroy Service Model
      *
      * @param $id
      * @return array
@@ -180,11 +159,11 @@ class ServiceService extends Service
         try {
             if ($this->serviceRepository->delete($id)) {
                 DB::commit();
-                return ['status' => true, 'message' => __('Post is Trashed'),
+                return ['status' => true, 'message' => __('Service is Trashed'),
                     'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
             } else {
                 DB::rollBack();
-                return ['status' => false, 'message' => __('Post is Delete Failed'),
+                return ['status' => false, 'message' => __('Service is Delete Failed'),
                     'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!'];
             }
         } catch (Exception $exception) {
@@ -196,7 +175,7 @@ class ServiceService extends Service
     }
 
     /**
-     * Restore Post Model
+     * Restore Service Model
      *
      * @param $id
      * @return array
@@ -208,11 +187,11 @@ class ServiceService extends Service
         try {
             if ($this->serviceRepository->restore($id)) {
                 DB::commit();
-                return ['status' => true, 'message' => __('Post is Restored'),
+                return ['status' => true, 'message' => __('Service is Restored'),
                     'level' => Constant::MSG_TOASTR_SUCCESS, 'title' => 'Notification!'];
             } else {
                 DB::rollBack();
-                return ['status' => false, 'message' => __('Post is Restoration Failed'),
+                return ['status' => false, 'message' => __('Service is Restoration Failed'),
                     'level' => Constant::MSG_TOASTR_ERROR, 'title' => 'Alert!'];
             }
         } catch (Exception $exception) {

@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('backend.layouts.app')
 
 @section('title', __('menu-sidebar.Newsletters'))
 
@@ -47,6 +47,8 @@
                                     <tr>
                                         <th class="align-middle">@sortablelink('id', '#')</th>
                                         <th>@sortablelink('name', __('common.Name'))</th>
+                                        <th>@sortablelink('email', __('common.Email'))</th>
+                                        <th>@sortablelink('mobile', __('common.Mobile'))</th>
                                         <th class="text-center">@sortablelink('enabled', __('common.Enabled'))</th>
                                         <th class="text-center">@sortablelink('created_at', __('common.Created'))</th>
                                         <th class="text-center">{!! __('common.Actions') !!}</th>
@@ -67,6 +69,8 @@
                                                     {{ $newsLetter->name }}
                                                 @endcan
                                             </td>
+                                            <td>{{ $newsLetter->email ?? null }}</td>
+                                            <td>{{ $newsLetter->mobile ?? null }}</td>
                                             <td class="text-center exclude-search">
                                                 {!! \Html::enableToggle($newsLetter) !!}
                                             </td>

@@ -36,8 +36,7 @@ class Certificate extends Model implements Auditable, HasMedia
 
     /**
      * The attributes that are mass assignable.
-     * 'enabled' => to handle status,
-     * ['created_by', 'updated_by', 'deleted_by'] => for audit
+     * 'enabled' => to handle status
      *
      * @var array
      */

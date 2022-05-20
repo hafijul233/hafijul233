@@ -57,7 +57,7 @@ class CatalogController extends Controller
      */
     public function index(Request $request)
     {
-        $filters = $request->except('page');
+        $filters = $request->except('page', 'sort', 'direction');
         $catalogs = $this->catalogService->catalogPaginate($filters);
 
         return view('backend.setting.catalog.index', [
@@ -209,11 +209,11 @@ class CatalogController extends Controller
      */
     public function export(Request $request)
     {
-        $filters = $request->except('page');
+        $filters = $request->except('page', 'sort', 'direction');
 
         $catalogExport = $this->catalogService->exportCatalog($filters);
 
-        $filename = 'Catalog-' . date('Ymd-His') . '.' . ($filters['format'] ?? 'xlsx');
+        $filename = 'Catalog-' . date(config('backend.export_datetime')) . '.' . ($filters['format'] ?? 'xlsx');
 
         return $catalogExport->download($filename, function ($catalog) use ($catalogExport) {
             return $catalogExport->map($catalog);
@@ -228,40 +228,5 @@ class CatalogController extends Controller
     public function import()
     {
         return view('backend.setting.catalogimport');
-    }
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @return Application|Factory|View
-     * @throws Exception
-     */
-    public function importBulk(Request $request)
-    {
-        $filters = $request->except('page');
-        $catalogs = $this->catalogService->getAllCatalogs($filters);
-
-        return view('backend.setting.catalogindex', [
-            'catalogs' => $catalogs
-        ]);
-    }
-
-    /**
-     * Display a detail of the resource.
-     *
-     * @return StreamedResponse|string
-     * @throws Exception
-     */
-    public function print(Request $request)
-    {
-        $filters = $request->except('page');
-
-        $catalogExport = $this->catalogService->exportCatalog($filters);
-
-        $filename = 'Catalog-' . date('Ymd-His') . '.' . ($filters['format'] ?? 'xlsx');
-
-        return $catalogExport->download($filename, function ($catalog) use ($catalogExport) {
-            return $catalogExport->map($catalog);
-        });
     }
 }

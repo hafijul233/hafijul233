@@ -3,8 +3,7 @@
 namespace App\Http\Controllers\Backend\Portfolio;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Backend\Portfolio\AwardRequest;
-use App\Http\Requests\Backend\Portfolio\UpdateServiceRequest;
+use App\Http\Requests\Backend\Portfolio\ServiceRequest;
 use App\Services\Auth\AuthenticatedSessionService;
 use App\Services\Backend\Portfolio\ServiceService;
 use App\Supports\Utility;
@@ -58,7 +57,7 @@ class ServiceController extends Controller
      */
     public function index(Request $request)
     {
-        $filters = $request->except('page');
+        $filters = $request->except('page', 'sort', 'direction');
         $services = $this->serviceService->servicePaginate($filters);
 
         return view('backend.portfolio.service.index', [
@@ -80,11 +79,11 @@ class ServiceController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param AwardRequest $request
+     * @param ServiceRequest $request
      * @return RedirectResponse
      * @throws Exception|Throwable
      */
-    public function store(AwardRequest $request): RedirectResponse
+    public function store(ServiceRequest $request): RedirectResponse
     {
         $inputs = $request->except('_token');
 
@@ -138,12 +137,12 @@ class ServiceController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param AwardRequest $request
+     * @param ServiceRequest $request
      * @param  $id
      * @return RedirectResponse
      * @throws Throwable
      */
-    public function update(AwardRequest $request, $id): RedirectResponse
+    public function update(ServiceRequest $request, $id): RedirectResponse
     {
         $inputs = $request->except('_token', 'submit', '_method');
         $confirm = $this->serviceService->updateService($inputs, $id);
@@ -216,9 +215,19 @@ class ServiceController extends Controller
      */
     public function export(Request $request)
     {
-        $filters = $request->except('page');
+        $filters = $request->except('page', 'sort', 'direction');
+
+        $exportFormat = 'xlsx';
+
+        if(isset($filters['format'])) {
+            $exportFormat = $filters['format'];
+            unset($filters['format']);
+        }
+
         $serviceExport = $this->serviceService->exportService($filters);
-        $filename = 'Post-' . date('Ymd-His') . '.' . ($filters['format'] ?? 'xlsx');
+
+        $filename = 'service-export-' . date(config('backend.export_datetime')) . ".{$exportFormat}";
+
         return $serviceExport->download($filename, function ($service) use ($serviceExport) {
             return $serviceExport->map($service);
         });
@@ -233,20 +242,17 @@ class ServiceController extends Controller
      */
     public function ajax(Request $request): JsonResponse
     {
-        $filters = $request->except('page');
+        $filters = $request->except('page', 'sort', 'direction');
 
         $services = $this->serviceService->getAllServices($filters);
 
         if (count($services) > 0):
             foreach ($services as $index => $service) :
-                $services[$index]->update_route = route('backend.portfolio.services.update', $service->id);
-        $services[$index]->survey_id = $service->surveys->pluck('id')->toArray();
-        $services[$index]->prev_post_state_id = $service->previousPostings->pluck('id')->toArray();
-        $services[$index]->future_post_state_id = $service->futurePostings->pluck('id')->toArray();
-        unset($services[$index]->surveys, $services[$index]->previousPostings, $services[$index]->futurePostings);
-        endforeach;
+                $services[$index]->image = $service->getFirstMediaUrl('services');
+            endforeach;
 
-        $jsonReturn = ['status' => true, 'data' => $services]; else :
+            $jsonReturn = ['status' => true, 'data' => $services];
+        else :
             $jsonReturn = ['status' => false, 'data' => []];
         endif;
 

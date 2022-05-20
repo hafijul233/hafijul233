@@ -64,7 +64,7 @@ class UserController extends Controller
      */
     public function index(Request $request): View
     {
-        $filters = $request->except('page');
+        $filters = $request->except('page', 'sort', 'direction');
         $filters['role'] = [2, 3, 4];
 
         if (AuthenticatedSessionService::isSuperAdmin()) {
@@ -241,51 +241,16 @@ class UserController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return Application|Factory|View
-     * @throws Exception
-     */
-    public function importBulk(Request $request)
-    {
-        $filters = $request->except('page');
-        $users = $this->userService->getAllUsers($filters);
-
-        return view('backend.setting.user.index', [
-            'users' => $users
-        ]);
-    }
-
-    /**
-     * Display a listing of the resource.
-     *
      * @return string|StreamedResponse
      * @throws Exception
      */
     public function export(Request $request)
     {
-        $filters = $request->except('page');
+        $filters = $request->except('page', 'sort', 'direction');
 
         $userExport = $this->userService->exportUser($filters);
 
-        $filename = 'User-' . date('Ymd-His') . '.' . ($filters['format'] ?? 'xlsx');
-
-        return $userExport->download($filename, function ($user) use ($userExport) {
-            return $userExport->map($user);
-        });
-    }
-
-    /**
-     * Display a detail of the resource.
-     *
-     * @return StreamedResponse|string
-     * @throws Exception
-     */
-    public function print(Request $request)
-    {
-        $filters = $request->except('page');
-
-        $userExport = $this->userService->exportUser($filters);
-
-        $filename = 'User-' . date('Ymd-His') . '.' . ($filters['format'] ?? 'xlsx');
+        $filename = 'User-' . date(config('backend.export_datetime')) . '.' . ($filters['format'] ?? 'xlsx');
 
         return $userExport->download($filename, function ($user) use ($userExport) {
             return $userExport->map($user);
