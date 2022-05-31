@@ -22,9 +22,9 @@ use App\Supports\Utility;
 use Diglactic\Breadcrumbs\Breadcrumbs;
 use Diglactic\Breadcrumbs\Generator as BreadcrumbTrail;
 
-Breadcrumbs::for('home', function (BreadcrumbTrail $trail) {
+/*Breadcrumbs::for('home', function (BreadcrumbTrail $trail) {
     $trail->push(__('menu-sidebar.Home'), route('home'));
-});
+});*/
 
 /****************************************** Http Error ******************************************/
 
@@ -77,7 +77,7 @@ Breadcrumbs::for('errors.503', function (BreadcrumbTrail $trail) {
 /****************************************** Setting ******************************************/
 
 Breadcrumbs::for('backend.settings', function (BreadcrumbTrail $trail) {
-    $trail->parent('home');
+    $trail->parent('backend');
 
     $trail->push(__('menu-sidebar.Settings'), route('backend.settings'));
 });

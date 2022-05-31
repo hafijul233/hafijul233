@@ -33,6 +33,7 @@ use App\Http\Controllers\Backend\Setting\RoleController;
 use App\Http\Controllers\Backend\Setting\StateController;
 use App\Http\Controllers\Backend\Setting\UserController;
 use App\Http\Controllers\Backend\SettingController;
+use App\Http\Controllers\Frontend\Home\HomeIndexController;
 use App\Http\Controllers\TranslateController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
@@ -48,29 +49,19 @@ use Illuminate\Support\Facades\Route;
  * |
  */
 
-Route::get('/', function () {
+/*Route::get('/', function () {
     return redirect()->to('backend/login');
-})->name('home');
-
-Route::post('translate-locale', TranslateController::class)->name('translate-locale');
-
-Route::get('cache-clear', function () {
-    Artisan::call('optimize:clear');
+})->name('home');*/
+Route::name('frontend')->group(function () {
+    Route::get('/', HomeIndexController::class)->name('home');
 });
-
-//Frontend
-/*Route::name('frontend.')->group(function () {
-    Route::name('portfolio.')->group(function () {
-        Route::get('applicant-registration', [ApplicantController::class, 'create'])
-            ->name('applicants.create')->middleware('guest');
-
-        Route::post('applicant-registration', [ApplicantController::class, 'store'])
-            ->name('applicants.store');
-    });
-});*/
 
 
 Route::prefix('backend')->group(function () {
+    /**
+     * Locale change Route
+     */
+    Route::post('translate-locale', TranslateController::class)->name('translate-locale');
     /**
      * Authentication Route
      */
@@ -142,6 +133,9 @@ Route::prefix('backend')->group(function () {
         return redirect(\route('backend.dashboard'));
     })->name('backend');
 
+    /**
+     * Admin Panel System Route
+     */
     Route::middleware(['auth'])->name('backend.')->group(function () {
         Route::get('dashboard', DashboardController::class)->name('dashboard');
         //Common Operations
@@ -301,3 +295,5 @@ Route::prefix('backend')->group(function () {
         });
     });
 });
+
+
