@@ -78,7 +78,12 @@ class HomeIndexController extends Controller
 
         $projects = $this->getProjectList();
 
-        return view('frontend.home.index', compact('services', 'projects', 'testimonials'));
+        $blogs = $this->postService->getAllPosts([
+            'limit' => 3,
+            'published' => true
+        ]);
+
+        return view('frontend.home.index', compact('services', 'projects', 'testimonials', 'blogs'));
     }
 
 

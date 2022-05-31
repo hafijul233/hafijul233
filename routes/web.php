@@ -33,6 +33,8 @@ use App\Http\Controllers\Backend\Setting\StateController;
 use App\Http\Controllers\Backend\Setting\UserController;
 use App\Http\Controllers\Backend\SettingController;
 use App\Http\Controllers\Frontend\About\AboutIndexController;
+use App\Http\Controllers\Frontend\Blog\PostIndexController;
+use App\Http\Controllers\Frontend\Blog\PostShowController;
 use App\Http\Controllers\Frontend\Home\HomeIndexController;
 use App\Http\Controllers\Frontend\Project\ProjectIndexController;
 use App\Http\Controllers\Frontend\Project\ProjectShowController;
@@ -59,13 +61,20 @@ use Illuminate\Support\Facades\Route;
 Route::name('frontend.')->group(function () {
     Route::get('/', HomeIndexController::class)->name('home');
     Route::get('/about', AboutIndexController::class)->name('about');
-    Route::get('/services', ServiceIndexController::class)->name('services.index');
+
+    Route::get('/services/{category?}', ServiceIndexController::class)->name('services.index');
     Route::get('/services/{id}/{slug}', ServiceShowController::class)
         ->name('services.show')
         ->where(['id' => '([0-9]+)', 'slug' => '(.+)']);
-    Route::get('/portfolios', ProjectIndexController::class)->name('projects.index');
+
+    Route::get('/portfolios/{category?}', ProjectIndexController::class)->name('projects.index');
     Route::get('/portfolios/{id}/{slug}', ProjectShowController::class)
         ->name('projects.show')
+        ->where(['id' => '([0-9]+)', 'slug' => '(.+)']);
+
+    Route::get('/blogs/{category?}', PostIndexController::class)->name('posts.index');
+    Route::get('/blogs/{id}/{slug}', PostShowController::class)
+        ->name('posts.show')
         ->where(['id' => '([0-9]+)', 'slug' => '(.+)']);
 });
 

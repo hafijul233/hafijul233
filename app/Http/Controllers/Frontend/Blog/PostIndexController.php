@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Frontend\Blog;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class BlogIndexController extends Controller
+class PostIndexController extends Controller
 {
     /**
      * Handle the incoming request.

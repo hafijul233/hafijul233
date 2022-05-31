@@ -9,6 +9,7 @@ use App\Supports\Constant;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Str;
 use Kyslik\ColumnSortable\Sortable;
 use OwenIt\Auditing\Auditable as AuditableTrait;
 use OwenIt\Auditing\Contracts\Auditable;
@@ -71,6 +72,20 @@ class Post extends Model implements Auditable,HasMedia
         'enabled' => 'no',
         'published_at' => null
     ];
+
+    /**
+     * The "booted" method of the model.
+     *
+     * @return void
+     */
+    protected static function booted()
+    {
+        parent::boot();
+
+        static::retrieved(function ($post) {
+            $post->slug = Str::slug($post->title);
+        });
+    }
 
     /**
      * Register Cover Image Media Collection
