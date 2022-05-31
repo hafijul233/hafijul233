@@ -72,6 +72,30 @@ class HomeIndexController extends Controller
             'limit' => 5
         ]);
 
-        return view('frontend.home.index', compact('services'));
+        $testimonials = $this->testimonialService->getAllTestimonials([
+            'limit' => 5
+        ]);
+
+        $projects = $this->getProjectList();
+
+        return view('frontend.home.index', compact('services', 'projects', 'testimonials'));
+    }
+
+
+    private function getProjectList()
+    {
+        $projectArray = [];
+
+        $categories = ['all', 'website', 'mobile-app', 'ecommerce', 'e-learning', 'fintech'];
+
+        $projects = $this->projectService->getAllProjects([
+            'limit' => 5
+        ]);
+
+        $projectArray = $projects;
+
+        //TODO Categorize grouping
+
+        return $projectArray;
     }
 }

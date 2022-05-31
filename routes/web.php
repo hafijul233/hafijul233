@@ -34,6 +34,8 @@ use App\Http\Controllers\Backend\Setting\UserController;
 use App\Http\Controllers\Backend\SettingController;
 use App\Http\Controllers\Frontend\About\AboutIndexController;
 use App\Http\Controllers\Frontend\Home\HomeIndexController;
+use App\Http\Controllers\Frontend\Project\ProjectIndexController;
+use App\Http\Controllers\Frontend\Project\ProjectShowController;
 use App\Http\Controllers\Frontend\Service\ServiceIndexController;
 use App\Http\Controllers\Frontend\Service\ServiceShowController;
 use App\Http\Controllers\TranslateController;
@@ -60,6 +62,10 @@ Route::name('frontend.')->group(function () {
     Route::get('/services', ServiceIndexController::class)->name('services.index');
     Route::get('/services/{id}/{slug}', ServiceShowController::class)
         ->name('services.show')
+        ->where(['id' => '([0-9]+)', 'slug' => '(.+)']);
+    Route::get('/portfolios', ProjectIndexController::class)->name('projects.index');
+    Route::get('/portfolios/{id}/{slug}', ProjectShowController::class)
+        ->name('projects.show')
         ->where(['id' => '([0-9]+)', 'slug' => '(.+)']);
 });
 

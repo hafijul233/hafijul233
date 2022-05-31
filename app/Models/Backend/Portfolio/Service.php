@@ -70,7 +70,7 @@ class Service extends Model implements HasMedia, Auditable
     /**
      * Events
      */
-    //
+
     /**
      * The "booted" method of the model.
      *
