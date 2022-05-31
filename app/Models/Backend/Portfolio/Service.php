@@ -6,6 +6,7 @@ use App\Supports\Constant;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Str;
 use Kyslik\ColumnSortable\Sortable;
 use OwenIt\Auditing\Auditable as AuditableTrait;
 use OwenIt\Auditing\Contracts\Auditable;
@@ -65,6 +66,24 @@ class Service extends Model implements HasMedia, Auditable
     protected $attributes = [
         'enabled' => 'yes'
     ];
+
+    /**
+     * Events
+     */
+    //
+    /**
+     * The "booted" method of the model.
+     *
+     * @return void
+     */
+    protected static function booted()
+    {
+        parent::boot();
+
+        static::retrieved(function ($service) {
+            $service->slug = Str::slug($service->name);
+        });
+    }
 
     /**
      * Register Cover Image Media Collection

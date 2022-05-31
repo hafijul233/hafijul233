@@ -27,13 +27,15 @@ use App\Http\Controllers\Backend\Resume\LanguageController;
 use App\Http\Controllers\Backend\Resume\SkillController;
 use App\Http\Controllers\Backend\ResumeController;
 use App\Http\Controllers\Backend\Setting\CatalogController;
-use App\Http\Controllers\Backend\Setting\ExamGroupController;
 use App\Http\Controllers\Backend\Setting\PermissionController;
 use App\Http\Controllers\Backend\Setting\RoleController;
 use App\Http\Controllers\Backend\Setting\StateController;
 use App\Http\Controllers\Backend\Setting\UserController;
 use App\Http\Controllers\Backend\SettingController;
+use App\Http\Controllers\Frontend\About\AboutIndexController;
 use App\Http\Controllers\Frontend\Home\HomeIndexController;
+use App\Http\Controllers\Frontend\Service\ServiceIndexController;
+use App\Http\Controllers\Frontend\Service\ServiceShowController;
 use App\Http\Controllers\TranslateController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
@@ -52,8 +54,13 @@ use Illuminate\Support\Facades\Route;
 /*Route::get('/', function () {
     return redirect()->to('backend/login');
 })->name('home');*/
-Route::name('frontend')->group(function () {
+Route::name('frontend.')->group(function () {
     Route::get('/', HomeIndexController::class)->name('home');
+    Route::get('/about', AboutIndexController::class)->name('about');
+    Route::get('/services', ServiceIndexController::class)->name('services.index');
+    Route::get('/services/{id}/{slug}', ServiceShowController::class)
+        ->name('services.show')
+        ->where(['id' => '([0-9]+)', 'slug' => '(.+)']);
 });
 
 
@@ -287,11 +294,11 @@ Route::prefix('backend')->group(function () {
             });
             Route::resource('states', StateController::class)->where(['state' => '([0-9]+)']);
 
-            //Exam Group
+/*            //Exam Group
             Route::prefix('exam-groups')->name('exam-groups.')->group(function () {
                 Route::get('ajax', [ExamGroupController::class, 'ajax'])->name('ajax')->middleware('ajax')->withoutMiddleware('auth');
             });
-            Route::resource('exam-groups', ExamGroupController::class)->where(['exam-group' => '([0-9]+)']);
+            Route::resource('exam-groups', ExamGroupController::class)->where(['exam-group' => '([0-9]+)']);*/
         });
     });
 });

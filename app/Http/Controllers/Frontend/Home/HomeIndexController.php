@@ -4,6 +4,10 @@ namespace App\Http\Controllers\Frontend\Home;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Backend\Setting\CatalogRequest;
+use App\Services\Backend\Blog\PostService;
+use App\Services\Backend\Portfolio\ProjectService;
+use App\Services\Backend\Portfolio\ServiceService;
+use App\Services\Backend\Portfolio\TestimonialService;
 use App\Supports\Utility;
 use Exception;
 use Illuminate\Contracts\Foundation\Application;
@@ -21,14 +25,42 @@ use Throwable;
 class HomeIndexController extends Controller
 {
     /**
-     * AboutIndexController Constructor
+     * @var ServiceService
      */
-    public function __construct()
-    {
+    private $serviceService;
+    /**
+     * @var ProjectService
+     */
+    private $projectService;
+    /**
+     * @var TestimonialService
+     */
+    private $testimonialService;
+    /**
+     * @var PostService
+     */
+    private $postService;
+
+    /**
+     * AboutIndexController Constructor
+     * @param ServiceService $serviceService
+     * @param ProjectService $projectService
+     * @param TestimonialService $testimonialService
+     * @param PostService $postService
+     */
+    public function __construct(
+        ServiceService $serviceService,
+        ProjectService $projectService,
+        TestimonialService $testimonialService,
+        PostService $postService
+    ) {
+        $this->serviceService = $serviceService;
+        $this->projectService = $projectService;
+        $this->testimonialService = $testimonialService;
+        $this->postService = $postService;
     }
 
     /**
-     * Display a listing of the resource.
      *
      * @param Request $request
      * @return Application|Factory|View
@@ -36,6 +68,10 @@ class HomeIndexController extends Controller
      */
     public function __invoke(Request $request)
     {
-        return view('frontend.home.index');
+        $services = $this->serviceService->getAllServices([
+            'limit' => 5
+        ]);
+
+        return view('frontend.home.index', compact('services'));
     }
 }
