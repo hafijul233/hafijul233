@@ -17,7 +17,7 @@ Hi there, I'm **Mohammad Hafijul Islam (Hridoy)**, **Software Engineer**, **Web 
 </p>
 <p align="left"> 
     <img src="https://github-profile-trophy.vercel.app/?username=hafijul233&row=2&column=4" alt="hafijul233" />
-    <img src="https://github-readme-streak-stats.herokuapp.com/?user=hafijul233&layout=compact" height="180" alt="Hafijul Islam Contributions" />
+    <img src="https://github-readme-streak-stats.herokuapp.com/?user=hafijul233&layout=compact" height="160" alt="Hafijul Islam Contributions" />
 </p>
 
 ### Professional Skills:
