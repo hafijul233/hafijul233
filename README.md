@@ -15,12 +15,8 @@ Hi there, I'm **Mohammad Hafijul Islam (Hridoy)**, **Software Engineer**, **Web 
     <img src="https://github-readme-stats.vercel.app/api?username=hafijul233&show_icons=true&count_private=true" height=180 />
     <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=hafijul233&layout=compact" height=180 />
 </p>
-<p align="left"> 
-    <img src="https://github-readme-streak-stats.herokuapp.com/?user=hafijul233&layout=compact" height="160" alt="Hafijul Islam Contributions" />
-    <img src="https://github-profile-trophy.vercel.app/?username=hafijul233&row=2&column=3" alt="hafijul233" />
-</p>
-<p>
-    ![Mohammad Hafijul Islam StackOverflow](https://github-readme-stackoverflow.vercel.app/?userID=8400971)
+<p align="center"> 
+    <img src="https://github-profile-trophy.vercel.app/?username=hafijul233" alt="hafijul233" />
 </p>
 ### Actively Working
 <img src="https://img.shields.io/badge/%20-Shell%20Script-black?logo=shell&style=for-the-badge"/> <img src="https://img.shields.io/badge/%20-Python-black?logo=python&style=for-the-badge"/> <img src="https://img.shields.io/badge/%20-PHP-black?logo=php&style=for-the-badge"/> <img src="https://img.shields.io/badge/%20-Javascript-black?logo=javascript&style=for-the-badge"/> <img src="https://img.shields.io/badge/%20-Java-black?logo=java&style=for-the-badge"/> <img src="https://img.shields.io/badge/%20-Ruby-black?logo=ruby&style=for-the-badge"/> <img src="https://img.shields.io/badge/%20-C-black?logo=c&style=for-the-badge"/> <img src="https://img.shields.io/badge/%20G-Go-black?logo=go&style=for-the-badge"/>
