@@ -19,8 +19,9 @@ Hi there, I'm **Mohammad Hafijul Islam (Hridoy)**, **Software Engineer**, **Web 
     <img src="https://github-readme-streak-stats.herokuapp.com/?user=hafijul233&layout=compact" height="160" alt="Hafijul Islam Contributions" />
     <img src="https://github-profile-trophy.vercel.app/?username=hafijul233&row=2&column=3" alt="hafijul233" />
 </p>
-    [![Mohammad Hafijul Islam StackOverflow](https://github-readme-stackoverflow.vercel.app/?userID=8400971)](https://stackoverflow.com/users/8400971/hafijul-islam)
-    [![MD Shahin Mia Robin StackOverflow](https://github-readme-stackoverflow.vercel.app/?userID=13676718)](https://stackoverflow.com/users/13676718/msm-robin)
+<p>
+    ![Mohammad Hafijul Islam StackOverflow](https://github-readme-stackoverflow.vercel.app/?userID=8400971)
+</p>
 ### Professional Skills:
 - Language
 ![HTML5](https://img.shields.io/badge/-HTML5-DD4B25?style=plastic&logo=html5&logoColor=white)
