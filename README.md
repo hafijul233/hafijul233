@@ -12,7 +12,7 @@ Hi there, I'm **Mohammad Hafijul Islam (Hridoy)**, **Software Engineer**, **Web 
   - 📫 You can reach me at <a href="mailto:hafijul233@gmail.com">hafijul233@gmail.com</a>
  
  <p align="left">
-    <img src="https://github-readme-stats.vercel.app/api?username=hafijul233&show_icons=true&count_private=true" height=214 />
+    <img src="https://github-readme-stats.vercel.app/api?username=hafijul233&show_icons=true&count_private=true" height=176 />
     <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=hafijul233&layout=compact" height=214 />
 </p>
 <p align="left"> 
