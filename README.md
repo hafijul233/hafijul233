@@ -13,7 +13,7 @@ Hi there, I'm **Mohammad Hafijul Islam (Hridoy)**, **Software Engineer**, **Web 
  
  <p align="left">
     <img src="https://github-readme-stats.vercel.app/api?username=hafijul233&show_icons=true&count_private=true" height=176 />
-    <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=hafijul233&layout=compact" height=214 />
+    <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=hafijul233&layout=compact" height=176 />
 </p>
 <p align="left"> 
     <img src="https://github-profile-trophy.vercel.app/?username=hafijul233&row=2&column=4" alt="hafijul233" />
