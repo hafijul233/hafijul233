@@ -67,6 +67,10 @@ class ServiceRepository extends EloquentRepository
             $query->where('enabled', '=', $filters['enabled']);
         endif;
 
+        if (!empty($filters['featured'])) :
+            $query->where('featured', '=', $filters['featured']);
+        endif;
+
         if (!empty($filters['service'])) :
             $query->whereIn('id', ((is_array($filters['service'])) ? $filters['service'] : [$filters['service']]));
         endif;
@@ -76,15 +80,19 @@ class ServiceRepository extends EloquentRepository
         endif;
 
         if ($is_sortable == true) :
-            if (!empty($filters['sort'])):
+            if (!empty($filters['sort'])) {
                 $query->sortable([$filters['sort'] => ($filters['direction'] ?? 'asc')]);
-            else:
+            } else {
                 $query->sortable();
-            endif;
+            }
         endif;
 
         if (AuthenticatedSessionService::isSuperAdmin()) :
             $query->withTrashed();
+        endif;
+
+        if (!empty($filters['limit'])) :
+            $query->limit($filters['limit']);
         endif;
 
         return $query;

@@ -70,8 +70,13 @@ class PostRepository extends EloquentRepository
         if (!empty($filters['enabled'])) :
             $query->where('enabled', '=', $filters['enabled']);
         endif;
-        if (!empty($filters['nid'])) :
-            $query->where('nid', '=', $filters['nid']);
+
+        if (!empty($filters['limit'])) :
+            $query->limit($filters['limit']);
+        endif;
+
+        if (!empty($filters['published'])) :
+            $query->whereNotNull('published_at');
         endif;
 
         if (!empty($filters['post'])) :

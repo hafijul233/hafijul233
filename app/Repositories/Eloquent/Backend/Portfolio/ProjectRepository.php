@@ -70,6 +70,15 @@ class ProjectRepository extends EloquentRepository
         if (!empty($filters['enabled'])) :
             $query->where('enabled', '=', $filters['enabled']);
         endif;
+
+        if (!empty($filters['featured'])) :
+            $query->where('featured', '=', $filters['featured']);
+        endif;
+
+        if (!empty($filters['limit'])) :
+            $query->limit($filters['limit']);
+        endif;
+
         if (!empty($filters['nid'])) :
             $query->where('nid', '=', $filters['nid']);
         endif;
