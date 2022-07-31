@@ -35,7 +35,7 @@ Hi there, I'm **Mohammad Hafijul Islam (Hridoy)**, **Software Engineer**, **Web 
 <img src="https://img.shields.io/badge/%20-Docker-black?logo=docker&style=for-the-badge"/> <img src="https://img.shields.io/badge/%20-Jenkins-black?logo=jenkins&style=for-the-badge"/>
 
 ### Cloud Platform
-<img src="https://img.shields.io/badge/%20-AWS-black?logo=amazonaws&style=for-the-badge"/> <img src="https://img.shields.io/badge/%20-GCP-black?logo=googlecloud&style=for-the-badge"/> <img src="https://img.shields.io/badge/%20-Azure-black?logo=microsoftazure&style=for-the-badge"/> <img src="https://img.shields.io/badge/%20-Digital%20Ocean-black?logo=digitalocean&style=for-the-badge"/> <img src="https://img.shields.io/badge/%20-Linode-black?logo=linode&style=for-the-badge"/> <img src="https://img.shields.io/badge/%20Vultr-black?logo=vultr&style=for-the-badge"/>
+<img src="https://img.shields.io/badge/%20-GCP-black?logo=googlecloud&style=for-the-badge"/> <img src="https://img.shields.io/badge/%20-Azure-black?logo=microsoftazure&style=for-the-badge"/> <img src="https://img.shields.io/badge/%20-Digital%20Ocean-black?logo=digitalocean&style=for-the-badge"/>
 
 ### Let's connect!
 <p>
