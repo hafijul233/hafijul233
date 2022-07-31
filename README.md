@@ -34,9 +34,6 @@ Hi there, I'm **Mohammad Hafijul Islam (Hridoy)**, **Software Engineer**, **Web 
 ### Index
 <img src="https://img.shields.io/badge/%20-Elastic%20Search-black?logo=elasticsearch&style=for-the-badge"/> <img src="https://img.shields.io/badge/%20-Apache%20Solr-black?logo=apachesolr&style=for-the-badge"/>
 
-### Cache
-<img src="https://img.shields.io/badge/%20-Redis-black?logo=redis&style=for-the-badge"/> <img src="https://img.shields.io/badge/%20-Memcached-black?logo=memcached&style=for-the-badge"/>
-
 ### DevOps
 <img src="https://img.shields.io/badge/%20-Docker-black?logo=docker&style=for-the-badge"/> <img src="https://img.shields.io/badge/%20-Kubernetes-black?logo=kubernetes&style=for-the-badge"/> <img src="https://img.shields.io/badge/%20-Terraform-black?logo=terraform&style=for-the-badge"/> <img src="https://img.shields.io/badge/%20-Jenkins-black?logo=jenkins&style=for-the-badge"/> <img src="https://img.shields.io/badge/%20-Travis%20CI-black?logo=travisci&style=for-the-badge"/> <img src="https://img.shields.io/badge/%20-Vagrant-black?logo=vagrant&style=for-the-badge"/>
 
