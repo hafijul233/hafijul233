@@ -12,6 +12,9 @@ Hi there, I'm **Mohammad Hafijul Islam (Hridoy)**, **Software Engineer**, **Web 
   - 📫 You can reach me at <a href="mailto:hafijul233@gmail.com">hafijul233@gmail.com</a>
  
  <p align="center">
+ [![@hafijul233's Holopin board](https://holopin.io/api/user/board?user=hafijul233)](https://holopin.io/@hafijul233)
+ </p>
+ <p align="center">
     <img src="https://github-readme-stats.vercel.app/api?username=hafijul233&show_icons=true&count_private=true" height=180 />
     <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=hafijul233&layout=compact" height=180 />
 </p>
