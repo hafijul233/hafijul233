@@ -5,7 +5,7 @@
 Hi there, I'm **Mohammad Hafijul Islam (Hridoy)**, **Software Engineer**, **Web Developer** and a **Open-Source maintainer** 🚀 from Bangladesh 🇧🇩.
 
 ### Talking about Personal Stuffs:
-  - 🔭 I’m currently working as Professional Software Engineer
+  - 🔭 I’m currently working as a Software Engineer planing to attend m.Sc in CSE.
   - ⚡ Excited to create open-source projects
   - 🌱 I’m currently learning **Software Architecture** and **Software Service Oriented Design**
   - 💕 I'm currently maintain [**hafijul233/ci-recharge**](https://packagist.org/packages/hafijul233/ci-recharge), **hafijul233/notify**, [**hafijul233/bolierplate**](https://packagist.org/packages/hafijul233/boilerplate),  [**hafijul233/form**](https://packagist.org/packages/hafijul233/form), 
