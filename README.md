@@ -20,7 +20,7 @@ Hi there, I'm **Mohammad Hafijul Islam (Hridoy)**, **Software Engineer**, **Web 
 <p align="center"> 
     <img src="https://github-profile-trophy.vercel.app/?username=hafijul233&col=7&row=1" alt="hafijul233" />
 </p>
-
+<a href="https://app.daily.dev/hafijul233"><img src="https://api.daily.dev/devcards/v2/w6JaUPrSfnKzWgtBeAETF.png?r=28s&type=default" width="356" alt="Hafijul Islam's Dev Card"/></a>
 ### Actively Working
 <img src="https://img.shields.io/badge/%20-PHP-black?logo=php&style=for-the-badge"/> <img src="https://img.shields.io/badge/%20-Javascript-black?logo=javascript&style=for-the-badge"/> <img src="https://img.shields.io/badge/%20-Shell%20Script-black?logo=shell&style=for-the-badge"/> <img src="https://img.shields.io/badge/%20-Python-black?logo=python&style=for-the-badge"/> <img src="https://img.shields.io/badge/%20-C%2B%2B-black?logo=cplusplus&style=for-the-badge"/> <img src="https://img.shields.io/badge/%20-C-black?logo=c&style=for-the-badge"/>
 
