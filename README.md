@@ -25,15 +25,14 @@ Hi there, I'm **Mohammad Hafijul Islam (Hridoy)**, **Software Engineer**, **Web 
 
 ![Profile Views](https://github-profile-trophy.vercel.app/?username=hafijul233&col=8&row=1&margin-w=20&no-bg=true)
 
-
-## :sparkles: Community Stats:
- 
  <p align="center">
     <img src="https://github-readme-stats.vercel.app/api?username=hafijul233&show_icons=true&count_private=true&theme=transparent" align="left" height="160"/>
     <img src="https://github-readme-streak-stats.herokuapp.com/?user=hafijul233&layout=compact&theme=transparent" alt="Hafijul Islam Contributions" align="right" height="160"/>
 </p>
 
-<p align="center">
+## :sparkles: Community Stats:
+ 
+ <p align="center">
     <a href="https://app.daily.dev/hafijul233"><img src="https://api.daily.dev/devcards/v2/w6JaUPrSfnKzWgtBeAETF.png?r=28s&type=default" width="356" alt="Hafijul Islam's Dev Card"/></a>
     <a href="https://stardev.io/developers/hafijul233"><img alt="Check out hafijul233's profile on stardev.io" src="https://stardev.io/developers/hafijul233/badge/languages/locality.svg" /></a>
 </p>
