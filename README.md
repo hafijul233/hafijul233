@@ -2,13 +2,13 @@
 ![Profile Views](https://gpvc.arturio.dev/hafijul233)
 ![image](https://img.shields.io/github/followers/hafijul233?label=follow&style=social)
     
-Hi there, I'm **Mohammad Hafijul Islam (Hridoy)**, **Software Engineer**, **Web Developer** and a **Open-Source maintainer** 🚀 from Bangladesh 🇧🇩.
+Hi there, I'm **Mohammad Hafijul Islam (Hridoy)**, **Software Engineer**, **Web Developer** and **Open-Source maintainer** 🚀 from Bangladesh 🇧🇩.
 
 ### Talking about Personal Stuffs:
-  - 🔭 I’m currently working as a Software Engineer planing to attend m.Sc in CSE.
+  - 🔭 I’m a Software Engineer and enrolled in M.Sc in CSE.
   - ⚡ Excited to create open-source projects
-  - 🌱 I’m currently learning **Software Architecture** and **Software Service Oriented Design**
-  - 💕 I'm currently maintain [**hafijul233/ci-recharge**](https://packagist.org/packages/hafijul233/ci-recharge), **hafijul233/notify**, [**hafijul233/bolierplate**](https://packagist.org/packages/hafijul233/boilerplate),  [**hafijul233/form**](https://packagist.org/packages/hafijul233/form), 
+  - 🌱 I’m currently learning **Software Architecture**, **Optimization and Scaling with Kubernetes** and **Service Oriented Design**
+  - 💕 I'm currently maintain [**laraflow/form**](https://packagist.org/packages/laraflow/form), [**mah-shamim/city-bank-api**](https://packagist.org/packages/mah-shamim/city-bank-api), [**laraflow/sms**](https://packagist.org/packages/laraflow/sms), and [**fintech/core**](https://github.com/fintechbd). 
   - 📫 You can reach me at <a href="mailto:hafijul233@gmail.com">hafijul233@gmail.com</a>
  
  [![@hafijul233's Holopin board](https://holopin.io/api/user/board?user=hafijul233)](https://holopin.io/@hafijul233)
