@@ -25,7 +25,7 @@ Hi there, I'm **Mohammad Hafijul Islam (Hridoy)**, **Software Engineer**, **Web 
 
 ![Profile Views](https://github-profile-trophy.vercel.app/?username=hafijul233&col=8&row=1&margin-w=20&no-bg=true)
 
- <p align="center">
+ <p align="center" style="display:block; margin-bottom: 1rem;">
     <img src="https://github-readme-stats.vercel.app/api?username=hafijul233&show_icons=true&count_private=true&theme=transparent" align="left" height="160"/>
     <img src="https://github-readme-streak-stats.herokuapp.com/?user=hafijul233&layout=compact&theme=transparent" alt="Hafijul Islam Contributions" align="right" height="160"/>
 </p>
