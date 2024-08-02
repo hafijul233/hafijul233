@@ -30,13 +30,6 @@ Hi there, I'm **Mohammad Hafijul Islam (Hridoy)**, **Software Engineer**, **Web 
     <img src="https://github-readme-streak-stats.herokuapp.com/?user=hafijul233&layout=compact&theme=transparent" alt="Hafijul Islam Contributions" align="right" height="160"/>
 </p>
 
-## :sparkles: Community Stats:
- 
- <p align="center">
-    <a href="https://app.daily.dev/hafijul233"><img src="https://api.daily.dev/devcards/v2/w6JaUPrSfnKzWgtBeAETF.png?r=28s&type=default" width="356" alt="Hafijul Islam's Dev Card"/></a>
-    <a href="https://stardev.io/developers/hafijul233"><img alt="Check out hafijul233's profile on stardev.io" src="https://stardev.io/developers/hafijul233/badge/languages/locality.svg" /></a>
-</p>
-
 ### :computer: Actively Working:
 
 | Programming | <img src="https://img.shields.io/badge/%20-PHP-black?logo=php&style=for-the-badge"/> <img src="https://img.shields.io/badge/%20-Javascript-black?logo=javascript&style=for-the-badge"/>  <img src="https://img.shields.io/badge/%20-CSS-black?logo=css3&style=for-the-badge"/> <img src="https://img.shields.io/badge/%20-Shell%20Script-black?logo=shell&style=for-the-badge"/> <img src="https://img.shields.io/badge/%20-Python-black?logo=python&style=for-the-badge"/> <img src="https://img.shields.io/badge/%20-C%2B%2B-black?logo=cplusplus&style=for-the-badge"/> <img src="https://img.shields.io/badge/%20-Bash-black?logo=gnubash&style=for-the-badge"/> <img src="https://img.shields.io/badge/%20-Markdown-black?logo=markdown&style=for-the-badge"/>|
