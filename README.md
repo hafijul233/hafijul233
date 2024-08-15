@@ -14,7 +14,8 @@ Hi there, I'm **Mohammad Hafijul Islam (Hridoy)**, **Software Engineer**, **Web 
 
 [![@hafijul233's Holopin board](https://holopin.io/api/user/board?user=hafijul233)](https://holopin.io/@hafijul233)
 
-## :information_desk_person: Talking about Personal Stuffs:
+## :information_desk_person: Talking about Personal Stuff:
+
   - 🔭 I’m a Software Engineer and enrolled in M.Sc in CSE.
   - ⚡ Excited to create open-source projects
   - 🌱 I’m currently learning **Software Architecture**, **Optimization and Scaling with Kubernetes** and **Service Oriented Design**
@@ -25,12 +26,12 @@ Hi there, I'm **Mohammad Hafijul Islam (Hridoy)**, **Software Engineer**, **Web 
 
 ![Profile Views](https://github-profile-trophy.vercel.app/?username=hafijul233&col=8&row=1&margin-w=20&no-bg=true)
 
- <p align="center" style="display:block; margin-bottom: 1rem;">
+ <div align="center">
     <img src="https://github-readme-stats.vercel.app/api?username=hafijul233&show_icons=true&count_private=true&theme=transparent" align="left" height="160"/>
     <img src="https://github-readme-streak-stats.herokuapp.com/?user=hafijul233&layout=compact&theme=transparent" alt="Hafijul Islam Contributions" align="right" height="160"/>
-</p>
+</div>
 
-### :computer: Actively Working:
+## :computer: Actively Working:
 
 | Programming | <img src="https://img.shields.io/badge/%20-PHP-black?logo=php&style=for-the-badge"/> <img src="https://img.shields.io/badge/%20-Javascript-black?logo=javascript&style=for-the-badge"/>  <img src="https://img.shields.io/badge/%20-CSS-black?logo=css3&style=for-the-badge"/> <img src="https://img.shields.io/badge/%20-Shell%20Script-black?logo=shell&style=for-the-badge"/> <img src="https://img.shields.io/badge/%20-Python-black?logo=python&style=for-the-badge"/> <img src="https://img.shields.io/badge/%20-C%2B%2B-black?logo=cplusplus&style=for-the-badge"/> <img src="https://img.shields.io/badge/%20-Bash-black?logo=gnubash&style=for-the-badge"/> <img src="https://img.shields.io/badge/%20-Markdown-black?logo=markdown&style=for-the-badge"/>|
 |:------------|:-------------------------------------------------------------------------------------------------|
